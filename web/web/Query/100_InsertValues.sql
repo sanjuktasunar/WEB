@@ -128,5 +128,20 @@ SELECT 2,1,1,1,1,1,1 UNION ALL
 SELECT 3,1,1,1,1,1,1
 GO
 
-
+GO
+SET IDENTITY_INSERT [Province] ON;
+GO
+GO
+INSERT INTO Province(ProvinceId,ProvinceName,ProvinceNameNepali,Status,CreatedDate)
+SELECT 1,N'Province No. 1',N'1',1,GETDATE() UNION ALL
+SELECT 2,N'Province No. 2',N'2',1,GETDATE() UNION ALL
+SELECT 3,N'Province No. 3',N'3',1,GETDATE() UNION ALL
+SELECT 4,N'Province No. 4',N'4',1,GETDATE() UNION ALL
+SELECT 5,N'Province No. 5',N'5',1,GETDATE() UNION ALL
+SELECT 6,N'Province No. 6',N'6',1,GETDATE() UNION ALL
+SELECT 7,N'Province No. 7',N'7',1,GETDATE()
+GO
+GO
+SET IDENTITY_INSERT [Province] OFF;
+GO
 
