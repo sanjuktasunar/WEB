@@ -1,0 +1,9 @@
+D:\A-BKPAPP\WEB\web\Web.Data\bin\Debug\Web.Data.dll
+D:\A-BKPAPP\WEB\web\Web.Data\bin\Debug\Web.Data.pdb
+D:\A-BKPAPP\WEB\web\Web.Data\bin\Debug\Dapper.dll
+D:\A-BKPAPP\WEB\web\Web.Data\bin\Debug\Dapper.xml
+D:\A-BKPAPP\WEB\web\Web.Data\obj\Debug\Web.Data.csprojAssemblyReference.cache
+D:\A-BKPAPP\WEB\web\Web.Data\obj\Debug\Web.Data.csproj.CoreCompileInputs.cache
+D:\A-BKPAPP\WEB\web\Web.Data\obj\Debug\Web.Data.csproj.CopyComplete
+D:\A-BKPAPP\WEB\web\Web.Data\obj\Debug\Web.Data.dll
+D:\A-BKPAPP\WEB\web\Web.Data\obj\Debug\Web.Data.pdb

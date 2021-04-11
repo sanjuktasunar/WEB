@@ -20,15 +20,15 @@ namespace Web.Repositories
             con = new SqlConnection(conStr);
         }
 
-        public async Task<List<TModel>> GetAll(string ProcName)
-        {
-            List<TModel> list = new List<TModel>();
-            connection();
-            con.Open();
-            list = await con.QueryAsync<TModel>(ProcName, commandType: CommandType.Text).ToListAsync();
-            con.Close();
-            return list;
-        }
+        //public async Task<List<TModel>> GetAll(string ProcName)
+        //{
+        //    List<TModel> list = new List<TModel>();
+        //    connection();
+        //    con.Open();
+        //    list = await con.QueryAsync<TModel>(ProcName, commandType: CommandType.Text).ToListAsync();
+        //    con.Close();
+        //    return list;
+        //}
 
         public dynamic Insert(TModel obj)
         {
