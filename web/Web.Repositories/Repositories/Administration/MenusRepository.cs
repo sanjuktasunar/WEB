@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Web.Data;
+using Web.Database;
 using Web.Entity.Entity;
 
 namespace Web.Repositories.Repositories.Administration
@@ -15,14 +15,14 @@ namespace Web.Repositories.Repositories.Administration
     public class MenusRepository:IMenusRepository
     {
         private IDapperManager _dapperManager;
+
         public MenusRepository(IDapperManager dapperManager)
         {
             _dapperManager = dapperManager;
         }
-
         public async Task<List<Menus>> GetMenusAsync()
         {
-            var result = await _dapperManager.QueryAsync<Menus>("select * from Menus");
+            var result = await _dapperManager.QueryAsync<Menus>("SELECT * from Menus");
             return result.ToList();
         }
     }

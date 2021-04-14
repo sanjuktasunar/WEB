@@ -1,0 +1,8 @@
+D:\A-BKPAPP\WEB\web\Web.Database\bin\Debug\Web.Database.dll
+D:\A-BKPAPP\WEB\web\Web.Database\bin\Debug\Web.Database.pdb
+D:\A-BKPAPP\WEB\web\Web.Database\bin\Debug\Dapper.dll
+D:\A-BKPAPP\WEB\web\Web.Database\bin\Debug\Dapper.xml
+D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.csproj.CoreCompileInputs.cache
+D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.csproj.CopyComplete
+D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.dll
+D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.pdb

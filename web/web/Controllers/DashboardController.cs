@@ -10,17 +10,18 @@ using Web.Services.Services;
 
 namespace web.Controllers
 {
-    public class DashboardController : Controller
+    [Authorize]
+    public class DashboardController:BaseController
     {
-        public MenusService _menusService=new MenusService();
+        public IMenusService _menusService;
 
-      
-        public async Task<ActionResult> Index()
+        public DashboardController(IMenusService menusService)
         {
-            var menu =await _menusService.GetMenusAsync();
-            return RedirectToAction("Index");
+            _menusService = menusService;
         }
-
-        
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }

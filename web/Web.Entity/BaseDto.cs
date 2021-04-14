@@ -10,11 +10,16 @@ namespace Web.Entity
     {
         public bool? Status { get; set; }
     }
-    public class BaseDataDto
+    public class BaseDtoData
     {
         public int? CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public int? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
+    }
+
+    public class BaseDtoAll : BaseDtoData
+    {
+        public bool? Status { get; set; }
     }
 }

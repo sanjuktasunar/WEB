@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,12 +44,12 @@
   <ItemGroup>
     <Compile Include="BaseDto.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Dto\UsersDto.cs" />
     <Compile Include="Entity\Menus.cs" />
     <Compile Include="Entity\OrganizationInfo.cs" />
+    <Compile Include="Entity\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

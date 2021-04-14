@@ -12,7 +12,7 @@ namespace Web.Services.Services
     {
         Task<List<Menus>> GetMenusAsync();
     }
-    public class MenusService:IMenusService
+    public class MenusService : IMenusService
     {
         private IMenusRepository _menusRepository;
 
