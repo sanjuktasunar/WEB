@@ -33,3 +33,5 @@ D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\System.Web.WebPages.Razor.xml
 D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\Dapper.xml
 D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\Web.Database.dll
 D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\Web.Database.pdb
+D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\DapperExtensions.dll
+D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\DapperExtensions.pdb

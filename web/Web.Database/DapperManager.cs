@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -42,20 +43,6 @@ namespace Web.Database
             }
         }
 
-
-        public IEnumerable<object> Query(Type type, string sql, object param = null, IDbTransaction transaction = null,
-            bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var dbConnection = _databaseManager.CreateDbConnection())
-            {
-                return dbConnection.Query(type, EnsureParameterSpecification(sql), param, transaction, buffered, commandTimeout, commandType);
-            }
-        }
-        public IEnumerable<object> Query(IDbConnection dbConnection, Type type, string sql, object param = null,
-            IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return dbConnection.Query(type, EnsureParameterSpecification(sql), param, transaction, buffered, commandTimeout, commandType);
-        }
         public int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null,
             CommandType? commandType = null)
         {
@@ -97,77 +84,12 @@ namespace Web.Database
             return dbConnection.ExecuteScalar<T>(EnsureParameterSpecification(sql), param, transaction,
                 commandTimeout, commandType);
         }
-        public T QueryFirst<T>(string sql, object param = null, IDbTransaction transaction = null,
-            int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var dbConnection = _databaseManager.CreateDbConnection())
-            {
-                return dbConnection.QueryFirst<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-            }
-        }
-        public T QueryFirst<T>(IDbConnection dbConnection, string sql, object param = null, IDbTransaction transaction = null,
-            int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return dbConnection.QueryFirst<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-        }
-        public T QueryFirstOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null,
-            int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var dbConnection = _databaseManager.CreateDbConnection())
-            {
-                return dbConnection.QueryFirstOrDefault<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-            }
-        }
-        public T QueryFirstOrDefault<T>(IDbConnection dbConnection, string sql, object param = null,
-            IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return dbConnection.QueryFirstOrDefault<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-        }
-        public T QuerySingle<T>(string sql, object param = null, IDbTransaction transaction = null,
-            int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var dbConnection = _databaseManager.CreateDbConnection())
-            {
-                return dbConnection.QuerySingle<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-            }
-        }
-        public T QuerySingle<T>(IDbConnection dbConnection, string sql, object param = null,
-            IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return dbConnection.QuerySingle<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-        }
-        public T QuerySingleOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null,
-            int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var dbConnection = _databaseManager.CreateDbConnection())
-            {
-                return dbConnection.QuerySingleOrDefault<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-            }
-        }
-        public T QuerySingleOrDefault<T>(IDbConnection dbConnection, string sql, object param = null,
-            IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return dbConnection.QuerySingleOrDefault<T>(EnsureParameterSpecification(sql), param, transaction, commandTimeout, commandType);
-        }
+              
         public async Task<IEnumerable<T>> QueryAsync<T>(IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return await cnn.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
         }
-
-
-        public async Task<T> QuerySingleOrDefaultAsync<T>(IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return await cnn.QuerySingleOrDefaultAsync<T>(sql, param, transaction, commandTimeout, commandType);
-        }
-
-        public async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var dbConnection = _databaseManager.CreateDbConnection())
-            {
-                return await dbConnection.QuerySingleOrDefaultAsync<T>(sql, param, transaction, commandTimeout, commandType);
-            }
-
-        }
+        
         public async Task<int> ExecuteAsync(IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return await cnn.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
@@ -203,5 +125,7 @@ namespace Web.Database
                 return await dbConnection.QueryMultipleAsync(sql, param, transaction, commandTimeout, commandType);
             }
         }
+
+        
     }
 }

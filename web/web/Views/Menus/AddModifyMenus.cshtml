@@ -1,0 +1,226 @@
+﻿@model Web.Entity.Dto.MenusDto
+@{
+    ViewBag.Title = "AddModifyMenus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="h3 mb-2 text-gray-800">Add/Modify Menus</h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form id="form_validation">
+                    <input type="hidden" value="@Model.MenuId" name="MenuId"/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="floating-label">Parent Menu</label>
+                                <select name="ParentMenuId" id="ParentMenuId"
+                                        class="form-control">
+                                    <option value="">Select Parent Menu</option>
+                                    @foreach (var x in Model.GetParentMenus)
+                                    {
+                                        if (Model.ParentMenuId == x.MenuId)
+                                        {
+                                            <option value="@x.MenuId"
+                                                    selected="selected">
+                                                @x.MenuNameEnglish
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@x.MenuId">
+                                                @x.MenuNameEnglish
+                                            </option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Menu Name</label>
+                                <input type="text" value="@Model.MenuNameEnglish"
+                                       name="MenuNameEnglish" placeholder="Enter Menu Name"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Menu Name Nepali</label>
+                                <input type="text" value="@Model.MenuNameNepali"
+                                       name="MenuNameNepali"
+                                       placeholder="Enter Menu Name Nepali"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Check Menu Name</label>
+                                <input type="text" value="@Model.CheckMenuName"
+                                       name="CheckMenuName"
+                                       placeholder="Enter Check Menu Name"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Menu Link</label>
+                                <input type="text" value="@Model.MenuLink"
+                                       name="MenuLink"
+                                       placeholder="Enter Menu Link"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Menu Order</label>
+                                <input type="text" value="@Model.MenuOrder"
+                                       name="MenuOrder"
+                                       placeholder="Enter Menu Order"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Menu Icon</label>
+                                <input type="text" value="@Model.MenuIcon"
+                                       name="MenuIcon"
+                                       placeholder="Enter Menu Icon"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @if (Model.Status == false && Model.MenuId > 0)
+                                        {
+                                            <input class="form-check-input" name="Status" value="true" type="checkbox" />
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" name="Status" value="true" type="checkbox" checked="checked" />
+                                        }
+                                        Is Active
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button type="submit" id="btnSave" name="SaveButton" class="btn btn-primary btn-md"><i class="fa fa-save"></i> <span>Save</span> </button>
+                    <a href="/MenuList" class="btn btn-danger"><i class="fa fa-window-close"></i> Close</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/vendor/jquery/jquery.min.js"></script>
+<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/assets/js/sb-admin-2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
+<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+
+<script>
+    var $checkoutForm = $('#form_validation').validate({
+        ignore: [],
+        rules: {
+            'MenuNameEnglish': {
+                required: true,
+                maxlength: 50
+            },
+            'CheckMenuName': {
+                required: true,
+                maxlength: 100,
+            },
+            'MenuNameNepali': {
+                required: true,
+                maxlength: 100,
+            },
+            'MenuLink': {
+                required: true,
+                maxlength: 100,
+            },
+            'MenuOrder': {
+                required: true,
+                maxlength: 100,
+                min:1,
+            },
+        },
+        submitHandler: function (form) {
+            $("#btnSave").prop('disabled', true)
+            $("#btnSave span").html('Saving............')
+
+            var id = $('input[name="MenuId"').val();
+            if (parseInt(id) > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Menus/Update",
+                    data: $("#form_validation").serialize(),
+                    success: function (message) {
+                        ShowMessage(message, "/MenuList")
+                    },
+                    error: function (message) {
+                        ShowMessage(message, "/MenuList")
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Menus/Insert",
+                    data: $("#form_validation").serialize(),
+                    success: function (message) {
+                        ShowMessage(message, "/MenuList")
+                    },
+                    error: function (message) {
+                        ShowMessage(message, "/MenuList")
+                    }
+                })
+            }
+            
+        },
+
+        errorPlacement: function errorPlacement(error, element) {
+            var $parent = $(element).parents('.form-group');
+
+            // Do not duplicate errors
+            if ($parent.find('.jquery-validation-error').length) {
+                return false;
+            }
+
+            $parent.append(
+                error.addClass('jquery-validation-error small form-text invalid-feedback')
+            );
+        },
+        highlight: function (element) {
+            var $el = $(element);
+            var $parent = $el.parents('.form-group');
+
+            $el.addClass('is-invalid');
+
+            // Select2 and Tagsinput
+            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                $el.parent().addClass('is-invalid');
+            }
+
+        },
+        unhighlight: function (element) {
+            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        }
+    });
+
+    function AllowPositiveNumber(event) {
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    }
+</script>
+
+

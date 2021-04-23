@@ -44,7 +44,7 @@ CREATE TABLE Menus
 (
 	MenuId int not null Identity(1,1) Constraint Menus_pk Primary Key,
 	ParentMenuId int null Constraint Menus_fk References Menus(MenuId),
-	MenuNameEnglish nvarchar(40) not null,
+	MenuNameEnglish nvarchar(100) not null,
 	MenuNameNepali nvarchar(100) not null,
 	CheckMenuName nvarchar(50) not null,
 	MenuLink nvarchar(200) not null,
@@ -68,7 +68,7 @@ GO
 
 GO
 CREATE UNIQUE INDEX Menus_MenuLink_ui ON
-Menus(MenuLink)
+Menus(MenuLink) WHERE ParentMenuId IS NOT NULL
 GO
 
 
@@ -158,6 +158,21 @@ CREATE TABLE PhotoStorages
 GO
 
 GO
+CREATE TABLE UserStatus
+(
+	StatusId int not null Identity(1,1) constraint UserStatus_pk Primary Key,
+	StatusName nvarchar(50) not null,
+	UserTypeId int null Constraint UserStatus_UserType_UserTypeId References UserType(UserTypeId),
+	Status bit null default(1)
+);
+GO
+
+GO
+CREATE UNIQUE INDEX UserStatus_StatusName_ui ON
+UserStatus(StatusName,UserTypeId)
+GO
+
+GO
 CREATE TABLE Users
 (
 	UserId int not null Identity constraint Users_pk Primary Key,
@@ -167,7 +182,7 @@ CREATE TABLE Users
 	Password nvarchar(max) not null,
 	EmailAddress nvarchar(200) not null,
 	ContactNumber nvarchar(20) not null,
-	Status bit null default(1),
+	UserStatusId int not null Constraint Users_UserStatus_UserStatusId_fk References UserStatus(StatusId),
 	CreatedBy int null Constraint Users_CreatedBy_fk References Users(UserId),
 	CreatedDate datetime not null default GETDATE(),
 	UpdatedBy int null Constraint Users_UpdatedBy_fk References Users(UserId),
@@ -187,10 +202,12 @@ CREATE UNIQUE INDEX Users_ContactNumber_ui ON
 Users(ContactNumber)
 GO
 
+
 GO
 CREATE TABLE Staffs
 (
 	StaffId int not null Identity(1,1) Constraint Staffs_pk Primary Key,
+	UserId int not null Constraint Staffs_Users_UserId_fk References Users(UserId),
 	RoleId int not null Constraint Staffs_Role_RoleId_fk References Role(RoleId),
 	DesignationId int not null Constraint Staffs_Designation_DesignationId_fk References Designation(DesignationId),
 	DepartmentId int null Constraint Staffs_Department_DepartmentId_fk References Department(DepartmentId),
@@ -201,11 +218,6 @@ CREATE TABLE Staffs
 	CitizenshipNumber nvarchar(150) null,
 	PanNumber nvarchar(150) null,
 	BasicSalary float not null,
-	Status bit null default(1),
-	CreatedBy int null Constraint Users_Staffs_CreatedBy_fk References Users(UserId),
-	CreatedDate datetime not null  default GETDATE(),
-	UpdatedBy int null Constraint Users_Staffs_UpdatedBy_fk References Users(UserId),
-	UpdatedDate datetime null
 );
 GO
 GO

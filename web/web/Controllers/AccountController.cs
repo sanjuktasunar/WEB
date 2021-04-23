@@ -25,6 +25,7 @@ namespace web.Controllers
         public ActionResult Login()
         {
             EnsureLogout();
+            Session["LangId"] = 2;
             var obj = new UsersDto();
             return View(obj);
         }
@@ -39,7 +40,9 @@ namespace web.Controllers
             var data =await _usersService.GetLoginUser(dto);
             if (data == null)
                 return Redirect("~/Login");
-            return RedirectToAction("Index", "Dashboard");
+            if(data.UserTypeId==2)
+                return RedirectToAction("Index", "Dashboard");
+            return View(dto);
         }
 
         public ActionResult Logout()

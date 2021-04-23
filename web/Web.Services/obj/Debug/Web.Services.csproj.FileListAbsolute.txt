@@ -32,7 +32,7 @@ D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.Web.WebPages.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.Web.WebPages.Razor.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Web.Repositories.dll.config
-D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Dapper.dll
-D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Dapper.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Web.Database.dll
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Web.Database.pdb
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\DapperExtensions.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\DapperExtensions.pdb
