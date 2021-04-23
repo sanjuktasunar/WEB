@@ -11,14 +11,8 @@ using Web.Services.Services;
 namespace web.Controllers
 {
     [Authorize]
-    public class DashboardController:BaseController
+    public class DashboardController : BaseController
     {
-        public IMenusService _menusService;
-
-        public DashboardController(IMenusService menusService)
-        {
-            _menusService = menusService;
-        }
         public ActionResult Index()
         {
             return View();

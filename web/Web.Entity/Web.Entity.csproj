@@ -44,9 +44,26 @@
   <ItemGroup>
     <Compile Include="BaseDto.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Dto\DepartmentDto.cs" />
+    <Compile Include="Dto\DesignationDto.cs" />
+    <Compile Include="Dto\GenderDto.cs" />
+    <Compile Include="Dto\MenuAccessPermissionDto.cs" />
+    <Compile Include="Dto\MenusDto.cs" />
+    <Compile Include="Dto\PhotoStoragesDto.cs" />
+    <Compile Include="Dto\RoleDto.cs" />
+    <Compile Include="Dto\StaffsDto.cs" />
     <Compile Include="Dto\UsersDto.cs" />
+    <Compile Include="Dto\UserStatusDto.cs" />
+    <Compile Include="Dto\VersionInfoDto.cs" />
+    <Compile Include="Entity\Department.cs" />
+    <Compile Include="Entity\Designation.cs" />
+    <Compile Include="Entity\Gender.cs" />
+    <Compile Include="Entity\MenuAccessPermission.cs" />
     <Compile Include="Entity\Menus.cs" />
     <Compile Include="Entity\OrganizationInfo.cs" />
+    <Compile Include="Entity\PhotoStorages.cs" />
+    <Compile Include="Entity\Role.cs" />
+    <Compile Include="Entity\Staffs.cs" />
     <Compile Include="Entity\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

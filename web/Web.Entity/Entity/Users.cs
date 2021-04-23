@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Web.Entity.Entity
 {
-    public class Users : BaseEntityAll
+    public class Users : BaseEntityData
     {
         public int UserId { get; set; }
         public int UserTypeId { get; set; }
@@ -15,5 +15,7 @@ namespace Web.Entity.Entity
         public string Password { get; set; }
         public string EmailAddress { get; set; }
         public string ContactNumber { get; set; }
+
+        public int UserStatusId { get; set; }
     }
 }

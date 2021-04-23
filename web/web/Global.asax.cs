@@ -18,6 +18,9 @@ namespace web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Migrations.LoadMigration mig = new Migrations.LoadMigration();
+            mig.Load();
         }
     }
 }

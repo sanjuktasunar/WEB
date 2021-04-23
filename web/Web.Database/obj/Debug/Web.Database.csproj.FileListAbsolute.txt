@@ -6,3 +6,7 @@ D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.csproj.CoreCompileInputs
 D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.dll
 D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.pdb
+D:\A-BKPAPP\WEB\web\Web.Database\obj\Debug\Web.Database.csprojAssemblyReference.cache
+D:\A-BKPAPP\WEB\web\Web.Database\bin\Debug\DapperExtensions.dll
+D:\A-BKPAPP\WEB\web\Web.Database\bin\Debug\Dapper.pdb
+D:\A-BKPAPP\WEB\web\Web.Database\bin\Debug\DapperExtensions.pdb
