@@ -19,6 +19,7 @@ namespace Web.Database.BaseRepo
         int Insert(TModel obj);
         int Update(TModel obj);
         int Update(TModel obj, IDbTransaction transaction, SqlConnection conn);
+        int Delete(object id);
         int Delete(object id, IDbTransaction transaction);
         int Insert(TModel obj, IDbTransaction transaction, SqlConnection conn);
     }
@@ -132,6 +133,31 @@ namespace Web.Database.BaseRepo
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public int Delete(object id)
+        {
+            using (var db = new SqlConnection(con))
+            {
+                try
+                {
+                    if (db.State == ConnectionState.Closed)
+                        db.Open();
+                    bool result = db.Delete(Get(id));
+                    if (result == true)
+                        return 0;
+                    else
+                        return -1;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    db.Close();
+                }
             }
         }
 

@@ -208,6 +208,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
+    <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2110,6 +2111,8 @@
     <Content Include="Views\Staffs\Staffs.cshtml" />
     <Content Include="Views\Staffs\AddModifyStaff.cshtml" />
     <Content Include="Views\Staffs\MenuAccessPermission.cshtml" />
+    <Content Include="Views\Unit\UnitList.cshtml" />
+    <Content Include="Views\Unit\AddModifyUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

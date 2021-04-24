@@ -26,7 +26,7 @@ namespace web.Controllers
         public async Task<ActionResult> Staffs()
         {
             if (!menu.ReadAccess)
-                return null;
+                return RedirectToAction("Logout","Account");
             var obj =await _staffsService.GetStaffListAsync();
             return View(obj);
         }
@@ -34,12 +34,12 @@ namespace web.Controllers
         [Route("~/AddStaff")]
         public async Task<ActionResult> AddStaff()
         {
-            var obj = new StaffsDto();
-            obj =await _staffsService.DropDownMethods(obj);
-
             if (!menu.WriteAccess)
-                return null;
-            
+                return RedirectToAction("Logout", "Account");
+
+            var obj = new StaffsDto();
+            obj = await _staffsService.DropDownMethods(obj);
+
             return View("AddModifyStaff",obj);
         }
 
@@ -47,7 +47,7 @@ namespace web.Controllers
         public async Task<ActionResult> ModifyStaff(int id)
         {
             if (!menu.ModifyAccess)
-                return null;
+                return RedirectToAction("Logout", "Account");
             var obj = (await _staffsService.GetStaffsByIdAsync(Convert.ToInt32(id)));
             obj = await _staffsService.DropDownMethods(obj);
             return View("AddModifyStaff", obj);
@@ -75,7 +75,7 @@ namespace web.Controllers
         public async Task<ActionResult> MenuAccessPermission(int staffId)
         {
             if (!menu.AdminAccess)
-                return null;
+                return RedirectToAction("Logout", "Account");
             var obj = (await _staffsService.MenuAccessPermissionAsync(staffId));
             if (obj.UserStatusId == 1)
                 return View(obj);
