@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Web.Database.BaseRepo;
 using Web.Entity.Dto;
 using Web.Entity.Entity;
 using Web.Repositories.Interface;

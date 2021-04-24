@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Web.Database.BaseRepo
 {
@@ -180,5 +181,9 @@ namespace Web.Database.BaseRepo
                 }
             }
         }
+        //public int CurrentUser()
+        //{
+        //    return Convert.ToInt32(HttpContext)
+        //}
     }
 }

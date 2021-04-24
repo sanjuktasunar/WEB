@@ -2109,6 +2109,10 @@
     <Content Include="Views\Staffs\AddModifyStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Web.Database\Web.Database.csproj">
+      <Project>{E629BF17-51F4-4FE1-9176-F9C6FDC6DD45}</Project>
+      <Name>Web.Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Web.Entity\Web.Entity.csproj">
       <Project>{4540aafb-8a84-4aed-85ad-cd10e53101b2}</Project>
       <Name>Web.Entity</Name>
