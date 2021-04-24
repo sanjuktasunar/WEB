@@ -107,6 +107,22 @@ namespace Web.Services.Mapping
             };
         }
 
-        //public static Designation 
+        public static MenuAccessPermission ToEntity(this MenuAccessPermissionDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new MenuAccessPermission
+            {
+                MenuAccessPermissionId=dto.MenuAccessPermissionId,
+                MenuId=dto.MenuId,
+                StaffId = dto.StaffId,
+                ReadAccess=dto.ReadAccess,
+                WriteAccess=dto.WriteAccess,
+                ModifyAccess=dto.ModifyAccess,
+                DeleteAccess=dto.DeleteAccess,
+                AdminAccess=dto.AdminAccess,
+            };
+        }
     }
 }

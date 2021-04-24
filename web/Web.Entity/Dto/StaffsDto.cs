@@ -46,5 +46,6 @@ namespace Web.Entity.Dto
         public IEnumerable<DepartmentDto> Departments { get; set; }
         public IEnumerable<GenderDto> Genders { get; set; }
         public IEnumerable<UserStatusDto> UserStatus { get; set; }
+        public IEnumerable<MenuAccessPermissionDto> MenuAccessPermissions { get; set; }
     }
 }
