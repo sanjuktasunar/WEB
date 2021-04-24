@@ -80,7 +80,7 @@ namespace web.Controllers
             if (obj.UserStatusId == 1)
                 return View(obj);
             else
-                return RedirectToAction("StaffList","Staffs");
+                return Redirect("/StaffList");
         }
 
         [HttpPost]
