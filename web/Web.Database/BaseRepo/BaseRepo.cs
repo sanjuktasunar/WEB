@@ -1,12 +1,13 @@
 ﻿using Dapper;
+using DapperExtensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
-using DapperExtensions;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Web.Database.BaseRepo
 {
@@ -115,7 +116,7 @@ namespace Web.Database.BaseRepo
             }
         }
 
-        public int Update(TModel obj,IDbTransaction transaction,SqlConnection conn)
+        public int Update(TModel obj, IDbTransaction transaction, SqlConnection conn)
         {
             try
             {
@@ -133,7 +134,7 @@ namespace Web.Database.BaseRepo
             }
         }
 
-        public int Delete(object id,IDbTransaction transaction)
+        public int Delete(object id, IDbTransaction transaction)
         {
             using (var db = new SqlConnection(con))
             {
@@ -141,7 +142,7 @@ namespace Web.Database.BaseRepo
                 {
                     if (db.State == ConnectionState.Closed)
                         db.Open();
-                    bool result = db.Delete(Get(id),transaction);
+                    bool result = db.Delete(Get(id), transaction);
                     if (result == true)
                         return 0;
                     else

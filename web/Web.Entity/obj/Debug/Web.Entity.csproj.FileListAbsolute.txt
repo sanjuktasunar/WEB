@@ -1,6 +1,0 @@
-D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\Web.Entity.dll
-D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\Web.Entity.pdb
-D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csprojAssemblyReference.cache
-D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csproj.CoreCompileInputs.cache
-D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.dll
-D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.pdb

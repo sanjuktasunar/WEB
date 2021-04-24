@@ -93,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
-      <Project>{d326b01d-d62e-475d-aa7b-b6a33e774932}</Project>
+      <Project>{E629BF17-51F4-4FE1-9176-F9C6FDC6DD45}</Project>
       <Name>Web.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\Web.Entity\Web.Entity.csproj">

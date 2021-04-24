@@ -85,10 +85,6 @@
     <Compile Include="Services\UsersService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Web.Database\Web.Database.csproj">
-      <Project>{d326b01d-d62e-475d-aa7b-b6a33e774932}</Project>
-      <Name>Web.Database</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Web.Entity\Web.Entity.csproj">
       <Project>{4540aafb-8a84-4aed-85ad-cd10e53101b2}</Project>
       <Name>Web.Entity</Name>

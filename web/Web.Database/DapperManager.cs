@@ -84,12 +84,12 @@ namespace Web.Database
             return dbConnection.ExecuteScalar<T>(EnsureParameterSpecification(sql), param, transaction,
                 commandTimeout, commandType);
         }
-              
+
         public async Task<IEnumerable<T>> QueryAsync<T>(IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return await cnn.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
         }
-        
+
         public async Task<int> ExecuteAsync(IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return await cnn.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
@@ -126,6 +126,6 @@ namespace Web.Database
             }
         }
 
-        
+
     }
 }

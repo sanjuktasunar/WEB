@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Web.Database
 {
     public interface IDatabaseManager
     {
         IDbConnection CreateDbConnection();
-
         IDbConnection CreateDbConnection(string connectionString);
     }
     public class DatabaseManager : IDatabaseManager
