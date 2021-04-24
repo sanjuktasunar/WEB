@@ -89,33 +89,3 @@
 <script>
     $('#dataTable').DataTable();
 </script>
-
-<script>
-    $(document).ready(function () {
-        $("#dataTable").on('click', '#btnDelete', function () {
-            var currentRow = $(this).closest("tr");
-            var data = currentRow.find("td:eq(1)").html();
-
-            swal({
-                text: "के तपाई यो डाटा मेटाउन चाहनुहुन्छ ?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            type: "POST",
-                            url: '/Menus/Delete/' + data,
-                            success: function (message) {
-                                ShowDeleteMessage(message, "/MenuList")
-                            },
-                            error: function (message) {
-                                ShowDeleteMessage(message, "/MenuList")
-                            }
-                        });
-                    }
-                });
-        });
-    })
-</script>

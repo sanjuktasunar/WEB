@@ -213,6 +213,7 @@
     </Compile>
     <Compile Include="Migrations\100_add_tables_proc_insert_values.cs" />
     <Compile Include="Migrations\101_AddViews.cs" />
+    <Compile Include="Migrations\102_alter_proc_views.cs" />
     <Compile Include="Migrations\LoadMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1909,6 +1910,7 @@
     <Content Include="Query\100_add_views_procs.sql" />
     <Content Include="Query\100_InsertValues.sql" />
     <Content Include="Query\101_add_view.sql" />
+    <Content Include="Query\102_add_proc.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2107,6 +2109,7 @@
     <Content Include="Views\Menus\AddModifyMenus.cshtml" />
     <Content Include="Views\Staffs\Staffs.cshtml" />
     <Content Include="Views\Staffs\AddModifyStaff.cshtml" />
+    <Content Include="Views\Staffs\MenuAccessPermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

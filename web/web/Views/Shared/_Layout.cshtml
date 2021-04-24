@@ -50,13 +50,14 @@
             <!-- Nav Item - Pages Collapse Menu -->
             @foreach (var parentMenu in menus)
             {
+                string targetId = "#" + parentMenu.MenuNameEnglish;
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="@targetId"
+                       aria-expanded="true" aria-controls="@parentMenu.MenuNameEnglish">
                         <i class="@parentMenu.MenuIcon"></i>
                         <span>@parentMenu.MenuName</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="@parentMenu.MenuNameEnglish" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             @foreach (var childMenu in parentMenu.GetChildMenus)
                             {

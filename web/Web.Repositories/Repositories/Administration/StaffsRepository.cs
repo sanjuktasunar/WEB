@@ -16,22 +16,33 @@ namespace Web.Repositories.Repositories.Administration
 {
     public interface IStaffsRepository
     {
+        Task<IEnumerable<MenuAccessPermissionDto>> GetMenuAccessPermissionsAsyncByStaffId(int id);
         Task<IEnumerable<StaffsDto>> GetStaffListAsync();
         Task<StaffsDto> GetStaffByIdAsync(int id);
         int Insert(Staffs entity,IDbTransaction transaction, SqlConnection con);
         int Update(Staffs entity,IDbTransaction transaction, SqlConnection con);
         int Delete(int id, IDbTransaction transaction);
+        int InsertMenuAccess(MenuAccessPermission entity, IDbTransaction transaction, SqlConnection con);
+        int UpdateMenuAccess(MenuAccessPermission entity, IDbTransaction transaction, SqlConnection con);
+        Task<MenuAccessPermissionDto> GetMenuAccessByIdAsync(int id);
     }
 
     public class StaffsRepository:IStaffsRepository
     {
         private IDapperManager _dapperManager;
         BaseRepo<Staffs> _staffsRepo = new BaseRepo<Staffs>();
+        BaseRepo<MenuAccessPermission> _menuAccessRepo = new BaseRepo<MenuAccessPermission>();
         public StaffsRepository(IDapperManager dapperManager)
         {
             _dapperManager = dapperManager;
         }
-        
+
+        public async Task<IEnumerable<MenuAccessPermissionDto>> GetMenuAccessPermissionsAsyncByStaffId(int id)
+        {
+            var dto = await _dapperManager.StoredProcedureAsync<MenuAccessPermissionDto>("[dbo].[MenuAccessPermissionForStaff]",new { StaffId=id });
+            return dto;
+        }
+
         public async Task<IEnumerable<StaffsDto>> GetStaffListAsync()
         {
             var dto =await _dapperManager.QueryAsync<StaffsDto>("SELECT * FROM StaffsView");
@@ -58,6 +69,21 @@ namespace Web.Repositories.Repositories.Administration
         public int Delete(int id, IDbTransaction transaction)
         {
             return (_staffsRepo.Delete(id,transaction));
+        }
+
+        public int InsertMenuAccess(MenuAccessPermission entity, IDbTransaction transaction, SqlConnection con)
+        {
+            return (_menuAccessRepo.Insert(entity, transaction, con));
+        }
+
+        public int UpdateMenuAccess(MenuAccessPermission entity, IDbTransaction transaction, SqlConnection con)
+        {
+            return (_menuAccessRepo.Update(entity, transaction, con));
+        }
+
+        public async Task<MenuAccessPermissionDto> GetMenuAccessByIdAsync(int id)
+        {
+            return (await _dapperManager.QuerySingleAsync<MenuAccessPermissionDto>("SELECT * FROM MenuAccessPermission WHERE MenuAccessPermissionId=@id",new { id }));
         }
     }
 }
