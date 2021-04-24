@@ -254,7 +254,7 @@ CREATE TABLE BankAccount
 GO
 
 GO
-CREATE TABLE Units
+CREATE TABLE Unit
 (
 	UnitId int not null Identity(1,1) Constraint Units_pk Primary Key,
 	UnitName nvarchar(200) not null,
