@@ -1,5 +1,3 @@
-D:\A-BKPAPP\WEB\web\web\obj\Debug\web.csprojAssemblyReference.cache
-D:\A-BKPAPP\WEB\web\web\obj\Debug\web.csproj.CoreCompileInputs.cache
 D:\A-BKPAPP\WEB\web\web\bin\web.dll.config
 D:\A-BKPAPP\WEB\web\web\bin\web.dll
 D:\A-BKPAPP\WEB\web\web\bin\web.pdb
@@ -137,6 +135,8 @@ D:\A-BKPAPP\WEB\web\web\bin\Unity.Container.pdb
 D:\A-BKPAPP\WEB\web\web\bin\Antlr3.Runtime.pdb
 D:\A-BKPAPP\WEB\web\web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\A-BKPAPP\WEB\web\web\bin\DapperExtensions.pdb
+D:\A-BKPAPP\WEB\web\web\obj\Debug\web.csprojAssemblyReference.cache
+D:\A-BKPAPP\WEB\web\web\obj\Debug\web.csproj.CoreCompileInputs.cache
 D:\A-BKPAPP\WEB\web\web\obj\Debug\web.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\web\obj\Debug\web.dll
 D:\A-BKPAPP\WEB\web\web\obj\Debug\web.pdb

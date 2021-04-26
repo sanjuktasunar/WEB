@@ -1,5 +1,3 @@
-D:\A-BKPAPP\WEB\web\Web.Services\obj\Debug\Web.Services.csprojAssemblyReference.cache
-D:\A-BKPAPP\WEB\web\Web.Services\obj\Debug\Web.Services.csproj.CoreCompileInputs.cache
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Web.Services.dll.config
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Web.Services.dll
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Web.Services.pdb
@@ -35,6 +33,8 @@ D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Unity.Container.pdb
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Web.Database.pdb
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Dapper.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\DapperExtensions.pdb
+D:\A-BKPAPP\WEB\web\Web.Services\obj\Debug\Web.Services.csprojAssemblyReference.cache
+D:\A-BKPAPP\WEB\web\Web.Services\obj\Debug\Web.Services.csproj.CoreCompileInputs.cache
 D:\A-BKPAPP\WEB\web\Web.Services\obj\Debug\Web.Services.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Services\obj\Debug\Web.Services.dll
 D:\A-BKPAPP\WEB\web\Web.Services\obj\Debug\Web.Services.pdb

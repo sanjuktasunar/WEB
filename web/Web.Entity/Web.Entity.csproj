@@ -50,6 +50,8 @@
     <Compile Include="Dto\MenuAccessPermissionDto.cs" />
     <Compile Include="Dto\MenusDto.cs" />
     <Compile Include="Dto\PhotoStoragesDto.cs" />
+    <Compile Include="Dto\ProductDto.cs" />
+    <Compile Include="Dto\ProductPriceDto.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Dto\StaffsDto.cs" />
     <Compile Include="Dto\UnitDto.cs" />
@@ -63,6 +65,8 @@
     <Compile Include="Entity\Menus.cs" />
     <Compile Include="Entity\OrganizationInfo.cs" />
     <Compile Include="Entity\PhotoStorages.cs" />
+    <Compile Include="Entity\Product.cs" />
+    <Compile Include="Entity\ProductPrice.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Staffs.cs" />
     <Compile Include="Entity\Unit.cs" />

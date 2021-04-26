@@ -18,15 +18,53 @@ namespace Web.Services.Mapping
             return new Unit
             {
                 UnitId = dto.UnitId,
-                UnitName = dto.UnitName,
+                UnitName = dto.UnitName?.Trim(),
                 Status = dto.Status,
                 CreatedBy = dto.CreatedBy,
                 CreatedDate = dto.CreatedDate,
                 UpdatedBy = dto.UpdatedBy,
                 UpdatedDate = dto.UpdatedDate,
-                UnitNameNepali=dto.UnitNameNepali,
-                UnitSymbol=dto.UnitSymbol,
-                UnitSymbolNepali=dto.UnitSymbolNepali
+                UnitNameNepali=dto.UnitNameNepali?.Trim(),
+                UnitSymbol=dto.UnitSymbol?.Trim(),
+                UnitSymbolNepali=dto.UnitSymbolNepali?.Trim()
+            };
+        }
+
+        public static Product ToEntity(this ProductDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new Product
+            {
+                ProductId = dto.ProductId,
+                ParentProductId = dto.ParentProductId,
+                ProductName = dto.ProductName?.Trim(),
+                ProductNameNepali = dto.ProductNameNepali?.Trim(),
+                ProductCode = dto.ProductCode?.Trim(),
+                CreatedBy=dto.CreatedBy,
+                CreatedDate = dto.CreatedDate,
+                UpdatedBy = dto.UpdatedBy,
+                UpdatedDate = dto.UpdatedDate,
+                Status = dto.Status,
+            };
+        }
+
+        public static ProductPrice ToEntity(this ProductPriceDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new ProductPrice
+            {
+                ProductPriceId = dto.ProductPriceId,
+                ProductId = dto.ProductId,
+                UnitId = dto.UnitId,
+                SellingPrice = dto.SellingPrice,
+                CreatedBy = dto.CreatedBy,
+                UpdatedBy = dto.UpdatedBy,
+                UpdatedDate = dto.UpdatedDate,
+                Status = dto.Status,
             };
         }
     }

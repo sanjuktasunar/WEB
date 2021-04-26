@@ -79,6 +79,7 @@
     <Compile Include="Mapping\AdministrationMapping.cs" />
     <Compile Include="Mapping\BaseMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account\ProductService.cs" />
     <Compile Include="Services\Account\UnitService.cs" />
     <Compile Include="Services\AdministrationService.cs" />
     <Compile Include="Services\InitialSetupService.cs" />

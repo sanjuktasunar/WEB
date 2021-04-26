@@ -392,3 +392,13 @@ CREATE UNIQUE INDEX Municipality_MunicipalityNameNepali_ui ON
 Municipality(MunicipalityNameNepali)
 GO
 
+
+GO
+CREATE OR ALTER VIEW [dbo].[ProductPriceView]
+AS
+SELECT A.*,
+B.UnitName,B.UnitNameNepali,B.UnitSymbol,B.UnitSymbolNepali
+FROM ProductPrice AS A
+LEFT JOIN Unit AS B ON B.UnitId=A.UnitId
+GO
+
