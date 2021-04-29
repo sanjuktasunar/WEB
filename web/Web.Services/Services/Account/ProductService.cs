@@ -25,6 +25,11 @@ namespace Web.Services.Services.Account
         Task<string> InsertProductPrice(ProductPriceDto dto);
         string Delete(int id);
         string DeletePrice(int id);
+        Task<string> UpdatePrice(int productPriceId);
+        Task<IEnumerable<ProductImageDto>> GetProductImageByProductId(int productId);
+        Task<string> InsertImage(int productId, IEnumerable<ProductImageDto> productImageDtos);
+        Task<string> UpdateImage(int productId, IEnumerable<ProductImageDto> productImageDtos);
+        string DeleteImage(int id);
     }
 
     public class ProductService:IProductService
@@ -157,6 +162,109 @@ namespace Web.Services.Services.Account
             try
             {
                 int result = _productRepository.DeletePrice(id);
+                message = _messageClass.ShowDeleteMessage(result);
+            }
+            catch (SqlException ex)
+            {
+                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
+            }
+            return message;
+        }
+
+        public async Task<string> UpdatePrice(int productPriceId)
+        {
+            string message = "";
+            var con = _baseInterface.GetConnection();
+            var transaction = con.BeginTransaction();
+            try
+            {
+                var productPrice = await _productRepository.GetProductPriceById(productPriceId);
+                if (productPrice is null)
+                    return null;
+
+                _productRepository.UpdatePriceByUnitIdProductId(productPrice.UnitId,productPrice.ProductId,con,transaction);
+                _productRepository.UpdatePrice(productPriceId, con, transaction);
+
+                message = _messageClass.ShowSuccessMessage(productPrice.ProductId);
+                transaction.Commit();
+            }
+            catch (SqlException ex)
+            {
+                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
+                transaction.Rollback();
+            }
+            return message;
+        }
+
+        public async Task<IEnumerable<ProductImageDto>> GetProductImageByProductId(int productId)
+        {
+            return (await _productRepository.GetProductImageByProductIdAsync(productId));
+        }
+
+        public async Task<string> InsertImage(int productId,IEnumerable<ProductImageDto> productImageDtos)
+        {
+            string message = "";
+            var con = _baseInterface.GetConnection();
+            var transaction = con.BeginTransaction();
+            try
+            {
+                int result = 0;
+                var product = await _productRepository.GetProductByIdAsync(productId);
+                if (product == null)
+                    return null;
+                foreach(var dto in productImageDtos)
+                {
+                    var entity = dto.ToEntity();
+                    entity.ProductId = productId;
+                    result =_productRepository.InsertProductImage(entity,transaction,con);
+                }
+
+                message = _messageClass.ShowSuccessMessage(result);
+                transaction.Commit();
+            }
+            catch (SqlException ex)
+            {
+                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
+                transaction.Rollback();
+            }
+            return message;
+        }
+
+        public async Task<string> UpdateImage(int productId, IEnumerable<ProductImageDto> productImageDtos)
+        {
+            string message = "";
+            var con = _baseInterface.GetConnection();
+            var transaction = con.BeginTransaction();
+            try
+            {
+                int result = 0;
+                var product = await _productRepository.GetProductByIdAsync(productId);
+                if (product == null)
+                    return null;
+                foreach (var dto in productImageDtos)
+                {
+                    var entity = dto.ToEntity();
+                    entity.ProductId = productId;
+                    result = _productRepository.UpdateProductImage(entity, transaction, con);
+                }
+
+                message = _messageClass.ShowSuccessMessage(result);
+                transaction.Commit();
+            }
+            catch (SqlException ex)
+            {
+                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
+                transaction.Rollback();
+            }
+            return message;
+        }
+
+        public string DeleteImage(int id)
+        {
+            string message = "";
+            try
+            {
+                int result = _productRepository.DeleteProductImage(id);
                 message = _messageClass.ShowDeleteMessage(result);
             }
             catch (SqlException ex)

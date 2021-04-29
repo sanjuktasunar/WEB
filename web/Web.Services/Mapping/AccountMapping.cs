@@ -67,5 +67,21 @@ namespace Web.Services.Mapping
                 Status = dto.Status,
             };
         }
+
+        public static ProductImage ToEntity(this ProductImageDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new ProductImage
+            {
+                ImageId=dto.ImageId,
+                ProductId=dto.ProductId,
+                ImageName=dto.ImageName,
+                ImageLocation=dto.ImageLocation,
+                IsActive=dto.IsActive,
+                IsPrimary=dto.IsPrimary,
+            };
+        }
     }
 }

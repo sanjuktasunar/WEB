@@ -21,5 +21,6 @@ namespace Web.Entity.Dto
         public IEnumerable<ProductPriceDto> GetProductPrice { get; set; }
 
         public IEnumerable<UnitDto> Units { get; set; }
+        public IEnumerable<ProductImageDto> ProductImages { get; set; }
     }
 }

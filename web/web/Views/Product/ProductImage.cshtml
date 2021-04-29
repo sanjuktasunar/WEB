@@ -1,18 +1,18 @@
 ﻿@model Web.Entity.Dto.ProductDto
 @{
-    ViewBag.Title = "ProductPrice";
+    ViewBag.Title = "ProductImage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
     <a href="~/ModifyProduct/@Model.ProductId"> Product </a>
     <i class="fas fa-chevron-right"></i>
-    <label> Product Price </label>
+    <a href="~/ProductPrice/@Model.ProductId"> Product Price </a>
     <i class="fas fa-chevron-right"></i>
-    <a href="~/ProductImage/@Model.ProductId"> Add Image </a>
+    <label>Add Image</label>
 </div>
 <br />
-<h6 class="h6 mb-2 text-gray-800">Product Price</h6>
+<h6 class="h6 mb-2 text-gray-800">Product Image</h6>
 
 <div class="card shadow mb-4">
     <div class="container">
@@ -38,42 +38,38 @@
                     <tr>
                         <th>S.N.</th>
                         <th hidden="hidden"></th>
-                        <th>Unit</th>
-                        <th>Selling Price</th>
-                        <th>Status</th>
-                        <th>Updated Date</th>
+                        <th>Image</th>
+                        <th>Is Primary</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @{ int i = 0; }
-                    @foreach (var x in Model.GetProductPrice.OrderByDescending(a=>a.UpdatedDate).ThenBy(a=>a.UnitId))
+                    @foreach (var x in Model.ProductImages)
                     {
                         i++;
                         <tr>
                             <td>@i</td>
-                            <td hidden="hidden">@x.ProductPriceId</td>
-                            <td>@x.UnitName</td>
-                            <td>@x.SellingPrice</td>
+                            <td hidden="hidden">@x.ImageId</td>
+                            <td>@x.ImageName</td>
                             <td>
-                                @if (x.Status == true)
+                                @if (x.IsPrimary == true)
                                 {
-                                    <span class="badge badge-success">Active</span>
+                                    <span class="badge badge-success">Yes</span>
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">Inactive</span>
+                                    <span class="badge badge-danger">No</span>
                                 }
                             </td>
-                            <td>@x.UpdatedDate</td>
                             <td>
                                 <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                                @if (x.Status != true)
+                                @if (x.IsPrimary != true)
                                 {
                                     <button class="btn btn-success btn-circle btn-sm"
-                                            id="btnMakeActive" title="Make Active">
+                                            id="btnMakePrimary" title="Make Primary">
                                         <i class="fas fa-check"></i>
                                     </button>
                                 }
@@ -85,13 +81,12 @@
         </div>
     </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Price</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -102,31 +97,18 @@
                         <form id="form_validation">
                             <input type="hidden" value="@Model.ProductId" name="ProductId" />
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="floating-label">Unit</label>
-                                        <select name="UnitId" id="UnitId"
-                                                class="form-control">
-                                            <option value="">Select Unit</option>
-                                            @foreach (var x in Model.Units)
-                                            {
-                                                <option value="@x.UnitId">
-                                                    @x.UnitName
-                                                </option>
-                                            }
-                                        </select>
+                                        <input type="file"
+                                               name="Image"
+                                               class="form-control"/>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Price</label>
-                                        <input type="text"
-                                               name="SellingPrice"
-                                               placeholder="Selling Price"
-                                               class="form-control" onkeypress="AllowPositiveNumber(event)"/>
+                                        <input type="checkbox" name="IsPrimary" /> Is Primary
                                     </div>
                                 </div>
-
                             </div>
                             <div style="float:right">
                                 <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
@@ -153,18 +135,13 @@
 <script>
     $('#dataTable').DataTable();
 </script>
-
 <script>
     var productId = $('input[name="ProductId"').val();
     var $checkoutForm = $('#form_validation').validate({
         ignore: [],
         rules: {
-            'UnitId': {
+            'Image': {
                 required: true,
-            },
-            'SellingPrice': {
-                required: true,
-                maxlength: 10,
             },
         },
         submitHandler: function (form) {
@@ -213,40 +190,7 @@
             $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
         }
     });
-
-    function AllowPositiveNumber(event) {
-        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
-            event.preventDefault();
-        }
-    }
-    $(document).ready(function () {
-        $("#dataTable").on('click', '#btnMakeActive', function () {
-            var currentRow = $(this).closest("tr");
-            var data = currentRow.find("td:eq(1)").html();
-
-            swal({
-                text: "Are You sure you want to active??",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willActive) => {
-                    if (willActive) {
-                        $.ajax({
-                            type: "POST",
-                            url: '/Product/UpdatePrice',
-                            data: { productPriceId: data },
-                            success: function (message) {
-                                ShowMessage(message, "/ProductPrice/" + productId)
-                            },
-                            error: function (message) {
-                                ShowMessage(message, "/ProductPrice/" + productId)
-                            }
-                        });
-                    }
-                });
-        });
-    })
 </script>
+
 
 

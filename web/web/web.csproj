@@ -2118,6 +2118,7 @@
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Product\AddModifyProduct.cshtml" />
     <Content Include="Views\Product\ProductPrice.cshtml" />
+    <Content Include="Views\Product\ProductImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

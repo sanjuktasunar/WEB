@@ -26,19 +26,29 @@ namespace Web.Repositories.Repositories.Account
         void UpdatePriceByUnitIdProductId(int unitId, int productId, SqlConnection con, IDbTransaction transaction);
         int Delete(int id);
         int DeletePrice(int id);
+        void UpdatePrice(int productPriceId, SqlConnection con, IDbTransaction transaction);
+        Task<ProductPriceDto> GetProductPriceById(int id);
+        Task<IEnumerable<ProductImageDto>> GetProductImageByProductIdAsync(int ProductId);
+        int InsertProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
+        int UpdateProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
+        int DeleteProductImage(int id);
     }
     public class ProductRepository:IProductRepository
     {
         private IDapperManager _dapperManager;
         private IBaseRepo<Product> _productRepo;
         private IBaseRepo<ProductPrice> _productPriceRepo;
+        private IBaseRepo<ProductImage> _productImageRepo;
         public ProductRepository(IDapperManager dapperManager,
             IBaseRepo<Product> productRepo,
-            IBaseRepo<ProductPrice> productPriceRepo)
+            IBaseRepo<ProductPrice> productPriceRepo,
+            IBaseRepo<ProductImage> productImageRepo
+            )
         {
             _dapperManager = dapperManager;
             _productRepo = productRepo;
             _productPriceRepo = productPriceRepo;
+            _productImageRepo = productImageRepo;
         }
 
         public async Task<IEnumerable<ProductDto>> GetAllProductAsync()
@@ -109,6 +119,38 @@ namespace Web.Repositories.Repositories.Account
         public int DeletePrice(int id)
         {
             return _productPriceRepo.Delete(id);
+        }
+
+        public void UpdatePrice(int productPriceId,SqlConnection con, IDbTransaction transaction)
+        {
+            int UpdatedBy = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
+            _dapperManager.ExecuteScalar<ProductPrice>(con, "UPDATE ProductPrice SET Status=1,UpdatedBy=@UpdatedBy WHERE ProductPriceId=@productPriceId", new { UpdatedBy, productPriceId }, transaction);
+        }
+
+        public async Task<ProductPriceDto> GetProductPriceById(int id)
+        {
+            return (await _dapperManager.QuerySingleAsync<ProductPriceDto>("SELECT * FROM ProductPriceView " +
+                "WHERE ProductPriceId=@id", new { id }));
+        }
+
+        public async Task<IEnumerable<ProductImageDto>> GetProductImageByProductIdAsync(int ProductId)
+        {
+            return (await _dapperManager.QueryAsync<ProductImageDto>("SELECT * FROM ProductImage WHERE ProductId=@ProductId",new { ProductId }));
+        }
+
+        public int InsertProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con)
+        {
+            return (_productImageRepo.Insert(entity, transaction, con));
+        }
+
+        public int UpdateProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con)
+        {
+            return (_productImageRepo.Update(entity, transaction, con));
+        }
+
+        public int DeleteProductImage(int id)
+        {
+            return (_productImageRepo.Delete(id));
         }
     }
 }

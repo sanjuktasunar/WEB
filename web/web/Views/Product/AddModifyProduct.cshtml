@@ -3,6 +3,17 @@
     ViewBag.Title = "AddModifyProduct";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (Model.ProductId > 0 && Model.ParentProductId>0)
+{
+    <div class="row">
+        <label>Product</label>
+        <i class="fas fa-chevron-right"></i>
+        <a href="~/ProductPrice/@Model.ProductId"> Product Price </a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="~/ProductImage/@Model.ProductId"> Add Image </a>
+    </div>
+    <br />
+}
 
 <h6 class="h6 mb-2 text-gray-800">Add/Modify Product</h6>
 
@@ -64,7 +75,7 @@
                                        class="form-control" />
                             </div>
                         </div>
-                      
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <div class="form-check">
@@ -128,7 +139,7 @@
             if (parseInt(id) > 0) {
                 url = "/Product/Update";
             }
-            
+
             $.ajax({
                 type: "POST",
                 url: url,

@@ -36,7 +36,7 @@
                             <td>@i</td>
                             <td hidden="hidden">@x.ProductId</td>
                             <td>@x.ProductName</td>
-                            <td>@x.ParentProductNameNepali</td>
+                            <td>@x.ProductNameNepali</td>
                             <td>@x.ParentProductName</td>
                             <td>@x.ProductCode</td>
                             <td>
@@ -56,6 +56,12 @@
                                 <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
                                     <i class="fas fa-trash"></i>
                                 </button>
+                                @if (x.ParentProductId > 0)
+                                {
+                                    <a href="~/ProductPrice/@x.ProductId" class="btn btn-success btn-circle btn-sm" title="Add Price">
+                                        <i class="fas fa-money-bill"></i>
+                                    </a>
+                                }
                             </td>
                         </tr>
                     }

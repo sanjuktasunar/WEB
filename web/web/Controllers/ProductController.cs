@@ -86,6 +86,7 @@ namespace web.Controllers
             obj.Units =await _unitService.GetActiveUnitAsync();
             return View(obj);
         }
+
         [HttpPost]
         public async Task<string> InsertPrice(ProductPriceDto dto)
         {
@@ -108,6 +109,49 @@ namespace web.Controllers
                 return null;
 
             return (_productService.DeletePrice(id));
+        }
+        public async Task<string> UpdatePrice(int productPriceId)
+        {
+            if (!menu.ModifyAccess)
+                return null;
+
+            return (await _productService.UpdatePrice(productPriceId));
+        }
+
+        [HttpGet]
+        [Route("~/ProductImage/{productId}")]
+        public async Task<ActionResult> ProductImage(int productId)
+        {
+            if (!menu.AdminAccess)
+                return RedirectToAction("Logout", "Account");
+
+            var obj = (await _productService.GetProductById(productId));
+            obj.ProductImages = (await _productService.GetProductImageByProductId(Convert.ToInt32(productId)));
+            return View(obj);
+        }
+        [HttpPost]
+        public async Task<string> InsertImage(int productId,IEnumerable<ProductImageDto> dtos)
+        {
+            if (!menu.AdminAccess)
+                return null;
+
+            return (await _productService.InsertImage(productId,dtos));
+        }
+
+        [HttpPut]
+        public async Task<string> UpdateImage(int productId, IEnumerable<ProductImageDto> dtos)
+        {
+            if (!menu.AdminAccess)
+                return null;
+
+            return (await _productService.UpdateImage(productId, dtos));
+        }
+        public string DeleteImage(int id)
+        {
+            if (!menu.DeleteAccess)
+                return null;
+
+            return (_productService.DeleteImage(id));
         }
     }
 }

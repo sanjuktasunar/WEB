@@ -26,6 +26,8 @@ namespace web
             container.RegisterType<IBaseRepo<Unit>, BaseRepo<Unit>>();
             container.RegisterType<IBaseRepo<Product>, BaseRepo<Product>>();
             container.RegisterType<IBaseRepo<ProductPrice>, BaseRepo<ProductPrice>>();
+            container.RegisterType<IBaseRepo<ProductImage>, BaseRepo<ProductImage>>();
+
 
             //utilities
             container.RegisterType<IMessageClass, MessageClass>();
