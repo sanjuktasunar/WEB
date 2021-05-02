@@ -20,7 +20,7 @@ namespace Web.Database.BaseRepo
         int Update(TModel obj);
         int Update(TModel obj, IDbTransaction transaction, SqlConnection conn);
         int Delete(object id);
-        int Delete(object id, IDbTransaction transaction);
+        int Delete(object id, IDbTransaction transaction, SqlConnection con);
         int Insert(TModel obj, IDbTransaction transaction, SqlConnection conn);
     }
     public class BaseRepo<TModel> : IBaseRepo<TModel> where TModel : class, new()
@@ -161,28 +161,21 @@ namespace Web.Database.BaseRepo
             }
         }
 
-        public int Delete(object id, IDbTransaction transaction)
+        public int Delete(object id, IDbTransaction transaction,SqlConnection con)
         {
-            using (var db = new SqlConnection(con))
+            try
             {
-                try
-                {
-                    if (db.State == ConnectionState.Closed)
-                        db.Open();
-                    bool result = db.Delete(Get(id), transaction);
-                    if (result == true)
-                        return 0;
-                    else
-                        return -1;
-                }
-                catch (SqlException ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    db.Close();
-                }
+                if (con.State == ConnectionState.Closed)
+                    con.Open();
+                bool result = con.Delete(Get(id), transaction);
+                if (result == true)
+                    return 0;
+                else
+                    return -1;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
             }
         }
 

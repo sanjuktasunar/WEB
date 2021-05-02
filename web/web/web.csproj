@@ -207,6 +207,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Global.asax.cs">
@@ -221,9 +222,11 @@
   <ItemGroup>
     <Content Include="assets\css\sb-admin-2.css" />
     <Content Include="assets\css\sb-admin-2.min.css" />
+    <Content Include="assets\custom-plugin\custom.css" />
     <Content Include="assets\custom-plugin\form-validation.css" />
     <Content Include="assets\custom-plugin\jquery.validate.min.js" />
     <Content Include="assets\custom-plugin\ShowMessage.js" />
+    <Content Include="assets\custom-plugin\sweetalert.min.css" />
     <Content Include="assets\custom-plugin\sweetalert.min.js" />
     <Content Include="assets\img\undraw_posting_photo.svg" />
     <Content Include="assets\img\undraw_profile.svg" />
@@ -1912,6 +1915,7 @@
     <Content Include="Query\100_InsertValues.sql" />
     <Content Include="Query\101_add_view.sql" />
     <Content Include="Query\102_add_proc.sql" />
+    <Content Include="Query\103_alter_table.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2113,6 +2117,10 @@
     <Content Include="Views\Staffs\MenuAccessPermission.cshtml" />
     <Content Include="Views\Unit\UnitList.cshtml" />
     <Content Include="Views\Unit\AddModifyUnit.cshtml" />
+    <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Product\AddModifyProduct.cshtml" />
+    <Content Include="Views\Product\ProductPrice.cshtml" />
+    <Content Include="Views\Product\ProductImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

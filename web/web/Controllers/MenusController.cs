@@ -35,7 +35,6 @@ namespace web.Controllers
             }
             else
                 return RedirectToAction("Logout", "Account");
-           
         }
 
         [Route("~/AddModifyMenus")]
@@ -56,33 +55,33 @@ namespace web.Controllers
         }
 
         [HttpPost]
-        public string Insert(MenusDto dto)
+        public async Task<string> Insert(MenusDto dto)
         {
             if (menu.WriteAccess == true || menu.AdminAccess)
             {
-                return _menusService.Insert(dto);
+                return (await _menusService.Insert(dto));
             }
             else
                 return null;
         }
 
         [HttpPost]
-        public string Update(MenusDto dto)
+        public async Task<string> Update(MenusDto dto)
         {
             if (menu.ModifyAccess == true || menu.AdminAccess)
             {
-                return _menusService.Update(dto);
+                return (await _menusService.Update(dto));
             }
             else
                 return null;
         }
 
-        public string Delete(int id)
+        public async Task<string> Delete(int id)
         {
             if (!menu.DeleteAccess == true || !menu.AdminAccess)
                 return null;
 
-            return _menusService.Delete(id);
+            return (await _menusService.Delete(id));
         }
     }
 }

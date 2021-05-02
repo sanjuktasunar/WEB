@@ -1,0 +1,254 @@
+﻿@model Web.Entity.Dto.ProductDto
+@{
+    ViewBag.Title = "ProductPrice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <a href="~/ModifyProduct/@Model.ProductId"> Product </a>
+    <i class="fas fa-chevron-right"></i>
+    <label> Product Price </label>
+    <i class="fas fa-chevron-right"></i>
+    <a href="~/ProductImage/@Model.ProductId"> Add Image </a>
+</div>
+<br />
+<h6 class="h6 mb-2 text-gray-800">Product Price</h6>
+
+<div class="card shadow mb-4">
+    <div class="container">
+        <br />
+        <div class="row">
+            <label class="col-md-6">Parent Product Name : @Model.ParentProductName</label>
+            <label class="col-md-6">Product Name : @Model.ProductName</label>
+        </div>
+        <div class="row">
+            <label class="col-md-6">Product Code : @Model.ProductCode</label>
+        </div>
+    </div>
+    <div class="card-header py-3">
+        <button type="button" id="btnAdd" class="btn btn-primary btn-sm"
+                data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-plus"></i> Add New
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th hidden="hidden"></th>
+                        <th>Unit</th>
+                        <th>Selling Price</th>
+                        <th>Status</th>
+                        <th>Updated Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0; }
+                    @foreach (var x in Model.GetProductPrice.OrderByDescending(a => a.UpdatedDate).ThenBy(a => a.UnitId))
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td hidden="hidden">@x.ProductPriceId</td>
+                            <td>@x.UnitName</td>
+                            <td>@x.SellingPrice</td>
+                            <td>
+                                @if (x.Status == true)
+                                {
+                                    <span class="badge badge-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Inactive</span>
+                                }
+                            </td>
+                            <td>@x.UpdatedDate</td>
+                            <td>
+                                <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                @if (x.Status != true)
+                                {
+                                    <button class="btn btn-success btn-circle btn-sm"
+                                            id="btnMakeActive" title="Make Active">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <a href="/ProductList" class="btn btn-danger" style="float:right;"><i class="fa fa-window-close"></i> Close</a>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Price</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="form_validation">
+                            <input type="hidden" value="@Model.ProductId" name="ProductId" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="floating-label">Unit</label>
+                                        <select name="UnitId" id="UnitId"
+                                                class="form-control">
+                                            <option value="">Select Unit</option>
+                                            @foreach (var x in Model.Units)
+                                            {
+                                                <option value="@x.UnitId">
+                                                    @x.UnitName
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input type="text"
+                                               name="SellingPrice"
+                                               placeholder="Selling Price"
+                                               class="form-control" onkeypress="AllowPositiveNumber(event)"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div style="float:right">
+                                <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="~/assets/vendor/jquery/jquery.min.js"></script>
+<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/assets/js/sb-admin-2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
+<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+
+<script>
+    $('#dataTable').DataTable();
+</script>
+
+<script>
+    var productId = $('input[name="ProductId"').val();
+    var $checkoutForm = $('#form_validation').validate({
+        ignore: [],
+        rules: {
+            'UnitId': {
+                required: true,
+            },
+            'SellingPrice': {
+                required: true,
+                maxlength: 10,
+            },
+        },
+        submitHandler: function (form) {
+            $("#btnSave").prop('disabled', true)
+            $("#btnSave span").html('Saving...')
+
+            var url = "/Product/InsertPrice";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#form_validation").serialize(),
+                success: function (message) {
+                    ShowMessage(message, "/ProductPrice/" + productId)
+                },
+                error: function (message) {
+                    ShowMessage(message, "/ProductPrice/" + productId)
+                }
+            })
+        },
+
+        errorPlacement: function errorPlacement(error, element) {
+            var $parent = $(element).parents('.form-group');
+
+            // Do not duplicate errors
+            if ($parent.find('.jquery-validation-error').length) {
+                return false;
+            }
+
+            $parent.append(
+                error.addClass('jquery-validation-error small form-text invalid-feedback')
+            );
+        },
+        highlight: function (element) {
+            var $el = $(element);
+            var $parent = $el.parents('.form-group');
+
+            $el.addClass('is-invalid');
+
+            // Select2 and Tagsinput
+            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                $el.parent().addClass('is-invalid');
+            }
+
+        },
+        unhighlight: function (element) {
+            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        }
+    });
+
+    function AllowPositiveNumber(event) {
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    }
+    $(document).ready(function () {
+        $("#dataTable").on('click', '#btnMakeActive', function () {
+            var currentRow = $(this).closest("tr");
+            var data = currentRow.find("td:eq(1)").html();
+
+            swal({
+                text: "Are You sure you want to active??",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willActive) => {
+                    if (willActive) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/Product/UpdatePrice',
+                            data: { productPriceId: data },
+                            success: function (message) {
+                                ShowMessage(message, "/ProductPrice/" + productId)
+                            },
+                            error: function (message) {
+                                ShowMessage(message, "/ProductPrice/" + productId)
+                            }
+                        });
+                    }
+                });
+        });
+    })
+</script>
+
+

@@ -1,0 +1,266 @@
+﻿@model Web.Entity.Dto.ProductDto
+@{
+    ViewBag.Title = "ProductImage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <a href="~/ModifyProduct/@Model.ProductId"> Product </a>
+    <i class="fas fa-chevron-right"></i>
+    <a href="~/ProductPrice/@Model.ProductId"> Product Price </a>
+    <i class="fas fa-chevron-right"></i>
+    <label>Add Image</label>
+</div>
+<br />
+<h6 class="h6 mb-2 text-gray-800">Product Image</h6>
+
+<div class="card shadow mb-4">
+    <div class="container">
+        <br />
+        <div class="row">
+            <label class="col-md-6">Parent Product Name : @Model.ParentProductName</label>
+            <label class="col-md-6">Product Name : @Model.ProductName</label>
+        </div>
+        <div class="row">
+            <label class="col-md-6">Product Code : @Model.ProductCode</label>
+        </div>
+    </div>
+    <div class="card-header py-3">
+        <button type="button" id="btnAdd" class="btn btn-primary btn-sm"
+                data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-plus"></i> Add New
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th hidden="hidden"></th>
+                        <th>Image</th>
+                        <th>Is Primary</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0; }
+                    @foreach (var x in Model.ProductImages)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td hidden="hidden">@x.ImageId</td>
+                            <td>
+                                <img src="data:image;base64,@Convert.ToBase64String(x.Photo)" class="table-image" />
+                            </td>
+                            <td>
+                                @if (x.IsPrimary == true)
+                                {
+                                    <span class="badge badge-success">Yes</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">No</span>
+                                }
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                @if (x.IsPrimary != true)
+                                {
+                                    <button class="btn btn-success btn-circle btn-sm"
+                                            id="btnMakePrimary" title="Make Primary">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <a href="/ProductList" class="btn btn-danger" style="float:right;"><i class="fa fa-window-close"></i> Close</a>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="form_validation" enctype="multipart/form-data">
+                            <input type="hidden" value="@Model.ProductId" name="ProductId" 
+                                   id="ProductId "/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="file"
+                                               name="Image"
+                                               class="form-control" id="Image"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="checkbox" name="IsPrimary" 
+                                                id="IsPrimary"
+                                               value="True" /> Is Primary
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float:right">
+                                <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="~/assets/vendor/jquery/jquery.min.js"></script>
+<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/assets/js/sb-admin-2.min.js"></script>
+<script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
+<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
+<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+
+<script>
+    $('#dataTable').DataTable();
+</script>
+<script>
+    var productId = $('input[name="ProductId"').val();
+    var currentUrl = "/ProductImage/" + productId;
+    var $checkoutForm = $('#form_validation').validate({
+        ignore: [],
+        rules: {
+            'Image': {
+                required: true,
+            },
+        },
+        submitHandler: function (form) {
+            $("#btnSave").prop('disabled', true)
+            $("#btnSave span").html('Saving...')
+
+            var form = $("#form_validation");
+            var data = new FormData();
+            var files = $("#Image").get(0).files;
+
+            data.append("Files", files[0]);
+            $.each(form.serializeArray(), function (key, input) {
+                data.append(input.name, input.value);
+            });
+            var url = "/Product/InsertImage";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (message) {
+                    ShowMessage(message, currentUrl)
+                },
+                error: function (message) {
+                    ShowMessage(message, currentUrl)
+                }
+            })
+        },
+
+        errorPlacement: function errorPlacement(error, element) {
+            var $parent = $(element).parents('.form-group');
+
+            // Do not duplicate errors
+            if ($parent.find('.jquery-validation-error').length) {
+                return false;
+            }
+
+            $parent.append(
+                error.addClass('jquery-validation-error small form-text invalid-feedback')
+            );
+        },
+        highlight: function (element) {
+            var $el = $(element);
+            var $parent = $el.parents('.form-group');
+
+            $el.addClass('is-invalid');
+
+            // Select2 and Tagsinput
+            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                $el.parent().addClass('is-invalid');
+            }
+
+        },
+        unhighlight: function (element) {
+            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        }
+    });
+    $("#dataTable").on('click', '#btnDelete', function () {
+        var currentRow = $(this).closest("tr");
+        var data = currentRow.find("td:eq(1)").html();
+
+        swal({
+            text: "के तपाई यो डाटा मेटाउन चाहनुहुन्छ ?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Product/DeleteImage/' + data,
+                        success: function (message) {
+                            ShowDeleteMessage(message, currentUrl)
+                        },
+                        error: function (message) {
+                            ShowDeleteMessage(message, currentUrl)
+                        }
+                    });
+                }
+            });
+    });
+
+    $("#dataTable").on('click', '#btnMakePrimary', function () {
+        var currentRow = $(this).closest("tr");
+        var data = currentRow.find("td:eq(1)").html();
+
+        swal({
+            text: "Are You sure you want to active??",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willActive) => {
+                if (willActive) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Product/UpdateImage',
+                        data: { ImageId: data },
+                        success: function (message) {
+                            ShowMessage(message, currentUrl)
+                        },
+                        error: function (message) {
+                            ShowMessage(message, currentUrl)
+                        }
+                    });
+                }
+            });
+    });
+</script>
+
+
+

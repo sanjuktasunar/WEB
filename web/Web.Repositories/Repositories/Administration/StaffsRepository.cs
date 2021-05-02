@@ -68,7 +68,7 @@ namespace Web.Repositories.Repositories.Administration
 
         public int Delete(int id, IDbTransaction transaction)
         {
-            return (_staffsRepo.Delete(id,transaction));
+            return (_staffsRepo.Delete(id));
         }
 
         public int InsertMenuAccess(MenuAccessPermission entity, IDbTransaction transaction, SqlConnection con)

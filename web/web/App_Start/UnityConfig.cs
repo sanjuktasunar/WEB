@@ -21,7 +21,13 @@ namespace web
 
             container.RegisterType<IDapperManager, DapperManager>();
             container.RegisterType<IDatabaseManager, DatabaseManager>();
+
+            //base repo
             container.RegisterType<IBaseRepo<Unit>, BaseRepo<Unit>>();
+            container.RegisterType<IBaseRepo<Product>, BaseRepo<Product>>();
+            container.RegisterType<IBaseRepo<ProductPrice>, BaseRepo<ProductPrice>>();
+            container.RegisterType<IBaseRepo<ProductImage>, BaseRepo<ProductImage>>();
+
 
             //utilities
             container.RegisterType<IMessageClass, MessageClass>();
@@ -34,14 +40,17 @@ namespace web
             container.RegisterType<IPhotoStorageRepository, PhotoStorageRepository>();
             container.RegisterType<IAdministrationRepository, AdministrationRepository>();
             container.RegisterType<IUnitRepository, UnitRepository>();
+            container.RegisterType<IProductRepository, ProductRepository>();
 
 
             //services
+            container.RegisterType<IImageService, ImageService>();
             container.RegisterType<IMenusService, MenusService>();
             container.RegisterType<IUsersService, UsersService>();
             container.RegisterType<IStaffsService, StaffsService>();
             container.RegisterType<IAdministrationService, AdministrationService>();
             container.RegisterType<IUnitService, UnitService>();
+            container.RegisterType<IProductService, ProductService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
