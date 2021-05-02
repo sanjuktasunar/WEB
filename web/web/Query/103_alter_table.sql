@@ -93,13 +93,15 @@ FROM Product AS A
 LEFT JOIN Product AS B ON B.ProductId=A.ParentProductId
 GO
 
+
+--drop table ProductImage
+
 GO
 CREATE TABLE ProductImage
 (
 	ImageId int not null Identity(1,1) Constraint ProductImage_ImageId_pk Primary Key,
 	ProductId int not null Constraint ProductImage_Product_ProductId References Product(ProductId),
-	ImageName nvarchar(max) not null,
-	ImageLocation nvarchar(max) not null,
+	Photo image not null,
 	IsActive bit null default(1),
 	IsPrimary bit null default(0)
 );

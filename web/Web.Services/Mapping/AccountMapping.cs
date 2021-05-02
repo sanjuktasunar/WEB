@@ -77,8 +77,7 @@ namespace Web.Services.Mapping
             {
                 ImageId=dto.ImageId,
                 ProductId=dto.ProductId,
-                ImageName=dto.ImageName,
-                ImageLocation=dto.ImageLocation,
+                Photo=dto.Photo,
                 IsActive=dto.IsActive,
                 IsPrimary=dto.IsPrimary,
             };

@@ -23,6 +23,7 @@
                         <th>Parent Menu Name</th>
                         <th>Menu Link</th>
                         <th>Icon</th>
+                        <th>Order</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -40,6 +41,7 @@
                           <td>@x.ParentMenuNameEnglish</td>
                           <td>@x.MenuLink</td>
                           <td><i class="@x.MenuIcon"></i></td>
+                          <td>@x.MenuOrder</td>
                           <td>
                               @if (x.Status == true)
                               {

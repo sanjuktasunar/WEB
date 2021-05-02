@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,11 @@ namespace Web.Repositories.Repositories.Administration
         IEnumerable<MenuAccessPermissionDto> GetMenusByUserId(int? UserId);
         Task<MenusDto> GetMenusByIdAsync(int id);
         Task<IEnumerable<MenusDto>> GetParentMenusAsync();
-        int Insert(Menus entity);
-        int Update(Menus entity);
-        int Delete(int id);
+        int Insert(Menus entity, SqlConnection con, IDbTransaction transaction);
+        int Update(Menus entity, SqlConnection con, IDbTransaction transaction);
+        int Delete(int id, SqlConnection con, IDbTransaction transaction);
+        Task MenuOrder(Menus entity, SqlConnection con, IDbTransaction transaction);
+        Task MenuOrderOnDelete(int menuId, SqlConnection con, IDbTransaction transaction);
     }
     public class MenusRepository:IMenusRepository
     {
@@ -82,19 +85,43 @@ namespace Web.Repositories.Repositories.Administration
             return menus;
         }
 
-        public int Insert(Menus entity)
+        public int Insert(Menus entity,SqlConnection con,IDbTransaction transaction)
         {
-            return (_menusRepo.Insert(entity));
+            return (_menusRepo.Insert(entity,transaction,con));
         }
 
-        public int Update(Menus entity)
+        public int Update(Menus entity, SqlConnection con, IDbTransaction transaction)
         {
-            return (_menusRepo.Update(entity));
+            return (_menusRepo.Update(entity,transaction,con));
         }
 
-        public int Delete(int id)
+        public int Delete(int id, SqlConnection con, IDbTransaction transaction)
         {
-            return (_menusRepo.Delete(id,null));
+            return (_menusRepo.Delete(id,transaction,con));
+        }
+
+        public async Task MenuOrder(Menus entity,SqlConnection con,IDbTransaction transaction)
+        {
+            var menus =await _dapperManager.QueryAsyncTrans<Menus>("SELECT * FROM Menus WHERE ParentMenuId=@ParentMenuId", new { entity.ParentMenuId},transaction,con);
+            if(menus.Select(a=>a.MenuOrder).Contains(entity.MenuOrder))
+            {
+                foreach(var m in menus.Where(a=>a.MenuOrder>=entity.MenuOrder && a.MenuId!=entity.MenuId).OrderBy(a=>a.MenuOrder))
+                {
+                    m.MenuOrder = m.MenuOrder + 1;
+                    _menusRepo.Update(m, transaction, con);
+                }
+            }
+        }
+
+        public async Task MenuOrderOnDelete(int menuId, SqlConnection con, IDbTransaction transaction)
+        {
+            var entity =await GetMenusByIdAsync(menuId);
+            var menus = await _dapperManager.QueryAsyncTrans<Menus>("SELECT * FROM Menus WHERE ParentMenuId=@ParentMenuId AND MenuOrder>@MenuOrder", new { entity.ParentMenuId, entity.MenuOrder }, transaction, con);
+            foreach (var m in menus)
+            {
+                m.MenuOrder = m.MenuOrder - 1;
+                _menusRepo.Update(m, transaction, con);
+            }
         }
     }
 }

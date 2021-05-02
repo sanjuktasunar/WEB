@@ -35,3 +35,4 @@ D:\A-BKPAPP\WEB\web\Web.Repositories\obj\Debug\Web.Repositories.csproj.CoreCompi
 D:\A-BKPAPP\WEB\web\Web.Repositories\obj\Debug\Web.Repositories.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Repositories\obj\Debug\Web.Repositories.dll
 D:\A-BKPAPP\WEB\web\Web.Repositories\obj\Debug\Web.Repositories.pdb
+D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\Web.Entity.dll.config

@@ -1,16 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Web.Entity.Dto;
 using Web.Repositories.Repositories;
+using HttpContext = System.Web.HttpContext;
 
 namespace Web.Services.Services
 {
     public class InitialSetupService
     {
+        
         private InitialSetupRepository _initialSetupRepository=new InitialSetupRepository();
 
         public string GetCurrentVersionInfo()
@@ -43,5 +47,6 @@ namespace Web.Services.Services
                 menu.ReadAccess = menu.WriteAccess = menu.ModifyAccess = menu.DeleteAccess = true;
             return menu;
         }
+
     }
 }

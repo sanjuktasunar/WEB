@@ -51,7 +51,9 @@
                         <tr>
                             <td>@i</td>
                             <td hidden="hidden">@x.ImageId</td>
-                            <td>@x.ImageName</td>
+                            <td>
+                                <img src="data:image;base64,@Convert.ToBase64String(x.Photo)" class="table-image"/>
+                            </td>
                             <td>
                                 @if (x.IsPrimary == true)
                                 {
@@ -94,19 +96,22 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form_validation">
-                            <input type="hidden" value="@Model.ProductId" name="ProductId" />
+                        <form id="form_validation" enctype="multipart/form-data">
+                            <input type="hidden" value="@Model.ProductId" name="ProductId" 
+                                   id="ProductId "/>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="file"
                                                name="Image"
-                                               class="form-control"/>
+                                               class="form-control" id="Image"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="checkbox" name="IsPrimary" /> Is Primary
+                                        <input type="checkbox" name="IsPrimary" 
+                                                id="IsPrimary"
+                                               value="True" /> Is Primary
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +131,7 @@
 <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="~/assets/js/sb-admin-2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+<script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
 <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="~/assets/custom-plugin/sweetalert.min.js"></script>
@@ -137,6 +142,7 @@
 </script>
 <script>
     var productId = $('input[name="ProductId"').val();
+    var currentUrl = "/ProductImage/" + productId;
     var $checkoutForm = $('#form_validation').validate({
         ignore: [],
         rules: {
@@ -148,16 +154,26 @@
             $("#btnSave").prop('disabled', true)
             $("#btnSave span").html('Saving...')
 
-            var url = "/Product/InsertPrice";
+            var form = $("#form_validation");
+            var data = new FormData();
+            var files = $("#Image").get(0).files;
+
+            data.append("Files", files[0]);
+            $.each(form.serializeArray(), function (key, input) {
+                data.append(input.name, input.value);
+            });
+            var url = "/Product/InsertImage";
             $.ajax({
                 type: "POST",
                 url: url,
-                data: $("#form_validation").serialize(),
+                data: data,
+                processData: false,
+                contentType: false,
                 success: function (message) {
-                    ShowMessage(message, "/ProductPrice/" + productId)
+                    ShowMessage(message, currentUrl)
                 },
                 error: function (message) {
-                    ShowMessage(message, "/ProductPrice/" + productId)
+                    ShowMessage(message, currentUrl)
                 }
             })
         },
@@ -189,6 +205,31 @@
         unhighlight: function (element) {
             $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
         }
+    });
+    $("#dataTable").on('click', '#btnDelete', function () {
+        var currentRow = $(this).closest("tr");
+        var data = currentRow.find("td:eq(1)").html();
+
+        swal({
+            text: "के तपाई यो डाटा मेटाउन चाहनुहुन्छ ?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Product/DeleteImage/' + data,
+                        success: function (message) {
+                            ShowDeleteMessage(message, currentUrl)
+                        },
+                        error: function (message) {
+                            ShowDeleteMessage(message, currentUrl)
+                        }
+                    });
+                }
+            });
     });
 </script>
 

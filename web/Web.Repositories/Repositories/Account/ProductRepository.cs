@@ -30,8 +30,10 @@ namespace Web.Repositories.Repositories.Account
         Task<ProductPriceDto> GetProductPriceById(int id);
         Task<IEnumerable<ProductImageDto>> GetProductImageByProductIdAsync(int ProductId);
         int InsertProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
+        Task<ProductImageDto> GetProductImageById(int id);
+        int DeleteProductImage(SqlConnection con, IDbTransaction transaction, int id);
+        void ProductPrimaryImage(SqlConnection con, IDbTransaction transaction, int ProductId);
         int UpdateProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
-        int DeleteProductImage(int id);
     }
     public class ProductRepository:IProductRepository
     {
@@ -148,9 +150,20 @@ namespace Web.Repositories.Repositories.Account
             return (_productImageRepo.Update(entity, transaction, con));
         }
 
-        public int DeleteProductImage(int id)
+        public int DeleteProductImage(SqlConnection con,IDbTransaction transaction,int id)
         {
-            return (_productImageRepo.Delete(id));
+            return (_productImageRepo.Delete(id,transaction,con));
+        }
+
+        public void ProductPrimaryImage(SqlConnection con,IDbTransaction transaction,int ProductId)
+        {
+            _dapperManager.ExecuteScalar<ProductImage>(con,"UPDATE ProductImage SET IsPrimary=0 WHERE ProductId=@ProductId AND IsPrimary=1",new { ProductId },transaction);
+        }
+
+        public async Task<ProductImageDto> GetProductImageById(int id)
+        {
+            return (await _dapperManager.QuerySingleAsync<ProductImageDto>("SELECT * FROM ProductImage " +
+               "WHERE ImageId=@id", new { id }));
         }
     }
 }

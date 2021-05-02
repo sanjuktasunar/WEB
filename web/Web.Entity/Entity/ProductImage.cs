@@ -10,8 +10,7 @@ namespace Web.Entity.Entity
     {
         public int ImageId { get; set; }
         public int ProductId { get; set; }
-        public string ImageName { get; set; }
-        public string ImageLocation { get; set; }
+        public byte[] Photo { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsPrimary { get; set; }
     }

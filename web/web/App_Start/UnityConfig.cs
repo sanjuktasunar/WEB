@@ -44,6 +44,7 @@ namespace web
 
 
             //services
+            container.RegisterType<IImageService, ImageService>();
             container.RegisterType<IMenusService, MenusService>();
             container.RegisterType<IUsersService, UsersService>();
             container.RegisterType<IStaffsService, StaffsService>();

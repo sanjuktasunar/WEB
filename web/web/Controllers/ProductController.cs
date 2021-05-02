@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -130,28 +132,22 @@ namespace web.Controllers
             return View(obj);
         }
         [HttpPost]
-        public async Task<string> InsertImage(int productId,IEnumerable<ProductImageDto> dtos)
+        public async Task<string> InsertImage(ProductImageDto dto)
         {
             if (!menu.AdminAccess)
                 return null;
-
-            return (await _productService.InsertImage(productId,dtos));
+            dto.Image = Request.Files[0];
+            string message = await _productService.InsertImage(dto);
+            return message;
         }
 
-        [HttpPut]
-        public async Task<string> UpdateImage(int productId, IEnumerable<ProductImageDto> dtos)
-        {
-            if (!menu.AdminAccess)
-                return null;
-
-            return (await _productService.UpdateImage(productId, dtos));
-        }
-        public string DeleteImage(int id)
+       
+        public async Task<string> DeleteImage(int id)
         {
             if (!menu.DeleteAccess)
                 return null;
 
-            return (_productService.DeleteImage(id));
+            return (await _productService.DeleteImage(id));
         }
     }
 }
