@@ -94,7 +94,6 @@ LEFT JOIN Product AS B ON B.ProductId=A.ParentProductId
 GO
 
 
---drop table ProductImage
 
 GO
 CREATE TABLE ProductImage

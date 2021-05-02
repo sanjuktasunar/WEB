@@ -141,13 +141,22 @@ namespace web.Controllers
             return message;
         }
 
-       
         public async Task<string> DeleteImage(int id)
         {
             if (!menu.DeleteAccess)
                 return null;
 
             return (await _productService.DeleteImage(id));
+        }
+
+        [HttpPost]
+        public async Task<string> UpdateImage(int ImageId)
+        {
+            if (!menu.AdminAccess)
+                return null;
+           
+            string message = await _productService.UpdateImage(ImageId);
+            return message;
         }
     }
 }

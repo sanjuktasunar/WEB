@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                     @{ int i = 0; }
-                    @foreach (var x in Model.GetProductPrice.OrderByDescending(a=>a.UpdatedDate).ThenBy(a=>a.UnitId))
+                    @foreach (var x in Model.GetProductPrice.OrderByDescending(a => a.UpdatedDate).ThenBy(a => a.UnitId))
                     {
                         i++;
                         <tr>
@@ -83,6 +83,8 @@
                 </tbody>
             </table>
         </div>
+        <br />
+        <a href="/ProductList" class="btn btn-danger" style="float:right;"><i class="fa fa-window-close"></i> Close</a>
     </div>
 </div>
 

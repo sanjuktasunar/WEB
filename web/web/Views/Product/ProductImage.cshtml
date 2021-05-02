@@ -52,7 +52,7 @@
                             <td>@i</td>
                             <td hidden="hidden">@x.ImageId</td>
                             <td>
-                                <img src="data:image;base64,@Convert.ToBase64String(x.Photo)" class="table-image"/>
+                                <img src="data:image;base64,@Convert.ToBase64String(x.Photo)" class="table-image" />
                             </td>
                             <td>
                                 @if (x.IsPrimary == true)
@@ -81,6 +81,8 @@
                 </tbody>
             </table>
         </div>
+        <br />
+        <a href="/ProductList" class="btn btn-danger" style="float:right;"><i class="fa fa-window-close"></i> Close</a>
     </div>
 </div>
 <!-- Modal -->
@@ -226,6 +228,33 @@
                         },
                         error: function (message) {
                             ShowDeleteMessage(message, currentUrl)
+                        }
+                    });
+                }
+            });
+    });
+
+    $("#dataTable").on('click', '#btnMakePrimary', function () {
+        var currentRow = $(this).closest("tr");
+        var data = currentRow.find("td:eq(1)").html();
+
+        swal({
+            text: "Are You sure you want to active??",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willActive) => {
+                if (willActive) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Product/UpdateImage',
+                        data: { ImageId: data },
+                        success: function (message) {
+                            ShowMessage(message, currentUrl)
+                        },
+                        error: function (message) {
+                            ShowMessage(message, currentUrl)
                         }
                     });
                 }

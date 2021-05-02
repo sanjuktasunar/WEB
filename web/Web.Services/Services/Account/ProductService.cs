@@ -31,6 +31,7 @@ namespace Web.Services.Services.Account
         Task<IEnumerable<ProductImageDto>> GetProductImageByProductId(int productId);
         Task<string> InsertImage(ProductImageDto dto);
         Task<string> DeleteImage(int id);
+        Task<string> UpdateImage(int id);
     }
 
     public class ProductService:IProductService
@@ -264,6 +265,30 @@ namespace Web.Services.Services.Account
                     _productRepository.UpdateProductImage(entity, transaction, con);
                 }
                 message = _messageClass.ShowDeleteMessage(result);
+                transaction.Commit();
+            }
+            catch (SqlException ex)
+            {
+                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
+                transaction.Rollback();
+            }
+            return message;
+        }
+
+        public async Task<string> UpdateImage(int id)
+        {
+            string message = "";
+            var productImage = await _productRepository.GetProductImageById(id);
+            if (productImage is null)
+                return "Image is not available";
+            var con = _baseInterface.GetConnection();
+            var transaction = con.BeginTransaction();
+            _productRepository.ProductPrimaryImage(con, transaction, productImage.ProductId);
+            productImage.IsPrimary = true;
+            try
+            {
+                int result = _productRepository.UpdateProductImage(productImage.ToEntity(),transaction,con);
+                message = _messageClass.ShowSuccessMessage(result);
                 transaction.Commit();
             }
             catch (SqlException ex)
