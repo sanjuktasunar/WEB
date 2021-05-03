@@ -3,8 +3,8 @@ using FluentMigrator;
 
 namespace web.Migrations
 {
-    [Migration(202, "Alter view and proc")]
-    public class _102_alter_proc_views:Migration
+    [Migration(203, "alter table")]
+    public class _103_alter_table:Migration
     {
         public override void Down()
         {
@@ -13,7 +13,7 @@ namespace web.Migrations
 
         public override void Up()
         {
-            string viewprocpath = System.Web.HttpContext.Current.Server.MapPath("/Query/102_add_proc.sql");
+            string viewprocpath = System.Web.HttpContext.Current.Server.MapPath("/Query/103_alter_table.sql");
             Execute.Script(viewprocpath);
         }
     }

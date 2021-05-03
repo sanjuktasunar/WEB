@@ -49,27 +49,17 @@ CREATE UNIQUE INDEX ProductPrice_Product_Unit_Price_ui ON
 ProductPrice(ProductId,UnitId,SellingPrice)
 GO
 
---GO
---CREATE TABLE ProductCategory
---(
---	CategoryId int not null Identity(1,1) Constraint ProductCategory_pk Primary Key,
---	CategoryName nvarchar(200) not null,
---	CategoryNameNepali nvarchar(200) not null,
---	Status bit null default(1),
---	CreatedBy int null Constraint Users_ProductCategory_CreatedBy_fk References Users(UserId),
---	CreatedDate datetime not null,
---	UpdatedBy int null Constraint Users_ProductCategory_UpdatedBy_fk References Users(UserId),
---	UpdatedDate datetime null
---);
---GO
---GO
---CREATE UNIQUE INDEX ProductCategory_CategoryName_ui ON
---ProductCategory(CategoryName)
---GO
---GO
---CREATE UNIQUE INDEX ProductCategory_CategoryNameNepali_ui ON
---ProductCategory(CategoryNameNepali)
---GO
+
+
+GO
+CREATE OR ALTER VIEW [dbo].[ProductPriceView]
+AS
+SELECT A.*,
+B.UnitName,B.UnitNameNepali,B.UnitSymbol,B.UnitSymbolNepali
+FROM ProductPrice AS A
+LEFT JOIN Unit AS B ON B.UnitId=A.UnitId
+GO
+
 
 GO
 ALTER TABLE Product

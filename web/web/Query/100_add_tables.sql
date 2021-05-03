@@ -256,18 +256,18 @@ GO
 GO
 CREATE TABLE Unit
 (
-	UnitId int not null Identity(1,1) Constraint Units_pk Primary Key,
+	UnitId int not null Identity(1,1) Constraint Unit_pk Primary Key,
 	UnitName nvarchar(200) not null,
 	Status bit null default(1),
-	CreatedBy int null Constraint Users_Units_CreatedBy_fk References Users(UserId),
+	CreatedBy int null Constraint Users_Unit_CreatedBy_fk References Users(UserId),
 	CreatedDate datetime not null,
-	UpdatedBy int null Constraint Users_Units_UpdatedBy_fk References Users(UserId),
+	UpdatedBy int null Constraint Users_Unit_UpdatedBy_fk References Users(UserId),
 	UpdatedDate datetime null
 );
 GO
 GO
-CREATE UNIQUE INDEX Units_UnitName_ui ON
-Units(UnitName)
+CREATE UNIQUE INDEX Unit_UnitName_ui ON
+Unit(UnitName)
 GO
 
 GO
@@ -297,7 +297,7 @@ CREATE TABLE ProductPrice
 (
 	ProductPriceId int not null Identity(1,1) Constraint ProductPrice_pk Primary Key,
 	ProductId int not null Constraint ProductPrice_Product_ProductId_fk References Product(ProductId),
-	UnitId int not null Constraint ProductPrice_Unit_UnitId_fk References Units(UnitId),
+	UnitId int not null Constraint ProductPrice_Unit_UnitId_fk References Unit(UnitId),
 	SellingPrice float not null,
 	Status bit null default(1),
 	UpdatedDate datetime not null
@@ -390,15 +390,5 @@ GO
 GO
 CREATE UNIQUE INDEX Municipality_MunicipalityNameNepali_ui ON
 Municipality(MunicipalityNameNepali)
-GO
-
-
-GO
-CREATE OR ALTER VIEW [dbo].[ProductPriceView]
-AS
-SELECT A.*,
-B.UnitName,B.UnitNameNepali,B.UnitSymbol,B.UnitSymbolNepali
-FROM ProductPrice AS A
-LEFT JOIN Unit AS B ON B.UnitId=A.UnitId
 GO
 

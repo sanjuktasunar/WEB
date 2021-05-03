@@ -216,6 +216,7 @@
     <Compile Include="Migrations\100_add_tables_proc_insert_values.cs" />
     <Compile Include="Migrations\101_AddViews.cs" />
     <Compile Include="Migrations\102_alter_proc_views.cs" />
+    <Compile Include="Migrations\103_alter_table.cs" />
     <Compile Include="Migrations\LoadMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
