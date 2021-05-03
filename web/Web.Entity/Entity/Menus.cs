@@ -15,6 +15,6 @@ namespace Web.Entity.Entity
         public string CheckMenuName { get; set; }
         public string MenuLink { get; set; }
         public int MenuOrder { get; set; }
-        public int MenuIcon { get; set; }
+        public string MenuIcon { get; set; }
     }
 }

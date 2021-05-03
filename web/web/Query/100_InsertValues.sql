@@ -28,6 +28,22 @@ GO
 
 
 GO
+SET IDENTITY_INSERT [UserStatus] ON;
+GO
+GO
+INSERT INTO UserStatus(StatusId,StatusName,UserTypeId)
+SELECT 1,'Active',NULL UNION ALL
+SELECT 2,'InActive',NULL UNION ALL
+SELECT 3,'Suspend',2
+SELECT 4,'Left',2
+GO
+GO
+SET IDENTITY_INSERT [UserStatus] OFF;
+GO
+
+
+
+GO
 INSERT INTO Gender(GenderName)
 SELECT 'Male' UNION ALL
 SELECT 'Female' UNION ALL
@@ -42,8 +58,8 @@ GO
 GO
 INSERT INTO Menus(MenuId,ParentMenuId,MenuNameEnglish,MenuNameNepali,CheckMenuName,MenuLink,MenuOrder,MenuIcon)
 SELECT 1,NULL,N'Administration',N'प्रशासन ',N'Administration',N'#',1,'fas fa-fw fa-cog' UNION ALL
-SELECT 2,1,N'Menus',N'मेनु ',N'Menus','~/MenuList',1,'' UNION ALL
-SELECT 3,1,N'Staffs Info',N'कर्मचारी',N'Staffs','~/StaffList',2,''
+SELECT 2,1,N'Menus',N'मेनु ',N'Menus','/MenuList',1,'' UNION ALL
+SELECT 3,1,N'Staffs Info',N'कर्मचारी',N'Staffs','/StaffList',2,''
 GO
 
 GO
@@ -103,8 +119,8 @@ GO
 SET IDENTITY_INSERT [Users] ON;
 GO
 GO
-INSERT INTO Users(UserId,UserTypeId,PhotoStorageId,UserName,Password,EmailAddress,ContactNumber,CreatedDate)
-VALUES(1,2,1,N'12345','sanju123','abc@gmail.com','1234567890',GETDATE())
+INSERT INTO Users(UserId,UserTypeId,PhotoStorageId,UserName,Password,EmailAddress,ContactNumber,CreatedDate,UserStatusId)
+VALUES(1,2,1,N'12345','45E5F464304A2F961CB6A585C42DA3EC','abc@gmail.com','1234567890',GETDATE(),1)
 GO
 GO
 SET IDENTITY_INSERT [Users] OFF;
@@ -115,8 +131,8 @@ GO
 SET IDENTITY_INSERT [Staffs] ON;
 GO
 GO
-INSERT INTO Staffs(StaffId,RoleId,DesignationId,DepartmentId,StaffName,GenderId,TemporaryAddress,PermanentAddress,CitizenshipNumber,PanNumber,BasicSalary)
-VALUES(1,1,1,1,'Admin Name',1,'Temp add','Permanent Add','1234/56','4567000',10000)
+INSERT INTO Staffs(StaffId,UserId,RoleId,DesignationId,DepartmentId,StaffName,GenderId,TemporaryAddress,PermanentAddress,CitizenshipNumber,PanNumber,BasicSalary)
+VALUES(1,1,1,1,1,'Admin Name',1,'Temp add','Permanent Add','1234/56','4567000',10000)
 GO
 GO
 SET IDENTITY_INSERT [Staffs] OFF;
@@ -128,5 +144,20 @@ SELECT 2,1,1,1,1,1,1 UNION ALL
 SELECT 3,1,1,1,1,1,1
 GO
 
-
+GO
+SET IDENTITY_INSERT [Province] ON;
+GO
+GO
+INSERT INTO Province(ProvinceId,ProvinceName,ProvinceNameNepali,Status,CreatedDate)
+SELECT 1,N'Province No. 1',N'1',1,GETDATE() UNION ALL
+SELECT 2,N'Province No. 2',N'2',1,GETDATE() UNION ALL
+SELECT 3,N'Province No. 3',N'3',1,GETDATE() UNION ALL
+SELECT 4,N'Province No. 4',N'4',1,GETDATE() UNION ALL
+SELECT 5,N'Province No. 5',N'5',1,GETDATE() UNION ALL
+SELECT 6,N'Province No. 6',N'6',1,GETDATE() UNION ALL
+SELECT 7,N'Province No. 7',N'7',1,GETDATE()
+GO
+GO
+SET IDENTITY_INSERT [Province] OFF;
+GO
 

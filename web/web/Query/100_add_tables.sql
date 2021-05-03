@@ -44,7 +44,7 @@ CREATE TABLE Menus
 (
 	MenuId int not null Identity(1,1) Constraint Menus_pk Primary Key,
 	ParentMenuId int null Constraint Menus_fk References Menus(MenuId),
-	MenuNameEnglish nvarchar(40) not null,
+	MenuNameEnglish nvarchar(100) not null,
 	MenuNameNepali nvarchar(100) not null,
 	CheckMenuName nvarchar(50) not null,
 	MenuLink nvarchar(200) not null,
@@ -68,7 +68,7 @@ GO
 
 GO
 CREATE UNIQUE INDEX Menus_MenuLink_ui ON
-Menus(MenuLink)
+Menus(MenuLink) WHERE ParentMenuId IS NOT NULL
 GO
 
 
@@ -158,6 +158,21 @@ CREATE TABLE PhotoStorages
 GO
 
 GO
+CREATE TABLE UserStatus
+(
+	StatusId int not null Identity(1,1) constraint UserStatus_pk Primary Key,
+	StatusName nvarchar(50) not null,
+	UserTypeId int null Constraint UserStatus_UserType_UserTypeId References UserType(UserTypeId),
+	Status bit null default(1)
+);
+GO
+
+GO
+CREATE UNIQUE INDEX UserStatus_StatusName_ui ON
+UserStatus(StatusName,UserTypeId)
+GO
+
+GO
 CREATE TABLE Users
 (
 	UserId int not null Identity constraint Users_pk Primary Key,
@@ -167,7 +182,7 @@ CREATE TABLE Users
 	Password nvarchar(max) not null,
 	EmailAddress nvarchar(200) not null,
 	ContactNumber nvarchar(20) not null,
-	Status bit null default(1),
+	UserStatusId int not null Constraint Users_UserStatus_UserStatusId_fk References UserStatus(StatusId),
 	CreatedBy int null Constraint Users_CreatedBy_fk References Users(UserId),
 	CreatedDate datetime not null default GETDATE(),
 	UpdatedBy int null Constraint Users_UpdatedBy_fk References Users(UserId),
@@ -187,10 +202,12 @@ CREATE UNIQUE INDEX Users_ContactNumber_ui ON
 Users(ContactNumber)
 GO
 
+
 GO
 CREATE TABLE Staffs
 (
 	StaffId int not null Identity(1,1) Constraint Staffs_pk Primary Key,
+	UserId int not null Constraint Staffs_Users_UserId_fk References Users(UserId),
 	RoleId int not null Constraint Staffs_Role_RoleId_fk References Role(RoleId),
 	DesignationId int not null Constraint Staffs_Designation_DesignationId_fk References Designation(DesignationId),
 	DepartmentId int null Constraint Staffs_Department_DepartmentId_fk References Department(DepartmentId),
@@ -201,11 +218,6 @@ CREATE TABLE Staffs
 	CitizenshipNumber nvarchar(150) null,
 	PanNumber nvarchar(150) null,
 	BasicSalary float not null,
-	Status bit null default(1),
-	CreatedBy int null Constraint Users_Staffs_CreatedBy_fk References Users(UserId),
-	CreatedDate datetime not null  default GETDATE(),
-	UpdatedBy int null Constraint Users_Staffs_UpdatedBy_fk References Users(UserId),
-	UpdatedDate datetime null
 );
 GO
 GO
@@ -237,27 +249,25 @@ CREATE TABLE BankAccount
 	BankAccountId int not null Identity(1,1) Constraint BankAccount_pk Primary Key,
 	StaffId int not null Constraint BankAccount_Staffs_StaffId References Staffs(StaffId),
 	AccountNumber nvarchar(200) null,
-	BankName nvarchar(500) null,
-	PanCard nvarchar(500) null,
-	EducationalDocument nvarchar(max) null
+	BankName nvarchar(500) null
 );
 GO
 
 GO
-CREATE TABLE Units
+CREATE TABLE Unit
 (
-	UnitId int not null Identity(1,1) Constraint Units_pk Primary Key,
+	UnitId int not null Identity(1,1) Constraint Unit_pk Primary Key,
 	UnitName nvarchar(200) not null,
 	Status bit null default(1),
-	CreatedBy int null Constraint Users_Units_CreatedBy_fk References Users(UserId),
+	CreatedBy int null Constraint Users_Unit_CreatedBy_fk References Users(UserId),
 	CreatedDate datetime not null,
-	UpdatedBy int null Constraint Users_Units_UpdatedBy_fk References Users(UserId),
+	UpdatedBy int null Constraint Users_Unit_UpdatedBy_fk References Users(UserId),
 	UpdatedDate datetime null
 );
 GO
 GO
-CREATE UNIQUE INDEX Units_UnitName_ui ON
-Units(UnitName)
+CREATE UNIQUE INDEX Unit_UnitName_ui ON
+Unit(UnitName)
 GO
 
 GO
@@ -287,7 +297,7 @@ CREATE TABLE ProductPrice
 (
 	ProductPriceId int not null Identity(1,1) Constraint ProductPrice_pk Primary Key,
 	ProductId int not null Constraint ProductPrice_Product_ProductId_fk References Product(ProductId),
-	UnitId int not null Constraint ProductPrice_Unit_UnitId_fk References Units(UnitId),
+	UnitId int not null Constraint ProductPrice_Unit_UnitId_fk References Unit(UnitId),
 	SellingPrice float not null,
 	Status bit null default(1),
 	UpdatedDate datetime not null
@@ -312,3 +322,73 @@ GO
 CREATE UNIQUE INDEX MenuAccessPermission_MenuId_StaffId ON
 MenuAccessPermission(MenuId,StaffId)
 GO
+
+GO
+CREATE TABLE Province
+(
+	ProvinceId int not null Identity(1,1) Constraint Province_pk Primary Key,
+	ProvinceName nvarchar(100) not null,
+	ProvinceNameNepali nvarchar(150) not null,
+	Status bit null default(1),
+	CreatedBy int null Constraint Province_Users_CreatedBy_fk References Users(UserId),
+	CreatedDate datetime not null,
+	UpdatedBy int null Constraint Province_Users_UpdatedBy_fk References Users(UserId),
+	UpdatedDate datetime null
+);
+GO
+GO
+CREATE UNIQUE INDEX Province_ProvinceName_ui ON 
+Province(ProvinceName)
+GO
+GO
+CREATE UNIQUE INDEX Province_ProvinceNameNepali_ui ON
+Province(ProvinceNameNepali)
+GO
+
+
+GO
+CREATE TABLE District
+(
+	DistrictId int not null Identity(1,1) Constraint District_pk Primary Key,
+	ProvinceId int not null Constraint District_Province_ProvinceId_fk References Province(ProvinceId),
+	DistrictName nvarchar(100) not null,
+	DistrictNameNepali nvarchar(150) not null,
+	Status bit null default(1),
+	CreatedBy int null Constraint District_Users_CreatedBy_fk References Users(UserId),
+	CreatedDate datetime not null,
+	UpdatedBy int null Constraint District_Users_UpdatedBy_fk References Users(UserId),
+	UpdatedDate datetime null
+);
+GO
+GO
+CREATE UNIQUE INDEX District_DistrictName_ui ON
+District(DistrictName)
+GO
+GO
+CREATE UNIQUE INDEX District_DistrictNameNepali_ui ON
+District(DistrictNameNepali)
+GO
+
+GO
+CREATE TABLE Municipality
+(
+	MunicipalityId int not null Identity(1,1) Constraint Municipality_pk Primary Key,
+	DistrictId int not null Constraint Municipality_District_DistrictId_fk References District(DistrictId),
+	MunicipalityName nvarchar(200) not null,
+	MunicipalityNameNepali nvarchar(150) not null,
+	Status bit null default(1),
+	CreatedBy int null Constraint Municipality_Users_CreatedBy_fk References Users(UserId),
+	CreatedDate datetime not null,
+	UpdatedBy int null Constraint Municipality_Users_UpdatedBy_fk References Users(UserId),
+	UpdatedDate datetime null
+);
+GO
+GO
+CREATE UNIQUE INDEX Municipality_MunicipalityName_ui ON
+Municipality(MunicipalityName)
+GO
+GO
+CREATE UNIQUE INDEX Municipality_MunicipalityNameNepali_ui ON
+Municipality(MunicipalityNameNepali)
+GO
+
