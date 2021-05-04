@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model web.Utility.ParameterClass
+<!DOCTYPE html>
 <html>
 <head>
     <title>BKP Store</title>
@@ -17,6 +18,9 @@
     <link rel="stylesheet" href="~/front-end/css/custom.css">
 </head>
 <body>
+    @{ 
+        var link = Model.MenuLink;
+    }
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
@@ -32,16 +36,16 @@
                 <div class="flex-fill mx-xl-5 mb-2">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="~/">Home</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@link.HomeLink">@Model.Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="about.html">About</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@link.AboutUsLink">@Model.AboutUs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="work.html">Work</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="pricing.html">Pricing</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@link.ContactUsLink">@Model.ContactUs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact</a>
@@ -49,9 +53,7 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    @*<a class="nav-link" href="#"><i class='bx bx-bell bx-sm bx-tada-hover text-primary'></i></a>
-                        <a class="nav-link" href="#"><i class='bx bx-cog bx-sm text-primary'></i></a>*@
-                    <a class="nav-link" href="~/Login" title="Login"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
+                    <a class="nav-link" href="@link.LoginLink" title="@Model.Login"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
                 </div>
             </div>
         </div>
@@ -108,10 +110,10 @@
                         Our Company</h2>
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light" href="index.html">Home</a>
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light" href="@link.HomeLink">@Model.Home</a>
                             </li>
                             <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="about.html">About Us</a>
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="@link.AboutUsLink">@Model.AboutUs</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="work.html">Work</a>
@@ -120,7 +122,7 @@
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i></i><a class="text-decoration-none text-light py-1" href="pricing.html">Price</a>
                             </li>
                             <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="contact.html">Contact</a>
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="@link.ContactUsLink">@Model.ContactUs</a>
                             </li>
                         </ul>
                 </div>

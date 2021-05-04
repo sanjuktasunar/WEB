@@ -158,6 +158,7 @@
 
 <script>
     var productId = $('input[name="ProductId"').val();
+    var currentUrl = "/ProductPrice/" + productId;
     var $checkoutForm = $('#form_validation').validate({
         ignore: [],
         rules: {
@@ -243,6 +244,32 @@
                             },
                             error: function (message) {
                                 ShowMessage(message, "/ProductPrice/" + productId)
+                            }
+                        });
+                    }
+                });
+        });
+
+        $("#dataTable").on('click', '#btnDelete', function () {
+            var currentRow = $(this).closest("tr");
+            var data = currentRow.find("td:eq(1)").html();
+
+            swal({
+                text: "के तपाई यो डाटा मेटाउन चाहनुहुन्छ ?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/Product/DeletePrice/' + data,
+                            success: function (message) {
+                                ShowDeleteMessage(message, currentUrl)
+                            },
+                            error: function (message) {
+                                ShowDeleteMessage(message, currentUrl)
                             }
                         });
                     }
