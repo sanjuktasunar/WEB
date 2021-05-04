@@ -7,9 +7,12 @@ namespace web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-            //            "~/Scripts/jquery-{version}.js"));
-
+            bundles.Add(new ScriptBundle("~/web/front-end").Include(
+                        "~/front-end/js/bootstrap.bundle.min.js",
+                        "~/front-end/js/jquery.min.js",
+                        "~/front-end/js/isotope.pkgd.js",
+                        "~/front-end/js/templatemo.js",
+                        "~/front-end/js/custom.js"));
         }
     }
 }
