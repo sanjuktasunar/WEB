@@ -34,6 +34,8 @@ namespace Web.Repositories.Repositories.Account
         int DeleteProductImage(SqlConnection con, IDbTransaction transaction, int id);
         void ProductPrimaryImage(SqlConnection con, IDbTransaction transaction, int ProductId);
         int UpdateProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
+        Task<IEnumerable<ProductDto>> GetChildProductByParentProductIdAsync(int parentProductId);
+        Task<IEnumerable<ProductDto>> GetDisplayProductAsync();
     }
     public class ProductRepository:IProductRepository
     {
@@ -68,6 +70,12 @@ namespace Web.Repositories.Repositories.Account
         {
             return (await _dapperManager.QueryAsync<ProductDto>("SELECT * FROM ProductView " +
                 "WHERE ParentProductId IS NOT NULL AND Status=1"));
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetChildProductByParentProductIdAsync(int parentProductId)
+        {
+            return (await _dapperManager.QueryAsync<ProductDto>("SELECT * FROM ProductView " +
+                "WHERE ParentProductId=@id AND Status=1",new { id=parentProductId }));
         }
 
         public async Task<ProductDto> GetProductByIdAsync(int id)
@@ -164,6 +172,11 @@ namespace Web.Repositories.Repositories.Account
         {
             return (await _dapperManager.QuerySingleAsync<ProductImageDto>("SELECT * FROM ProductImage " +
                "WHERE ImageId=@id", new { id }));
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetDisplayProductAsync()
+        {
+            return (await _dapperManager.QueryAsync<ProductDto>("SELECT * FROM DisplayProductView"));
         }
     }
 }

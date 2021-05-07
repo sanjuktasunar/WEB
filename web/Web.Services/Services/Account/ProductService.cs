@@ -32,6 +32,10 @@ namespace Web.Services.Services.Account
         Task<string> InsertImage(ProductImageDto dto);
         Task<string> DeleteImage(int id);
         Task<string> UpdateImage(int id);
+        Task<IEnumerable<ProductDto>> GetParentProductsWithChildProduct();
+        Task<IEnumerable<ProductDto>> GetChildProductByParentProductId(int parentProductId);
+        Task<IEnumerable<ProductDto>> GetDisplayProducts();
+        //Task<ProductImageDto> GetIsPrimaryImage(int ProductId);
     }
 
     public class ProductService:IProductService
@@ -62,9 +66,39 @@ namespace Web.Services.Services.Account
             return (await _productRepository.GetAllActiveParentProductAsync());
         }
 
+        public async Task<IEnumerable<ProductDto>> GetParentProductsWithChildProduct()
+        {
+            var obj = new List<ProductDto>();
+            var list = (await _productRepository.GetAllActiveParentProductAsync());
+           foreach(var l in list )
+           {
+                l.ChildProducts = await GetChildProductByParentProductId(l.ProductId);
+                if (l.ChildProducts.Count() > 0)
+                    obj.Add(l);
+           }
+            if (Convert.ToInt32(HttpContext.Current.Session["LangId"]) == 2)
+               obj.ForEach(a=>a.ProductName=a.ProductNameNepali);
+
+            return obj;
+        }
+
         public async Task<IEnumerable<ProductDto>> GetAllActiveChildProduct()
         {
             return (await _productRepository.GetAllActiveChildProductAsync());
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetChildProductByParentProductId(int parentProductId)
+        {
+            var data = await _productRepository.GetChildProductByParentProductIdAsync(parentProductId);
+
+            //data.ToList().ForEach(async a => a.ProductImage = (await GetProductImageByProductId(a.ProductId))?.FirstOrDefault());
+            foreach (var d in data)
+            {
+                var image = await GetProductImageByProductId(d.ProductId);
+                if (image.Count() > 0)
+                    d.ProductImage = image.OrderByDescending(a => a.IsPrimary).FirstOrDefault();
+            }
+            return data;
         }
 
         public async Task<ProductDto> GetProductById(int id)
@@ -203,7 +237,9 @@ namespace Web.Services.Services.Account
 
         public async Task<IEnumerable<ProductImageDto>> GetProductImageByProductId(int productId)
         {
-            return (await _productRepository.GetProductImageByProductIdAsync(productId));
+            var data = await _productRepository.GetProductImageByProductIdAsync(productId);
+            data.ToList().ForEach(a=>a.ImageString=Convert.ToBase64String(a.Photo));
+            return data;
         }
 
         public async Task<string> InsertImage(ProductImageDto dto)
@@ -297,6 +333,11 @@ namespace Web.Services.Services.Account
                 transaction.Rollback();
             }
             return message;
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetDisplayProducts()
+        {
+            return await _productRepository.GetDisplayProductAsync();
         }
     }
 }

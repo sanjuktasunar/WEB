@@ -3,15 +3,13 @@
     ViewBag.Title = "AddModifyMenus";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h3 class="h3 mb-2 text-gray-800">Add/Modify Menus</h3>
-
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <form id="form_validation">
-                    <input type="hidden" value="@Model.MenuId" name="MenuId"/>
+                    <input type="hidden" value="@Model.MenuId" name="MenuId" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -118,14 +116,9 @@
     </div>
 </div>
 
-<script src="~/assets/vendor/jquery/jquery.min.js"></script>
-<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="~/assets/js/sb-admin-2.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
-<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
-<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+@Scripts.Render("~/web/back-end/jquery-ui")
+<script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
+@Scripts.Render("~/web/back-end/message")
 
 <script>
     var $checkoutForm = $('#form_validation').validate({
@@ -147,11 +140,11 @@
                 required: true,
                 maxlength: 100,
             },
-            'MenuOrder': {
-                required: true,
-                maxlength: 100,
-                min:1,
-            },
+            //'MenuOrder': {
+            //    required: true,
+            //    maxlength: 100,
+            //    min: 1,
+            //},
         },
         submitHandler: function (form) {
             $("#btnSave").prop('disabled', true)
@@ -184,7 +177,7 @@
                     }
                 })
             }
-            
+
         },
 
         errorPlacement: function errorPlacement(error, element) {

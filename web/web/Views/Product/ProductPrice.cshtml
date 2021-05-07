@@ -125,7 +125,7 @@
                                         <input type="text"
                                                name="SellingPrice"
                                                placeholder="Selling Price"
-                                               class="form-control" onkeypress="AllowPositiveNumber(event)"/>
+                                               class="form-control" onkeypress="AllowPositiveNumber(event)" />
                                     </div>
                                 </div>
 
@@ -141,16 +141,10 @@
         </div>
     </div>
 </div>
-<!-- Bootstrap core JavaScript-->
-<script src="~/assets/vendor/jquery/jquery.min.js"></script>
-<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="~/assets/js/sb-admin-2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
-<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
-<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+<script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
+@Scripts.Render("~/web/back-end/message")
 
 <script>
     $('#dataTable').DataTable();
@@ -158,6 +152,7 @@
 
 <script>
     var productId = $('input[name="ProductId"').val();
+    var currentUrl = "/ProductPrice/" + productId;
     var $checkoutForm = $('#form_validation').validate({
         ignore: [],
         rules: {
@@ -243,6 +238,32 @@
                             },
                             error: function (message) {
                                 ShowMessage(message, "/ProductPrice/" + productId)
+                            }
+                        });
+                    }
+                });
+        });
+
+        $("#dataTable").on('click', '#btnDelete', function () {
+            var currentRow = $(this).closest("tr");
+            var data = currentRow.find("td:eq(1)").html();
+
+            swal({
+                text: "के तपाई यो डाटा मेटाउन चाहनुहुन्छ ?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/Product/DeletePrice/' + data,
+                            success: function (message) {
+                                ShowDeleteMessage(message, currentUrl)
+                            },
+                            error: function (message) {
+                                ShowDeleteMessage(message, currentUrl)
                             }
                         });
                     }
