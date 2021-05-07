@@ -17,10 +17,15 @@ namespace Web.Entity.Dto
         public string ParentProductName { get; set; }
         public string ParentProductNameNepali { get; set; }
 
+        public byte[] Photo { get; set; }
+        public decimal SellingPrice { get; set; }
+
         public IEnumerable<ProductDto> GetActiveParentProduct { get; set; }
+        public IEnumerable<ProductDto> ChildProducts { get; set; }
         public IEnumerable<ProductPriceDto> GetProductPrice { get; set; }
 
         public IEnumerable<UnitDto> Units { get; set; }
         public IEnumerable<ProductImageDto> ProductImages { get; set; }
+        public ProductImageDto ProductImage { get; set; }
     }
 }

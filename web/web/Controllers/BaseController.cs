@@ -24,8 +24,6 @@ namespace web.Controllers
                 Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 Response.AddHeader("Pragma", "no-cache");
                 Response.AddHeader("Expires", "0");
-
-                ViewBag.Menus = (_initialSetupService.GetMenuAccessPermissionForLoginUser());
                 ViewBag.Version = _initialSetupService.GetCurrentVersionInfo();
             }
             else

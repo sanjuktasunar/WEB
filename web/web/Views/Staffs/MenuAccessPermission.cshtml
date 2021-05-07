@@ -18,7 +18,7 @@
                         <th hidden="hidden"></th>
                         <th></th>
                         <th></th>
-                        @{ 
+                        @{
                             int totalrow = Model.MenuAccessPermissions.Count();
                             int readCount = Model.MenuAccessPermissions.Where(a => a.ReadAccess).Count();
                             int writeCount = Model.MenuAccessPermissions.Where(a => a.WriteAccess).Count();
@@ -26,61 +26,61 @@
                             int deleteCount = Model.MenuAccessPermissions.Where(a => a.DeleteAccess).Count();
                             int adminCount = Model.MenuAccessPermissions.Where(a => a.AdminAccess).Count();
                         }
-                    <th>
-                        Select All
-                        @if (totalrow == readCount)
-                        {
-                            <input type="checkbox" name="ReadAll" checked="checked" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="ReadAll" />
-                        }
-                    </th>
-                    <th>
-                        Select All
-                        @if (totalrow == writeCount)
-                        {
-                            <input type="checkbox" name="WriteAll" checked="checked" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="WriteAll" />
-                        }
-                    </th>
-                    <th>
-                        Select All
-                        @if (totalrow == modifyCount)
-                        {
-                            <input type="checkbox" name="ModifyAll" checked="checked" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="ModifyAll" />
-                        }
-                    </th>
-                    <th>
-                        Select All
-                        @if (totalrow == deleteCount)
-                        {
-                            <input type="checkbox" name="DeleteAll" checked="checked" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="DeleteAll" />
-                        }
-                    </th>
-                    <th>
-                        Select All
-                        @if (totalrow == adminCount)
-                        {
-                            <input type="checkbox" name="AdminAll" checked="checked" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="AdminAll" />
-                        }
-                    </th>
+                        <th>
+                            Select All
+                            @if (totalrow == readCount)
+                            {
+                                <input type="checkbox" name="ReadAll" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="ReadAll" />
+                            }
+                        </th>
+                        <th>
+                            Select All
+                            @if (totalrow == writeCount)
+                            {
+                                <input type="checkbox" name="WriteAll" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="WriteAll" />
+                            }
+                        </th>
+                        <th>
+                            Select All
+                            @if (totalrow == modifyCount)
+                            {
+                                <input type="checkbox" name="ModifyAll" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="ModifyAll" />
+                            }
+                        </th>
+                        <th>
+                            Select All
+                            @if (totalrow == deleteCount)
+                            {
+                                <input type="checkbox" name="DeleteAll" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="DeleteAll" />
+                            }
+                        </th>
+                        <th>
+                            Select All
+                            @if (totalrow == adminCount)
+                            {
+                                <input type="checkbox" name="AdminAll" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="AdminAll" />
+                            }
+                        </th>
                     </tr>
                     <tr>
                         <th>S.N.</th>
@@ -175,12 +175,9 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="~/assets/vendor/jquery/jquery.min.js"></script>
-<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="~/assets/js/sb-admin-2.min.js"></script>
-<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
-<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+@Scripts.Render("~/web/back-end/jquery-ui")
+@Scripts.Render("~/web/back-end/message")
+
 
 <script>
     $(document).ready(function () {
@@ -295,7 +292,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (message) {
-                    ShowMessage(message,'/StaffList')
+                    ShowMessage(message, '/StaffList')
                 },
                 error: function (message) {
                     ShowMessage(message, '/StaffList')
