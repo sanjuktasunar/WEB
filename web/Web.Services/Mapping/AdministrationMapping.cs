@@ -124,5 +124,47 @@ namespace Web.Services.Mapping
                 AdminAccess=dto.AdminAccess,
             };
         }
+
+        public static Role ToEntity(this RoleDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new Role
+            {
+                RoleId=dto.RoleId,
+                RoleName = dto.RoleName,
+                Status = dto.Status,
+                CreatedDate = dto.CreatedDate,
+            };
+        }
+
+        public static Designation ToEntity(this DesignationDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new Designation
+            {
+                DesignationId = dto.DesignationId,
+                DesignationName = dto.DesignationName,
+                Status = dto.Status,
+                CreatedDate = dto.CreatedDate,
+            };
+        }
+
+        public static Department ToEntity(this DepartmentDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new Department
+            {
+                DepartmentId = dto.DepartmentId,
+                DepartmentName = dto.DepartmentName,
+                Status = dto.Status,
+                CreatedDate = dto.CreatedDate,
+            };
+        }
     }
 }

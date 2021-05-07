@@ -126,6 +126,9 @@
     <Compile Include="Services\Account\ProductService.cs" />
     <Compile Include="Services\Account\UnitService.cs" />
     <Compile Include="Services\AdministrationService.cs" />
+    <Compile Include="Services\Administration\DepartmentService.cs" />
+    <Compile Include="Services\Administration\DesignationService.cs" />
+    <Compile Include="Services\Administration\RoleService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\InitialSetupService.cs" />
     <Compile Include="Services\MenusService.cs" />
