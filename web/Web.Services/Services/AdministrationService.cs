@@ -22,7 +22,6 @@ namespace Web.Services.Services
         public AdministrationService(IAdministrationRepository administrationRepository)
         {
             _administrationRepository = administrationRepository;
-
         }
         public async Task<IEnumerable<RoleDto>> GetActiveRoleAsync()
         {

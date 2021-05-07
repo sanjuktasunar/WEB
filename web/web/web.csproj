@@ -204,6 +204,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminSite\DepartmentController.cs" />
+    <Compile Include="Controllers\AdminSite\DesignationController.cs" />
+    <Compile Include="Controllers\AdminSite\RoleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
@@ -2200,6 +2203,12 @@
     <Content Include="Views\Product\ProductImage.cshtml" />
     <Content Include="Views\Shared\_FrontLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Role\Roles.cshtml" />
+    <Content Include="Views\Role\AddModifyRole.cshtml" />
+    <Content Include="Views\Department\Department.cshtml" />
+    <Content Include="Views\Department\AddModifyDepartment.cshtml" />
+    <Content Include="Views\Designation\Designation.cshtml" />
+    <Content Include="Views\Designation\AddModifyDesignation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
