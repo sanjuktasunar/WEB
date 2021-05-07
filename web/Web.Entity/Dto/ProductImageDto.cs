@@ -16,5 +16,7 @@ namespace Web.Entity.Dto
         public bool? IsActive { get; set; }
         public bool? IsPrimary { get; set; }
         public HttpPostedFileBase Image { get; set; }
+
+        public string ImageString { get; set; }
     }
 }

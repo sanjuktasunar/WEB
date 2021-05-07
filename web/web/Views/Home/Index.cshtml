@@ -1,8 +1,7 @@
-﻿@model web.Utility.ParameterClass
+﻿@model Web.Entity.Dto.UserSite.UserIndexDto
 @{
     Layout = "~/Views/Shared/_FrontLayout.cshtml";
 }
-
 
 <!-- Start Banner Hero -->
 <div class="banner-wrapper bg-light">
@@ -96,22 +95,26 @@
             You are free to use this template for your commercial or business websites. You are not allowed to re-distribute this template ZIP file on any template collection websites. It is too easy to illegally copy and repost this template.
         </p>
     </div>
-
+    @{ 
+        var parentProducts = Model.ParentProductDto;
+        int i = 0;
+    }
     <div class="service-tag py-5 bg-secondary">
         <div class="col-md-12">
             <ul class="nav d-flex justify-content-center">
-                <li class="nav-item mx-lg-4">
-                    <a class="filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300" href="#" data-filter=".project">All</a>
-                </li>
-                <li class="nav-item mx-lg-4">
-                    <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="#" data-filter=".graphic">Graphics</a>
-                </li>
-                <li class="filter-btn nav-item mx-lg-4">
-                    <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="#" data-filter=".ui">UI/UX</a>
-                </li>
-                <li class="nav-item mx-lg-4">
-                    <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="#" data-filter=".branding">Branding</a>
-                </li>
+                @foreach (var parentProduct in parentProducts)
+                {
+                    i = i + 1;
+                    string className = "filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300";
+                    if (i == 1)
+                    {
+                        className = "filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300";
+                    }
+                    string dataFilter = "." + parentProduct.ProductId;
+                    <li class="filter-btn nav-item mx-lg-4">
+                        <a class="@className" href="#" data-filter="@dataFilter" onclick="showChildProduct('@parentProduct.ProductId')">@parentProduct.ProductName</a>
+                    </li>
+                }
             </ul>
         </div>
     </div>
@@ -119,10 +122,27 @@
 </section>
 
 <section class="container overflow-hidden py-5">
-    <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects">
+    <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects" id="childProduct">
+        @foreach (var x in Model.ChildProductDto)
+        {
+            var divClassName= "col-xl-3 col-md-4 col-sm-6 project ui "+x.ParentProductId;
+            <!-- Start Recent Work -->
+            <div class="@divClassName">
+                <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
+                    <img class="service card-img" src="data:image;base64,@Convert.ToBase64String(x.Photo)" alt="Card image">
 
+                    <div class="service-work-vertical card-img-overlay d-flex align-items-end">
+                        <div class="service-work-content text-left text-light">
+                            <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">@x.ProductNameNepali</span>
+                            @*<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>*@
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Recent Work -->
+        }
         <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project ui branding">
+        @*<div class="col-xl-3 col-md-4 col-sm-6 project ui">
             <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                 <img class="service card-img" src="./assets/img/services-01.jpg" alt="Card image">
                 <div class="service-work-vertical card-img-overlay d-flex align-items-end">
@@ -132,91 +152,8 @@
                     </div>
                 </div>
             </a>
-        </div><!-- End Recent Work -->
-        <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
-            <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                <img class="card-img" src="./assets/img/services-02.jpg" alt="Card image">
-                <div class="service-work-vertical card-img-overlay d-flex align-items-end">
-                    <div class="service-work-content text-left text-light">
-                        <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Social Media</span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-                    </div>
-                </div>
-            </a>
-        </div><!-- End Recent Work -->
-        <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project branding">
-            <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                <img class="card-img" src="./assets/img/services-03.jpg" alt="Card image">
-                <div class="service-work-vertical card-img-overlay d-flex align-items-end">
-                    <div class="service-work-content text-left text-light">
-                        <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Marketing</span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-                    </div>
-                </div>
-            </a>
-        </div><!-- End Recent Work -->
-        <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
-            <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                <img class="card-img" src="./assets/img/services-04.jpg" alt="Card image">
-                <div class="service-work-vertical card-img-overlay d-flex align-items-end">
-                    <div class="service-work-content text-left text-light">
-                        <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Graphic</span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-                    </div>
-                </div>
-            </a>
-        </div><!-- End Recent Work -->
-        <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
-            <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                <img class="card-img" src="./assets/img/services-05.jpg" alt="Card image">
-                <div class="service-work-vertical card-img-overlay d-flex align-items-end">
-                    <div class="service-work-content text-left text-light">
-                        <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Digtal Marketing</span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-                    </div>
-                </div>
-            </a>
-        </div><!-- End Recent Work -->
-        <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project branding">
-            <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                <img class="card-img" src="./assets/img/services-06.jpg" alt="Card image">
-                <div class="service-work-vertical card-img-overlay d-flex align-items-end">
-                    <div class="service-work-content text-left text-light">
-                        <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Market Research</span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-                    </div>
-                </div>
-            </a>
-        </div><!-- End Recent Work -->
-        <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project branding">
-            <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                <img class="card-img" src="./assets/img/services-07.jpg" alt="Card image">
-                <div class="service-work-vertical card-img-overlay d-flex align-items-end">
-                    <div class="service-work-content text-left text-light">
-                        <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Business</span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-                    </div>
-                </div>
-            </a>
-        </div><!-- End Recent Work -->
-        <!-- Start Recent Work -->
-        <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic branding">
-            <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                <img class="card-img" src="./assets/img/services-08.jpg" alt="Card image">
-                <div class="service-work-vertical card-img-overlay d-flex align-items-end">
-                    <div class="service-work-content text-left text-light">
-                        <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Branding</span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-                    </div>
-                </div>
-            </a>
-        </div><!-- End Recent Work -->
+        </div>*@
+        <!-- End Recent Work -->
 
     </div>
 </section>
@@ -326,10 +263,14 @@
 @Scripts.Render("~/web/front-end")
 <script>
     $(window).load(function () {
-        // init Isotope
         var $projects = $('.projects').isotope({
             itemSelector: '.project',
             layoutMode: 'fitRows'
+        });
+        //var data_filter = $(".filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300").attr("data-filter");
+        ////alert(data_filter)
+        $projects.isotope({
+            filter: data_filter
         });
         $(".filter-btn").click(function () {
             var data_filter = $(this).attr("data-filter");
@@ -343,4 +284,44 @@
             return false;
         });
     });
+
+    function showChildProduct(id) {
+        //alert(id);
+        //$(".filter-btn").removeClass("active");
+        //$(".filter-btn").removeClass("shadow");
+        //$(this).addClass("active");
+        //$(this).addClass("shadow");
+
+        //$.get("/Home/GetChildProductByParentProductId/" + id, function (response) {
+        //    $("#childProduct").empty();
+        //    $.each(response, function (index, res) {
+        //        var imgId = index + res.ProductCode;
+        //        var className ="col-xl-3 col-md-4 col-sm-6 project ui"+res.ParentProductId
+        //        $("#childProduct").append(
+        //            '<div class=' + className + '>'
+        //           + '<a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">'
+        //            + '<img id=' + imgId+'>'
+        //                + '<div class="service-work-vertical card-img-overlay d-flex align-items-end">'
+        //                     +'<div class="service-work-content text-left text-light">'
+        //                    + '<span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">'
+        //                    +res.ProductName
+        //                    + '</span>'
+        //                    + '<p class="card-text">'
+        //                        + res.ProductName
+        //                    +'</p>'
+        //                    +'</div>'
+        //                +'</div>'
+        //           +'</a>'
+        //            + '</div>')
+
+        //        var baseString = 'data:image;base64,' + res.ProductImage.ImageString;
+        //        document.getElementById(imgId).src = baseString;
+        //    })
+        //});
+
+        //var data_filter = $(this).attr("data-filter");
+        //$projects.isotope({
+        //    filter: data_filter
+        //});
+    }
 </script>

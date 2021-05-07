@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace web.Utility
+namespace Web.Entity.Dto.UserSite
 {
     public class DisplayParamters
     {
@@ -23,10 +23,11 @@ namespace web.Utility
             var obj = new ParameterClass();
             if(LanguageId==2)
             {
-                obj.Home = "होम";
+                obj.Home = "गृह पृष्ठ";
                 obj.AboutUs = "हाम्रो बारेमा";
                 obj.ContactUs = "संपर्क";
                 obj.Login = "लग इन";
+                obj.Products = "सामन हरु";
             }
             else
             {
@@ -34,6 +35,7 @@ namespace web.Utility
                 obj.AboutUs = "About US";
                 obj.ContactUs = "Contact Us";
                 obj.Login = "Log In";
+                obj.Products = "Products";
             }
             return obj;
         }
@@ -42,10 +44,11 @@ namespace web.Utility
         {
             return new MenuLink
             {
-                HomeLink = "~/",
-                AboutUsLink = "~/AboutUs",
-                ContactUsLink = "~/ContactUs",
+                HomeLink = "/",
+                AboutUsLink = "/AboutUs",
+                ContactUsLink = "/ContactUs",
                 LoginLink = "/Login",
+                ProductLink = "/Products",
             };
         }
     }
