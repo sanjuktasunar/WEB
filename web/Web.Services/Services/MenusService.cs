@@ -20,9 +20,9 @@ namespace Web.Services.Services
         IEnumerable<MenuAccessPermissionDto> GetMenusForUser();
         Task<MenusDto> GetMenusByIdAsync(int id);
         Task<IEnumerable<MenusDto>> GetParentMenusAsync();
-        Task<string> Insert(MenusDto dto);
-        Task<string> Update(MenusDto dto);
-        Task<string> Delete(int id);
+        string Insert(MenusDto dto);
+        string Update(MenusDto dto);
+        string Delete(int id);
     }
     public class MenusService : IMenusService
     {
@@ -56,16 +56,16 @@ namespace Web.Services.Services
             return (await _menusRepository.GetParentMenusAsync());
         }
 
-        public async Task<string> Insert(MenusDto dto)
+        public string Insert(MenusDto dto)
         {
             string message = "";
-            var con = _baseInterface.GetConnection();
-            var transaction = con.BeginTransaction();
+            //var con = _baseInterface.GetConnection();
+            //var transaction = con.BeginTransaction();
             try
             {
                 var entity = dto.ToEntity();
-                int result = _menusRepository.Insert(entity,con,transaction);
-                await _menusRepository.MenuOrder(entity, con, transaction);
+                int result = _menusRepository.Insert(entity);
+                //await _menusRepository.MenuOrder(entity, con, transaction);
                  message = _message.ShowSuccessMessage(result) + "+" + result;
             }
             catch(SqlException ex)
@@ -76,44 +76,43 @@ namespace Web.Services.Services
             return message;
         }
 
-        public async Task<string> Update(MenusDto dto)
+        public string Update(MenusDto dto)
         {
             string message = "";
-            var con = _baseInterface.GetConnection();
-            var transaction = con.BeginTransaction();
+            //var con = _baseInterface.GetConnection();
+            //var transaction = con.BeginTransaction();
             try
             {
                 var entity = dto.ToEntity();
-                int result = _menusRepository.Update(entity,con,transaction);
-                await _menusRepository.MenuOrder(entity, con, transaction);
+                int result = _menusRepository.Update(entity);
                 message = _message.ShowSuccessMessage(result) + "+" + result;
-                transaction.Commit();
+                //transaction.Commit();
             }
             catch (SqlException ex)
             {
                 message = _message.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
-                transaction.Rollback();
+                //transaction.Rollback();
             }
 
             return message;
         }
 
-        public async Task<string> Delete(int id) 
+        public string Delete(int id) 
         {
             string message = "";
-            var con = _baseInterface.GetConnection();
-            var transaction = con.BeginTransaction();
+            //var con = _baseInterface.GetConnection();
+            //var transaction = con.BeginTransaction();
             try
             {
-                await _menusRepository.MenuOrderOnDelete(id, con, transaction);
-                int result = _menusRepository.Delete(id,con,transaction);
+                //await _menusRepository.MenuOrderOnDelete(id, con, transaction);
+                int result = _menusRepository.Delete(id);
                 message = _message.ShowDeleteMessage(result);
-                transaction.Commit();
+                //transaction.Commit();
             }
             catch (SqlException ex)
             {
                 message = _message.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
-                transaction.Rollback();
+                //transaction.Rollback();
             }
             return message;
         }

@@ -99,20 +99,20 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form id="form_validation" enctype="multipart/form-data">
-                            <input type="hidden" value="@Model.ProductId" name="ProductId" 
-                                   id="ProductId "/>
+                            <input type="hidden" value="@Model.ProductId" name="ProductId"
+                                   id="ProductId " />
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="file"
                                                name="Image"
-                                               class="form-control" id="Image"/>
+                                               class="form-control" id="Image" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="checkbox" name="IsPrimary" 
-                                                id="IsPrimary"
+                                        <input type="checkbox" name="IsPrimary"
+                                               id="IsPrimary"
                                                value="True" /> Is Primary
                                     </div>
                                 </div>
@@ -128,16 +128,10 @@
         </div>
     </div>
 </div>
-<!-- Bootstrap core JavaScript-->
-<script src="~/assets/vendor/jquery/jquery.min.js"></script>
-<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="~/assets/js/sb-admin-2.min.js"></script>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
 <script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
-<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
-<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+@Scripts.Render("~/web/back-end/message")
 
 <script>
     $('#dataTable').DataTable();

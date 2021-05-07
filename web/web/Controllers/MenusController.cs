@@ -55,33 +55,33 @@ namespace web.Controllers
         }
 
         [HttpPost]
-        public async Task<string> Insert(MenusDto dto)
+        public string Insert(MenusDto dto)
         {
             if (menu.WriteAccess == true || menu.AdminAccess)
             {
-                return (await _menusService.Insert(dto));
+                return (_menusService.Insert(dto));
             }
             else
                 return null;
         }
 
         [HttpPost]
-        public async Task<string> Update(MenusDto dto)
+        public string Update(MenusDto dto)
         {
             if (menu.ModifyAccess == true || menu.AdminAccess)
             {
-                return (await _menusService.Update(dto));
+                return (_menusService.Update(dto));
             }
             else
                 return null;
         }
 
-        public async Task<string> Delete(int id)
+        public string Delete(int id)
         {
             if (!menu.DeleteAccess == true || !menu.AdminAccess)
                 return null;
 
-            return (await _menusService.Delete(id));
+            return (_menusService.Delete(id));
         }
     }
 }

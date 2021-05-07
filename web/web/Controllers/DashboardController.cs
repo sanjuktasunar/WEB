@@ -13,6 +13,7 @@ namespace web.Controllers
     [Authorize]
     public class DashboardController : BaseController
     {
+        [Route("~/Dashboard")]
         public ActionResult Index()
         {
             return View();

@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Menus";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
 }
 <h1 class="h3 mb-2 text-gray-800">Menus List</h1>
 
@@ -28,55 +29,51 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-              <tbody>
-                  @{ int i = 0; }
-                  @foreach(var x in Model)
-                   {
-                      i++;
-                      <tr>
-                          <td>@i</td>
-                          <td hidden="hidden">@x.MenuId</td>
-                          <td>@x.MenuNameEnglish</td>
-                          <td>@x.MenuNameNepali</td>
-                          <td>@x.ParentMenuNameEnglish</td>
-                          <td>@x.MenuLink</td>
-                          <td><i class="@x.MenuIcon"></i></td>
-                          <td>@x.MenuOrder</td>
-                          <td>
-                              @if (x.Status == true)
-                              {
-                                  <span class="badge badge-success">Active</span>
-                              }
-                              else
-                              {
-                                  <span class="badge badge-danger">Inactive</span>
-                              }
-                          </td>
-                          <td>
-                              <a href="~/AddModifyMenus/@x.MenuId" class="btn btn-success btn-circle btn-sm" id="btnEdit">
-                                  <i class="fas fa-edit"></i>
-                              </a>
-                              <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
-                                  <i class="fas fa-trash"></i>
-                              </button>
-                          </td>
-                      </tr>
-                   }
-              </tbody>
+                <tbody>
+                    @{ int i = 0; }
+                    @foreach (var x in Model)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td hidden="hidden">@x.MenuId</td>
+                            <td>@x.MenuNameEnglish</td>
+                            <td>@x.MenuNameNepali</td>
+                            <td>@x.ParentMenuNameEnglish</td>
+                            <td>@x.MenuLink</td>
+                            <td><i class="@x.MenuIcon"></i></td>
+                            <td>@x.MenuOrder</td>
+                            <td>
+                                @if (x.Status == true)
+                                {
+                                    <span class="badge badge-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Inactive</span>
+                                }
+                            </td>
+                            <td>
+                                <a href="~/AddModifyMenus/@x.MenuId" class="btn btn-success btn-circle btn-sm" id="btnEdit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="~/assets/vendor/jquery/jquery.min.js"></script>
-<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="~/assets/js/sb-admin-2.min.js"></script>
-<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="~/assets/custom-plugin/sweetalert.min.js"></script>
-<script src="~/assets/custom-plugin/ShowMessage.js"></script>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+@Scripts.Render("~/web/back-end/datatable")
+@Scripts.Render("~/web/back-end/message")
 
 <script>
     $('#dataTable').DataTable();

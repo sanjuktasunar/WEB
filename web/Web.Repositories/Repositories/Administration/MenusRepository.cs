@@ -19,9 +19,10 @@ namespace Web.Repositories.Repositories.Administration
         IEnumerable<MenuAccessPermissionDto> GetMenusByUserId(int? UserId);
         Task<MenusDto> GetMenusByIdAsync(int id);
         Task<IEnumerable<MenusDto>> GetParentMenusAsync();
-        int Insert(Menus entity, SqlConnection con, IDbTransaction transaction);
-        int Update(Menus entity, SqlConnection con, IDbTransaction transaction);
-        int Delete(int id, SqlConnection con, IDbTransaction transaction);
+        int Insert(Menus entity);
+        int Update(Menus entity);
+        int Delete(int id);
+        //int Delete(int id, SqlConnection con, IDbTransaction transaction);
         Task MenuOrder(Menus entity, SqlConnection con, IDbTransaction transaction);
         Task MenuOrderOnDelete(int menuId, SqlConnection con, IDbTransaction transaction);
     }
@@ -85,19 +86,19 @@ namespace Web.Repositories.Repositories.Administration
             return menus;
         }
 
-        public int Insert(Menus entity,SqlConnection con,IDbTransaction transaction)
+        public int Insert(Menus entity)
         {
-            return (_menusRepo.Insert(entity,transaction,con));
+            return (_menusRepo.Insert(entity));
         }
 
-        public int Update(Menus entity, SqlConnection con, IDbTransaction transaction)
+        public int Update(Menus entity)
         {
-            return (_menusRepo.Update(entity,transaction,con));
+            return (_menusRepo.Update(entity));
         }
 
-        public int Delete(int id, SqlConnection con, IDbTransaction transaction)
+        public int Delete(int id)
         {
-            return (_menusRepo.Delete(id,transaction,con));
+            return (_menusRepo.Delete(id));
         }
 
         public async Task MenuOrder(Menus entity,SqlConnection con,IDbTransaction transaction)
