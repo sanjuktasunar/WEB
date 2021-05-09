@@ -209,6 +209,7 @@
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PublicSite\HomeController.cs" />
+    <Compile Include="Controllers\PublicSite\HomeProductController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2200,6 +2201,7 @@
     <Content Include="Views\Product\ProductImage.cshtml" />
     <Content Include="Views\Shared\_FrontLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\HomeProduct\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
