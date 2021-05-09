@@ -85,8 +85,11 @@
     <Compile Include="Repositories\Account\ProductRepository.cs" />
     <Compile Include="Repositories\Account\UnitRepository.cs" />
     <Compile Include="Repositories\Administration\AdministrationRepository.cs" />
+    <Compile Include="Repositories\Administration\DepartmentRepository.cs" />
+    <Compile Include="Repositories\Administration\DesignationRepository.cs" />
     <Compile Include="Repositories\Administration\MenusRepository.cs" />
     <Compile Include="Repositories\Administration\PhotoStorageRepository.cs" />
+    <Compile Include="Repositories\Administration\RoleRepository.cs" />
     <Compile Include="Repositories\Administration\StaffsRepository.cs" />
     <Compile Include="Repositories\Administration\UsersRepository.cs" />
     <Compile Include="Repositories\InitialSetupRepository.cs" />

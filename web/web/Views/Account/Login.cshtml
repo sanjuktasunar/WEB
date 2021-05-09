@@ -22,12 +22,12 @@
           rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="~/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/assets/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/assets/custom-plugin/sweetalert.min.css" rel="stylesheet" />
 
 </head>
 
 <body class="bg-gradient-primary">
-
     <div class="container">
 
         <!-- Outer Row -->
@@ -43,7 +43,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">BKP Login !!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">BKP STORE</h1>
                                     </div>
                                     <form class="user" method="POST" action="~/Account/Login">
                                         <div class="form-group">
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input"                                             id="customCheck">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">
                                                     Remember
                                                     Me
@@ -72,9 +72,9 @@
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
+                                    @*<div class="text-center">
+                                            <a class="small" href="register.html">Create an Account!</a>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,23 @@
 
     <!-- Custom scripts for all pages-->
     <script src="~/assets/js/sb-admin-2.min.js"></script>
+    <script src="~/assets/custom-plugin/sweetalert.min.js"></script>
+    @if (Model.Message != null)
+    {
+        <script>
+                swal({
+                    text: '@Model.Message',
+                    icon: "error",
+                })
+            </script>
+    }
 
+    <script>
+            //swal({
+            //    text: 'sdsd',
+            //    icon: "error",
+            //})
+    </script>
 </body>
 
 </html>

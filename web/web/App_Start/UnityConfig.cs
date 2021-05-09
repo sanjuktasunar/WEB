@@ -10,6 +10,7 @@ using Web.Repositories.Repositories.Administration;
 using Web.Repositories.Utitlities;
 using Web.Services.Services;
 using Web.Services.Services.Account;
+using Web.Services.Services.Administration;
 
 namespace web
 {
@@ -27,6 +28,9 @@ namespace web
             container.RegisterType<IBaseRepo<Product>, BaseRepo<Product>>();
             container.RegisterType<IBaseRepo<ProductPrice>, BaseRepo<ProductPrice>>();
             container.RegisterType<IBaseRepo<ProductImage>, BaseRepo<ProductImage>>();
+            container.RegisterType<IBaseRepo<Role>, BaseRepo<Role>>();
+            container.RegisterType<IBaseRepo<Designation>, BaseRepo<Designation>>();
+            container.RegisterType<IBaseRepo<Department>, BaseRepo<Department>>();
 
 
             //utilities
@@ -41,6 +45,9 @@ namespace web
             container.RegisterType<IAdministrationRepository, AdministrationRepository>();
             container.RegisterType<IUnitRepository, UnitRepository>();
             container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IDesignationRepository, DesignationRepository>();
+            container.RegisterType<IRoleRepository, RoleRepository>();
+            container.RegisterType<IDepartmentRepository, DepartmentRepository>();
 
 
             //services
@@ -51,6 +58,9 @@ namespace web
             container.RegisterType<IAdministrationService, AdministrationService>();
             container.RegisterType<IUnitService, UnitService>();
             container.RegisterType<IProductService, ProductService>();
+            container.RegisterType<IRoleService, RoleService>();
+            container.RegisterType<IDesignationService, DesignationService>();
+            container.RegisterType<IDepartmentService, DepartmentService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -1,5 +1,4 @@
-﻿@model Web.Entity.Dto.UserSite.UserIndexDto
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>BKP Store</title>
@@ -19,8 +18,9 @@
 </head>
 <body>
     @{ 
-        var param = Model.ParameterClass;
-        var link = param.MenuLink;
+        var obj = new Web.Entity.Dto.UserSite.DisplayParamters();
+        var param = obj.GetParameters();
+        var link = obj.GetMenuLink();
     }
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">

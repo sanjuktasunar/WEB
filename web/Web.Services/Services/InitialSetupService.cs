@@ -41,7 +41,7 @@ namespace Web.Services.Services
             int UserId = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
             var menus = _initialSetupRepository.GetPermissionForStaffByMenuAsync(UserId, checkMenuName.Trim());
             if (menus.Count() == 0)
-                return null;
+                return new MenuAccessPermissionDto { CheckMenuName=checkMenuName };
             var menu = menus.FirstOrDefault();
             if (menu.AdminAccess)
                 menu.ReadAccess = menu.WriteAccess = menu.ModifyAccess = menu.DeleteAccess = true;
