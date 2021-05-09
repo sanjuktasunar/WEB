@@ -22,11 +22,12 @@ namespace web.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("~/Login")]
-        public ActionResult Login()
+        public ActionResult Login(string message=null)
         {
             EnsureLogout();
             Session["LangId"] = 2;
             var obj = new UsersDto();
+            obj.Message = message;
             return View(obj);
         }
 
@@ -38,11 +39,24 @@ namespace web.Controllers
                 return View(dto);
 
             var data =await _usersService.GetLoginUser(dto);
-            if (data == null)
-                return Redirect("~/Login");
-            if(data.UserTypeId==2)
-                return RedirectToAction("Index", "Dashboard");
-            return View(dto);
+            if (data != null)
+            {
+                if (data.UserTypeId == 2 && data.UserStatusId == 1)
+                    return RedirectToAction("Index", "Dashboard");
+                else if (data.UserStatusId == 2)
+                {
+                    dto.Message = "Your Account is not active";
+                }
+
+                else if (data.UserStatusId == 3)
+                {
+                    dto.Message = "You are suspended,Please contact to admin for further information";
+                }
+            }
+            else
+                dto.Message = "User name or password is not correct";
+            string url = string.Format(@"/Login?message={0}", dto.Message);
+            return Redirect(url);
         }
 
         public ActionResult Logout()
