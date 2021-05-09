@@ -233,6 +233,7 @@
     <Content Include="assets\custom-plugin\ShowMessage.js" />
     <Content Include="assets\custom-plugin\sweetalert.min.css" />
     <Content Include="assets\custom-plugin\sweetalert.min.js" />
+    <Content Include="assets\img\login.jpg" />
     <Content Include="assets\img\undraw_posting_photo.svg" />
     <Content Include="assets\img\undraw_profile.svg" />
     <Content Include="assets\img\undraw_profile_1.svg" />
