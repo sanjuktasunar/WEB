@@ -20,6 +20,7 @@ namespace Web.Entity.Dto
         public string Password { get; set; }
         public string EmailAddress { get; set; }
         public string ContactNumber { get; set; }
-        public int UserStatus { get; set; }
+        public int UserStatusId { get; set; }
+        public string Message { get; set; }
     }
 }
