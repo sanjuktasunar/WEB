@@ -24,6 +24,7 @@ namespace Web.Services.Mapping
                 Password = entity.Password,
                 EmailAddress = entity.EmailAddress,
                 ContactNumber=entity.ContactNumber,
+                UserStatusId=entity.UserStatusId
             };
         }
 
