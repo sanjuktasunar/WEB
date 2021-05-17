@@ -106,6 +106,7 @@
     <Compile Include="Dto\UsersDto.cs" />
     <Compile Include="Dto\UserSite\DisplayParamters.cs" />
     <Compile Include="Dto\UserSite\ParameterClass.cs" />
+    <Compile Include="Dto\UserSite\ProductPageDto.cs" />
     <Compile Include="Dto\UserSite\UserIndexDto.cs" />
     <Compile Include="Dto\UserStatusDto.cs" />
     <Compile Include="Dto\VersionInfoDto.cs" />

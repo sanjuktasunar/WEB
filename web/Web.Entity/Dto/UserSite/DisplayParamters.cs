@@ -28,6 +28,9 @@ namespace Web.Entity.Dto.UserSite
                 obj.ContactUs = "संपर्क";
                 obj.Login = "लग इन";
                 obj.Products = "सामन हरु";
+                obj.OurProducts = "हाम्रो सामनहरु";
+                obj.Per = "Per";
+                obj.Rs = "Rs";
             }
             else
             {
@@ -36,6 +39,9 @@ namespace Web.Entity.Dto.UserSite
                 obj.ContactUs = "Contact Us";
                 obj.Login = "Log In";
                 obj.Products = "Products";
+                obj.OurProducts = "Our Products";
+                obj.Per = "Per";
+                obj.Rs = "Rs";
             }
             return obj;
         }

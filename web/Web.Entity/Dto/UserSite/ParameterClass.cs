@@ -12,6 +12,9 @@ namespace Web.Entity.Dto.UserSite
         public string ContactUs { get; set; }
         public string Login { get; set; }
         public string Products { get; set; }
+        public string OurProducts { get; set; }
+        public string Per { get; set; }
+        public string Rs { get; set; }
 
         public MenuLink MenuLink { get; set; }
     }
