@@ -36,6 +36,7 @@ namespace Web.Services.Services.Account
         Task<IEnumerable<ProductDto>> GetChildProductByParentProductId(int parentProductId);
         Task<IEnumerable<ProductDto>> GetDisplayProducts();
         //Task<ProductImageDto> GetIsPrimaryImage(int ProductId);
+        Task<IEnumerable<ProductDto>> GetDisplayProductsForProductPage();
     }
 
     public class ProductService:IProductService
@@ -153,6 +154,11 @@ namespace Web.Services.Services.Account
         public async Task<IEnumerable<ProductPriceDto>> GetProductPriceByProductId(int productId)
         {
             return (await _productRepository.GetProductPriceByProductIdAsync(productId));
+        }
+
+        public async Task<IEnumerable<ProductPriceDto>> GetActiveProductPriceByProductId(int ProductId)
+        {
+            return (await GetProductPriceByProductId(ProductId)).Where(a => a.Status == true);
         }
 
         public async Task<string> InsertProductPrice(ProductPriceDto dto)
@@ -337,7 +343,16 @@ namespace Web.Services.Services.Account
 
         public async Task<IEnumerable<ProductDto>> GetDisplayProducts()
         {
-            return await _productRepository.GetDisplayProductAsync();
+            var obj= await _productRepository.GetDisplayProductAsync();
+            return obj;
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetDisplayProductsForProductPage()
+        {
+            var obj = await _productRepository.GetDisplayProductAsync();
+            foreach (var x in obj)
+                x.GetProductPrice = await GetActiveProductPriceByProductId(x.ProductId);
+            return obj;
         }
     }
 }

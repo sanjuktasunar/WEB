@@ -212,6 +212,7 @@
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PublicSite\HomeController.cs" />
+    <Compile Include="Controllers\PublicSite\PublicProductController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2210,6 +2211,8 @@
     <Content Include="Views\Department\AddModifyDepartment.cshtml" />
     <Content Include="Views\Designation\Designation.cshtml" />
     <Content Include="Views\Designation\AddModifyDesignation.cshtml" />
+    <Content Include="Views\PublicProduct\Product.cshtml" />
+    <Content Include="Views\PublicProduct\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
