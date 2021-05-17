@@ -25,6 +25,7 @@ namespace Web.Services.Services.Account
         Task<ProductDto> DropDownList(ProductDto dto);
         Task<IEnumerable<ProductPriceDto>> GetProductPriceByProductId(int productId);
         Task<string> InsertProductPrice(ProductPriceDto dto);
+        Task<IEnumerable<ProductPriceDto>> GetActiveProductPriceByProductId(int ProductId);
         string Delete(int id);
         string DeletePrice(int id);
         Task<string> UpdatePrice(int productPriceId);

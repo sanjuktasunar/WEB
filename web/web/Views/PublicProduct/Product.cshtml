@@ -27,7 +27,7 @@
     <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects" id="childProduct">
         @foreach (var x in Model.GetAllProducts)
         {
-            var divClassName = "col-xl-3 col-md-4 col-sm-6 project ui " + x.ParentProductId;
+            var divClassName = "col-xl-2 col-md-2 col-sm-2 project ui " + x.ParentProductId;
             <!-- Start Recent Work -->
             <div class="@divClassName">
                 <a href="~/ProductDetails/@x.ProductId" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
@@ -43,7 +43,6 @@
                     <span class="card-text">Per @price.UnitName - Rs.                        @price.SellingPrice</span> <br />
                 }
             </div>
-
             <!-- End Recent Work -->
         }
     </div>

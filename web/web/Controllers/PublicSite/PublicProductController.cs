@@ -28,8 +28,10 @@ namespace web.Controllers.PublicSite
         public async Task<ActionResult> ProductDetails(int productId)
         {
             var obj = new ProductPageDto();
-            obj.GetAllProducts = await _productService.GetDisplayProductsForProductPage();
-            return View();
+            obj.Product =await _productService.GetProductById(productId);
+            obj.ProductImages = await _productService.GetProductImageByProductId(productId);
+            obj.ProductPrice = await _productService.GetActiveProductPriceByProductId(productId);
+            return View(obj);
         }
     }
 }
