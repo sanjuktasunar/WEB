@@ -35,3 +35,7 @@ D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\System.Numerics.Vectors.xml
 D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\System.Text.Encodings.Web.xml
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csproj.CopyComplete
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\PagedList.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\PagedList.Mvc.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\PagedList.xml
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\PagedList.Mvc.xml
