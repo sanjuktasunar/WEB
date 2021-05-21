@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
@@ -25,6 +26,7 @@ namespace Web.Services.Services.Account
         Task<ProductDto> DropDownList(ProductDto dto);
         Task<IEnumerable<ProductPriceDto>> GetProductPriceByProductId(int productId);
         Task<string> InsertProductPrice(ProductPriceDto dto);
+        Task<IEnumerable<ProductPriceDto>> GetActiveProductPriceByProductId(int ProductId);
         string Delete(int id);
         string DeletePrice(int id);
         Task<string> UpdatePrice(int productPriceId);
@@ -36,7 +38,7 @@ namespace Web.Services.Services.Account
         Task<IEnumerable<ProductDto>> GetChildProductByParentProductId(int parentProductId);
         Task<IEnumerable<ProductDto>> GetDisplayProducts();
         //Task<ProductImageDto> GetIsPrimaryImage(int ProductId);
-        Task<IEnumerable<ProductDto>> GetDisplayProductsForProductPage();
+        Task<IPagedList<ProductDto>> GetDisplayProductsForProductPage(int pageNumber, int pageSize, string query);
     }
 
     public class ProductService:IProductService
@@ -347,9 +349,9 @@ namespace Web.Services.Services.Account
             return obj;
         }
 
-        public async Task<IEnumerable<ProductDto>> GetDisplayProductsForProductPage()
+        public async Task<IPagedList<ProductDto>> GetDisplayProductsForProductPage(int pageNumber,int pageSize,string query)
         {
-            var obj = await _productRepository.GetDisplayProductAsync();
+            var obj = await _productRepository.GetDisplayProductPaginationAsync(pageNumber, pageSize,query);
             foreach (var x in obj)
                 x.GetProductPrice = await GetActiveProductPriceByProductId(x.ProductId);
             return obj;
