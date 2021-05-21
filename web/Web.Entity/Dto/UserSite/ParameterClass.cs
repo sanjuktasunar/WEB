@@ -15,6 +15,7 @@ namespace Web.Entity.Dto.UserSite
         public string OurProducts { get; set; }
         public string Per { get; set; }
         public string Rs { get; set; }
+        public string Search { get; set; }
 
         public MenuLink MenuLink { get; set; }
     }

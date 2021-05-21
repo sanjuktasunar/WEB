@@ -14,7 +14,8 @@ namespace Web.Entity.Dto.UserSite
             {
                 LanguageId = Convert.ToInt32(HttpContext.Current.Session["LangId"]);
             }
-            return LanguageId;
+            //return LanguageId;
+            return 2;
         }
       
         public ParameterClass GetParameters()
@@ -29,8 +30,9 @@ namespace Web.Entity.Dto.UserSite
                 obj.Login = "लग इन";
                 obj.Products = "सामन हरु";
                 obj.OurProducts = "हाम्रो सामनहरु";
-                obj.Per = "Per";
-                obj.Rs = "Rs";
+                obj.Per = "प्रति";
+                obj.Rs = "रु.";
+                obj.Search = "खोजी गर्नुहोस्";
             }
             else
             {
@@ -41,7 +43,8 @@ namespace Web.Entity.Dto.UserSite
                 obj.Products = "Products";
                 obj.OurProducts = "Our Products";
                 obj.Per = "Per";
-                obj.Rs = "Rs";
+                obj.Rs = "Rs.";
+                obj.Search = "Search";
             }
             return obj;
         }

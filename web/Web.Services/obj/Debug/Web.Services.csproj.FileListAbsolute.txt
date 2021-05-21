@@ -66,3 +66,7 @@ D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.Buffers.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.Memory.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.Numerics.Vectors.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.Text.Encodings.Web.xml
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\PagedList.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\PagedList.xml
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\PagedList.Mvc.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\PagedList.Mvc.xml
