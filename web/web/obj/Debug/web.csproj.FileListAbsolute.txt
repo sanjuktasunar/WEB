@@ -141,3 +141,7 @@ D:\A-BKPAPP\WEB\web\web\obj\Debug\web.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\web\obj\Debug\web.dll
 D:\A-BKPAPP\WEB\web\web\obj\Debug\web.pdb
 D:\A-BKPAPP\WEB\web\web\bin\Web.Entity.dll.config
+D:\A-BKPAPP\WEB\web\web\bin\PagedList.dll
+D:\A-BKPAPP\WEB\web\web\bin\PagedList.Mvc.dll
+D:\A-BKPAPP\WEB\web\web\bin\PagedList.xml
+D:\A-BKPAPP\WEB\web\web\bin\PagedList.Mvc.xml

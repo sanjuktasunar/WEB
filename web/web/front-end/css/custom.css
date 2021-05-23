@@ -4,5 +4,13 @@ Custom CSS for TemplateMo 561 Purple Buzz
 https://templatemo.com/tm-561-purple-buzz
 
 */
+.logo {
+    width: 20%;
+    height: 10%;
+    margin-top: -6px;
+}
 
-
+.logo-footer {
+    width: 20%;
+    height: 10%;
+}

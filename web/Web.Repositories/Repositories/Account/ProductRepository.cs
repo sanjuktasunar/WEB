@@ -10,6 +10,8 @@ using Web.Database;
 using Web.Database.BaseRepo;
 using Web.Entity.Dto;
 using Web.Entity.Entity;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Web.Repositories.Repositories.Account
 {
@@ -36,6 +38,7 @@ namespace Web.Repositories.Repositories.Account
         int UpdateProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
         Task<IEnumerable<ProductDto>> GetChildProductByParentProductIdAsync(int parentProductId);
         Task<IEnumerable<ProductDto>> GetDisplayProductAsync();
+        Task<IPagedList<ProductDto>> GetDisplayProductPaginationAsync(int pageNumber, int pageSize, string query);
     }
     public class ProductRepository:IProductRepository
     {
@@ -177,6 +180,15 @@ namespace Web.Repositories.Repositories.Account
         public async Task<IEnumerable<ProductDto>> GetDisplayProductAsync()
         {
             return (await _dapperManager.QueryAsync<ProductDto>("SELECT * FROM DisplayProductView"));
+        }
+
+        public async Task<IPagedList<ProductDto>> GetDisplayProductPaginationAsync(int pageNumber, int pageSize,string query)
+        {
+            if (pageNumber <= 0)
+                pageNumber = 1;
+            var result= await _dapperManager.StoredProcedureAsync<ProductDto>("[dbo].[Sp_SearchProductForDisplay]",new { query=query });
+            var data= result.ToPagedList(pageNumber, pageSize);
+            return data;
         }
     }
 }

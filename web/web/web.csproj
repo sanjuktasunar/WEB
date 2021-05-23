@@ -82,6 +82,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -212,6 +218,7 @@
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PublicSite\HomeController.cs" />
+    <Compile Include="Controllers\PublicSite\PublicProductController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1915,11 +1922,17 @@
     <Content Include="assets\vendor\jquery\jquery.min.js" />
     <Content Include="assets\vendor\jquery\jquery.slim.js" />
     <Content Include="assets\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="front-end\css\bootstrap.css" />
     <Content Include="front-end\css\bootstrap.min.css" />
     <Content Include="front-end\css\boxicon.min.css" />
     <Content Include="front-end\css\custom.css" />
     <Content Include="front-end\css\templatemo.css" />
+    <Content Include="front-end\favicon\android-chrome-192x192.png" />
+    <Content Include="front-end\favicon\android-chrome-512x512.png" />
+    <Content Include="front-end\favicon\apple-touch-icon.png" />
+    <Content Include="front-end\favicon\favicon-16x16.png" />
+    <Content Include="front-end\favicon\favicon-32x32.png" />
     <Content Include="front-end\fonts\boxicons.svg" />
     <Content Include="front-end\img\apple-icon.png" />
     <Content Include="front-end\img\banner-bg-01.jpg" />
@@ -1986,6 +1999,7 @@
     <Content Include="front-end\js\jquery.min.js" />
     <Content Include="front-end\js\templatemo.js" />
     <Content Include="front-end\js\templatemo.min.js" />
+    <Content Include="front-end\logo\logo.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Query\100_add_tables.sql" />
     <Content Include="Query\100_add_views_procs.sql" />
@@ -1993,6 +2007,7 @@
     <Content Include="Query\101_add_view.sql" />
     <Content Include="Query\102_add_proc.sql" />
     <Content Include="Query\103_alter_table.sql" />
+    <Content Include="Query\104_add_view.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2210,6 +2225,8 @@
     <Content Include="Views\Department\AddModifyDepartment.cshtml" />
     <Content Include="Views\Designation\Designation.cshtml" />
     <Content Include="Views\Designation\AddModifyDesignation.cshtml" />
+    <Content Include="Views\PublicProduct\Product.cshtml" />
+    <Content Include="Views\PublicProduct\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
