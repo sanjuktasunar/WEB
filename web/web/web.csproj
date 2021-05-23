@@ -1928,6 +1928,11 @@
     <Content Include="front-end\css\boxicon.min.css" />
     <Content Include="front-end\css\custom.css" />
     <Content Include="front-end\css\templatemo.css" />
+    <Content Include="front-end\favicon\android-chrome-192x192.png" />
+    <Content Include="front-end\favicon\android-chrome-512x512.png" />
+    <Content Include="front-end\favicon\apple-touch-icon.png" />
+    <Content Include="front-end\favicon\favicon-16x16.png" />
+    <Content Include="front-end\favicon\favicon-32x32.png" />
     <Content Include="front-end\fonts\boxicons.svg" />
     <Content Include="front-end\img\apple-icon.png" />
     <Content Include="front-end\img\banner-bg-01.jpg" />
@@ -1994,6 +1999,7 @@
     <Content Include="front-end\js\jquery.min.js" />
     <Content Include="front-end\js\templatemo.js" />
     <Content Include="front-end\js\templatemo.min.js" />
+    <Content Include="front-end\logo\logo.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Query\100_add_tables.sql" />
     <Content Include="Query\100_add_views_procs.sql" />
