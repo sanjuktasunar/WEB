@@ -221,6 +221,7 @@
     <Compile Include="Migrations\101_AddViews.cs" />
     <Compile Include="Migrations\102_alter_proc_views.cs" />
     <Compile Include="Migrations\103_alter_table.cs" />
+    <Compile Include="Migrations\104_add_alter_view_proc.cs" />
     <Compile Include="Migrations\LoadMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1993,6 +1994,7 @@
     <Content Include="Query\101_add_view.sql" />
     <Content Include="Query\102_add_proc.sql" />
     <Content Include="Query\103_alter_table.sql" />
+    <Content Include="Query\104_add_view.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
