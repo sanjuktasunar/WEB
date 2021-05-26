@@ -167,5 +167,28 @@ namespace Web.Services.Mapping
                 CreatedDate = dto.CreatedDate,
             };
         }
+
+        public static OrganizationInfo ToEntity(this OrganizationInfoDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new OrganizationInfo
+            {
+                OrganizationInfoId = dto.OrganizationInfoId,
+                OrganizationName=dto.OrganizationName,
+                AppName = dto.AppName,
+                Address = dto.Address,
+                ContactNumber1 = dto.ContactNumber1,
+                ContactNumber2 = dto.ContactNumber2,
+                TelephoneNumber = dto.TelephoneNumber,
+                EmailAddress = dto.EmailAddress,
+                FaxNumber = dto.FaxNumber,
+                POBoxNumber = dto.POBoxNumber,
+                Logo = dto.Logo,
+                Favicon = dto.Favicon,
+                NormalizedName = dto.NormalizedName,
+            };
+        }
     }
 }

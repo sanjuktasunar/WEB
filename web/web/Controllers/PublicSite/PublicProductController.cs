@@ -9,7 +9,7 @@ using Web.Services.Services.Account;
 
 namespace web.Controllers.PublicSite
 {
-    public class PublicProductController : Controller
+    public class PublicProductController : PublicBaseController
     {
         private IProductService _productService;
         public PublicProductController(IProductService productService)

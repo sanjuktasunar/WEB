@@ -94,6 +94,7 @@
     <Compile Include="Repositories\Administration\DepartmentRepository.cs" />
     <Compile Include="Repositories\Administration\DesignationRepository.cs" />
     <Compile Include="Repositories\Administration\MenusRepository.cs" />
+    <Compile Include="Repositories\Administration\OrganizationInfoRepository.cs" />
     <Compile Include="Repositories\Administration\PhotoStorageRepository.cs" />
     <Compile Include="Repositories\Administration\RoleRepository.cs" />
     <Compile Include="Repositories\Administration\StaffsRepository.cs" />

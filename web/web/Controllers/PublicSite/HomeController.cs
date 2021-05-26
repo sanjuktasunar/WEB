@@ -7,10 +7,11 @@ using System.Web.Mvc;
 using Web.Entity.Dto;
 using Web.Entity.Dto.UserSite;
 using Web.Services.Services.Account;
+using Web.Services.Services.Administration;
 
 namespace web.Controllers.PublicSite
 {
-    public class HomeController : Controller
+    public class HomeController : PublicBaseController
     {
         public DisplayParamters _displayParameters = new DisplayParamters();
         private IProductService _productService;

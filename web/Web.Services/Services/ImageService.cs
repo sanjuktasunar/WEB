@@ -12,6 +12,7 @@ namespace Web.Services.Services
     public interface IImageService
     {
         byte[] ConvertToByte(HttpPostedFileBase file);
+        string ConvertToString(HttpPostedFileBase file);
     }
     public class ImageService:IImageService
     {
@@ -26,6 +27,11 @@ namespace Web.Services.Services
                 }
             }
             return imageData;
+        }
+
+        public string ConvertToString(HttpPostedFileBase file)
+        {
+            return Convert.ToBase64String(ConvertToByte(file));
         }
     }
 }

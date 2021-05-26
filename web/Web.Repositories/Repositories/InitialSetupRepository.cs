@@ -15,7 +15,8 @@ namespace Web.Repositories.Repositories
         private BaseRepo<MenusDto> _menusRepo = new BaseRepo<MenusDto>();
         private BaseRepo<MenuAccessPermissionDto> _menuAccessPermissionDto = new BaseRepo<MenuAccessPermissionDto>();
         private BaseRepo<VersionInfoDto> _versionInfoRepo = new BaseRepo<VersionInfoDto>();
-       
+        private BaseRepo<OrganizationInfoDto> _organizationInfoRepo = new BaseRepo<OrganizationInfoDto>();
+
         public IEnumerable<VersionInfoDto> GetVersionInfo()
         {
             var dto = _versionInfoRepo.Query<VersionInfoDto>("SELECT * FROM VersionInfo ORDER BY Version DESC");
@@ -58,6 +59,12 @@ namespace Web.Repositories.Repositories
             var result = _menuAccessPermissionDto.Query<MenuAccessPermissionDto>("SELECT * FROM MenuAccessPermissionView WHERE StaffId=@StaffId AND CheckMenuName=@CheckMenuName",
                 new { StaffId, CheckMenuName });
             return result;
+        }
+
+        public OrganizationInfoDto GetOrganizationInfo()
+        {
+            var dto = _organizationInfoRepo.Query<OrganizationInfoDto>("SELECT * FROM OrganizationInfo").FirstOrDefault();
+            return dto;
         }
     }
 }

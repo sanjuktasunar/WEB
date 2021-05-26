@@ -13,7 +13,7 @@ namespace web.Migrations
 
         public override void Up()
         {
-            string viewprocpath = System.Web.HttpContext.Current.Server.MapPath("/Query/103_alter_table.sql");
+            string viewprocpath = System.Web.HttpContext.Current.Server.MapPath("/Query/104_add_view.sql");
             Execute.Script(viewprocpath);
         }
     }

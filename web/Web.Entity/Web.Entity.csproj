@@ -102,6 +102,7 @@
     <Compile Include="Dto\GenderDto.cs" />
     <Compile Include="Dto\MenuAccessPermissionDto.cs" />
     <Compile Include="Dto\MenusDto.cs" />
+    <Compile Include="Dto\OrganizationInfoDto.cs" />
     <Compile Include="Dto\PhotoStoragesDto.cs" />
     <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="Dto\ProductImageDto.cs" />

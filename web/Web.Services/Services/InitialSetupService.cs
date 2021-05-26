@@ -14,7 +14,6 @@ namespace Web.Services.Services
 {
     public class InitialSetupService
     {
-        
         private InitialSetupRepository _initialSetupRepository=new InitialSetupRepository();
 
         public string GetCurrentVersionInfo()
@@ -47,6 +46,9 @@ namespace Web.Services.Services
                 menu.ReadAccess = menu.WriteAccess = menu.ModifyAccess = menu.DeleteAccess = true;
             return menu;
         }
-
+        public OrganizationInfoDto GetOrganizationInfo()
+        {
+            return _initialSetupRepository.GetOrganizationInfo();
+        }
     }
 }

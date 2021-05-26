@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Entity.Entity
+namespace Web.Entity.Dto
 {
-    public class OrganizationInfo
+    public class OrganizationInfoDto
     {
         public int OrganizationInfoId { get; set; }
         public string OrganizationName { get; set; }
