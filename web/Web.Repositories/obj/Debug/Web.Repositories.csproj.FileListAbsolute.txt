@@ -36,3 +36,7 @@ D:\A-BKPAPP\WEB\web\Web.Repositories\obj\Debug\Web.Repositories.csproj.CopyCompl
 D:\A-BKPAPP\WEB\web\Web.Repositories\obj\Debug\Web.Repositories.dll
 D:\A-BKPAPP\WEB\web\Web.Repositories\obj\Debug\Web.Repositories.pdb
 D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\Web.Entity.dll.config
+D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\PagedList.dll
+D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\PagedList.Mvc.dll
+D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\PagedList.xml
+D:\A-BKPAPP\WEB\web\Web.Repositories\bin\Debug\PagedList.Mvc.xml

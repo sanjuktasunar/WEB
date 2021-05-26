@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Web.Entity.Dto;
 using Web.Entity.Dto.UserSite;
 using Web.Services.Services.Account;
 
@@ -28,10 +29,12 @@ namespace web.Controllers.PublicSite
             return View(obj);
         }
 
-        public async Task<JsonResult> GetChildProductByParentProductId(int id)
+        public async Task<ActionResult> GetChildProductByParentProductId(int id)
         {
-            var obj =await _productService.GetChildProductByParentProductId(id);
-            return Json(obj, JsonRequestBehavior.AllowGet);
+            var obj =(await _productService.GetChildProductByParentProductId(id));
+            var jsonResult = Json(new { data=obj.Take(8),total=obj.Count()}, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
     }
 }
