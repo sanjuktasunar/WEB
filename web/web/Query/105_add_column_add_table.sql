@@ -35,8 +35,8 @@ CREATE TABLE CustomerQuery
 	EmailAddress nvarchar(200) null,
 	Address nvarchar(300) not null,
 	Subject nvarchar(200) null default(''),
-	Message nvarchar(1000) not null
+	Message nvarchar(1000) not null,
+	CreatedDate datetime not null
 );
 GO
-
 
