@@ -78,5 +78,20 @@ namespace Web.Repositories.Utitlities
             }
             return str+"+"+result;
         }
+
+        public string ShowCustomerMessage(int result)
+        {
+            string str = "";
+            //if (result == 0)
+            //{
+            //    str = "तपाईको ";
+            //}
+            //else
+            //{
+            //    str = "Your Query has been submitted successfully";
+            //}
+            str = "Query has been submitted successfully";
+            return str + "+" + result;
+        }
     }
 }
