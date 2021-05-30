@@ -37,5 +37,11 @@ namespace web.Controllers.PublicSite
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }
+
+        [Route("~/ContactUs")]
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
     }
 }

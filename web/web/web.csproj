@@ -2235,6 +2235,7 @@
     <Content Include="Views\PublicProduct\Product.cshtml" />
     <Content Include="Views\PublicProduct\ProductDetails.cshtml" />
     <Content Include="Views\OrganizationInfo\OrganizationInfo.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
