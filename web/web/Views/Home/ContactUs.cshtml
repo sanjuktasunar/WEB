@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "ContactUs";
+    Layout = "~/Views/Shared/_FrontLayout.cshtml";
+}
+@{
+    Web.Entity.Dto.OrganizationInfoDto organizationInfo = ViewBag.OrganizationInfo;
+    var obj = new Web.Entity.Dto.UserSite.DisplayParamters();
+    var param = obj.GetParameters();
+    var link = obj.GetMenuLink();
+}
+<!-- Start Contact -->
+<section class="container py-5">
+    <h1 class="col-12 col-xl-8 h2 text-left text-primary pt-3">@param.ContactUsHeader</h1>
+    @*<p class="col-12 col-xl-8 text-left text-muted pb-5 light-300">
+            Incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
+            gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Laboris
+            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+            in voluptate.
+        </p>*@
+    <br /><br />
+    <div class="row pb-4">
+        <div class="col-lg-4">
+            <div class="contact row mb-4">
+                <div class="contact-icon col-lg-3 col-3">
+                    <div class="py-3 mb-2 text-center border rounded text-secondary">
+                        <i class='display-6 bx bx-location-plus'></i>
+                    </div>
+                </div>
+                <ul class="contact-info list-unstyled col-lg-9 col-9  light-300">
+                    <li class="h5 mb-0">@param.Address</li>
+                    <li class="text-muted">@organizationInfo.Address</li>
+                </ul>
+            </div>
+
+            <div class="contact row mb-4">
+                <div class="contact-icon col-lg-3 col-3">
+                    <div class="border py-3 mb-2 text-center border rounded text-secondary">
+                        <i class='bx bx-phone display-6'></i>
+                    </div>
+                </div>
+                <ul class="contact-info list-unstyled col-lg-9 col-9 light-300">
+                    <li class="h5 mb-0">@param.PhoneNumber</li>
+                    <li class="text-muted">@organizationInfo.ContactNumber1</li>
+                    @if (!string.IsNullOrEmpty(organizationInfo.ContactNumber2))
+                    {
+                        <li class="text-muted">@organizationInfo.ContactNumber2</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="contact row mb-4">
+                <div class="contact-icon col-lg-3 col-3">
+                    <div class="border py-3 mb-2 text-center border rounded text-secondary">
+                        <i class='bx bx-envelope display-6'></i>
+                    </div>
+                </div>
+                <ul class="contact-info list-unstyled col-lg-9 col-9 light-300">
+                    <li class="h5 mb-0">@param.EmailAddress</li>
+                    <li class="text-muted">@organizationInfo.EmailAddress</li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <!-- Start Contact Form -->
+        <div class="col-lg-8 ">
+            <form class="contact-form row" method="post" action="#" role="form"
+                  id="form_validation">
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg light-300" id="floatingname" name="Name" placeholder="Name">
+                                <label for="floatingname light-300">Name</label>
+                            </div>
+                        </div>
+                    </div><!-- End Input Name -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg light-300" id="floatingemail" name="EmailAddress" placeholder="Email">
+                                <label for="floatingemail light-300">Email</label>
+                            </div>
+                        </div>
+                    </div><!-- End Input Email -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg light-300" id="floatingphone" name="PhoneNumber" placeholder="Phone Number" onkeypress="AllowPositiveNumber(event)">
+                                <label for="floatingphone light-300">Phone</label>
+                            </div>
+                        </div>
+                    </div><!-- End Input Phone -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg light-300" id="floatingcompany" name="Address" placeholder="Address">
+                                <label for="floatingcompany light-300">Address</label>
+                            </div>
+                        </div>
+                    </div><!-- End Input Company Name -->
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control form-control-lg light-300" id="floatingsubject" name="Subject" placeholder="Subject">
+                                <label for="floatingsubject light-300">Subject</label>
+                            </div>
+                        </div>
+                    </div><!-- End Input Subject -->
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control light-300" rows="8" placeholder="Message" id="Message" name="Message"></textarea>
+                                <label for="floatingtextarea light-300">Message</label>
+                            </div>
+                        </div>
+                    </div><!-- End Textarea Message -->
+
+                </div>
+               
+                <div class="col-md-12 col-12 m-auto text-end">
+                    <button type="submit" id="btnSave" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Send Message</button>
+                </div>
+
+            </form>
+        </div>
+        <!-- End Contact Form -->
+
+
+    </div>
+</section>
+<!-- End Contact -->
+
+@Scripts.Render("~/web/front-end")
+<script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
+@Scripts.Render("~/web/back-end/message")
+<script>
+    var $checkoutForm = $('#form_validation').validate({
+        ignore: [],
+        rules: {
+            'Name': {
+                required: true,
+                maxlength: 50
+            },
+            'PhoneNumber': {
+                required: true,
+                maxlength: 10,
+                minlength: 10,
+                number: true
+            },
+            'Address': {
+                required: true,
+                maxlength: 100
+            },
+            'Message': {
+                required: true,
+                maxlength: 1000
+            }
+        },
+        message: {
+            'PhoneNumber': {
+                maxlength: 'Phone number must be less than 10 digit',
+                minlength: 'Phone number must be 10 digit'
+            },
+        },
+        submitHandler: function (form) {
+            $("#btnSave").prop('disabled', true)
+            $("#btnSave").html('Saving...')
+            var url = "/Home/InsertQuery";
+           
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#form_validation").serialize(),
+                success: function (message) {
+                    ShowMessage(message, "/ContactUs")
+                },
+                error: function (message) {
+                    ShowMessage(message, "/ContactUs")
+                }
+            })
+        },
+
+        errorPlacement: function errorPlacement(error, element) {
+            var $parent = $(element).parents('.form-group');
+
+            // Do not duplicate errors
+            if ($parent.find('.jquery-validation-error').length) {
+                return false;
+            }
+
+            $parent.append(
+                error.addClass('jquery-validation-error small form-text invalid-feedback')
+            );
+        },
+        highlight: function (element) {
+            var $el = $(element);
+            var $parent = $el.parents('.form-group');
+
+            $el.addClass('is-invalid');
+
+            // Select2 and Tagsinput
+            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                $el.parent().addClass('is-invalid');
+            }
+
+        },
+        unhighlight: function (element) {
+            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        }
+    });
+
+    function AllowPositiveNumber(event) {
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    }
+</script>

@@ -2012,7 +2012,7 @@
     <Content Include="Query\102_add_proc.sql" />
     <Content Include="Query\103_alter_table.sql" />
     <Content Include="Query\104_add_view.sql" />
-    <Content Include="Query\105_add_column_organization_info.sql" />
+    <Content Include="Query\105_add_column_add_table.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2235,6 +2235,7 @@
     <Content Include="Views\PublicProduct\Product.cshtml" />
     <Content Include="Views\PublicProduct\ProductDetails.cshtml" />
     <Content Include="Views\OrganizationInfo\OrganizationInfo.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
