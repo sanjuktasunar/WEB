@@ -2029,7 +2029,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\PublicBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\scss\navs\_global.scss" />
