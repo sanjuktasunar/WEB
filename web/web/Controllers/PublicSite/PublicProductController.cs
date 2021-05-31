@@ -17,12 +17,15 @@ namespace web.Controllers.PublicSite
             _productService = productService;
         }
         [Route("~/Products",Name ="Products")]
-        public async Task<ActionResult> Product(int?page,string query)
+        public async Task<ActionResult> Product(int?page,string query, int? parentProductId)
         {
             var obj = new ProductPageDto();
-            query = query?.Trim();
-            ViewBag.query = query;
-            obj.GetAllProducts =await _productService.GetDisplayProductsForProductPage(page??1,8,query);
+            obj.ParentProductId = parentProductId;
+            obj.query = query?.Trim();
+            obj.page = page ?? 1;
+            ViewBag.parentProductId = parentProductId;
+            obj.GetAllProducts =await _productService.GetDisplayProductsForProductPage(obj.page,8,obj.query,parentProductId);
+            obj.GetParentProducts = await _productService.GetParentProductsWithChildProduct();
             return View(obj);
         }
 

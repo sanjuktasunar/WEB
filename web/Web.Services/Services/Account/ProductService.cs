@@ -37,8 +37,7 @@ namespace Web.Services.Services.Account
         Task<IEnumerable<ProductDto>> GetParentProductsWithChildProduct();
         Task<IEnumerable<ProductDto>> GetChildProductByParentProductId(int parentProductId);
         Task<IEnumerable<ProductDto>> GetDisplayProducts();
-        //Task<ProductImageDto> GetIsPrimaryImage(int ProductId);
-        Task<IPagedList<ProductDto>> GetDisplayProductsForProductPage(int pageNumber, int pageSize, string query);
+        Task<IPagedList<ProductDto>> GetDisplayProductsForProductPage(int pageNumber, int pageSize, string query, int? parentProductId);
     }
 
     public class ProductService:IProductService
@@ -349,9 +348,9 @@ namespace Web.Services.Services.Account
             return obj;
         }
 
-        public async Task<IPagedList<ProductDto>> GetDisplayProductsForProductPage(int pageNumber,int pageSize,string query)
+        public async Task<IPagedList<ProductDto>> GetDisplayProductsForProductPage(int pageNumber,int pageSize,string query, int? parentProductId)
         {
-            var obj = await _productRepository.GetDisplayProductPaginationAsync(pageNumber, pageSize,query);
+            var obj = await _productRepository.GetDisplayProductPaginationAsync(pageNumber, pageSize,query,parentProductId);
             foreach (var x in obj)
                 x.GetProductPrice = await GetActiveProductPriceByProductId(x.ProductId);
             return obj;

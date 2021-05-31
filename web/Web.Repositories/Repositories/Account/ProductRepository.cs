@@ -38,7 +38,7 @@ namespace Web.Repositories.Repositories.Account
         int UpdateProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
         Task<IEnumerable<ProductDto>> GetChildProductByParentProductIdAsync(int parentProductId);
         Task<IEnumerable<ProductDto>> GetDisplayProductAsync();
-        Task<IPagedList<ProductDto>> GetDisplayProductPaginationAsync(int pageNumber, int pageSize, string query);
+        Task<IPagedList<ProductDto>> GetDisplayProductPaginationAsync(int pageNumber, int pageSize, string query,int? parentProductId);
     }
     public class ProductRepository:IProductRepository
     {
@@ -182,11 +182,11 @@ namespace Web.Repositories.Repositories.Account
             return (await _dapperManager.QueryAsync<ProductDto>("SELECT * FROM DisplayProductView"));
         }
 
-        public async Task<IPagedList<ProductDto>> GetDisplayProductPaginationAsync(int pageNumber, int pageSize,string query)
+        public async Task<IPagedList<ProductDto>> GetDisplayProductPaginationAsync(int pageNumber, int pageSize,string query,int? parentProductId)
         {
             if (pageNumber <= 0)
                 pageNumber = 1;
-            var result= await _dapperManager.StoredProcedureAsync<ProductDto>("[dbo].[Sp_SearchProductForDisplay]",new { query=query });
+            var result= await _dapperManager.StoredProcedureAsync<ProductDto>("[dbo].[Sp_SearchProductForDisplay]",new { query=query, parentProductId= parentProductId });
             var data= result.ToPagedList(pageNumber, pageSize);
             return data;
         }

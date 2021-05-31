@@ -40,3 +40,24 @@ CREATE TABLE CustomerQuery
 );
 GO
 
+GO
+CREATE OR ALTER PROC [dbo].[Sp_SearchProductForDisplay]
+(
+	@query nvarchar(50),
+	@parentProductId int
+)
+AS
+BEGIN
+	SELECT * FROM DisplayProductView
+	WHERE 
+	(
+		((ISNULL(@query,'')='') OR ((UPPER(TRIM(ProductName)) LIKE '%'+UPPER(@query)+'%')) OR
+		((UPPER(TRIM(ProductNameNepali)) LIKE '%'+UPPER(@query)+'%')) OR
+		((UPPER(TRIM(ParentProductName)) LIKE '%'+UPPER(@query)+'%')) OR
+		((UPPER(TRIM(ParentProductNameNepali)) LIKE '%'+UPPER(@query)+'%')) OR
+		((UPPER(TRIM(ProductCode)) LIKE '%'+UPPER(@query)+'%')))
+		AND
+		(@parentProductId IS NULL OR ParentProductId=@parentProductId)
+	)
+END
+GO
