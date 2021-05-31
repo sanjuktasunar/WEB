@@ -20,6 +20,8 @@ namespace Web.Entity.Dto.UserSite
         public string Address { get; set; }
         public string EmailAddress { get; set; }
         public string ContactUsHeader { get; set; }
+        public string OurCompany { get; set; }
+        public string ClientContact { get; set; }
 
         public MenuLink MenuLink { get; set; }
     }
