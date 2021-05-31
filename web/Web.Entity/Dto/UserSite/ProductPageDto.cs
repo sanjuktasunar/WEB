@@ -14,5 +14,9 @@ namespace Web.Entity.Dto.UserSite
         public IEnumerable<ProductPriceDto> ProductPrice { get; set; }
         public ProductDto Product { get; set; }
         public IPagedList<ProductDto> GetAllProducts { get; set; }
+        public IEnumerable<ProductDto> GetParentProducts { get; set; }
+        public int page { get; set; }
+        public int? ParentProductId { get; set; }
+        public string query { get; set; }
     }
 }
