@@ -29,6 +29,7 @@ namespace Web.Repositories.Repositories.Account
         int Delete(int id);
         int DeletePrice(int id);
         void UpdatePrice(int productPriceId, SqlConnection con, IDbTransaction transaction);
+        int UpdatePrice(ProductPrice entity);
         Task<ProductPriceDto> GetProductPriceById(int id);
         Task<IEnumerable<ProductImageDto>> GetProductImageByProductIdAsync(int ProductId);
         int InsertProductImage(ProductImage entity, IDbTransaction transaction, SqlConnection con);
@@ -122,7 +123,7 @@ namespace Web.Repositories.Repositories.Account
         public void UpdatePriceByUnitIdProductId(int unitId,int productId, SqlConnection con,IDbTransaction transaction)
         {
             int UpdatedBy = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
-            var result = _dapperManager.ExecuteScalar<ProductPrice>(con,"UPDATE ProductPrice SET Status=0,UpdatedBy=@UpdatedBy WHERE UnitId=@unitId AND ProductId=@productId", new { UpdatedBy,unitId, productId },transaction);
+            var result = _dapperManager.ExecuteScalar<ProductPrice>(con,"UPDATE ProductPrice SET Status=0,IsPrimary=0,UpdatedBy=@UpdatedBy WHERE UnitId=@unitId AND ProductId=@productId", new { UpdatedBy,unitId, productId },transaction);
         }
         public int Delete(int id)
         {
@@ -137,7 +138,12 @@ namespace Web.Repositories.Repositories.Account
         public void UpdatePrice(int productPriceId,SqlConnection con, IDbTransaction transaction)
         {
             int UpdatedBy = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
-            _dapperManager.ExecuteScalar<ProductPrice>(con, "UPDATE ProductPrice SET Status=1,UpdatedBy=@UpdatedBy WHERE ProductPriceId=@productPriceId", new { UpdatedBy, productPriceId }, transaction);
+            _dapperManager.ExecuteScalar<ProductPrice>(con, "UPDATE ProductPrice SET Status=1,IsPrimary=1,UpdatedBy=@UpdatedBy WHERE ProductPriceId=@productPriceId", new { UpdatedBy, productPriceId }, transaction);
+        }
+
+        public int UpdatePrice(ProductPrice entity)
+        {
+            return _productPriceRepo.Update(entity);
         }
 
         public async Task<ProductPriceDto> GetProductPriceById(int id)

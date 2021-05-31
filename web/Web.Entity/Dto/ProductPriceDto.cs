@@ -16,7 +16,6 @@ namespace Web.Entity.Dto
         public DateTime UpdatedDate { get; set; }
         public int? CreatedBy { get; set; }
         public int? UpdatedBy { get; set; }
-
-       
+        public bool? IsPrimary { get; set; }
     }
 }

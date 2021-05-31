@@ -25,11 +25,14 @@ namespace Web.Services.Services.Account
         Task<string> Update(ProductDto dto);
         Task<ProductDto> DropDownList(ProductDto dto);
         Task<IEnumerable<ProductPriceDto>> GetProductPriceByProductId(int productId);
+        Task<ProductPriceDto> GetProductPriceById(int id);
         Task<string> InsertProductPrice(ProductPriceDto dto);
         Task<IEnumerable<ProductPriceDto>> GetActiveProductPriceByProductId(int ProductId);
         string Delete(int id);
         string DeletePrice(int id);
         Task<string> UpdatePrice(int productPriceId);
+        Task<ProductPriceDto> ChangePrimaryProductPrice(int id);
+        string UpdatePrice(ProductPriceDto dto);
         Task<IEnumerable<ProductImageDto>> GetProductImageByProductId(int productId);
         Task<string> InsertImage(ProductImageDto dto);
         Task<string> DeleteImage(int id);
@@ -157,6 +160,11 @@ namespace Web.Services.Services.Account
             return (await _productRepository.GetProductPriceByProductIdAsync(productId));
         }
 
+        public async Task<ProductPriceDto> GetProductPriceById(int id)
+        {
+            return (await _productRepository.GetProductPriceById(id));
+        }
+
         public async Task<IEnumerable<ProductPriceDto>> GetActiveProductPriceByProductId(int ProductId)
         {
             return (await GetProductPriceByProductId(ProductId)).Where(a => a.Status == true);
@@ -238,6 +246,44 @@ namespace Web.Services.Services.Account
             {
                 message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
                 transaction.Rollback();
+            }
+            return message;
+        }
+
+        public async Task<ProductPriceDto> ChangePrimaryProductPrice(int id)
+        {
+            try
+            {
+                var productPrice = await GetProductPriceById(id);
+                if (productPrice is null)
+                    return null;
+
+                bool? isPrimary = false;
+                if (productPrice.IsPrimary == true)
+                    isPrimary = false;
+                else isPrimary = true;
+
+                productPrice.IsPrimary = isPrimary;
+                UpdatePrice(productPrice);
+                return productPrice;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string UpdatePrice(ProductPriceDto dto)
+        {
+            string message = "";
+            try
+            {
+                int result = _productRepository.UpdatePrice(dto.ToEntity());
+                message = _messageClass.ShowSuccessMessage(result);
+            }
+            catch (SqlException ex)
+            {
+                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
             }
             return message;
         }

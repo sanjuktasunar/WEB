@@ -32,7 +32,19 @@
         <div class="col-md-12">
             <ul class="nav d-flex justify-content-center">
                 <li class="nav-item mx-lg-4">
-                    <a class=@{ Model.ParentProductId >  0 ? "filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" : "filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300" } href="#" data-filter=".project">All</a>
+                    @if (Model.ParentProductId > 0)
+                    {
+                         <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="#" data-filter=".project">
+                             All
+                         </a>
+                    }
+                    else
+                    {
+                        <a class="filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300" href="#" data-filter=".project">
+                            All
+                        </a>
+                    }
+
                 </li>
                 @{
                     var parentProducts = Model.GetParentProducts;
@@ -80,7 +92,7 @@
                         <div class="card-body">
                             <h5 class="card-title light-300 text-dark">@x.ProductNameNepali</h5>
                             <p class="card-text light-300 text-dark">
-                                @foreach (var price in x.GetProductPrice.Take(1))
+                                @foreach (var price in x.GetProductPrice.Where(a=>a.IsPrimary==true).Take(3))
                                 {
                                     <span class="card-text">@param.Per @price.UnitName - @param.Rs                       @price.SellingPrice</span> <br />
                                 }

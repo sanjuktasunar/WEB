@@ -61,3 +61,27 @@ BEGIN
 	)
 END
 GO
+
+GO
+ALTER TABLE ProductPrice
+ADD IsPrimary bit null default(0)
+GO
+
+GO
+CREATE OR ALTER VIEW [dbo].[ProductPriceView]
+AS
+SELECT A.*,
+B.UnitName,B.UnitNameNepali,B.UnitSymbol,B.UnitSymbolNepali
+FROM ProductPrice AS A
+LEFT JOIN Unit AS B ON B.UnitId=A.UnitId
+GO
+
+
+GO
+UPDATE ProductPrice SET IsPrimary=1 WHERE Status=1
+GO
+
+select * from ProductPrice where ProductId=23
+
+
+--SELECT * FROM ProductPriceView
