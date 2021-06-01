@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="BaseDto.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Dto\AccountHeadDto.cs" />
     <Compile Include="Dto\DepartmentDto.cs" />
     <Compile Include="Dto\DesignationDto.cs" />
     <Compile Include="Dto\GenderDto.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Dto\UserSite\UserIndexDto.cs" />
     <Compile Include="Dto\UserStatusDto.cs" />
     <Compile Include="Dto\VersionInfoDto.cs" />
+    <Compile Include="Entity\AccountHead.cs" />
     <Compile Include="Entity\CustomerQuery.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Designation.cs" />

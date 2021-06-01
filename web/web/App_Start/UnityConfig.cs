@@ -35,6 +35,7 @@ namespace web
             container.RegisterType<IBaseRepo<Department>, BaseRepo<Department>>();
             container.RegisterType<IBaseRepo<OrganizationInfo>, BaseRepo<OrganizationInfo>>();
             container.RegisterType<IBaseRepo<CustomerQuery>, BaseRepo<CustomerQuery>>();
+            container.RegisterType<IBaseRepo<AccountHead>, BaseRepo<AccountHead>>();
 
 
             //utilities
@@ -54,6 +55,7 @@ namespace web
             container.RegisterType<IDepartmentRepository, DepartmentRepository>();
             container.RegisterType<IOrganizationInfoRepository, OrganizationInfoRepository>();
             container.RegisterType<ICustomerQueryRepository, CustomerQueryRepository>();
+            container.RegisterType<IAccountHeadRepository, AccountHeadRepository>();
 
 
             //services
@@ -69,6 +71,7 @@ namespace web
             container.RegisterType<IDepartmentService, DepartmentService>();
             container.RegisterType<IOrganizationInfoService, OrganizationInfoService>();
             container.RegisterType<ICustomerQueryService, CustomerQueryService>();
+            container.RegisterType<IAccountHeadService, AccountHeadService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

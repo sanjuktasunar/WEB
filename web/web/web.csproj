@@ -210,6 +210,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminSite\AccountHeadController.cs" />
+    <Compile Include="Controllers\AdminSite\CustomerController.cs" />
     <Compile Include="Controllers\AdminSite\DepartmentController.cs" />
     <Compile Include="Controllers\AdminSite\DesignationController.cs" />
     <Compile Include="Controllers\AdminSite\OrganizationInfoController.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Migrations\102_alter_proc_views.cs" />
     <Compile Include="Migrations\103_alter_table.cs" />
     <Compile Include="Migrations\104_add_alter_view_proc.cs" />
+    <Compile Include="Migrations\105_add_modify_tables.cs" />
     <Compile Include="Migrations\LoadMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2013,6 +2016,8 @@
     <Content Include="Query\103_alter_table.sql" />
     <Content Include="Query\104_add_view.sql" />
     <Content Include="Query\105_add_column_add_table.sql" />
+    <Content Include="Query\106_add_tables.sql" />
+    <Content Include="Query\106_insert_table_values.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2029,7 +2034,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\PublicBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\scss\navs\_global.scss" />
@@ -2237,6 +2241,10 @@
     <Content Include="Views\OrganizationInfo\OrganizationInfo.cshtml" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Customer\CustomerQuery.cshtml" />
+    <Content Include="Views\Customer\QueryDetails.cshtml" />
+    <Content Include="Views\AccountHead\AccountHeadList.cshtml" />
+    <Content Include="Views\AccountHead\AddModifyAccountHead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
