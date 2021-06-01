@@ -210,6 +210,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminSite\AccountHeadController.cs" />
     <Compile Include="Controllers\AdminSite\CustomerController.cs" />
     <Compile Include="Controllers\AdminSite\DepartmentController.cs" />
     <Compile Include="Controllers\AdminSite\DesignationController.cs" />
@@ -2015,6 +2016,8 @@
     <Content Include="Query\103_alter_table.sql" />
     <Content Include="Query\104_add_view.sql" />
     <Content Include="Query\105_add_column_add_table.sql" />
+    <Content Include="Query\106_add_tables.sql" />
+    <Content Include="Query\106_insert_table_values.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2240,6 +2243,8 @@
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\Customer\CustomerQuery.cshtml" />
     <Content Include="Views\Customer\QueryDetails.cshtml" />
+    <Content Include="Views\AccountHead\AccountHeadList.cshtml" />
+    <Content Include="Views\AccountHead\AddModifyAccountHead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

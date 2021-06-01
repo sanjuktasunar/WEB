@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Entity.Entity
+namespace Web.Entity.Dto
 {
-    public class AccountHead
+    public class AccountHeadDto
     {
         public int AccountHeadId { get; set; }
         public string AccountHeadName { get; set; }
