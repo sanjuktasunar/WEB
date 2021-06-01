@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Web.Entity.Dto.UserSite.CustomerQueryDto>
+@{
+    ViewBag.Title = "CustomerQuery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+       <b>Query</b>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th hidden="hidden"></th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Message</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0; }
+                    @foreach (var x in Model)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td hidden="hidden">@x.Id</td>
+                            <td>@x.Name</td>
+                            <td>@x.PhoneNumber</td>
+                            <td>@x.Message</td>
+
+                            <td>
+                                <a href="~/QueryDetails/@x.Id" class="btn btn-success btn-circle btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+@Scripts.Render("~/web/back-end/datatable")
+@Scripts.Render("~/web/back-end/message")
+
+<script>
+    $('#dataTable').DataTable();
+</script>
