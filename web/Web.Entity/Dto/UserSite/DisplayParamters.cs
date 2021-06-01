@@ -15,7 +15,7 @@ namespace Web.Entity.Dto.UserSite
                 LanguageId = Convert.ToInt32(HttpContext.Current.Session["LangId"]);
             }
             //return LanguageId;
-            return 1;
+            return 2;
         }
       
         public ParameterClass GetParameters()
@@ -37,6 +37,9 @@ namespace Web.Entity.Dto.UserSite
                 obj.Address = "ठेगाना";
                 obj.EmailAddress = "ईमेल";
                 obj.ContactUsHeader = "हामी सगं जुट्नुहोस्";
+                obj.OurCompany = "हाम्रो कम्पनी";
+                obj.ClientContact = "ग्राहक संपर्क";
+                obj.FutureProjects = "भावी परियोजना";
             }
             else
             {
@@ -53,6 +56,9 @@ namespace Web.Entity.Dto.UserSite
                 obj.Address = "Address";
                 obj.EmailAddress = "Email Address";
                 obj.ContactUsHeader = "Create success campaign with us";
+                obj.OurCompany = "Our Company";
+                obj.ClientContact = "For Client";
+                obj.FutureProjects = "Future Projects";
             }
             return obj;
         }
