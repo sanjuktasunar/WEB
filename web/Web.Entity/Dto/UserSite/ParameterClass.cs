@@ -23,6 +23,10 @@ namespace Web.Entity.Dto.UserSite
         public string OurCompany { get; set; }
         public string ClientContact { get; set; }
         public string FutureProjects { get; set; }
+        public string OurVision { get; set; }
+        public string OurMission { get; set; }
+        public string OurGoal { get; set; }
+        public string StayUptoDate { get; set; }
 
         public MenuLink MenuLink { get; set; }
     }

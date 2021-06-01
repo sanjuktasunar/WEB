@@ -40,6 +40,10 @@ namespace Web.Entity.Dto.UserSite
                 obj.OurCompany = "हाम्रो कम्पनी";
                 obj.ClientContact = "ग्राहक संपर्क";
                 obj.FutureProjects = "भावी परियोजना";
+                obj.OurVision = "हाम्रो भिजन";
+                obj.OurMission = "हाम्रो मिसन";
+                obj.OurMission = "हाम्रो लक्ष्य";
+                obj.StayUptoDate = "हामी सगं जोड्डिनुहोस्";
             }
             else
             {
@@ -59,6 +63,10 @@ namespace Web.Entity.Dto.UserSite
                 obj.OurCompany = "Our Company";
                 obj.ClientContact = "For Client";
                 obj.FutureProjects = "Future Projects";
+                obj.OurVision = "Our Vision";
+                obj.OurMission = "Our Mission";
+                obj.OurGoal = "Our Goal";
+                obj.StayUptoDate = "Stay up to date with us";
             }
             return obj;
         }
