@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Interface\IBaseInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Account\AccountHeadRepository.cs" />
     <Compile Include="Repositories\Account\ProductRepository.cs" />
     <Compile Include="Repositories\Account\UnitRepository.cs" />
     <Compile Include="Repositories\Administration\AdministrationRepository.cs" />

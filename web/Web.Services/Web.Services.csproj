@@ -130,6 +130,7 @@
     <Compile Include="Mapping\BaseMapping.cs" />
     <Compile Include="Mapping\PublicSiteMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account\AccountHeadService.cs" />
     <Compile Include="Services\Account\ProductService.cs" />
     <Compile Include="Services\Account\UnitService.cs" />
     <Compile Include="Services\AdministrationService.cs" />
