@@ -39,6 +39,7 @@ namespace Web.Entity.Dto.UserSite
                 obj.ContactUsHeader = "हामी सगं जुट्नुहोस्";
                 obj.OurCompany = "हाम्रो कम्पनी";
                 obj.ClientContact = "ग्राहक संपर्क";
+                obj.FutureProjects = "भावी परियोजना";
             }
             else
             {
@@ -57,6 +58,7 @@ namespace Web.Entity.Dto.UserSite
                 obj.ContactUsHeader = "Create success campaign with us";
                 obj.OurCompany = "Our Company";
                 obj.ClientContact = "For Client";
+                obj.FutureProjects = "Future Projects";
             }
             return obj;
         }
