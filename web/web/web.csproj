@@ -2016,6 +2016,8 @@
     <Content Include="Query\103_alter_table.sql" />
     <Content Include="Query\104_add_view.sql" />
     <Content Include="Query\105_add_column_add_table.sql" />
+    <Content Include="Query\106_add_tables.sql" />
+    <Content Include="Query\106_insert_table_values.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
