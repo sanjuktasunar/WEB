@@ -83,5 +83,21 @@ namespace Web.Services.Mapping
                 IsPrimary=dto.IsPrimary,
             };
         }
+
+        public static AccountHead ToEntity(this AccountHeadDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new AccountHead
+            {
+                AccountHeadId=dto.AccountHeadId,
+                AccountHeadName=dto.AccountHeadName,
+                AccountHolderName=dto.AccountHolderName,
+                AccountNumber=dto.AccountNumber,
+                Address=dto.Address,
+                Status=dto.Status,
+            };
+        }
     }
 }

@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="BaseDto.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Dto\AccountHeadDto.cs" />
     <Compile Include="Dto\DepartmentDto.cs" />
     <Compile Include="Dto\DesignationDto.cs" />
     <Compile Include="Dto\GenderDto.cs" />
