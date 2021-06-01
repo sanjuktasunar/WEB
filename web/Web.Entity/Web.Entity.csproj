@@ -111,12 +111,14 @@
     <Compile Include="Dto\StaffsDto.cs" />
     <Compile Include="Dto\UnitDto.cs" />
     <Compile Include="Dto\UsersDto.cs" />
+    <Compile Include="Dto\UserSite\CustomerQueryDto.cs" />
     <Compile Include="Dto\UserSite\DisplayParamters.cs" />
     <Compile Include="Dto\UserSite\ParameterClass.cs" />
     <Compile Include="Dto\UserSite\ProductPageDto.cs" />
     <Compile Include="Dto\UserSite\UserIndexDto.cs" />
     <Compile Include="Dto\UserStatusDto.cs" />
     <Compile Include="Dto\VersionInfoDto.cs" />
+    <Compile Include="Entity\CustomerQuery.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Designation.cs" />
     <Compile Include="Entity\Gender.cs" />

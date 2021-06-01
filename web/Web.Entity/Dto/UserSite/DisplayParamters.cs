@@ -33,6 +33,17 @@ namespace Web.Entity.Dto.UserSite
                 obj.Per = "प्रति";
                 obj.Rs = "रु.";
                 obj.Search = "खोजी गर्नुहोस्";
+                obj.PhoneNumber = "संपर्क न.";
+                obj.Address = "ठेगाना";
+                obj.EmailAddress = "ईमेल";
+                obj.ContactUsHeader = "हामी सगं जुट्नुहोस्";
+                obj.OurCompany = "हाम्रो कम्पनी";
+                obj.ClientContact = "ग्राहक संपर्क";
+                obj.FutureProjects = "भावी परियोजना";
+                obj.OurVision = "हाम्रो भिजन";
+                obj.OurMission = "हाम्रो मिसन";
+                obj.OurMission = "हाम्रो लक्ष्य";
+                obj.StayUptoDate = "हामी सगं जोड्डिनुहोस्";
             }
             else
             {
@@ -45,6 +56,17 @@ namespace Web.Entity.Dto.UserSite
                 obj.Per = "Per";
                 obj.Rs = "Rs.";
                 obj.Search = "Search";
+                obj.PhoneNumber = "Phone Number";
+                obj.Address = "Address";
+                obj.EmailAddress = "Email Address";
+                obj.ContactUsHeader = "Create success campaign with us";
+                obj.OurCompany = "Our Company";
+                obj.ClientContact = "For Client";
+                obj.FutureProjects = "Future Projects";
+                obj.OurVision = "Our Vision";
+                obj.OurMission = "Our Mission";
+                obj.OurGoal = "Our Goal";
+                obj.StayUptoDate = "Stay up to date with us";
             }
             return obj;
         }

@@ -128,6 +128,7 @@
     <Compile Include="Mapping\AccountMapping.cs" />
     <Compile Include="Mapping\AdministrationMapping.cs" />
     <Compile Include="Mapping\BaseMapping.cs" />
+    <Compile Include="Mapping\PublicSiteMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Account\ProductService.cs" />
     <Compile Include="Services\Account\UnitService.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Services\Administration\DesignationService.cs" />
     <Compile Include="Services\Administration\OrganizationInfoService.cs" />
     <Compile Include="Services\Administration\RoleService.cs" />
+    <Compile Include="Services\Customer\CustomerQueryService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\InitialSetupService.cs" />
     <Compile Include="Services\MenusService.cs" />

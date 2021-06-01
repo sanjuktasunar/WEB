@@ -8,6 +8,7 @@ using Web.Entity.Dto;
 using Web.Entity.Dto.UserSite;
 using Web.Services.Services.Account;
 using Web.Services.Services.Administration;
+using Web.Services.Services.Customer;
 
 namespace web.Controllers.PublicSite
 {
@@ -15,9 +16,11 @@ namespace web.Controllers.PublicSite
     {
         public DisplayParamters _displayParameters = new DisplayParamters();
         private IProductService _productService;
-        public HomeController(IProductService productService)
+        private ICustomerQueryService _customerQueryService;
+        public HomeController(IProductService productService, ICustomerQueryService customerQueryService)
         {
             _productService = productService;
+            _customerQueryService = customerQueryService;
         }
         public async Task<ActionResult> Index()
         {
@@ -36,6 +39,24 @@ namespace web.Controllers.PublicSite
             var jsonResult = Json(new { data=obj.Take(8),total=obj.Count()}, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
+        }
+
+        [Route("~/ContactUs")]
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public string InsertQuery(CustomerQueryDto dto)
+        {
+           return _customerQueryService.Insert(dto);
+        }
+
+        [Route("~/AboutUs")]
+        public ActionResult AboutUs()
+        {
+            return View();
         }
     }
 }

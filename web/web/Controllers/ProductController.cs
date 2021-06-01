@@ -120,6 +120,16 @@ namespace web.Controllers
             return (await _productService.UpdatePrice(productPriceId));
         }
 
+        [HttpPost]
+        public async Task<JsonResult> ChangeIsPrimaryProductPrice(int id)
+        {
+            if (!menu.ModifyAccess)
+                return null;
+
+            var obj =await _productService.ChangePrimaryProductPrice(id);
+            return Json(obj,JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         [Route("~/ProductImage/{productId}")]
         public async Task<ActionResult> ProductImage(int productId)

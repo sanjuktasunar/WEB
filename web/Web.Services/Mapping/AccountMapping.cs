@@ -65,6 +65,7 @@ namespace Web.Services.Mapping
                 UpdatedBy = dto.UpdatedBy,
                 UpdatedDate = dto.UpdatedDate,
                 Status = dto.Status,
+                IsPrimary=dto.IsPrimary
             };
         }
 

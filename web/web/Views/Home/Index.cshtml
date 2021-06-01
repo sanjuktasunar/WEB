@@ -148,7 +148,6 @@
 
 @Scripts.Render("~/web/front-end")
 <script>
-
     $(document).ready(function () {
         var className = $("#parentId1").attr('data-filter');
         var id = className.split('.');
@@ -189,6 +188,9 @@
                     var baseString = 'data:image;base64,' + res.ProductImage.ImageString;
                     document.getElementById(imgId).src = baseString;
                 })
+                var href = "/Products?parentProductId=" + id;
+                $("#childProduct").find('#childDiv').append('<a href=' + href + '>More.....</a>')
+
             }
         })
     }

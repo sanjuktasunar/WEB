@@ -16,6 +16,17 @@ namespace Web.Entity.Dto.UserSite
         public string Per { get; set; }
         public string Rs { get; set; }
         public string Search { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Address { get; set; }
+        public string EmailAddress { get; set; }
+        public string ContactUsHeader { get; set; }
+        public string OurCompany { get; set; }
+        public string ClientContact { get; set; }
+        public string FutureProjects { get; set; }
+        public string OurVision { get; set; }
+        public string OurMission { get; set; }
+        public string OurGoal { get; set; }
+        public string StayUptoDate { get; set; }
 
         public MenuLink MenuLink { get; set; }
     }
