@@ -52,5 +52,11 @@ namespace web.Controllers.PublicSite
         {
            return _customerQueryService.Insert(dto);
         }
+
+        [Route("~/AboutUs")]
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
     }
 }
