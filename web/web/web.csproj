@@ -233,6 +233,7 @@
     <Compile Include="Migrations\102_alter_proc_views.cs" />
     <Compile Include="Migrations\103_alter_table.cs" />
     <Compile Include="Migrations\104_add_alter_view_proc.cs" />
+    <Compile Include="Migrations\105_add_modify_tables.cs" />
     <Compile Include="Migrations\LoadMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

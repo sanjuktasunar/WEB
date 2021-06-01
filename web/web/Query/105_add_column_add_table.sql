@@ -80,8 +80,3 @@ GO
 GO
 UPDATE ProductPrice SET IsPrimary=1 WHERE Status=1
 GO
-
-select * from ProductPrice where ProductId=23
-
-
---SELECT * FROM ProductPriceView

@@ -118,6 +118,7 @@
     <Compile Include="Dto\UserSite\UserIndexDto.cs" />
     <Compile Include="Dto\UserStatusDto.cs" />
     <Compile Include="Dto\VersionInfoDto.cs" />
+    <Compile Include="Entity\AccountHead.cs" />
     <Compile Include="Entity\CustomerQuery.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Designation.cs" />
