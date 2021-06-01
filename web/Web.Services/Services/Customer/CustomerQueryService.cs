@@ -14,6 +14,8 @@ namespace Web.Services.Services.Customer
     public interface ICustomerQueryService
     {
         string Insert(CustomerQueryDto dto);
+        Task<IEnumerable<CustomerQueryDto>> GetAllQuery();
+        Task<CustomerQueryDto> GetQueryById(int id);
     }
 
     public class CustomerQueryService:ICustomerQueryService
@@ -40,6 +42,16 @@ namespace Web.Services.Services.Customer
             }
 
             return message;
+        }
+
+        public async Task<IEnumerable<CustomerQueryDto>> GetAllQuery()
+        {
+            return (await _customerQueryRepository.GetAllQueryAsync()).OrderByDescending(a=>a.CreatedDate);
+        }
+
+        public async Task<CustomerQueryDto> GetQueryById(int id)
+        {
+            return (await _customerQueryRepository.GetQueryByIdAsync(id));
         }
     }
 }
