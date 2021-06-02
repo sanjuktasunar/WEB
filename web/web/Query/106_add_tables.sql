@@ -4,6 +4,7 @@ CREATE TABLE AccountHead
 (
 	AccountHeadId int not null Identity(1,1) Constraint AccountHead_pk Primary Key,
 	AccountHeadName nvarchar(350) not null,
+	AccountHolderName nvarchar(150) not null,
 	AccountNumber nvarchar(100) not null,
 	Address nvarchar(150) not null,
 	Status bit null default(1)

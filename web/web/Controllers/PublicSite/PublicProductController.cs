@@ -24,7 +24,7 @@ namespace web.Controllers.PublicSite
             obj.query = query?.Trim();
             obj.page = page ?? 1;
             ViewBag.parentProductId = parentProductId;
-            obj.GetAllProducts =await _productService.GetDisplayProductsForProductPage(obj.page,8,obj.query,parentProductId);
+            obj.GetAllProducts =await _productService.GetDisplayProductsForProductPage(obj.page,20,obj.query,parentProductId);
             obj.GetParentProducts = await _productService.GetParentProductsWithChildProduct();
             return View(obj);
         }

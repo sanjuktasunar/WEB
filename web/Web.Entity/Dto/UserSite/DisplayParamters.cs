@@ -44,6 +44,7 @@ namespace Web.Entity.Dto.UserSite
                 obj.OurMission = "हाम्रो मिसन";
                 obj.OurMission = "हाम्रो लक्ष्य";
                 obj.StayUptoDate = "हामी सगं जोड्डिनुहोस्";
+                obj.MemberRegistration = "Member";
             }
             else
             {
@@ -67,6 +68,7 @@ namespace Web.Entity.Dto.UserSite
                 obj.OurMission = "Our Mission";
                 obj.OurGoal = "Our Goal";
                 obj.StayUptoDate = "Stay up to date with us";
+                obj.MemberRegistration = "Member";
             }
             return obj;
         }
@@ -80,6 +82,7 @@ namespace Web.Entity.Dto.UserSite
                 ContactUsLink = "/ContactUs",
                 LoginLink = "/Login",
                 ProductLink = "/Products",
+                MemberRegistrationLink = "/MemberRegistration",
             };
         }
     }

@@ -27,6 +27,7 @@ namespace Web.Entity.Dto.UserSite
         public string OurMission { get; set; }
         public string OurGoal { get; set; }
         public string StayUptoDate { get; set; }
+        public string MemberRegistration { get; set; }
 
         public MenuLink MenuLink { get; set; }
     }
@@ -38,5 +39,6 @@ namespace Web.Entity.Dto.UserSite
         public string ContactUsLink { get; set; }
         public string LoginLink { get; set; }
         public string ProductLink { get; set; }
+        public string MemberRegistrationLink { get; set; }
     }
 }

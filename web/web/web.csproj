@@ -222,6 +222,7 @@
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PublicSite\HomeController.cs" />
+    <Compile Include="Controllers\PublicSite\MemberRegisterController.cs" />
     <Compile Include="Controllers\PublicSite\PublicBaseController.cs" />
     <Compile Include="Controllers\PublicSite\PublicProductController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
@@ -2245,6 +2246,7 @@
     <Content Include="Views\Customer\QueryDetails.cshtml" />
     <Content Include="Views\AccountHead\AccountHeadList.cshtml" />
     <Content Include="Views\AccountHead\AddModifyAccountHead.cshtml" />
+    <Content Include="Views\MemberRegister\MemberRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
