@@ -11,6 +11,7 @@ namespace web.Controllers.PublicSite
         [Route("~/MemberRegistration")]
         public ActionResult MemberRegistration()
         {
+            var obj = new MemberDto();
             return View();
         }
     }

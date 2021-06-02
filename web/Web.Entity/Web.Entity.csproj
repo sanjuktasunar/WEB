@@ -98,11 +98,15 @@
     <Compile Include="BaseDto.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Dto\AccountHeadDto.cs" />
+    <Compile Include="Dto\AddressDto.cs" />
     <Compile Include="Dto\DepartmentDto.cs" />
     <Compile Include="Dto\DesignationDto.cs" />
     <Compile Include="Dto\GenderDto.cs" />
+    <Compile Include="Dto\MemberDto.cs" />
+    <Compile Include="Dto\MemberTypeDto.cs" />
     <Compile Include="Dto\MenuAccessPermissionDto.cs" />
     <Compile Include="Dto\MenusDto.cs" />
+    <Compile Include="Dto\MunicipalityTypeDto.cs" />
     <Compile Include="Dto\OrganizationInfoDto.cs" />
     <Compile Include="Dto\PhotoStoragesDto.cs" />
     <Compile Include="Dto\ProductDto.cs" />
@@ -120,10 +124,13 @@
     <Compile Include="Dto\UserStatusDto.cs" />
     <Compile Include="Dto\VersionInfoDto.cs" />
     <Compile Include="Entity\AccountHead.cs" />
+    <Compile Include="Entity\Address.cs" />
+    <Compile Include="Entity\BankDeposit.cs" />
     <Compile Include="Entity\CustomerQuery.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Designation.cs" />
     <Compile Include="Entity\Gender.cs" />
+    <Compile Include="Entity\Member.cs" />
     <Compile Include="Entity\MenuAccessPermission.cs" />
     <Compile Include="Entity\Menus.cs" />
     <Compile Include="Entity\OrganizationInfo.cs" />
@@ -134,7 +141,10 @@
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Staffs.cs" />
     <Compile Include="Entity\Unit.cs" />
+    <Compile Include="Entity\UserDocuments.cs" />
     <Compile Include="Entity\Users.cs" />
+    <Compile Include="Infrastructure\ApprovalStatus.cs" />
+    <Compile Include="Infrastructure\FormStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
