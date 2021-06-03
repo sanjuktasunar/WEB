@@ -1,5 +1,45 @@
 
 GO
+CREATE TABLE Occupation
+(
+	Id int not null Identity(1,1) Constraint Occupation_pk Primary Key,
+	Name nvarchar(100) not null,
+	NepaliName nvarchar(200) not null,
+	Status bit null default(1)
+);
+GO
+GO
+CREATE UNIQUE INDEX Occupation_Name_ui ON
+Occupation(Name)
+GO
+
+GO
+CREATE UNIQUE INDEX Occupation_NepaliName_ui ON
+Occupation(NepaliName)
+GO
+
+
+GO
+CREATE TABLE MemberField
+(
+	Id int not null Identity(1,1) Constraint MemberField_pk Primary Key,
+	Name nvarchar(100) not null,
+	NepaliName nvarchar(200) not null,
+	Status bit null default(1)
+);
+GO
+GO
+CREATE UNIQUE INDEX MemberField_Name_ui ON
+MemberField(Name)
+GO
+
+GO
+CREATE UNIQUE INDEX MemberField_NepaliName_ui ON
+MemberField(NepaliName)
+GO
+
+
+GO
 CREATE TABLE AccountHead
 (
 	AccountHeadId int not null Identity(1,1) Constraint AccountHead_pk Primary Key,
@@ -54,6 +94,7 @@ CREATE UNIQUE INDEX MemberType_NepaliName_ui ON
 MemberType(NepaliName)
 GO
 
+
 GO
 CREATE TABLE Member
 (
@@ -68,6 +109,9 @@ CREATE TABLE Member
 	DateOfBirthBS nvarchar(10) null,
 	DateOfBirthAD date null,
 	GenderId int null Constraint Member_Gender_GenderId_fk References Gender(GenderId),
+	OccupationId int null Constraint Member_Occupation_OccupationId_fk References Occupation(Id),
+	OtherOccupationRemarks nvarchar(100) null,
+	--MemberFieldId int null
 	CitizenshipNumber nvarchar(100) null,
 	IsMemberFilled bit null default(1),
 	FormStatus int not null,

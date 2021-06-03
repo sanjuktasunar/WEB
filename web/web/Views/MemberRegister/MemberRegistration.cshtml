@@ -4,4 +4,94 @@
     Layout = "~/Views/Shared/_FrontLayout.cshtml";
 }
 
+<style>
+    .py-5 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
 
+    .text-decoration-none {
+        margin-bottom: 2%;
+    }
+</style>
+<section class="service-wrapper py-3">
+    <div class="service-tag py-5 bg-secondary">
+        <div class="col-md-12">
+            <ul class="nav d-flex justify-content-center">
+                <li class="nav-item mx-lg-4">
+                   
+                    <a class="filter-btn nav-link  text-light px-4 light-300">
+                        <b>Member Registration</b>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <form class="contact-form row" method="post" action="#" role="form"
+                  id="step_1">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg light-300" id="FirstName" name="FirstName" placeholder="First Name">
+                                <label for="FirstName light-300">First Name</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg light-300" id="MiddleName" name="Middle Name" placeholder="Email">
+                                <label for="MiddleName light-300">Middle Name</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg light-300" id="LastName" name="LastName" placeholder="Last Name">
+                                <label for="LastName light-300">Last Name</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <select class="form-control form-control-lg light-300 select"
+                                        id="Gender">
+                                    @foreach (var x in ViewBag.Gender)
+                                    {
+                                        <option value="@x.GenderId">@x.GenderName</option>
+                                    }
+                                </select>
+                                <label for="Gender light-300">Gender</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control form-control-lg 
+                                        light-300" id="CitizenshipNumber" 
+                                        name="CitizenshipNumber" 
+                                        placeholder="Citizenship Number">
+                                <label for="CitizenshipNumber light-300">
+                                    Citizenship Number  
+                                 </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-12 m-auto text-end">
+                    <button type="submit" id="btnSave" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
