@@ -190,5 +190,28 @@ namespace Web.Services.Mapping
                 NormalizedName = dto.NormalizedName,
             };
         }
+
+        public static FiscalYear ToEntity(this FiscalYearDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new FiscalYear
+            {
+                FiscalYearId = dto.FiscalYearId,
+                Name = dto.Name?.Trim(),
+                NepaliName = dto.NepaliName?.Trim(),
+                StartDateBS = dto.StartDateBS?.Trim(),
+                StartDateAD = dto.StartDateAD,
+                EndDateBS = dto.EndDateBS?.Trim(),
+                EndDateAD = dto.EndDateAD,
+                IsCurrent = dto.IsCurrent,
+                Status = dto.Status,
+                CreatedBy = dto.CreatedBy,
+                CreatedDate = dto.CreatedDate,
+                UpdatedBy = dto.UpdatedBy,
+                UpdatedDate = dto.UpdatedDate,
+            };
+        }
     }
 }

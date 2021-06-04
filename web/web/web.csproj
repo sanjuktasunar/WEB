@@ -214,6 +214,7 @@
     <Compile Include="Controllers\AdminSite\CustomerController.cs" />
     <Compile Include="Controllers\AdminSite\DepartmentController.cs" />
     <Compile Include="Controllers\AdminSite\DesignationController.cs" />
+    <Compile Include="Controllers\AdminSite\FiscalYearController.cs" />
     <Compile Include="Controllers\AdminSite\OrganizationInfoController.cs" />
     <Compile Include="Controllers\AdminSite\RoleController.cs" />
     <Compile Include="Controllers\AdminSite\SupplierController.cs" />
@@ -246,6 +247,7 @@
     <Content Include="assets\custom-plugin\custom.css" />
     <Content Include="assets\custom-plugin\form-validation.css" />
     <Content Include="assets\custom-plugin\jquery.validate.min.js" />
+    <Content Include="assets\custom-plugin\NumberTyping.js" />
     <Content Include="assets\custom-plugin\ShowMessage.js" />
     <Content Include="assets\custom-plugin\sweetalert.min.css" />
     <Content Include="assets\custom-plugin\sweetalert.min.js" />
@@ -262,6 +264,8 @@
     <Content Include="assets\js\demo\datatables-demo.js" />
     <Content Include="assets\js\sb-admin-2.js" />
     <Content Include="assets\js\sb-admin-2.min.js" />
+    <Content Include="assets\nepali-date-picker\css\nepali.datepicker.v3.6.min.css" />
+    <Content Include="assets\nepali-date-picker\js\nepali.datepicker.v3.6.min.js" />
     <Content Include="assets\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="assets\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="assets\vendor\bootstrap\js\bootstrap.js" />
@@ -2251,6 +2255,8 @@
     <Content Include="Views\MemberRegister\MemberRegistration.cshtml" />
     <Content Include="Views\Supplier\SupplierList.cshtml" />
     <Content Include="Views\Supplier\AddModifySupplier.cshtml" />
+    <Content Include="Views\FiscalYear\FiscalYearList.cshtml" />
+    <Content Include="Views\FiscalYear\AddModifyFiscalYear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
