@@ -23,8 +23,12 @@ namespace web
                        "~/assets/vendor/datatables/dataTables.bootstrap4.min.js"));
 
             bundles.Add(new ScriptBundle("~/web/back-end/message").Include(
+                      "~/assets/custom-plugin/NumberTyping.js",
                       "~/assets/custom-plugin/sweetalert.min.js",
                       "~/assets/custom-plugin/ShowMessage.js"));
+
+            bundles.Add(new ScriptBundle("~/web/nepali-date-picker").Include(
+                      "~/assets/nepali-date-picker/js/nepali.datepicker.v3.6.min.js"));
         }
     }
 }

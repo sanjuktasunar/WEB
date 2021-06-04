@@ -100,6 +100,7 @@
     <Compile Include="Dto\AccountHeadDto.cs" />
     <Compile Include="Dto\DepartmentDto.cs" />
     <Compile Include="Dto\DesignationDto.cs" />
+    <Compile Include="Dto\FiscalYearDto.cs" />
     <Compile Include="Dto\GenderDto.cs" />
     <Compile Include="Dto\MenuAccessPermissionDto.cs" />
     <Compile Include="Dto\MenusDto.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Dto\ProductPriceDto.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Dto\StaffsDto.cs" />
+    <Compile Include="Dto\SupplierDto.cs" />
     <Compile Include="Dto\UnitDto.cs" />
     <Compile Include="Dto\UsersDto.cs" />
     <Compile Include="Dto\UserSite\CustomerQueryDto.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Entity\CustomerQuery.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Designation.cs" />
+    <Compile Include="Entity\FiscalYear.cs" />
     <Compile Include="Entity\Gender.cs" />
     <Compile Include="Entity\MenuAccessPermission.cs" />
     <Compile Include="Entity\Menus.cs" />
@@ -133,8 +136,11 @@
     <Compile Include="Entity\ProductPrice.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Staffs.cs" />
+    <Compile Include="Entity\Supplier.cs" />
     <Compile Include="Entity\Unit.cs" />
     <Compile Include="Entity\Users.cs" />
+    <Compile Include="Infrastructure\ApprovalStatus.cs" />
+    <Compile Include="Infrastructure\PaymentStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
