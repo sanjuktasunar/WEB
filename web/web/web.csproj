@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AdminSite\DesignationController.cs" />
     <Compile Include="Controllers\AdminSite\OrganizationInfoController.cs" />
     <Compile Include="Controllers\AdminSite\RoleController.cs" />
+    <Compile Include="Controllers\AdminSite\SupplierController.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -2248,6 +2249,8 @@
     <Content Include="Views\AccountHead\AccountHeadList.cshtml" />
     <Content Include="Views\AccountHead\AddModifyAccountHead.cshtml" />
     <Content Include="Views\MemberRegister\MemberRegistration.cshtml" />
+    <Content Include="Views\Supplier\SupplierList.cshtml" />
+    <Content Include="Views\Supplier\AddModifySupplier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
