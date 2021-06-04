@@ -137,6 +137,8 @@
     <Compile Include="Entity\Supplier.cs" />
     <Compile Include="Entity\Unit.cs" />
     <Compile Include="Entity\Users.cs" />
+    <Compile Include="Infrastructure\ApprovalStatus.cs" />
+    <Compile Include="Infrastructure\PaymentStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

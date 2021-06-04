@@ -2,7 +2,7 @@
 GO
 CREATE TABLE Supplier
 (
-	SupplierId int not null Constraint Supplier_pk Primary Key,
+	SupplierId int not null Identity(1,1) Constraint Supplier_pk Primary Key,
 	SupplierName nvarchar(500) not null,
 	Address nvarchar(300),
 	ContactNumber1 nvarchar(20) not null,
@@ -43,3 +43,17 @@ GO
 CREATE UNIQUE INDEX Supplier_PanNumber_ui ON
 Supplier(PanNumber) WHERE PanNumber IS NOT NULL
 GO
+
+
+
+
+
+
+GO
+CREATE TABLE PurchaseRecord
+(
+	PurchaseRecordId int not null Identity(1,1) Constraint PurchaseRecord_pk Primary Key,
+	SupplierId int not null Constraint PurchaseRecord_Supplier_SupplierId_fk References Supplier(SupplierId),
+	PurchaseDateAD datetime not null,
+	PurchaseDateBS nvarchar(10) not null
+)

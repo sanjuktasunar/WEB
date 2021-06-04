@@ -95,12 +95,12 @@
                     if (willDelete) {
                         $.ajax({
                             type: "POST",
-                            url: '/Unit/Delete/' + data,
+                            url: '/Supplier/Delete/' + data,
                             success: function (message) {
-                                ShowDeleteMessage(message, "/UnitList")
+                                ShowDeleteMessage(message, "/SupplierList")
                             },
                             error: function (message) {
-                                ShowDeleteMessage(message, "/UnitList")
+                                ShowDeleteMessage(message, "/SupplierList")
                             }
                         });
                     }
