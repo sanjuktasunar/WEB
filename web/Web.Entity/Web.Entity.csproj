@@ -110,6 +110,7 @@
     <Compile Include="Dto\ProductPriceDto.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Dto\StaffsDto.cs" />
+    <Compile Include="Dto\SupplierDto.cs" />
     <Compile Include="Dto\UnitDto.cs" />
     <Compile Include="Dto\UsersDto.cs" />
     <Compile Include="Dto\UserSite\CustomerQueryDto.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Entity\ProductPrice.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Staffs.cs" />
+    <Compile Include="Entity\Supplier.cs" />
     <Compile Include="Entity\Unit.cs" />
     <Compile Include="Entity\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
