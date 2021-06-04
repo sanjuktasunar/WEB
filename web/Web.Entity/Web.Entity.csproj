@@ -100,6 +100,7 @@
     <Compile Include="Dto\AccountHeadDto.cs" />
     <Compile Include="Dto\DepartmentDto.cs" />
     <Compile Include="Dto\DesignationDto.cs" />
+    <Compile Include="Dto\FiscalYearDto.cs" />
     <Compile Include="Dto\GenderDto.cs" />
     <Compile Include="Dto\MenuAccessPermissionDto.cs" />
     <Compile Include="Dto\MenusDto.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Entity\CustomerQuery.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Designation.cs" />
+    <Compile Include="Entity\FiscalYear.cs" />
     <Compile Include="Entity\Gender.cs" />
     <Compile Include="Entity\MenuAccessPermission.cs" />
     <Compile Include="Entity\Menus.cs" />
