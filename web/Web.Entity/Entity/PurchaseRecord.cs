@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Entity.Infrastructure
+namespace Web.Entity.Entity
 {
-    public enum ApprovalStatus
+    class PurchaseRecord
     {
-        UnApproved=1,
-        Approved=2,
-        Rejected=3,
     }
 }
