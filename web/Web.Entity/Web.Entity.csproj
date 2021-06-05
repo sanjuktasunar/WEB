@@ -149,11 +149,8 @@
     <Compile Include="Entity\UserDocuments.cs" />
     <Compile Include="Entity\Users.cs" />
     <Compile Include="Infrastructure\ApprovalStatus.cs" />
-<<<<<<< HEAD
     <Compile Include="Infrastructure\PaymentStatus.cs" />
-=======
     <Compile Include="Infrastructure\FormStatus.cs" />
->>>>>>> Member_Registration
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
