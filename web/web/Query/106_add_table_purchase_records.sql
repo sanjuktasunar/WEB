@@ -97,13 +97,51 @@ FiscalYear(EndDateAD)
 GO
 
 
+GO
+CREATE TABLE PurchaseRecord
+(
+	PurchaseRecordId int not null Identity(1,1) Constraint PurchaseRecord_pk Primary Key,
+	SupplierId int not null Constraint PurchaseRecord_Supplier_SupplierId_fk References Supplier(SupplierId),
+	FiscalYearId int not null Constraint PurchaseRecord_FiscalYear_FiscalYearId_fk References FiscalYear(FiscalYearId),
+	InvoiceNumber bigint not null,
+	PurchaseDateAD datetime not null,
+	PurchaseDateBS nvarchar(10) not null,
+	BillNumber nvarchar(30) not null,
+	ApprovalStatus int not null,
+	ApprovedDate datetime not null,
+	ApprovalRemarks nvarchar(500) null default(''),
+	BillImageString nvarchar(max) null,
+	CreatedBy int null Constraint PurchaseRecord_User_CreatedBy_fk References Users(UserId),
+	CreatedDate datetime not null default GETDATE(),
+	UpdatedBy int null Constraint PurchaseRecord_User_UpdatedBy_fk References Users(UserId),
+	UpdatedDate datetime null
+);
+GO
+GO
+CREATE UNIQUE INDEX PurchaseRecord_InvoiceNumber_ui ON
+PurchaseRecord(InvoiceNumber)
+GO
 
---GO
---CREATE TABLE PurchaseRecord
---(
---	PurchaseRecordId int not null Identity(1,1) Constraint PurchaseRecord_pk Primary Key,
---	SupplierId int not null Constraint PurchaseRecord_Supplier_SupplierId_fk References Supplier(SupplierId),
---	PurchaseDateAD datetime not null,
---	PurchaseDateBS nvarchar(10) not null
---);
---GO
+
+GO
+CREATE TABLE PurchaseRecordDetail
+(
+	Id int not null Identity(1,1) Constraint PurchaseRecordDetail_pk Primary Key,
+	PurchaseRecordId int not null Constraint PurchaseRecordDetail_PurchaseRecord_PurchaseRecordId_fk References PurchaseRecord(PurchaseRecordId),
+	ProductId int not null Constraint PurchaseRecordDetail_Product_ProductId_fk References Product(ProductId),
+	UnitId int not null  Constraint PurchaseRecordDetail_Unit_UnitId_fk References Unit(UnitId),
+	Quantity decimal(18,4) not null
+);
+GO
+
+GO
+CREATE TABLE Stock
+(
+	Id int not null Identity(1,1) Constraint Stock_pk Primary Key,
+	ProductId int not null Constraint Stock_Product_ProductId_fk References Product(ProductId),
+	UnitId int not null  Constraint Stock_Unit_UnitId_fk References Unit(UnitId),
+	Quantity decimal(18,4) not null,
+	TotalPurchaseQuantity decimal(18,4) not null,
+	TotalSellQuantity decimal(18,4) not null,
+);
+GO
