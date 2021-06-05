@@ -99,5 +99,28 @@ namespace Web.Services.Mapping
                 Status=dto.Status,
             };
         }
+
+        public static Supplier ToEntity(this SupplierDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new Supplier
+            {
+                SupplierId = dto.SupplierId,
+                SupplierName = dto.SupplierName,
+                Address = dto.Address,
+                ContactNumber1 = dto.ContactNumber1,
+                ContactNumber2 = dto.ContactNumber2,
+                EmailAddress = dto.EmailAddress,
+                Website = dto.Website,
+                PanNumber = dto.PanNumber,
+                CreatedBy = dto.CreatedBy,
+                CreatedDate = dto.CreatedDate,
+                UpdatedBy = dto.UpdatedBy,
+                UpdatedDate = dto.UpdatedDate,
+                Status = dto.Status,
+            };
+        }
     }
 }

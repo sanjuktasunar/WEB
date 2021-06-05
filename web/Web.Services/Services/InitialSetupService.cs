@@ -50,5 +50,7 @@ namespace Web.Services.Services
         {
             return _initialSetupRepository.GetOrganizationInfo();
         }
+
+        //public string ConvertToAD(string)
     }
 }

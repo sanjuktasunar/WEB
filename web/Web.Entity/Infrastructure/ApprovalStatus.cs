@@ -8,8 +8,8 @@ namespace Web.Entity.Infrastructure
 {
     public enum ApprovalStatus
     {
-        ApprovalPending = 1,
-        Approved = 2,
-        Rejected = 3,
+        UnApproved=1,
+        Approved=2,
+        Rejected=3,
     }
 }
