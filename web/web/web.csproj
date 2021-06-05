@@ -242,11 +242,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\multi-tier-form\form-wizard.css" />
     <Content Include="assets\css\sb-admin-2.css" />
     <Content Include="assets\css\sb-admin-2.min.css" />
     <Content Include="assets\custom-plugin\custom.css" />
     <Content Include="assets\custom-plugin\form-validation.css" />
     <Content Include="assets\custom-plugin\jquery.validate.min.js" />
+    <Content Include="assets\custom-plugin\additional-methods.js" />
+    <Content Include="assets\custom-plugin\additional-methods.min.js" />
+    <Content Include="assets\custom-plugin\multi-tier-form\form-wizard.js" />
     <Content Include="assets\custom-plugin\NumberTyping.js" />
     <Content Include="assets\custom-plugin\ShowMessage.js" />
     <Content Include="assets\custom-plugin\sweetalert.min.css" />
