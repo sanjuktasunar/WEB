@@ -1,5 +1,45 @@
 
 GO
+CREATE TABLE Occupation
+(
+	Id int not null Identity(1,1) Constraint Occupation_pk Primary Key,
+	Name nvarchar(100) not null,
+	NepaliName nvarchar(200) not null,
+	Status bit null default(1)
+);
+GO
+GO
+CREATE UNIQUE INDEX Occupation_Name_ui ON
+Occupation(Name)
+GO
+
+GO
+CREATE UNIQUE INDEX Occupation_NepaliName_ui ON
+Occupation(NepaliName)
+GO
+
+
+GO
+CREATE TABLE MemberField
+(
+	Id int not null Identity(1,1) Constraint MemberField_pk Primary Key,
+	Name nvarchar(100) not null,
+	NepaliName nvarchar(200) not null,
+	Status bit null default(1)
+);
+GO
+GO
+CREATE UNIQUE INDEX MemberField_Name_ui ON
+MemberField(Name)
+GO
+
+GO
+CREATE UNIQUE INDEX MemberField_NepaliName_ui ON
+MemberField(NepaliName)
+GO
+
+
+GO
 CREATE TABLE AccountHead
 (
 	AccountHeadId int not null Identity(1,1) Constraint AccountHead_pk Primary Key,
@@ -55,7 +95,6 @@ MemberType(NepaliName)
 GO
 
 
-
 GO
 CREATE TABLE Member
 (
@@ -65,25 +104,62 @@ CREATE TABLE Member
 	FirstName nvarchar(50) not null,
 	MiddleName nvarchar(50) not null,
 	LastName nvarchar(50) not null,
-	MobileNumber nvarchar(20) not null,
-	Email nvarchar(200) not null,
-	DateOfBirthBS nvarchar(10) not null,
-	DateOfBirthAD date not null,
-	GenderId int not null Constraint Member_Gender_GenderId_fk References Gender(GenderId),
+	MobileNumber nvarchar(20) null,
+	Email nvarchar(200) null,
+	DateOfBirthBS nvarchar(10) null,
+	DateOfBirthAD date null,
+	GenderId int null Constraint Member_Gender_GenderId_fk References Gender(GenderId),
+	OccupationId int null Constraint Member_Occupation_OccupationId_fk References Occupation(Id),
+	OtherOccupationRemarks nvarchar(100) null,
+	--MemberFieldId int null
 	CitizenshipNumber nvarchar(100) null,
-	ProvinceId int null Constraint Member_Province_ProvinceId_fk References Province(ProvinceId),
-	DistrictId int null Constraint Member_District_DistrictId_fk References District(DistrictId),
-	MunicipalityTypeId int null Constraint Member_MunicipalityType_MunicipalityTypeId_fk References MunicipalityType(Id),
-	Municipality nvarchar(150) null,
-	WardNumber int null,
-	ToleName nvarchar(150) not null,
+	IsMemberFilled bit null default(1),
+	FormStatus int not null,
+	CreatedDate datetime null,
+	CreatedByUserId int null Constraint Member_User_CreatedByUserId_fk References Users(UserId),
+	UpdatedDate datetime null,
+	UpdateByUserId int null Constraint Member_User_UpdateByUserId_fk References Users(UserId),
+	ApprovalStatus int not null,
+	ApprovedDate datetime null,
+	ApproveByUserId int null Constraint Member_User_ApproveByUserId_fk References Users(UserId),
 );
 GO
 
 GO
-ALTER TABLE UserDocuments
-ADD MemberId int null Constraint UserDocument_Member_MemberId_fk References Member(MemberId)
+CREATE UNIQUE INDEX Member_MobileNumber_ui ON
+Member(MobileNumber) WHERE MobileNumber IS NOT NULL
 GO
+GO
+CREATE UNIQUE INDEX Member_Email_ui ON
+Member(Email) WHERE Email IS NOT NULL
+GO
+GO
+CREATE UNIQUE INDEX Member_CitizenshipNumber_ui ON
+Member(CitizenshipNumber) WHERE CitizenshipNumber IS NOT NULL
+GO
+GO
+CREATE UNIQUE INDEX Member_MemberCode_ui ON
+Member(MemberCode) 
+GO
+
+
+GO
+DROP TABLE UserDocuments
+GO
+
+GO
+CREATE TABLE UserDocuments
+(
+	UserDocumentId int not null Identity(1,1) Constraint UserDocuments_pk Primary Key,
+	StaffId int null Constraint UserDocuments_Staffs_StaffId References Staffs(StaffId),
+	MemberId int null Constraint UserDocument_Member_MemberId_fk References Member(MemberId),
+	CitizenshipFront nvarchar(max) null,
+	CitizenshipBack nvarchar(max) null,
+	PanCard nvarchar(max) null,
+	EducationalDocument nvarchar(max) null
+);
+GO
+
 
 GO
 CREATE UNIQUE INDEX UserDocument_MemberId_ui ON
@@ -104,4 +180,52 @@ CREATE TABLE MemberDetails
 GO
 
 
+GO
+CREATE TABLE [dbo].[Address]
+(
+	Id int not null Identity(1,1) Constraint Address_pk Primary Key,
+	MemberId int null Constraint Address_Member_MemberId_fk References Member(MemberId),
+	PermanentProvinceId int null Constraint Address_Province_PermanentProvinceId References Province(ProvinceId),
+	PermanentDistrictId int null Constraint Address_District_PermanentDistrictId References District(DistrictId),
+	PermanentMunicipalityTypeId int null Constraint Address_MunicipalityType_PermanentMunicipalityTypeId References MunicipalityType(Id),
+	PermanentMunicipality nvarchar(100) null,
+	PermanentWardNumber nvarchar(100) null,
+	PermanentToleName nvarchar(100) null,
+	TemporaryProvinceId int null Constraint Address_Province_TemporaryProvinceId References Province(ProvinceId),
+	TemporaryDistrictId int null Constraint Address_District_TemporaryDistrictId References District(DistrictId),
+	TemporaryMunicipalityTypeId int null Constraint Address_MunicipalityType_TemporaryMunicipalityTypeId References MunicipalityType(Id),
+	TemporaryMunicipality nvarchar(100) null,
+	TemporaryWardNumber nvarchar(100) null,
+	TemporaryToleName nvarchar(100) null,
+);
+GO
+
+GO
+CREATE UNIQUE INDEX Address_MemberId_ui ON
+Address(MemberId) WHERE MemberId IS NOT NULL
+GO
+
+
+GO
+CREATE TABLE [dbo].[BankDeposit]
+(
+	Id int not null Identity(1,1) Constraint BankDeposit_pk Primary Key,
+	MemberId int null Constraint BankDeposit_Member_MemberId_fk References Member(MemberId),
+	IsOther bit null default(0),
+	IsVoucherDeposit bit null default(0),
+	Name nvarchar(100) null,
+	PhoneNumber nvarchar(10) null,
+	Address nvarchar(150) null,
+	Amount decimal(18,2) not null,
+	AccountHeadId int null Constraint BankDeposit_AccountHead_AccountHeadId References AccountHead(AccountHeadId),
+	DepositDate datetime null,
+	VoucherImage nvarchar(max) null,
+	IsApproved bit null default(0),
+	ApprovedDate datetime null,
+);
+GO
+GO
+CREATE UNIQUE INDEX BankDeposit_MemberId_ui ON
+BankDeposit(MemberId) WHERE MemberId IS NOT NULL
+GO
 
