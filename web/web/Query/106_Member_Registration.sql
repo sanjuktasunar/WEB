@@ -111,7 +111,7 @@ CREATE TABLE Member
 	GenderId int null Constraint Member_Gender_GenderId_fk References Gender(GenderId),
 	OccupationId int null Constraint Member_Occupation_OccupationId_fk References Occupation(Id),
 	OtherOccupationRemarks nvarchar(100) null,
-	--MemberFieldId int null
+	MemberFieldId int null Constraint Member_MemberField_MemberFieldId_fk References MemberField(Id) ,
 	CitizenshipNumber nvarchar(100) null,
 	IsMemberFilled bit null default(1),
 	FormStatus int not null,
@@ -160,11 +160,15 @@ CREATE TABLE UserDocuments
 );
 GO
 
-
 GO
 CREATE UNIQUE INDEX UserDocument_MemberId_ui ON
 UserDocuments(MemberId) WHERE MemberId is not null
 GO
+GO
+CREATE UNIQUE INDEX UserDocument_StaffId_ui ON
+UserDocuments(StaffId) WHERE StaffId is not null
+GO
+
 
 
 GO

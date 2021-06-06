@@ -16,3 +16,5 @@ GO
 INSERT INTO UserType(UserTypeTitle,Status)
 SELECT N'Member',1 
 GO
+
+--INSERT INTO MemberField()

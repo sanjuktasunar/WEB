@@ -17,13 +17,13 @@ p {
     font-weight: normal
 }
 
-#msform {
+#msform form{
     text-align: center;
     position: relative;
     margin-top: 20px
 }
 
-    #msform fieldset {
+    #msform form {
         background: white;
         border: 0 none;
         border-radius: 0.5rem;
@@ -38,16 +38,16 @@ p {
     text-align: left
 }
 
-#msform fieldset:not(:first-of-type) {
+#msform form:not(:first-of-type) {
     display: none
 }
 
-#msform input,
-#msform textarea {
+#msform form input,
+#msform form textarea, #msform form select {
     padding: 8px 15px 8px 15px;
     border: 1px solid #ccc;
     border-radius: 0px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     margin-top: 2px;
     width: 100%;
     box-sizing: border-box;
@@ -57,17 +57,23 @@ p {
     font-size: 16px;
     letter-spacing: 1px
 }
+#msform form textarea, #msform form select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+}
+        #msform form input:focus,
+        #msform form textarea:focus, #msform form select:focus {
+            -moz-box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            border: 1px solid #673AB7;
+            background-color: white;
+            outline-width: 0
+        }
 
-    #msform input:focus,
-    #msform textarea:focus {
-        -moz-box-shadow: none !important;
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
-        border: 1px solid #673AB7;
-        outline-width: 0
-    }
-
-#msform .action-button {
+#msform form .action-button {
     width: 100px;
     background: #673AB7;
     font-weight: bold;
@@ -80,12 +86,12 @@ p {
     float: right
 }
 
-    #msform .action-button:hover,
-    #msform .action-button:focus {
+    #msform form .action-button:hover,
+    #msform form .action-button:focus {
         background-color: #311B92
     }
 
-#msform .action-button-previous {
+#msform form .action-button-previous {
     width: 100px;
     background: #616161;
     font-weight: bold;
@@ -98,8 +104,8 @@ p {
     float: right
 }
 
-    #msform .action-button-previous:hover,
-    #msform .action-button-previous:focus {
+    #msform form .action-button-previous:hover,
+    #msform form .action-button-previous:focus {
         background-color: #000000
     }
 

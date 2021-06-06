@@ -2,17 +2,15 @@
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
     var current = 1;
-    var steps = $("fieldset").length;
-
+    var steps = $("#msform form ").length;
     setProgressBar(current);
 
     $(".next").click(function () {
-
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
 
         //Add Class Active
-        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
 
         //show the next fieldset
         next_fs.show();
@@ -21,7 +19,6 @@
             step: function (now) {
                 // for making fielset appear animation
                 opacity = 1 - now;
-
                 current_fs.css({
                     'display': 'none',
                     'position': 'relative'
@@ -34,12 +31,11 @@
     });
 
     $(".previous").click(function () {
-
         current_fs = $(this).parent();
         previous_fs = $(this).parent().prev();
 
         //Remove class active
-        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+        $("#progressbar li").eq($("form").index(current_fs)).removeClass("active");
 
         //show the previous fieldset
         previous_fs.show();
