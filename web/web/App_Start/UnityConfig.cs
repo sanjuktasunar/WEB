@@ -5,10 +5,12 @@ using Web.Database;
 using Web.Database.BaseRepo;
 using Web.Entity.Entity;
 using Web.Repositories.Interface;
+using Web.Repositories.Repositories;
 using Web.Repositories.Repositories.Account;
 using Web.Repositories.Repositories.Administration;
 using Web.Repositories.Repositories.Customer;
 using Web.Repositories.Utitlities;
+using Web.Services.Interface;
 using Web.Services.Services;
 using Web.Services.Services.Account;
 using Web.Services.Services.Administration;
@@ -60,6 +62,7 @@ namespace web
             container.RegisterType<IAccountHeadRepository, AccountHeadRepository>();
             container.RegisterType<ISupplierRepository, SupplierRepository>();
             container.RegisterType<IFiscalYearRepository, FiscalYearRepository>();
+            container.RegisterType<IDataRepository, DataRepository>();
 
 
             //services
@@ -79,6 +82,7 @@ namespace web
             container.RegisterType<ISupplierService, SupplierService>();
             container.RegisterType<IFiscalYearService, FiscalYearService>();
             container.RegisterType<IDateService, DateService>();
+            container.RegisterType<IDataService, DataService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

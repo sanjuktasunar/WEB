@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\IBaseInterface.cs" />
+    <Compile Include="Interface\IDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Account\AccountHeadRepository.cs" />
     <Compile Include="Repositories\Account\ProductRepository.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Repositories\Administration\RoleRepository.cs" />
     <Compile Include="Repositories\Administration\StaffsRepository.cs" />
     <Compile Include="Repositories\Administration\UsersRepository.cs" />
+    <Compile Include="Repositories\DataRepository.cs" />
     <Compile Include="Repositories\InitialSetupRepository.cs" />
     <Compile Include="Repositories\Customer\CustomerQueryRepository.cs" />
     <Compile Include="Utitlities\MessageClass.cs" />

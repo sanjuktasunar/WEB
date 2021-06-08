@@ -113,6 +113,7 @@
     <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="Dto\ProductImageDto.cs" />
     <Compile Include="Dto\ProductPriceDto.cs" />
+    <Compile Include="Dto\ProvinceDto.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Dto\StaffsDto.cs" />
     <Compile Include="Dto\SupplierDto.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Infrastructure\ApprovalStatus.cs" />
     <Compile Include="Infrastructure\PaymentStatus.cs" />
     <Compile Include="Infrastructure\FormStatus.cs" />
+    <Compile Include="Model\DropdownList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

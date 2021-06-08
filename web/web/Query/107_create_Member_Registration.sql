@@ -1,5 +1,26 @@
 
 GO
+CREATE TABLE Country
+(
+	Id int not null Identity(1,1) Constraint Country_pk Primary Key,
+	Name nvarchar(100) not null,
+	NepaliName nvarchar(200) not null,
+	Status bit null default(1),
+	IsOutsideNepal bit null,
+);
+GO
+CREATE UNIQUE INDEX Country_Name_ui ON
+Country(Name)
+GO
+
+GO
+CREATE UNIQUE INDEX Country_NepaliName_ui ON
+Country(NepaliName)
+GO
+
+
+
+GO
 CREATE TABLE Occupation
 (
 	Id int not null Identity(1,1) Constraint Occupation_pk Primary Key,
@@ -189,18 +210,22 @@ CREATE TABLE [dbo].[Address]
 (
 	Id int not null Identity(1,1) Constraint Address_pk Primary Key,
 	MemberId int null Constraint Address_Member_MemberId_fk References Member(MemberId),
+	PermanentCountryId int null  Constraint Address_Country_PermanentCountryId_fk References Country(Id),
 	PermanentProvinceId int null Constraint Address_Province_PermanentProvinceId References Province(ProvinceId),
 	PermanentDistrictId int null Constraint Address_District_PermanentDistrictId References District(DistrictId),
 	PermanentMunicipalityTypeId int null Constraint Address_MunicipalityType_PermanentMunicipalityTypeId References MunicipalityType(Id),
 	PermanentMunicipality nvarchar(100) null,
 	PermanentWardNumber nvarchar(100) null,
 	PermanentToleName nvarchar(100) null,
+	PermanentAddress nvarchar(500) null,
+	TemporaryCountryId int null  Constraint Address_Country_TemporaryCountryId_fk References Country(Id),
 	TemporaryProvinceId int null Constraint Address_Province_TemporaryProvinceId References Province(ProvinceId),
 	TemporaryDistrictId int null Constraint Address_District_TemporaryDistrictId References District(DistrictId),
 	TemporaryMunicipalityTypeId int null Constraint Address_MunicipalityType_TemporaryMunicipalityTypeId References MunicipalityType(Id),
 	TemporaryMunicipality nvarchar(100) null,
 	TemporaryWardNumber nvarchar(100) null,
 	TemporaryToleName nvarchar(100) null,
+	TemporaryAddress nvarchar(500) null
 );
 GO
 

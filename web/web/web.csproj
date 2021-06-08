@@ -2026,9 +2026,12 @@
     <Content Include="Query\103_alter_table.sql" />
     <Content Include="Query\104_add_view.sql" />
     <Content Include="Query\105_add_column_add_table.sql" />
-    <Content Include="Query\107_add_table_purchase_records.sql" />
-    <Content Include="Query\106_Member_Registration.sql" />
-    <Content Include="Query\106_insert_valu_member_registration.sql" />
+    <Content Include="Query\106_query_down.sql" />
+    <Content Include="Query\106_drop_create_insert_district.sql" />
+    <Content Include="Query\107_query_down.sql" />
+    <Content Include="Query\add_table_purchase_records.sql" />
+    <Content Include="Query\107_create_Member_Registration.sql" />
+    <Content Include="Query\107_insert_value_member_registration.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

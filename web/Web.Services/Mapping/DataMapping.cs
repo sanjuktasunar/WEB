@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Entity.Dto;
+using Web.Entity.Model;
+
+namespace Web.Services.Mapping
+{
+    public static class DataMapping
+    {
+        public static DropdownList ToCountryDropdown(this CountryDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id = dto.Id,
+                Value = dto.Name,
+            };
+        }
+
+        public static DropdownList ToProvinceDropdown(this ProvinceDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id =dto.ProvinceId,
+                Value=dto.ProvinceName,
+            };
+        }
+
+        public static DropdownList ToDistrictDropdown(this DistrictDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id = dto.DistrictId,
+                Value = dto.DistrictName,
+            };
+        }
+
+        public static DropdownList ToMunicipalityTypeDropdown(this MunicipalityTypeDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id = dto.Id,
+                Value = dto.Name,
+            };
+        }
+    }
+}

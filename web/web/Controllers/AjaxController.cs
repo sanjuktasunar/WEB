@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Web.Services.Interface;
 using Web.Services.Services;
 
 namespace web.Controllers
@@ -10,9 +12,11 @@ namespace web.Controllers
     public class AjaxController : Controller
     {
         private readonly IImageService _imageService;
-        public AjaxController(IImageService imageService)
+        private readonly IDataService _dataService;
+        public AjaxController(IImageService imageService, IDataService dataService)
         {
             _imageService = imageService;
+            _dataService = dataService;
         }
         public JsonResult ConvertFileToString()
         {
@@ -23,7 +27,34 @@ namespace web.Controllers
                 result = _imageService.ConvertToString(file);
                 result = "data:image;base64," + result;
             }
-          
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetOutsideCountry()
+        {
+            var result = await _dataService.GetOutsideCountryAsync();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetProvince()
+        {
+            var result = await _dataService.GetActiveProvinceAsync();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetDistrictByProvinceId(int provinceId)
+        {
+            var result = await _dataService.GetDistrictByProvinceIdAsync(provinceId);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetMunicipalityType()
+        {
+            var result = await _dataService.GetActiveMunicipalityTypeAsync();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

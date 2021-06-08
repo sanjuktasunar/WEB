@@ -38,3 +38,4 @@ D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csproj.CoreCompileInputs.cac
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.dll
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.pdb
+D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csprojAssemblyReference.cache

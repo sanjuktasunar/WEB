@@ -61,5 +61,10 @@ GO
 DROP TABLE Occupation
 GO
 
+GO
+DROP TABLE Country
+GO
+
+
 
 

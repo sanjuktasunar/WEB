@@ -128,9 +128,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IDataService.cs" />
     <Compile Include="Mapping\AccountMapping.cs" />
     <Compile Include="Mapping\AdministrationMapping.cs" />
     <Compile Include="Mapping\BaseMapping.cs" />
+    <Compile Include="Mapping\DataMapping.cs" />
     <Compile Include="Mapping\MemberMapping.cs" />
     <Compile Include="Mapping\PublicSiteMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Services\Administration\OrganizationInfoService.cs" />
     <Compile Include="Services\Administration\RoleService.cs" />
     <Compile Include="Services\Customer\CustomerQueryService.cs" />
+    <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\DateService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\InitialSetupService.cs" />
