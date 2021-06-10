@@ -103,6 +103,7 @@
     <Compile Include="Dto\DesignationDto.cs" />
     <Compile Include="Dto\FiscalYearDto.cs" />
     <Compile Include="Dto\GenderDto.cs" />
+    <Compile Include="Dto\MemberDataDto.cs" />
     <Compile Include="Dto\MemberDto.cs" />
     <Compile Include="Dto\MemberTypeDto.cs" />
     <Compile Include="Dto\MenuAccessPermissionDto.cs" />

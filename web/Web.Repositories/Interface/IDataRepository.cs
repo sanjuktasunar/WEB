@@ -13,5 +13,7 @@ namespace Web.Repositories.Interface
         Task<IEnumerable<ProvinceDto>> GetActiveProvinceAsync();
         Task<IEnumerable<DistrictDto>> GetDistrictByProvinceIdAsync(int provinceId);
         Task<IEnumerable<MunicipalityTypeDto>> GetActiveMunicipalityTypeAsync();
+        Task<IEnumerable<MemberFieldDto>> GetActiveMemberFieldAsync();
+        Task<IEnumerable<OccupationDto>> GetActiveOccupationAsync();
     }
 }

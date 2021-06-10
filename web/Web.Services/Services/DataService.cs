@@ -14,9 +14,12 @@ namespace Web.Services.Services
     public class DataService:IDataService
     {
         private readonly IDataRepository _dataRepository;
-        public DataService(IDataRepository dataRepository)
+        private readonly IAdministrationService _administrationService;
+        public DataService(IDataRepository dataRepository,
+            IAdministrationService administrationService)
         {
             _dataRepository = dataRepository;
+            _administrationService = administrationService;
         }
 
         public async Task<IEnumerable<DropdownList>> GetOutsideCountryAsync()
@@ -29,14 +32,32 @@ namespace Web.Services.Services
             return (await _dataRepository.GetActiveProvinceAsync()).Select(a=>a.ToProvinceDropdown());
         }
 
-        public async Task<IEnumerable<DropdownList>> GetDistrictByProvinceIdAsync(int id)
+        public async Task<IEnumerable<DropdownList>> GetDistrictByProvinceIdAsync(int? id)
         {
-            return (await _dataRepository.GetDistrictByProvinceIdAsync(id)).Select(a=>a.ToDistrictDropdown());
+            var obj = new List<DropdownList>();
+            if(id!=null)
+             obj= (await _dataRepository.GetDistrictByProvinceIdAsync(id.Value)).Select(a => a.ToDistrictDropdown()).ToList();
+            return obj;
         }
 
         public async Task<IEnumerable<DropdownList>> GetActiveMunicipalityTypeAsync()
         {
             return (await _dataRepository.GetActiveMunicipalityTypeAsync()).Select(a=>a.ToMunicipalityTypeDropdown());
+        }
+
+        public async Task<IEnumerable<DropdownList>> GetActiveGenderAsync()
+        {
+            return (await _administrationService.GetActiveGenderAsync()).Select(a => a.ToGenderDropdown());
+        }
+
+        public async Task<IEnumerable<DropdownList>> GetActiveMemberFieldAsync()
+        {
+            return (await _dataRepository.GetActiveMemberFieldAsync()).Select(a => a.ToMemberFieldDropdown());
+        }
+
+        public async Task<IEnumerable<DropdownList>> GetActiveOccupationAsync()
+        {
+            return (await _dataRepository.GetActiveOccupationAsync()).Select(a => a.ToOccupationDropdown());
         }
     }
 }

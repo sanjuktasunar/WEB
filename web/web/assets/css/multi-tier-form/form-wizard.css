@@ -73,6 +73,19 @@ p {
             outline-width: 0
         }
 
+.radio-container {
+    display: flex;
+}
+
+#msform form .radio {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+   
+
+
 #msform form .action-button {
     width: 100px;
     background: #673AB7;
@@ -154,7 +167,7 @@ p {
     #progressbar li {
         list-style-type: none;
         font-size: 15px;
-        width: 25%;
+        width: 15%;
         float: left;
         position: relative;
         font-weight: 400

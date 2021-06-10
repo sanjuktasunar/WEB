@@ -53,5 +53,38 @@ namespace Web.Services.Mapping
                 Value = dto.Name,
             };
         }
+
+        public static DropdownList ToGenderDropdown(this GenderDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id = dto.GenderId,
+                Value = dto.GenderName,
+            };
+        }
+
+        public static DropdownList ToMemberFieldDropdown(this MemberFieldDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id = dto.Id,
+                Value = dto.Name,
+            };
+        }
+
+        public static DropdownList ToOccupationDropdown(this OccupationDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id = dto.Id,
+                Value = dto.Name,
+            };
+        }
     }
 }

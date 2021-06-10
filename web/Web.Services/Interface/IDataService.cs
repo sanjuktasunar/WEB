@@ -12,7 +12,10 @@ namespace Web.Services.Interface
     {
         Task<IEnumerable<DropdownList>> GetOutsideCountryAsync();
         Task<IEnumerable<DropdownList>> GetActiveProvinceAsync();
-        Task<IEnumerable<DropdownList>> GetDistrictByProvinceIdAsync(int id);
+        Task<IEnumerable<DropdownList>> GetDistrictByProvinceIdAsync(int? id);
         Task<IEnumerable<DropdownList>> GetActiveMunicipalityTypeAsync();
+        Task<IEnumerable<DropdownList>> GetActiveGenderAsync();
+        Task<IEnumerable<DropdownList>> GetActiveMemberFieldAsync();
+        Task<IEnumerable<DropdownList>> GetActiveOccupationAsync();
     }
 }

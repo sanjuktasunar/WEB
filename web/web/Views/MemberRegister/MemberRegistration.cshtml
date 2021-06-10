@@ -17,6 +17,7 @@
     #wizard_div {
         margin-top: -65px;
     }
+   
 </style>
 
 <link href="~/assets/css/multi-tier-form/form-wizard.css" rel="stylesheet" />
@@ -34,15 +35,17 @@
 <section class="container py-5">
     <div class="container-fluid" id="wizard_div">
         <div class="row justify-content-center">
-            <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <div id="msform">
                         <p>Fill all form field to go to next step</p>
                         <ul id="progressbar">
-                            <li class="active" id="account"><strong>Basic</strong></li>
+                            <li class="active" id="basic"><strong>Basic</strong></li>
                             <li id="contact"><strong>Contact</strong></li>
                             <li id="address"><strong>Address</strong></li>
                             <li id="occupation"><strong>Occupation</strong></li>
+                            <li id="document"><strong>Documents</strong></li>
+                            <li id="payment"><strong>Payment</strong></li>
                         </ul>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated"
@@ -50,6 +53,7 @@
                             </div>
                         </div>
                         <!-- progressbar -->
+                        <!-- step 1 basic information -->
                         <form>
                             <!-- fieldsets -->
                             <fieldset>
@@ -62,63 +66,62 @@
                                             <h2 class="steps">Step 1 - 4</h2>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            FirstName:
-                                        </label>
-                                        <input type="text" name="FirstName"
-                                               placeholder="First Name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            MiddleName:
-                                        </label>
-                                        <input type="text" name="MiddleName"
-                                               placeholder="Middle Name"
-                                               autocomplete="off" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            Last Name:
-                                        </label>
-                                        <input type="text" name="LastName"
-                                               placeholder="Last Name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            Gender:
-                                        </label>
-                                        <select class="form-control">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-md-4 form-group">
+                                            <label class="fieldlabels">
+                                                FirstName:
+                                            </label>
+                                            <input type="text" name="FirstName"
+                                                   placeholder="First Name" />
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 form-group">
+                                            <label class="fieldlabels">
+                                                MiddleName:
+                                            </label>
+                                            <input type="text" name="MiddleName"
+                                                   placeholder="Middle Name"
+                                                   autocomplete="off" />
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 form-group">
+                                            <label class="fieldlabels">
+                                                Last Name:
+                                            </label>
+                                            <input type="text" name="LastName"
+                                                   placeholder="Last Name" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Gender:
+                                            </label>
+                                            <select class="form-control" id="gender">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Date of Birth:
+                                            </label>
+                                            <input type="text" name="DateOfBirthBS"
+                                                   placeholder="YYYY-MM-DD"
+                                                   autocomplete="off" id="DateOfBirthBS"
+                                                   onkeypress="AllowForDate(event)"
+                                                   oninput="AllowForDate(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Citizenship Number:
+                                            </label>
+                                            <input type="text" name="CitizenshipNumber"
+                                                   placeholder="CitizenshipNumber" />
+                                        </div>
 
-                                            @foreach (var x in ViewBag.Gender)
-                                            {
-                                                <option value="@x.GenderId">
-                                                    @x.GenderName
-                                                </option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            Citizenship Number:
-                                        </label>
-                                        <input type="text" name="CitizenshipNumber"
-                                               placeholder="CitizenshipNumber" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            Date of Birth:
-                                        </label>
-                                        <input type="text" name="DateOfBirthBS"
-                                               placeholder="YYYY-MM-DD"
-                                               autocomplete="off" id="DateOfBirthBS" 
-                                            onkeypress="AllowForDate(event)"
-                                                oninput="AllowForDate(event)"/>
                                     </div>
                                 </div>
                             </fieldset>
                             <input type="button" name="next" class="next action-button" value="Next Step" />
                         </form>
+
+                        <!-- step 2 contact details -->
                         <form>
                             <fieldset>
                                 <div class="form-card">
@@ -130,20 +133,22 @@
                                             <h2 class="steps">Step 2 - 4</h2>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            Mobile Number:
-                                        </label>
-                                        <input type="text" name="MobileNumber"
-                                               placeholder="Mobile Number"
-                                               onkeypress="AllowNumberOnly(event)" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="fieldlabels">
-                                            Email Address:
-                                        </label>
-                                        <input type="text" name="Email"
-                                               placeholder="Email Address" />
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 form-group">
+                                            <label class="fieldlabels">
+                                                Mobile Number:
+                                            </label>
+                                            <input type="text" name="MobileNumber"
+                                                   placeholder="Mobile Number"
+                                                   onkeypress="AllowNumberOnly(event)" />
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 form-group">
+                                            <label class="fieldlabels">
+                                                Email Address:
+                                            </label>
+                                            <input type="text" name="Email"
+                                                   placeholder="Email Address" />
+                                        </div>
                                     </div>
                                 </div>
                             </fieldset>
@@ -153,19 +158,9 @@
                                    class="previous action-button-previous"
                                    value="Previous" />
                         </form>
+
+                        <!-- step 3 address details -->
                         <form>
-                            @*<fieldset>
-                                <div class="form-card">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h2 class="fs-title">Image Upload:</h2>
-                                        </div>
-                                        <div class="col-5">
-                                            <h2 class="steps">Step 3 - 4</h2>
-                                        </div>
-                                    </div> <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic" accept="image/*"> <label class="fieldlabels">Upload Signature Photo:</label> <input type="file" name="pic" accept="image/*">
-                                </div>
-                            </fieldset>*@
                             <fieldset>
                                 <div class="form-card">
                                     <div class="row">
@@ -176,48 +171,286 @@
                                             <h2 class="steps">Step 3 - 4</h2>
                                         </div>
                                     </div>
-                                    <label>Permanent Address</label><br />
-                                    <label class="fieldlabels">
-                                        Is Outside Nepal?:
-                                    </label>
-                                    <div class="form-group">
-                                        <input type="radio" name="IsOutsideNepal"
-                                               value="true" />Yes
-                                        <input type="radio" name="IsOutsideNepal"
-                                               value="true" checked="checked" />No
-                                    </div>
-                                    <div class="form-group">
+                                    <h4 style="color:blueviolet">Permanent Address</h4>
+
+                                    <div class="row">
                                         <label class="fieldlabels">
-                                            Province:
+                                            Is Outside Nepal ?
                                         </label>
-                                        <select class="form-control province" 
-                                                id="permanentProvince">
-                                            <option value="" selected="selected">
-                                                Select Province
-                                            </option>
-                                        </select>
+                                        <div>
+                                            <input type="radio"
+                                                   name="PermanentRadio"
+                                                   id="PermanentRadio" value="true">
+                                            <label>
+                                                Yes
+                                            </label>
+                                            <input type="radio"
+                                                   name="PermanentRadio" checked="checked"
+                                                   id="PermanentRadio" value="false">
+                                            <label>
+                                                No
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="row" id="permanentInsideNepalAddress">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Province:
+                                            </label>
+                                            <select class="form-control province"
+                                                    id="permanentProvince">
+                                                <option value="" selected="selected">
+                                                    Select Province
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                District:
+                                            </label>
+                                            <select class="form-control"
+                                                    id="permanentDistrict">
+                                                <option value="" selected="selected">
+                                                    Select District
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Municipality/RM:
+                                            </label>
+                                            <select class="form-control"
+                                                    id="permanentMunicipalityType">
+                                                <option value="" selected="selected">
+                                                    Select Type
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                RM/Municipality:
+                                            </label>
+                                            <input type="text" name="PermanentMunicipality"
+                                                   placeholder="RM/Municipality" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Ward Number:
+                                            </label>
+                                            <input type="text" name="PermanentWardNumber"
+                                                   placeholder="Ward Number"
+                                                   onkeypress="AllowNumberOnly(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Tole Name:
+                                            </label>
+                                            <input type="text" name="PermanentToleName"
+                                                   placeholder="Tole Name" />
+                                        </div>
+                                    </div>
+                                    <div class="row" id="permanentOutsideNepalAddress">
+
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Country:
+                                            </label>
+                                            <select class="form-control country"
+                                                    id="permanentCountry">
+                                                <option value="" selected="selected">
+                                                    Select Country
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Address:
+                                            </label>
+                                            <input type="text" name="PermanentAddress"
+                                                   placeholder="Address" />
+                                        </div>
+                                    </div>
+
+                                    <h4 style="color:blueviolet">Temporary Address</h4>
+                                    <div class="row">
                                         <label class="fieldlabels">
-                                            District:
+                                            Is Outside Nepal ?
                                         </label>
-                                        <select class="form-control" id="permanentDistrict">
-                                            <option value="" selected="selected">
-                                                Select District
-                                            </option>
-                                        </select>
+                                        <div>
+                                            <input type="radio"
+                                                   name="TempRadio"
+                                                   id="TempRadio" value="true">
+                                            <label>
+                                                Yes
+                                            </label>
+                                            <input type="radio"
+                                                   name="TempRadio" checked="checked"
+                                                   id="TempRadio" value="false">
+                                            <label>
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="tempInsideNepalAddress">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Province:
+                                            </label>
+                                            <select class="form-control province"
+                                                    id="tempProvince">
+                                                <option value="" selected="selected">
+                                                    Select Province
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                District:
+                                            </label>
+                                            <select class="form-control"
+                                                    id="tempDistrict">
+                                                <option value="" selected="selected">
+                                                    Select District
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Municipality/RM:
+                                            </label>
+                                            <select class="form-control"
+                                                    id="tempMunicipalityType">
+                                                <option value="" selected="selected">
+                                                    Select Type
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                RM/Municipality:
+                                            </label>
+                                            <input type="text" name="TemporaryMunicipality"
+                                                   placeholder="RM/Municipality" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Ward Number:
+                                            </label>
+                                            <input type="text" name="TemporaryWardNumber"
+                                                   placeholder="Ward Number"
+                                                   onkeypress="AllowNumberOnly(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Tole Name:
+                                            </label>
+                                            <input type="text" name="TemporaryToleName"
+                                                   placeholder="Tole Name" />
+                                        </div>
+                                    </div>
+                                    <div class="row" id="tempOutsideNepalAddress">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Country:
+                                            </label>
+                                            <select class="form-control country"
+                                                    id="tempCountry">
+                                                <option value="" selected="selected">
+                                                    Select Country
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Address:
+                                            </label>
+                                            <input type="text" name="TemporaryAddress"
+                                                   placeholder="Address" />
+                                        </div>
                                     </div>
                                 </div>
                             </fieldset>
                             <input type="button" name="next"
-                                   class="next action-button" value="Submit" />
+                                   class="next action-button" value="Next" />
                             <input type="button" name="previous"
                                    class="previous action-button-previous"
                                    value="Previous" />
                         </form>
+
+                        <!-- step 4 occupational information -->
+                        <form>
+                            <!-- fieldsets -->
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Occupation Details :</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 4 - 6</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Occupation :
+                                            </label>
+                                            <select class="form-control" id="occupationList">
+                                                <option value="">Occupation</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Other Occupation:
+                                            </label>
+                                            <input type="text" name="OtherOccupationRemarks"
+                                                   placeholder="Occupation Remarks" />
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Intersted In :
+                                            </label>
+                                            <select class="form-control" id="memberField">
+                                                <option value="">Interested Field</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+
+                        <!-- step 5 uplaod document -->
                         <form>
                             <fieldset>
-                                @*<div class="form-card">
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Image Upload:</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 3 - 4</h2>
+                                        </div>
+                                    </div>
+                                    <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic" accept="image/*"> <label class="fieldlabels">Upload Signature Photo:</label> <input type="file" name="pic" accept="image/*">
+                                </div>
+                            </fieldset>
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+
+                        <!-- step 6 payment -->
+                        <form>
+                            <fieldset>
+                                <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
                                             <h2 class="fs-title">Finish:</h2>
@@ -226,19 +459,22 @@
                                             <h2 class="steps">Step 4 - 4</h2>
                                         </div>
                                     </div> <br><br>
-                                    <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                                    <h2 class="purple-text text-center"><strong>SUCCESS !
+                                          </strong></h2> <br>
                                     <div class="row justify-content-center">
-                                        <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+                                        <div class="col-3"> 
+                                        <img src="https://i.imgur.com/GwStPmg.png" 
+                                            class="fit-image"> </div>
                                     </div> <br><br>
                                     <div class="row justify-content-center">
                                         <div class="col-7 text-center">
-                                            <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                                            <h5 class="purple-text text-center">You Have 
+                                                Successfully Signed Up</h5>
                                         </div>
                                     </div>
-                                </div>*@
+                                </div>
                             </fieldset>
-                            <input type="button" name="next"
-                                   class="next action-button" value="Submit" />
+                            
                             <input type="button" name="previous"
                                    class="previous action-button-previous"
                                    value="Previous" />
@@ -253,6 +489,7 @@
 @*<script src="~/assets/custom-plugin/multi-tier-form/form-wizard.js"></script>*@
 @Scripts.Render("~/web/nepali-date-picker")
 @Scripts.Render("~/web/back-end/message")
+
 <script>
     $(document).ready(function () {
         var current_fs, next_fs, previous_fs; //fieldsets
@@ -260,14 +497,14 @@
         var current = 1;
         var steps = $("#msform form ").length;
         setProgressBar(current);
-
+        loadGenderList();
+        $("#permanentOutsideNepalAddress").hide();
+        $("#tempOutsideNepalAddress").hide();
         $(".next").click(function () {
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
-
             //Add Class Active
             $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
-
             //show the next fieldset
             next_fs.show();
 
@@ -285,8 +522,7 @@
                 duration: 500
             });
             setProgressBar(++current);
-            if (current == 3)
-                loadProvinceList();
+            loadData(current);
         });
 
         $(".previous").click(function () {
@@ -314,8 +550,7 @@
                 duration: 500
             });
             setProgressBar(--current);
-            if (current == 3)
-                loadProvinceList();
+            loadData(current);
         });
 
         function setProgressBar(curStep) {
@@ -331,9 +566,48 @@
 
     });
 
+    function loadData(current) {
+        if (current == 3) {
+            loadProvinceList();
+            loadMunicipalityTypeList();
+        }
+         if (current == 1) {
+             loadGenderList();
+        }
+        if (current == 4) {
+            loadOccupationList();
+            loadMemberFieldList();
+        }
+    }
+
+    function loadGenderList() {
+        var gender = $("#gender").val();
+        if (gender.length == 0) {
+                $.ajax({
+		        url: '@Url.Action("GetGender", "Ajax")',
+		        type: 'get',
+                async: true,
+                cache: false,
+                processData: false,
+		        contentType: 'application/json',
+                success: function (response) {
+                    $('#gender').empty();
+                    $.each(response, function (index, row) {
+                        $('#gender').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                    });
+		        },
+		        error: function (error) {
+		        }
+	        });
+        }
+
+    }
+
     function loadProvinceList() {
         var permanentProvince = $("#permanentProvince").val();
-        $.ajax({
+        var tempProvince = $("#tempProvince").val();
+        if (permanentProvince.length == 0 || tempProvince.length == 0) {
+            $.ajax({
 		    url: '@Url.Action("GetProvince", "Ajax")',
 		    type: 'get',
             async: true,
@@ -348,11 +622,137 @@
                         $('#permanentProvince').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                     });
                 }
+                if (tempProvince.length == 0) {
+                    $('#tempProvince').empty();
+                    $('#tempProvince').append('<option value="">Select Province</option>');
+                    $.each(response, function (index, row) {
+                        $('#tempProvince').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                    });
+                }
 		    },
 		    error: function (error) {
 			    alert(error.statusText);
 		    }
 	    });
+        }
+
+    }
+
+    function loadMunicipalityTypeList() {
+         var permanentMunicipalityType = $("#permanentMunicipalityType").val();
+        var tempMunicipalityType = $("#tempMunicipalityType").val();
+        if (permanentMunicipalityType.length == 0 || tempMunicipalityType.length == 0) {
+            $.ajax({
+		        url: '@Url.Action("GetMunicipalityType", "Ajax")',
+		        type: 'get',
+                async: true,
+                cache: false,
+                processData: false,
+		        contentType: 'application/json',
+                success: function (response) {
+                    if (permanentMunicipalityType.length == 0) {
+                        $('#permanentMunicipalityType').empty();
+                        $('#permanentMunicipalityType').append('<option value="">Select Type</option>');
+                        $.each(response, function (index, row) {
+                            $('#permanentMunicipalityType').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                        });
+                    }
+                    if (tempMunicipalityType.length == 0) {
+                        $('#tempMunicipalityType').empty();
+                        $('#tempMunicipalityType').append('<option value="">Select Type</option>');
+                        $.each(response, function (index, row) {
+                            $('#tempMunicipalityType').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                        });
+                    }
+		        },
+		        error: function (error) {
+		        }
+	        });
+        }
+    }
+
+    function loadOutsideCountryList() {
+        var permanentCountry = $("#permanentCountry").val();
+        var tempCountry = $("#tempCountry").val();
+        if (permanentCountry.length == 0 || tempCountry.length == 0) {
+                $.ajax({
+		        url: '@Url.Action("GetOutsideCountry", "Ajax")',
+		        type: 'get',
+                async: true,
+                cache: false,
+                processData: false,
+		        contentType: 'application/json',
+                success: function (response) {
+                    if (permanentCountry.length == 0) {
+                        $('#permanentCountry').empty();
+                        $('#permanentCountry').append('<option value="">Select Country</option>');
+                        $.each(response, function (index, row) {
+                            $('#permanentCountry').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                        });
+                    }
+                    if (tempCountry.length == 0) {
+                        $('#tempCountry').empty();
+                        $('#tempCountry').append('<option value="">Select Country</option>');
+                        $.each(response, function (index, row) {
+                            $('#tempCountry').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                        });
+                    }
+		        },
+		        error: function (error) {
+			        //alert(error.statusText);
+		        }
+	        });
+        }
+
+    }
+
+    function loadMemberFieldList() {
+        var memberField = $("#memberField").val();
+         if (memberField.length == 0) {
+                $.ajax({
+		        url: '@Url.Action("GetMemberField", "Ajax")',
+		        type: 'get',
+                async: true,
+                cache: false,
+                processData: false,
+		        contentType: 'application/json',
+                success: function (response) {
+                    $('#memberField').empty();
+                    $('#memberField').append('<option value="">Interested Field</option>');
+                    $.each(response, function (index, row) {
+                        $('#memberField').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                    });
+		        },
+		        error: function (error) {
+		        }
+	        });
+        }
+    }
+
+    function loadOccupationList() {
+        var occupation = $("#occupationList").val();
+        if (occupation.length == 0) {
+            $.ajax({
+		        url: '@Url.Action("GetOccupation", "Ajax")',
+		        type: 'get',
+                async: true,
+                cache: false,
+                processData: false,
+		        contentType: 'application/json',
+                success: function (response) {
+                    debugger;
+                    $('#occupationList').empty();
+                    $('#occupationList').append('<option value="">Select Occupation</option>');
+                    $.each(response, function (index, row) {
+                        console.log(row);
+                        $('#occupationList').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                    });
+		        },
+                    error: function (error) {
+
+		        }
+	        });
+        }
     }
 
     $('.province').change(function () {
@@ -361,11 +761,8 @@
         loadDistrictList(provinceId, idName);
     });
 
-    async function loadDistrictList(provinceId, idName) {
-        alert(provinceId)
-        alert(idName)
+     function loadDistrictList(provinceId, idName) {
          $.ajax({
-             //url: '/Ajax/GetDistrictByProvinceId',
              url: '@Url.Action("GetDistrictByProvinceId", "Ajax")?provinceId=' + provinceId,
              data: { provinceId: provinceId },
              type: 'get',
@@ -382,12 +779,85 @@
                          $('#permanentDistrict').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                      });
                  }
+                 if (idName.toLowerCase() == 'tempprovince') {
+                     $('#tempDistrict').empty();
+                     $('#tempDistrict').append('<option value="">Select District</option>');
+                     $.each(response, function (index, row) {
+                         console.log(row);
+                         $('#tempDistrict').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                     });
+                 }
              },
              error: function (error) {
                  alert(error.statusText);
              }
          });
-     }
+    }
+
+    $("input[type='radio']").click(function () {
+        var id = $(this).attr('id');
+        if (id.toLowerCase() == "permanentradio") {
+            var checked = $("input[name='PermanentRadio']:checked").val();
+            if (checked == "true") {
+             clearPermanentInsideAddressData();
+                $("#permanentInsideNepalAddress").hide();
+                $("#permanentOutsideNepalAddress").show();
+                loadOutsideCountryList();
+             }
+            else {
+                clearPermanentOutsideAddressData();
+                $("#permanentInsideNepalAddress").show();
+                $("#permanentOutsideNepalAddress").hide();
+            }
+        }
+
+        else if (id.toLowerCase() == "tempradio") {
+            var checked = $("input[name='TempRadio']:checked").val();
+            if (checked == "true") {
+                clearTempInsideAddressData();
+                $("#tempInsideNepalAddress").hide();
+                $("#tempOutsideNepalAddress").show();
+                loadOutsideCountryList();
+            }
+            else {
+                clearTempOutsideAddressData();
+                $("#tempInsideNepalAddress").show();
+                $("#tempOutsideNepalAddress").hide();
+            }
+        }
+    })
+
+    function clearPermanentInsideAddressData() {
+        $("#permanentProvince").val($("#permanentProvince option:first").val());
+        $('#permanentDistrict').empty();
+        $('#permanentDistrict').append('<option value=""> Select District </option>')
+
+        $("#permanentMunicipalityType").val($("#permanentMunicipalityType option:first").val());
+        $("input[name='PermanentMunicipality']").val('');
+        $("input[name='PermanentWardNumber']").val('');
+        $("input[name='PermanentToleName']").val('');
+    }
+
+    function clearPermanentOutsideAddressData() {
+        $("#permanentCountry").val($("#permanentCountry option:first").val());
+        $("input[name='PermanentAddress']").val('');
+    }
+
+    function clearTempInsideAddressData() {
+        $("#tempProvince").val($("#tempProvince option:first").val());
+        $('#tempDistrict').empty();
+        $('#tempDistrict').append('<option value=""> Select District </option>')
+
+        $("#tempMunicipalityType").val($("#tempMunicipalityType option:first").val());
+        $("input[name='TemporaryMunicipality']").val('');
+        $("input[name='TemporaryWardNumber']").val('');
+        $("input[name='TemporaryToleName']").val('');
+    }
+
+    function clearTempOutsideAddressData() {
+        $("#tempCountry").val($("#tempCountry option:first").val());
+        $("input[name='TemporaryAddress']").val('');
+    }
 
 </script>
 

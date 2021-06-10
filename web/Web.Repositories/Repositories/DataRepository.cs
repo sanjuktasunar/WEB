@@ -38,5 +38,15 @@ namespace Web.Repositories.Repositories
         {
             return (await _dapperManager.QueryAsync<MunicipalityTypeDto>("SELECT * FROM MunicipalityType WHERE Status=1"));
         }
+
+        public async Task<IEnumerable<MemberFieldDto>> GetActiveMemberFieldAsync()
+        {
+            return (await _dapperManager.QueryAsync<MemberFieldDto>("SELECT * FROM MemberField WHERE Status=1"));
+        }
+
+        public async Task<IEnumerable<OccupationDto>> GetActiveOccupationAsync()
+        {
+            return (await _dapperManager.QueryAsync<OccupationDto>("SELECT * FROM Occupation WHERE Status=1"));
+        }
     }
 }

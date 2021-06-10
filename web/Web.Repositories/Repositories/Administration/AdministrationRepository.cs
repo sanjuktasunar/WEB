@@ -43,8 +43,8 @@ namespace Web.Repositories.Repositories.Administration
 
         public async Task<IEnumerable<GenderDto>> GetActiveGenderAsync()
         {
-            var department = await _dapperManager.QueryAsync<GenderDto>("SELECT * FROM Gender WHERE Status=1");
-            return department;
+            var genders = await _dapperManager.QueryAsync<GenderDto>("SELECT * FROM Gender WHERE Status=1");
+            return genders;
         }
 
         public async Task<IEnumerable<UserStatusDto>> GetActiveUserStatusAsync()

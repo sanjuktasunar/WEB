@@ -42,6 +42,9 @@ GO
 DROP TABLE MemberType
 GO
 
+GO
+DELETE FROM UserType WHERE UserTypeTitle=N'Member'
+GO
 
 GO
 DROP TABLE MunicipalityType

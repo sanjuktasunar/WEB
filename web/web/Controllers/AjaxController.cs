@@ -45,7 +45,7 @@ namespace web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetDistrictByProvinceId(int provinceId)
+        public async Task<JsonResult> GetDistrictByProvinceId(int? provinceId)
         {
             var result = await _dataService.GetDistrictByProvinceIdAsync(provinceId);
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -55,6 +55,27 @@ namespace web.Controllers
         public async Task<JsonResult> GetMunicipalityType()
         {
             var result = await _dataService.GetActiveMunicipalityTypeAsync();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetGender()
+        {
+            var result = await _dataService.GetActiveGenderAsync();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetMemberField()
+        {
+            var result = await _dataService.GetActiveMemberFieldAsync();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetOccupation()
+        {
+            var result = await _dataService.GetActiveOccupationAsync();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

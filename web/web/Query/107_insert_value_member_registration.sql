@@ -22,7 +22,7 @@ INSERT INTO Occupation(Name,NepaliName,Status)
 SELECT N'Doctor',N'Doctor',1 UNION ALL
 SELECT N'Engineer',N'Engineer',1 UNION ALL
 SELECT N'Businessman',N'Businessman',1 UNION ALL
-SELECT N'Other',N'Other'
+SELECT N'Other',N'Other',1
 GO
 
 GO

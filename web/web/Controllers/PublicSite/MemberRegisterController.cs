@@ -17,10 +17,9 @@ namespace web.Controllers.PublicSite
             _administrationService = administrationService;
         }
         [Route("~/MemberRegistration")]
-        public async Task<ActionResult> MemberRegistration()
+        public ActionResult MemberRegistration()
         {
             var obj = new MemberDto();
-            ViewBag.Gender =await _administrationService.GetActiveGenderAsync();
             return View(obj);
         }
     }
