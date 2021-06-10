@@ -21,6 +21,7 @@
 </style>
 
 <link href="~/assets/css/multi-tier-form/form-wizard.css" rel="stylesheet" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
 <section class="service-wrapper py-3">
     <div class="service-tag py-5 bg-secondary">
         <div class="col-md-12">
@@ -40,12 +41,16 @@
                     <div id="msform">
                         <p>Fill all form field to go to next step</p>
                         <ul id="progressbar">
-                            <li class="active" id="basic"><strong>Basic</strong></li>
+                            <li class="active" id="basic">
+                                <i class="fab fa-500px"></i>
+                                <strong>Basic</strong>
+                            </li>
                             <li id="contact"><strong>Contact</strong></li>
                             <li id="address"><strong>Address</strong></li>
                             <li id="occupation"><strong>Occupation</strong></li>
                             <li id="document"><strong>Documents</strong></li>
                             <li id="payment"><strong>Payment</strong></li>
+                            <li id="confirm"><strong>Confirmation</strong></li>
                         </ul>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated"
@@ -399,7 +404,8 @@
                                                 <option value="">Occupation</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 form-group">
+                                        <div class="col-sm-6 col-md-6 form-group" 
+                                                id="occupationDiv">
                                             <label class="fieldlabels">
                                                 Other Occupation:
                                             </label>
@@ -431,13 +437,35 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Image Upload:</h2>
+                                            <h2 class="fs-title">Upload Document:</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 3 - 4</h2>
+                                            <h2 class="steps">Step 5 - 6</h2>
                                         </div>
                                     </div>
-                                    <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic" accept="image/*"> <label class="fieldlabels">Upload Signature Photo:</label> <input type="file" name="pic" accept="image/*">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Upload Your Photo:
+                                            </label>
+                                            <input type="file" name="Photo" />
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Citizenship Front:
+                                            </label>
+                                            <input type="file" name="CitizenFront" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Citizenship Back:
+                                            </label>
+                                            <input type="file" name="CitizenBack" />
+                                        </div>
+                                    </div>
+                                   
                                 </div>
                             </fieldset>
                             <input type="button" name="next"
@@ -453,31 +481,51 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Finish:</h2>
+                                            <h2 class="fs-title">Payment:</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 4 - 4</h2>
+                                            <h2 class="steps">Step 6 - 6</h2>
                                         </div>
-                                    </div> <br><br>
-                                    <h2 class="purple-text text-center"><strong>SUCCESS !
-                                          </strong></h2> <br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-3"> 
-                                        <img src="https://i.imgur.com/GwStPmg.png" 
-                                            class="fit-image"> </div>
-                                    </div> <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-7 text-center">
-                                            <h5 class="purple-text text-center">You Have 
-                                                Successfully Signed Up</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Amount:
+                                            </label>
+                                            <input type="text" name="Amount"
+                                                   placeholder="Amount"
+                                                   onkeypress="AllowPositiveNumber(event)" />
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Upload Payment voucher / Online payment proof:
+                                            </label>
+                                            <input type="file" name="payment" />
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            
+
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
                             <input type="button" name="previous"
                                    class="previous action-button-previous"
                                    value="Previous" />
+                        </form>
+                        <form>
+                            <h2 class="purple-text text-center"><strong>SUCCESS !
+                                  </strong></h2> <br>
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                <img src="https://i.imgur.com/GwStPmg.png"
+                                    class="fit-image"> </div>
+                            </div> <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5 class="purple-text text-center">You Have
+                                        Successfully Signed Up</h5>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -575,6 +623,7 @@
              loadGenderList();
         }
         if (current == 4) {
+            $('#occupationDiv').hide();
             loadOccupationList();
             loadMemberFieldList();
         }
@@ -754,6 +803,16 @@
 	        });
         }
     }
+
+    $("#occupationList").change(function () {
+        var data = $("#occupationList option:selected").text();
+        if (data.toLocaleLowerCase() == "other") {
+            $('#occupationDiv').show();
+        }
+        else {
+            $('#occupationDiv').hide();
+        }
+    })
 
     $('.province').change(function () {
         var provinceId = $(this).val();

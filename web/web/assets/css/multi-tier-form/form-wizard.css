@@ -167,18 +167,34 @@ p {
     #progressbar li {
         list-style-type: none;
         font-size: 15px;
-        width: 15%;
+        width: 14%;
         float: left;
         position: relative;
         font-weight: 400
     }
 
-    #progressbar #account:before {
+   
+    #progressbar #basic:before {
         font-family: FontAwesome;
         content: "\f13e"
     }
 
-    #progressbar #personal:before {
+    #progressbar #contact:before {
+        font-family: FontAwesome;
+        content: "\f13e"
+    }
+
+    #progressbar #address:before {
+        font-family: FontAwesome;
+        content: "\f007"
+    }
+
+    #progressbar #occupation:before {
+        font-family: FontAwesome;
+        content: "\f13e"
+    }
+
+    #progressbar #document:before {
         font-family: FontAwesome;
         content: "\f007"
     }
