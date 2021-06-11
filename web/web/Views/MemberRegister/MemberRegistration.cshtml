@@ -79,7 +79,7 @@
                                             </label>
                                             <input type="text" name="FirstName"
                                                    placeholder="First Name"
-                                                   class="form-control"/>
+                                                   class="form-control" />
                                         </div>
                                         <div class="col-sm-4 col-md-4 form-group">
                                             <label class="fieldlabels">
@@ -102,8 +102,8 @@
                                             <label class="fieldlabels">
                                                 Gender:
                                             </label>
-                                            <select class="form-control" name="GenderId" 
-                                                id="GenderId">
+                                            <select class="form-control" name="GenderId"
+                                                    id="GenderId">
                                                 <option value=""></option>
                                             </select>
                                         </div>
@@ -554,94 +554,11 @@
     </div>
 </section>
 
-<script src="~/front-end/js/jquery.min.js"></script>
-<script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
-@*@Scripts.Render("~/web/nepali-date-picker")*@
+@*<script src="~/front-end/js/jquery.min.js"></script>*@
+@Scripts.Render("~/web/back-end/jquery-ui")
 @Scripts.Render("~/web/back-end/message")
 
-<script>
-    $(document).ready(function () {
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var opacity;
-        var current = 1;
-        var steps = $("#msform form ").length;
-        setProgressBar(current);
-        loadGenderList();
-        $("#permanentOutsideNepalAddress").hide();
-        $("#tempOutsideNepalAddress").hide();
-
-        $(".next").click(function () {
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-
-            var test = formValidationAndSubmission(current);
-            if (test == false) {
-                return false;
-            }
-
-            //Add Class Active
-            $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
-            //show the next fieldset
-            next_fs.show();
-
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    next_fs.css({ 'opacity': opacity });
-                },
-                duration: 500
-            });
-            setProgressBar(++current);
-            loadData(current);
-        });
-
-        $(".previous").click(function () {
-            current_fs = $(this).parent();
-            previous_fs = $(this).parent().prev();
-
-            //Remove class active
-            $("#progressbar li").eq($("form").index(current_fs)).removeClass("active");
-
-            //show the previous fieldset
-            previous_fs.show();
-
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    previous_fs.css({ 'opacity': opacity });
-                },
-                duration: 500
-            });
-            setProgressBar(--current);
-            loadData(current);
-        });
-
-        function setProgressBar(curStep) {
-            var percent = parseFloat(100 / steps) * curStep;
-            percent = percent.toFixed();
-            $(".progress-bar")
-                .css("width", percent + "%")
-        }
-
-        $(".submit").click(function () {
-            return false;
-        })
-
-    });
-</script>
+<!--Data load starts-->
 <script>
     function loadData(current) {
         if (current == 3) {
@@ -702,7 +619,7 @@
                 }
                 if (tempProvince.length == 0) {
                     $('#tempProvince').empty();
-                    $('#tempProvince').append('<option value="">Select Province</option>');
+                    $('#tempProvince').appeHtmld('<option value="">Select Province</option>');
                     $.each(response, function (index, row) {
                         $('#tempProvince').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                     });
@@ -946,24 +863,119 @@
         $("#tempCountry").val($("#tempCountry option:first").val());
         $("input[name='TemporaryAddress']").val('');
     }
+</script>
+<!--Data load ends-->
 
+<script>
+    $(document).ready(function () {
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+        var current = 1;
+        var steps = $("#msform form ").length;
+        setProgressBar(current);
+        loadGenderList();
+        $("#permanentOutsideNepalAddress").hide();
+        $("#tempOutsideNepalAddress").hide();
+
+        $(".next").click(function () {
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            var test = formValidationAndSubmission(current);
+            if (test == false)
+                return false;
+            var formUrl = "/MemberRegister/PostPersonalInfo";
+            var formdata = $("#step1").serialize();
+            $.ajax({
+                type: "post",
+                url: formUrl,
+                data: formdata,
+                success: function (success) {
+                    //Add Class Active
+                    $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
+                    //show the next fieldset
+                    next_fs.show();
+                    //hide the current fieldset with style
+                    current_fs.animate({ opacity: 0 }, {
+                        step: function (now) {
+                            // for making fielset appear animation
+                            opacity = 1 - now;
+                            current_fs.css({
+                                'display': 'none',
+                                'position': 'relative'
+                            });
+                            next_fs.css({ 'opacity': opacity });
+                        },
+                        duration: 500
+                    });
+                    setProgressBar(++current);
+                    loadData(current);
+                },
+                error: function (err) {
+                    var msgString = err.responseText.toString();
+                    ShowExceptionMessage(msgString);
+                }
+            });
+
+        });
+
+        $(".previous").click(function () {
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("form").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({ 'opacity': opacity });
+                },
+                duration: 500
+            });
+            setProgressBar(--current);
+            loadData(current);
+        });
+
+        function setProgressBar(curStep) {
+            var percent = parseFloat(100 / steps) * curStep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width", percent + "%")
+        }
+
+        $(".submit").click(function () {
+            return false;
+        })
+    });
 </script>
 
 <script>
     function formValidationAndSubmission(current) {
         if (current == 1) {
-            var valid=FirstNameValidation();
-            var valid1 =MiddleNameValidation();
-            var valid2 = LastNameValidation();
-            var valid3 = GenderIdValidation();
-            if (valid == false || valid1 == false || valid2 == false || valid3 == false)
-                return false;
+            //var valid = FirstNameValidation();
+            //var valid2 = LastNameValidation();
+            //var valid3 = GenderIdValidation();
+            //var valid4 = DateOfBirthBSValidation();
+            //var valid5 = CitizenshipNumberValidation();
+            //if (valid == false || valid2 == false || valid3 == false
+            //    || valid4 == false || valid5 == false)
+            //    return false;
         }
         return true;
     }
-    
-</script>
 
+</script>
 
 
 <!--form validation on event-->
@@ -971,39 +983,51 @@
     $(this).keyup(function (event) {
         var name = $(event.target).attr("name");
         var functionName = name + 'Validation';
-        window[functionName]();
+        var fn = window[functionName];
+        if ($.isFunction(fn)) {
+            window[functionName]();
+        }
     })
 </script>
 
 <!--form validation-->
 <script>
-    function FirstNameValidation() {
-        var FirstName = $('input[name="FirstName"]');
-        var isValid = RequiredHandling(FirstName);
+    function CitizenshipNumberValidation() {
+        var CitizenshipNumber = $('input[name="CitizenshipNumber"]');
+        var isValid = RequiredHandling(CitizenshipNumber);
         if (isValid == false) {
-            FirstName.focus();
+            CitizenshipNumber.focus();
             return false;
         }
-        isValid = MaxlengthHandling(FirstName, 20);
+        isValid = MaxlengthHandling(CitizenshipNumber, 20);
         if (isValid == false) {
-            FirstName.focus();
+            CitizenshipNumber.focus();
             return false;
         }
-        return true
+        return true;
     }
-    function MiddleNameValidation() {
-        var MiddleName = $('input[name="MiddleName"]');
-        var isValid = RequiredHandling(MiddleName);
+    function DateOfBirthBSValidation() {
+        var DateOfBirthBS = $('input[name="DateOfBirthBS"]');
+        var isValid = RequiredHandling(DateOfBirthBS);
         if (isValid == false) {
-            MiddleName.focus();
+            DateOfBirthBS.focus();
             return false;
         }
-        isValid = MaxlengthHandling(MiddleName, 20);
+        isValid = MaxlengthHandling(DateOfBirthBS, 10);
         if (isValid == false) {
-            MiddleName.focus();
+            DateOfBirthBS.focus();
             return false;
         }
-        return true
+        return true;
+    }
+    function GenderIdValidation() {
+        var GenderId = $('#GenderId');
+        var isValid = RequiredHandling(GenderId);
+        if (isValid == false) {
+            GenderId.focus();
+            return false;
+        }
+        return true;
     }
     function LastNameValidation() {
         var LastName = $('input[name="LastName"]');
@@ -1019,14 +1043,19 @@
         }
         return true
     }
-    function GenderIdValidation() {
-        var GenderId = $('#GenderId');
-        var isValid = RequiredHandling(GenderId);
+    function FirstNameValidation() {
+        var FirstName = $('input[name="FirstName"]');
+        var isValid = RequiredHandling(FirstName);
         if (isValid == false) {
-            GenderId.focus();
+            FirstName.focus();
             return false;
         }
-        return true;
+        isValid = MaxlengthHandling(FirstName, 20);
+        if (isValid == false) {
+            FirstName.focus();
+            return false;
+        }
+        return true
     }
 </script>
 

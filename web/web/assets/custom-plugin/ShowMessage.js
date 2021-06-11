@@ -66,3 +66,13 @@ function ShowDeleteMessage(message, returnUrl) {
     }
 }
 
+function ShowExceptionMessage(errorResponse) {
+    var message1 = errorResponse.split("[")[1];
+    var message = message1.split("]")[0];
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = message;
+    swal({
+        content: wrapper, icon: "error"
+    })
+}
+

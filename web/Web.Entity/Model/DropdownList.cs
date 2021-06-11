@@ -11,4 +11,10 @@ namespace Web.Entity.Model
         public int Id { get; set; }
         public string Value { get; set; }
     }
+
+    public class KeyValuePairDto
+    {
+        public string Key { get; set; }
+        public IEnumerable<string> Value { get; set; }
+    }
 }
