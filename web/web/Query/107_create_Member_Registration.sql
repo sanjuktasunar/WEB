@@ -123,7 +123,7 @@ CREATE TABLE Member
 	PhotoStorageId int not null Constraint Member_PhotoStorage_PhotoStorageId_fk References PhotoStorages(PhotoStorageId),
 	MemberCode nvarchar(50) not null,
 	FirstName nvarchar(50) not null,
-	MiddleName nvarchar(50) not null,
+	MiddleName nvarchar(50) null,
 	LastName nvarchar(50) not null,
 	MobileNumber nvarchar(20) null,
 	Email nvarchar(200) null,
@@ -137,12 +137,12 @@ CREATE TABLE Member
 	IsMemberFilled bit null default(1),
 	FormStatus int not null,
 	CreatedDate datetime null,
-	CreatedByUserId int null Constraint Member_User_CreatedByUserId_fk References Users(UserId),
+	CreatedBy int null Constraint Member_User_CreatedByUserId_fk References Users(UserId),
 	UpdatedDate datetime null,
-	UpdateByUserId int null Constraint Member_User_UpdateByUserId_fk References Users(UserId),
+	UpdatedBy int null Constraint Member_User_UpdateByUserId_fk References Users(UserId),
 	ApprovalStatus int not null,
 	ApprovedDate datetime null,
-	ApproveByUserId int null Constraint Member_User_ApproveByUserId_fk References Users(UserId),
+	ApprovedBy int null Constraint Member_User_ApproveByUserId_fk References Users(UserId),
 );
 GO
 

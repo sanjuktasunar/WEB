@@ -12,14 +12,14 @@ namespace Web.Services.Mapping
     {
         public static KeyValuePairDto ToModelState(this KeyValuePair<string,ModelState> keyValuePair)
         {
-            if (keyValuePair.Key == null)
-                return null;
-            return new KeyValuePairDto
+            //if (keyValuePair.Key == null || keyValuePair.Value==null)
+            //    return null;
+            var obj= new KeyValuePairDto
             {
                 Key = keyValuePair.Key,
-                Value= keyValuePair.Value.Errors.Select(a=>a.ErrorMessage),
-
+                Value= keyValuePair.Value.Errors.Select(a=>a.ErrorMessage).FirstOrDefault(),
             };
+            return obj;
         }
     }
 }

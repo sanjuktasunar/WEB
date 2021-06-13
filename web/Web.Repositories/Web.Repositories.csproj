@@ -106,6 +106,7 @@
     <Compile Include="Repositories\DataRepository.cs" />
     <Compile Include="Repositories\InitialSetupRepository.cs" />
     <Compile Include="Repositories\Customer\CustomerQueryRepository.cs" />
+    <Compile Include="Repositories\Members\MemberRepository.cs" />
     <Compile Include="Utitlities\MessageClass.cs" />
     <Compile Include="Utitlities\Security.cs" />
   </ItemGroup>

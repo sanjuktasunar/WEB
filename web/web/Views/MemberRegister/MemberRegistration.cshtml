@@ -60,6 +60,7 @@
                         </div>
                         <!-- progressbar -->
                         <!-- step 1 basic information -->
+                        <input type="hidden" value="3" id="MemberId" />
                         <form id="step1">
                             <!-- fieldsets -->
                             <fieldset>
@@ -78,6 +79,7 @@
                                                 FirstName:
                                             </label>
                                             <input type="text" name="FirstName"
+                                                   id="FirstName"
                                                    placeholder="First Name"
                                                    class="form-control" />
                                         </div>
@@ -86,6 +88,7 @@
                                                 MiddleName:
                                             </label>
                                             <input type="text" name="MiddleName"
+                                                   id="MiddleName"
                                                    placeholder="Middle Name"
                                                    class="form-control"
                                                    autocomplete="off" />
@@ -95,6 +98,7 @@
                                                 Last Name:
                                             </label>
                                             <input type="text" name="LastName"
+                                                   id="LastName"
                                                    class="form-control"
                                                    placeholder="Last Name" />
                                         </div>
@@ -124,6 +128,7 @@
                                             </label>
                                             <input type="text" class="form-control"
                                                    name="CitizenshipNumber"
+                                                   id="CitizenshipNumber"
                                                    placeholder="CitizenshipNumber" />
                                         </div>
 
@@ -151,6 +156,8 @@
                                                 Mobile Number:
                                             </label>
                                             <input type="text" name="MobileNumber"
+                                                   id="MobileNumber"
+                                                   class="form-control"
                                                    placeholder="Mobile Number"
                                                    onkeypress="AllowNumberOnly(event)" />
                                         </div>
@@ -159,6 +166,8 @@
                                                 Email Address:
                                             </label>
                                             <input type="text" name="Email"
+                                                   class="form-control"
+                                                   id="Email"
                                                    placeholder="Email Address" />
                                         </div>
                                     </div>
@@ -213,7 +222,8 @@
                                                 Province:
                                             </label>
                                             <select class="form-control province"
-                                                    id="permanentProvince">
+                                                    name="PermanentProvinceId"
+                                                    id="PermanentProvinceId">
                                                 <option value="" selected="selected">
                                                     Select Province
                                                 </option>
@@ -224,7 +234,8 @@
                                                 District:
                                             </label>
                                             <select class="form-control"
-                                                    id="permanentDistrict">
+                                                    name="PermanentDistrictId"
+                                                    id="PermanentDistrictId">
                                                 <option value="" selected="selected">
                                                     Select District
                                                 </option>
@@ -235,7 +246,8 @@
                                                 Municipality/RM:
                                             </label>
                                             <select class="form-control"
-                                                    id="permanentMunicipalityType">
+                                                    name="PermanentMunicipalityTypeId"
+                                                    id="PermanentMunicipalityTypeId">
                                                 <option value="" selected="selected">
                                                     Select Type
                                                 </option>
@@ -245,14 +257,18 @@
                                             <label class="fieldlabels">
                                                 RM/Municipality Name:
                                             </label>
-                                            <input type="text" name="PermanentMunicipality"
-                                                   placeholder="RM/Municipality" />
+                                            <input type="text"
+                                                   id="PermanentMunicipality"
+                                                   name="PermanentMunicipality"
+                                                   placeholder="RM/Municipality Name" />
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
                                                 Ward Number:
                                             </label>
-                                            <input type="text" name="PermanentWardNumber"
+                                            <input type="text"
+                                                   id="PermanentWardNumber"
+                                                   name="PermanentWardNumber"
                                                    placeholder="Ward Number"
                                                    onkeypress="AllowNumberOnly(event)" />
                                         </div>
@@ -554,12 +570,32 @@
     </div>
 </section>
 
-@*<script src="~/front-end/js/jquery.min.js"></script>*@
 @Scripts.Render("~/web/back-end/jquery-ui")
 @Scripts.Render("~/web/back-end/message")
 
 <!--Data load starts-->
 <script>
+    function loadFieldData() {
+        var memberId = $("#MemberId").val();
+        if (parseInt(memberId) == 0)
+            return false;
+        
+        $.ajax({
+            type: 'get',
+            url: '/MemberRegister/GetMemberById',
+            data: { id: memberId },
+            success: function (res) {
+                $("#FirstName").val(res.FirstName);
+                $("#MiddleName").val(res.MiddleName);
+                $("#LastName").val(res.LastName);
+                $("#CitizenshipNumber").val(res.CitizenshipNumber);
+                $("#GenderId").val(res.GenderId);
+                $("#DateOfBirthBS").val(res.DateOfBirthBS);
+                $("#MobileNumber").val(res.MobileNumber);
+                $("#Email").val(res.Email);
+            }
+        })
+    }
     function loadData(current) {
         if (current == 3) {
             loadProvinceList();
@@ -567,6 +603,7 @@
         }
          if (current == 1) {
              loadGenderList();
+
         }
         if (current == 4) {
             $('#occupationDiv').hide();
@@ -574,7 +611,6 @@
             loadMemberFieldList();
         }
     }
-
     function loadGenderList() {
         var gender = $("#GenderId").val();
         if (gender.length == 0) {
@@ -597,7 +633,6 @@
         }
 
     }
-
     function loadProvinceList() {
         var permanentProvince = $("#permanentProvince").val();
         var tempProvince = $("#tempProvince").val();
@@ -619,7 +654,7 @@
                 }
                 if (tempProvince.length == 0) {
                     $('#tempProvince').empty();
-                    $('#tempProvince').appeHtmld('<option value="">Select Province</option>');
+                    $('#tempProvince').append('<option value="">Select Province</option>');
                     $.each(response, function (index, row) {
                         $('#tempProvince').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                     });
@@ -632,7 +667,6 @@
         }
 
     }
-
     function loadMunicipalityTypeList() {
          var permanentMunicipalityType = $("#permanentMunicipalityType").val();
         var tempMunicipalityType = $("#tempMunicipalityType").val();
@@ -874,6 +908,7 @@
         var steps = $("#msform form ").length;
         setProgressBar(current);
         loadGenderList();
+        loadFieldData();
         $("#permanentOutsideNepalAddress").hide();
         $("#tempOutsideNepalAddress").hide();
 
@@ -886,39 +921,70 @@
                 return false;
             var formUrl = "/MemberRegister/PostPersonalInfo";
             var formdata = $("#step1").serialize();
+            if (current == 2) {
+                formUrl = "/MemberRegister/ContactInfo";
+                formdata = $("#step2").serialize();
+            }
+            formdata = formdata + '&MemberId=' + $("#MemberId").val()
+
+            //$("#progressbar li").eq($("form").index(next_fs)).addClass("active");
+            ////show the next fieldset
+            //next_fs.show();
+            ////hide the current fieldset with style
+            //current_fs.animate({ opacity: 0 }, {
+            //    step: function (now) {
+            //        // for making fielset appear animation
+            //        opacity = 1 - now;
+            //        current_fs.css({
+            //            'display': 'none',
+            //            'position': 'relative'
+            //        });
+            //        next_fs.css({ 'opacity': opacity });
+            //    },
+            //    duration: 500
+            //});
+            //setProgressBar(++current);
+            //loadData(current);
+            //return false;
             $.ajax({
                 type: "post",
                 url: formUrl,
                 data: formdata,
-                success: function (success) {
-                    //Add Class Active
-                    $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({ opacity: 0 }, {
-                        step: function (now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
+                success: function (response) {
+                    if (response.status == "success") {
+                        //Add Class Active
+                        if (response.successData > 0) {
+                            $("#MemberId").val(response.successData)
+                            $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
+                            //show the next fieldset
+                            next_fs.show();
+                            //hide the current fieldset with style
+                            current_fs.animate({ opacity: 0 }, {
+                                step: function (now) {
+                                    // for making fielset appear animation
+                                    opacity = 1 - now;
+                                    current_fs.css({
+                                        'display': 'none',
+                                        'position': 'relative'
+                                    });
+                                    next_fs.css({ 'opacity': opacity });
+                                },
+                                duration: 500
                             });
-                            next_fs.css({ 'opacity': opacity });
-                        },
-                        duration: 500
-                    });
-                    setProgressBar(++current);
-                    loadData(current);
+                            setProgressBar(++current);
+                            loadData(current);
+                        }
+                        else {
+                            ShowErrorMessage("Something went wrong....!!");
+                        }
+                    }
+                    MapServerSideError(response);
                 },
                 error: function (err) {
-                    var msgString = err.responseText.toString();
-                    ShowExceptionMessage(msgString);
                 }
             });
 
         });
-
         $(".previous").click(function () {
             current_fs = $(this).parent();
             previous_fs = $(this).parent().prev();
@@ -958,19 +1024,45 @@
             return false;
         })
     });
+
+    function MapServerSideError(response) {
+        console.log(response);
+        $.each(response.errorData, function (index, row) {
+            var idName = "#" + row.Key;
+            var element = $(idName);
+            removeErrorClasses(element);
+            if (row.Key != null && row.Value != null) {
+                AddErrorClasses(element)
+                AddErrorMessage(element, row.Value);
+            }
+        })
+    }
 </script>
 
 <script>
     function formValidationAndSubmission(current) {
         if (current == 1) {
-            //var valid = FirstNameValidation();
-            //var valid2 = LastNameValidation();
-            //var valid3 = GenderIdValidation();
-            //var valid4 = DateOfBirthBSValidation();
-            //var valid5 = CitizenshipNumberValidation();
-            //if (valid == false || valid2 == false || valid3 == false
-            //    || valid4 == false || valid5 == false)
-            //    return false;
+            var valid = FirstNameValidation();
+            var valid1 = MiddleNameValidation();
+            var valid2 = LastNameValidation();
+            var valid3 = GenderIdValidation();
+            var valid4 = DateOfBirthBSValidation();
+            var valid5 = CitizenshipNumberValidation();
+            if (valid == false || valid1 == false || valid2 == false || valid3 == false
+                || valid4 == false || valid5 == false) {
+                return false;
+            }
+        }
+        else if (current == 2) {
+            var valid = MobileNumberValidation();
+            var valid1 = EmailValidation();
+            alert(valid1);
+            if (valid == false || valid1 == false) {
+                return false;
+            }
+        }
+        else if (current == 3) {
+
         }
         return true;
     }
@@ -981,7 +1073,8 @@
 <!--form validation on event-->
 <script>
     $(this).keyup(function (event) {
-        var name = $(event.target).attr("name");
+        debugger;
+        var name = $(event.target).attr("id");
         var functionName = name + 'Validation';
         var fn = window[functionName];
         if ($.isFunction(fn)) {
@@ -993,75 +1086,66 @@
 <!--form validation-->
 <script>
     function CitizenshipNumberValidation() {
-        var CitizenshipNumber = $('input[name="CitizenshipNumber"]');
-        var isValid = RequiredHandling(CitizenshipNumber);
-        if (isValid == false) {
-            CitizenshipNumber.focus();
-            return false;
-        }
-        isValid = MaxlengthHandling(CitizenshipNumber, 20);
-        if (isValid == false) {
-            CitizenshipNumber.focus();
-            return false;
-        }
-        return true;
+        //var CitizenshipNumber = $('input[name="CitizenshipNumber"]');
+        //var isValid = RequiredHandling(CitizenshipNumber);
+        //if (isValid == false) {
+        //    return false;
+        //}
+        //isValid = MaxlengthHandling(CitizenshipNumber, 20);
+        //if (isValid == false) {
+        //    return false;
+        //}
+        //return true;
+        var valid = ElementValidation('CitizenshipNumber', 'required', 'maxlength', 10)
+        return valid;
     }
     function DateOfBirthBSValidation() {
-        var DateOfBirthBS = $('input[name="DateOfBirthBS"]');
-        var isValid = RequiredHandling(DateOfBirthBS);
-        if (isValid == false) {
-            DateOfBirthBS.focus();
-            return false;
-        }
-        isValid = MaxlengthHandling(DateOfBirthBS, 10);
-        if (isValid == false) {
-            DateOfBirthBS.focus();
-            return false;
-        }
-        return true;
+        var valid = ElementValidation('DateOfBirthBS', 'required', 'maxlength', 10)
+        return valid;
     }
     function GenderIdValidation() {
-        var GenderId = $('#GenderId');
-        var isValid = RequiredHandling(GenderId);
-        if (isValid == false) {
-            GenderId.focus();
-            return false;
-        }
-        return true;
+        var valid = ElementValidation('GenderId', 'required')
+        return valid;
     }
     function LastNameValidation() {
-        var LastName = $('input[name="LastName"]');
-        var isValid = RequiredHandling(LastName);
-        if (isValid == false) {
-            LastName.focus();
-            return false;
-        }
-        isValid = MaxlengthHandling(LastName, 20);
-        if (isValid == false) {
-            LastName.focus();
-            return false;
-        }
-        return true
+        var valid = ElementValidation('LastName', 'required', 'maxlength', 20)
+        return valid;
     }
     function FirstNameValidation() {
-        var FirstName = $('input[name="FirstName"]');
-        var isValid = RequiredHandling(FirstName);
-        if (isValid == false) {
-            FirstName.focus();
-            return false;
-        }
-        isValid = MaxlengthHandling(FirstName, 20);
-        if (isValid == false) {
-            FirstName.focus();
-            return false;
-        }
-        return true
+        var valid = ElementValidation('FirstName', 'required', 'maxlength', 20)
+        return valid;
+    }
+    function MiddleNameValidation() {
+        var valid = ElementValidation('MiddleName', null , 'maxlength', 20)
+        return valid;
+    }
+    function MobileNumberValidation() {
+        debugger;
+        var valid = ElementValidation('MobileNumber', 'required', 'maxlength', 20)
+        return valid;
+    }
+    function EmailValidation() {
+        var valid = ElementValidation('Email', 'required', 'maxlength', 150)
+        return valid;
     }
 </script>
 
 <!--form validation attributes-->
 <script>
-    function RequiredHandling(element) {
+    function ElementValidation(elementId, required = null, maxlength = null, maxlengthNumber = null) {
+        debugger;
+        if (required == 'required') {
+            var isValid = RequiredHandling(elementId);
+            if (isValid == false) return false;
+        }
+        if (maxlength == 'maxlength') {
+            var isValid = MaxlengthHandling(elementId, maxlengthNumber);
+            if (isValid == false) return false;
+        }
+        return true;
+    }
+    function RequiredHandling(elementId) {
+        var element = "#" + elementId;
         var $el = $(element);
         removeErrorClasses(element);
         if (!$el.val()) {
@@ -1072,7 +1156,8 @@
         }
         return true;
     }
-    function MaxlengthHandling(element, length) {
+    function MaxlengthHandling(elementId, length) {
+        var element = "#" + elementId;
         var $el = $(element);
         removeErrorClasses(element);
         if ($el.val().length > length) {

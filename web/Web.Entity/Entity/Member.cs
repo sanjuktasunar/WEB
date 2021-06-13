@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Web.Entity.Infrastructure;
 
 namespace Web.Entity.Entity
 {
-    public class Member
+    public class Member: BaseEntityData
     {
         public int MemberId { get; set; }
         public int PhotoStorageId { get; set; }
@@ -19,7 +20,15 @@ namespace Web.Entity.Entity
         public string DateOfBirthBS { get; set; }
         public DateTime? DateOfBirthAD { get; set; }
         public int GenderId { get; set; }
+        public int? OccupationId { get; set; }
+        public string OtherOccupationRemarks { get; set; }
+        public int? MemberFieldId { get; set; }
         public string CitizenshipNumber { get; set; }
+        public bool? IsMemberFilled { get; set; }
+        public FormStatus FormStatus { get; set; }
+        public ApprovalStatus ApprovalStatus { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public int? ApprovedBy { get; set; }
     }
 
     public class MemberDetails

@@ -54,9 +54,11 @@ namespace Web.Entity.Dto
         public int MemberId { get; set; }
 
         [Required]
+        [MaxLength(10, ErrorMessage = "MobileNumber must be less than 10")]
         public string MobileNumber { get; set; }
 
         [Required]
+        [MaxLength(10, ErrorMessage = "Email must be less than 10")]
         public string Email { get; set; }
     }
 

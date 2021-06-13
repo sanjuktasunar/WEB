@@ -152,6 +152,7 @@
     <Compile Include="Services\DateService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\InitialSetupService.cs" />
+    <Compile Include="Services\Members\MemberService.cs" />
     <Compile Include="Services\MenusService.cs" />
     <Compile Include="Services\StaffsService.cs" />
     <Compile Include="Services\UsersService.cs" />

@@ -1,7 +1,16 @@
 ﻿
 GO
-INSERT INTO MemberType(Name,NepaliName,Status)
-SELECT N'Candidate',N'उम्मेदवार',1 
+SET IDENTITY_INSERT MemberType ON
+GO
+
+
+GO
+INSERT INTO MemberType(Id,Name,NepaliName,Status)
+SELECT 1,N'Candidate',N'उम्मेदवार',1 
+GO
+
+GO
+SET IDENTITY_INSERT MemberType OFF
 GO
 
 GO

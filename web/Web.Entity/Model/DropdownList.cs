@@ -15,6 +15,6 @@ namespace Web.Entity.Model
     public class KeyValuePairDto
     {
         public string Key { get; set; }
-        public IEnumerable<string> Value { get; set; }
+        public string Value { get; set; }
     }
 }

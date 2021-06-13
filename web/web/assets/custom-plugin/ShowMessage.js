@@ -76,3 +76,11 @@ function ShowExceptionMessage(errorResponse) {
     })
 }
 
+function ShowErrorMessage(errorMessage) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = errorMessage;
+    swal({
+        content: wrapper, icon: "error"
+    })
+}
+

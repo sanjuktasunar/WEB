@@ -18,7 +18,6 @@ namespace Web.Services.Mapping
                 entity = new Member();
 
             entity.MemberId = dto.MemberId;
-            //entity.PhotoStorageId = dto.PhotoStorageId;
             entity.FirstName = dto.FirstName;
             entity.MiddleName = dto.MiddleName;
             entity.LastName = dto.LastName;
