@@ -210,6 +210,7 @@ CREATE TABLE [dbo].[Address]
 (
 	Id int not null Identity(1,1) Constraint Address_pk Primary Key,
 	MemberId int null Constraint Address_Member_MemberId_fk References Member(MemberId),
+	PermanentIsOutsideNepal bit null default(0),
 	PermanentCountryId int null  Constraint Address_Country_PermanentCountryId_fk References Country(Id),
 	PermanentProvinceId int null Constraint Address_Province_PermanentProvinceId References Province(ProvinceId),
 	PermanentDistrictId int null Constraint Address_District_PermanentDistrictId References District(DistrictId),
@@ -218,6 +219,7 @@ CREATE TABLE [dbo].[Address]
 	PermanentWardNumber nvarchar(100) null,
 	PermanentToleName nvarchar(100) null,
 	PermanentAddress nvarchar(500) null,
+	TemporaryIsOutsideNepal bit null default(0),
 	TemporaryCountryId int null  Constraint Address_Country_TemporaryCountryId_fk References Country(Id),
 	TemporaryProvinceId int null Constraint Address_Province_TemporaryProvinceId References Province(ProvinceId),
 	TemporaryDistrictId int null Constraint Address_District_TemporaryDistrictId References District(DistrictId),

@@ -10,12 +10,16 @@ namespace Web.Entity.Entity
     {
         public int Id { get; set; }
         public int? MemberId { get; set; }
+        public bool? PermanentIsOutsideNepal { get; set; }
+
         public int? PermanentProvinceId { get; set; }
         public int? PermanentDistrictId { get; set; }
         public int? PermanentMunicipalityTypeId { get; set; }
         public string PermanentMunicipality { get; set; }
         public string PermanentWardNumber { get; set; }
         public string PermanentToleName { get; set; }
+
+        public bool? TemporaryIsOutsideNepal { get; set; }
         public int? TemporaryProvinceId { get; set; }
         public int? TemporaryDistrictId { get; set; }
         public int? TemporaryMunicipalityTypeId { get; set; }
