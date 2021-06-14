@@ -2,13 +2,10 @@
 GO
 SET IDENTITY_INSERT MemberType ON
 GO
-
-
 GO
 INSERT INTO MemberType(Id,Name,NepaliName,Status)
 SELECT 1,N'Candidate',N'उम्मेदवार',1 
 GO
-
 GO
 SET IDENTITY_INSERT MemberType OFF
 GO
@@ -27,11 +24,18 @@ SELECT N'Member',1
 GO
 
 GO
-INSERT INTO Occupation(Name,NepaliName,Status)
-SELECT N'Doctor',N'Doctor',1 UNION ALL
-SELECT N'Engineer',N'Engineer',1 UNION ALL
-SELECT N'Businessman',N'Businessman',1 UNION ALL
-SELECT N'Other',N'Other',1
+SET IDENTITY_INSERT Occupation ON
+GO
+
+GO
+INSERT INTO Occupation(Id,Name,NepaliName,Status)
+SELECT 1,N'Doctor',N'Doctor',1 UNION ALL
+SELECT 2,N'Engineer',N'Engineer',1 UNION ALL
+SELECT 3,N'Businessman',N'Businessman',1 UNION ALL
+SELECT 4,N'Other',N'Other',1
+GO
+GO
+SET IDENTITY_INSERT Occupation OFF
 GO
 
 GO

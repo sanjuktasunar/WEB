@@ -114,11 +114,35 @@ namespace Web.Entity.Dto
         public string TemporaryAddress { get; set; }
     }
 
+    public class MemberOccupationDto
+    {
+        [Required]
+        public int MemberId { get; set; }
+
+        [Required]
+        public int OccupationId { get; set; }
+
+        [StringLength(150,ErrorMessage ="Occupation Remarks must be less than 150")]
+        public string OtherOccupationRemarks { get; set; }
+
+        [Required]
+        public int MemberFieldId { get; set; }
+    }
+
     public class MemberDocumentsDto
     {
         public int UserDocumentId { get; set; }
-        public int? MemberId { get; set; }
+
+        [Required]
+        public int MemberId { get; set; }
+
+        [Required]
+        public string MemberPhoto { get; set; }
+
+        [Required]
         public string CitizenshipFront { get; set; }
+
+        [Required]
         public string CitizenshipBack { get; set; }
     }
 

@@ -21,6 +21,7 @@ namespace Web.Services.Services.Members
         Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto);
         Task<int> AddContactInfo(MemberContactInfoDto dto);
         Task<int> AddModifyMemberAddress(MemberAddressDto dto);
+        Task<int> AddOccupation(MemberOccupationDto dto);
         Task<Address> GetMemberAddressAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
         Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto);
@@ -127,6 +128,50 @@ namespace Web.Services.Services.Members
                     entity.Id = address.Id;
                     _memberRepository.UpdateAddress(entity);
                 }
+                return memberId;
+            }
+            catch (SqlException)
+            {
+                return 0;
+            }
+
+        }
+        public async Task<int> AddOccupation(MemberOccupationDto dto)
+        {
+            try
+            {
+                int memberId = dto.MemberId;
+                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                if (obj is null)
+                    return 0;
+                var entity = dto.ToOccupationEntity(obj);
+                _memberRepository.Update(entity);
+                return memberId;
+            }
+            catch (SqlException)
+            {
+                return 0;
+            }
+
+        }
+        public async Task<int> AddMemberDocument(MemberDocumentsDto dto)
+        {
+            try
+            {
+                int memberId = dto.MemberId;
+                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                if (obj is null)
+                    return 0;
+                var entity = dto.ToDocumentEntity();
+                var address = await _memberRepository.GetMemberAddressById(memberId);
+                if (address is null)
+                    _memberRepository.InsertAddress(entity);
+                else
+                {
+                    entity.Id = address.Id;
+                    _memberRepository.UpdateAddress(entity);
+                }
+                //_memberRepository.Update(entity);
                 return memberId;
             }
             catch (SqlException)

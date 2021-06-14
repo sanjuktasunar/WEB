@@ -444,7 +444,8 @@
                                             <label class="fieldlabels">
                                                 Occupation :
                                             </label>
-                                            <select class="form-control" id="occupationList">
+                                            <select class="form-control" name="OccupationId"
+                                                    id="OccupationId">
                                                 <option value="">Occupation</option>
                                             </select>
                                         </div>
@@ -453,7 +454,9 @@
                                             <label class="fieldlabels">
                                                 Other Occupation:
                                             </label>
-                                            <input type="text" name="OtherOccupationRemarks"
+                                            <input type="text" id="OtherOccupationRemarks"
+                                                   class="form-control"
+                                               name="OtherOccupationRemarks"
                                                    placeholder="Occupation Remarks" />
                                         </div>
 
@@ -461,7 +464,8 @@
                                             <label class="fieldlabels">
                                                 Intersted In :
                                             </label>
-                                            <select class="form-control" id="memberField">
+                                            <select class="form-control" name="MemberFieldId"
+                                                    id="MemberFieldId">
                                                 <option value="">Interested Field</option>
                                             </select>
                                         </div>
@@ -492,21 +496,33 @@
                                             <label class="fieldlabels">
                                                 Upload Your Photo:
                                             </label>
-                                            <input type="file" name="Photo" />
-
+                                            <input type="file" name="MemberImage" 
+                                                 id="MemberImage"
+                                                   class="form-control MemberPhoto"/>
+                                            <input type="hidden" name="MemberPhoto" 
+                                                id="MemberPhoto" />
                                         </div>
 
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
                                                 Citizenship Front:
                                             </label>
-                                            <input type="file" name="CitizenFront" />
+                                            <input type="file"
+                                                   class="form-control CitizenshipFront"
+                                             id="CitizenshipFrontImage"
+                                                   name="CitizenshipFrontImage" />
+                                            <input type="hidden" name="CitizenshipFront" 
+                                                id="CitizenshipFront" />
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
                                                 Citizenship Back:
                                             </label>
-                                            <input type="file" name="CitizenBack" />
+                                            <input type="file" name="CitizenshipBackImage" 
+                                             class="form-control CitizenshipBack"
+                                                   id="CitizenshipBackImage"/>
+                                            <input type="hidden" name="CitizenshipBack"
+                                                   id="CitizenshipBack"/>
                                         </div>
                                     </div>
 
@@ -586,6 +602,9 @@
 
 @Scripts.Render("~/web/back-end/jquery-ui")
 @Scripts.Render("~/web/back-end/message")
+<script src="~/assets/custom/custom.js"></script>
+
+<!--convert photo to string ends-->
 
 <!--Data load starts-->
 <script>
@@ -609,6 +628,26 @@
             }
         })
     }
+    function loadOccupation() {
+        var memberId = $("#MemberId").val();
+        $.ajax({
+            type: 'get',
+            url: '/MemberRegister/GetMemberById',
+            data: { id: memberId },
+            success: function (res) {
+                $("#OccupationId").val(res.OccupationId);
+                if (res.OccupationId == 4) {
+                    $("#OtherOccupationRemarks").val(res.OtherOccupationRemarks);
+                    $("#occupationDiv").show();
+                }
+                else {
+                    $("#OtherOccupationRemarks").val('');
+                    $("#occupationDiv").hide();
+                }
+                $("#MemberFieldId").val(res.MemberFieldId);
+            }
+        })
+    }
     function loadData(current) {
          if (current == 1) {
              loadGenderList();
@@ -620,11 +659,12 @@
         if (current == 3) {
             loadProvinceList();
             loadAddress();
+            loadOccupationList();
+            loadMemberFieldList();
         }
         if (current == 4) {
             $('#occupationDiv').hide();
-            loadOccupationList();
-            loadMemberFieldList();
+            loadOccupation();
         }
     }
 
@@ -945,7 +985,7 @@
 
     //data load for step4 starts
     function loadMemberFieldList() {
-        var memberField = $("#memberField").val();
+        var memberField = $("#MemberFieldId").val();
          if (memberField.length == 0) {
                 $.ajax({
 		        url: '@Url.Action("GetMemberField", "Ajax")',
@@ -955,10 +995,10 @@
                 processData: false,
 		        contentType: 'application/json',
                 success: function (response) {
-                    $('#memberField').empty();
-                    $('#memberField').append('<option value="">Interested Field</option>');
+                    $('#MemberFieldId').empty();
+                    $('#MemberFieldId').append('<option value="">Interested Field</option>');
                     $.each(response, function (index, row) {
-                        $('#memberField').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                        $('#MemberFieldId').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                     });
 		        },
 		        error: function (error) {
@@ -967,7 +1007,7 @@
         }
     }
     function loadOccupationList() {
-        var occupation = $("#occupationList").val();
+        var occupation = $("#OccupationId").val();
         if (occupation.length == 0) {
             $.ajax({
 		        url: '@Url.Action("GetOccupation", "Ajax")',
@@ -978,11 +1018,11 @@
 		        contentType: 'application/json',
                 success: function (response) {
                     debugger;
-                    $('#occupationList').empty();
-                    $('#occupationList').append('<option value="">Select Occupation</option>');
+                    $('#OccupationId').empty();
+                    $('#OccupationId').append('<option value="">Select Occupation</option>');
                     $.each(response, function (index, row) {
                         console.log(row);
-                        $('#occupationList').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                        $('#OccupationId').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                     });
 		        },
                     error: function (error) {
@@ -991,16 +1031,16 @@
 	        });
         }
     }
-    $("#occupationList").change(function () {
-        var data = $("#occupationList option:selected").text();
-        if (data.toLocaleLowerCase() == "other") {
+    $("#OccupationId").change(function () {
+        var data = $("#OccupationId option:selected").text();
+        if (data.toLowerCase() == "other") {
             $('#occupationDiv').show();
         }
         else {
+            $('#OtherOccupationRemarks').val('');
             $('#occupationDiv').hide();
         }
     })
-
     //data load for step4 ends
 </script>
 <!--Data load ends-->
@@ -1034,6 +1074,10 @@
             else if (current == 3) {
                 formUrl = "/MemberRegister/AddModifyAddress";
                 formdata = $("#step3").serialize();
+            }
+            else if (current == 4) {
+                formUrl = "/MemberRegister/MemberOccupation";
+                formdata = $("#step4").serialize();
             }
             formdata = formdata + '&MemberId=' + $("#MemberId").val()
 
@@ -1197,6 +1241,19 @@
                 || !valid12 || !valid13 || !valid14 || !valid15)
                 return false;
         }
+        else if (current == 4) {
+            var valid = OccupationIdValidation();
+            var valid1 = OtherOccupationRemarksValidation();
+            var valid2 = MemberFieldIdValidation();
+            if (!valid || !valid1 || !valid2)
+                return false;
+        }
+        else if (current == 5) {
+            var valid = MemberImageValidation();
+            var valid1 = CitizenshipFrontImageValidation();
+            var valid2 = CitizenshipBackImageValidation();
+            if (!valid || !valid1 || !valid2) return false;
+        }
         return true;
     }
 
@@ -1213,7 +1270,7 @@
             window[functionName]();
         }
     })
-    $('select').change(function (event) {
+    $(this).change(function (event) {
         var name = $(event.target).attr("id");
         var functionName = name + 'Validation';
         var fn = window[functionName];
@@ -1225,6 +1282,7 @@
 
 <!--form validation-->
 <script>
+    //step1 starts
     function CitizenshipNumberValidation() {
         //var CitizenshipNumber = $('input[name="CitizenshipNumber"]');
         //var isValid = RequiredHandling(CitizenshipNumber);
@@ -1259,6 +1317,8 @@
         var valid = ElementValidation('MiddleName', null, 'maxlength', 20)
         return valid;
     }
+    //step1 ends
+    //step 2 starts
     function MobileNumberValidation() {
         var valid = ElementValidation('MobileNumber', 'required', 'maxlength', 20)
         return valid;
@@ -1266,19 +1326,10 @@
     function EmailValidation() {
         var valid = ElementValidation('Email', 'required', 'maxlength', 150)
         return valid;
-
-        //var Email = $('input[name="Email"]');
-        //var isValid = RequiredHandling('Email');
-        //if (isValid == false) {
-        //    return false;
-        //}
-        //isValid = MaxlengthHandling('Email', 150);
-        //if (isValid == false) {
-        //    return false;
-        //}
-        //return true;
     }
+    //step2 ends
 
+    //step3 starts
     function PermanentProvinceIdValidation() {
         var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
         if (permanentRadio == "false") {
@@ -1315,7 +1366,7 @@
     function PermanentWardNumberValidation() {
         var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
         if (permanentRadio == "false") {
-            var valid = ElementValidation('PermanentWardNumber', 'required');
+            var valid = ElementValidation('PermanentWardNumber', 'required', 'maxlength', 4);
             return valid;
         }
         return true;
@@ -1381,7 +1432,7 @@
     function TemporaryWardNumberValidation() {
         var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
         if (temporaryRadio == "false") {
-            var valid = ElementValidation('TemporaryWardNumber', 'required');
+            var valid = ElementValidation('TemporaryWardNumber', 'required', 'maxlength', 4);
             return valid;
         }
         return true;
@@ -1411,6 +1462,42 @@
         }
         return true;
     }
+    //step3 ends
+
+     //step4 starts
+    function OccupationIdValidation() {
+        var valid = ElementValidation('OccupationId', 'required');
+        return valid;
+    }
+    function OtherOccupationRemarksValidation() {
+        var data = $("#OccupationId option:selected").text();
+        if (data.toLowerCase() == "other") {
+            var valid = ElementValidation('OtherOccupationRemarks', 'required','maxlength',150);
+            return valid;
+        }
+        return true;
+    }
+    function MemberFieldIdValidation() {
+        var valid = ElementValidation('MemberFieldId', 'required');
+        return valid;
+    }
+    //step4 ends
+
+    //step5 starts
+    function MemberImageValidation() {
+        var valid = ElementValidation('MemberImage', 'required');
+        return valid;
+    }
+    function CitizenshipFrontImageValidation() {
+        var valid = ElementValidation('CitizenshipFrontImage', 'required');
+        return valid;
+    }
+    function CitizenshipBackImageValidation() {
+        var valid = ElementValidation('CitizenshipBackImage', 'required');
+        return valid;
+    }
+    //step5 ends
+
 </script>
 
 <!--form validation attributes-->

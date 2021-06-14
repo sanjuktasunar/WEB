@@ -260,3 +260,12 @@ CREATE UNIQUE INDEX BankDeposit_MemberId_ui ON
 BankDeposit(MemberId) WHERE MemberId IS NOT NULL
 GO
 
+GO
+CREATE OR ALTER VIEW [dbo].[MemberDocumentView]
+AS
+SELECT A.*,B.FirstName,B.MiddleName,B.LastName,
+C.PhotoStorageId AS MemberPhotoStorageId,C.Photo AS MemberPhoto,C.PhotoLocation AS MemberPhotoLocation
+FROM UserDocuments AS A
+LEFT JOIN Member AS B ON B.MemberId=A.MemberId
+JOIN PhotoStorages AS C ON C.PhotoStorageId=B.PhotoStorageId
+GO

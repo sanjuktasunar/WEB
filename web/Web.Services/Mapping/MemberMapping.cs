@@ -79,6 +79,17 @@ namespace Web.Services.Mapping
             return obj;
         }
 
+        public static Member ToOccupationEntity(this MemberOccupationDto dto, Member entity)
+        {
+            if (dto is null)
+                return null;
+
+            entity.OccupationId = dto.OccupationId;
+            entity.OtherOccupationRemarks = dto.OtherOccupationRemarks;
+            entity.MemberFieldId = dto.MemberFieldId;
+            return entity;
+        }
+
         public static UserDocuments ToDocumentEntity(this MemberDocumentsDto dto)
         {
             if (dto is null)
