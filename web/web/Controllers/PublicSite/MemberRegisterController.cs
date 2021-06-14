@@ -76,5 +76,28 @@ namespace web.Controllers.PublicSite
             var obj =await _memberService.GetMemberByIdAsync(id);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public async Task<JsonResult> AddModifyAddress(MemberAddressDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                List<KeyValuePairDto> errors = ModelState.Select(a => a.ToModelState()).ToList();
+                var errorResult = new { status = "error", errorData = errors };
+                return Json(errorResult, JsonRequestBehavior.AllowGet);
+            }
+          
+            var data = await _memberService.AddModifyMemberAddress(dto);
+            Session["MemberId"] = data;
+            var successResult = new { status = "success", successData = data };
+            return Json(successResult, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetMemberAddress(int memberId)
+        {
+            var obj = await _memberService.GetMemberAddressAsync(memberId);
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
     }
 }

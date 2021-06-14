@@ -36,6 +36,49 @@ namespace Web.Services.Mapping
             entity.Email = dto.Email;
             return entity;
         }
+
+        public static Address ToMemberAddress(this MemberAddressDto dto)
+        {
+            if (dto is null)
+                return null;
+
+            var obj = new Address();
+            obj.Id = dto.Id;
+            obj.MemberId = dto.MemberId;
+            obj.MemberId = dto.MemberId;
+            obj.PermanentIsOutsideNepal = dto.PermanentIsOutsideNepal;
+            if (!dto.PermanentIsOutsideNepal)
+            {
+                obj.PermanentProvinceId = dto.PermanentProvinceId;
+                obj.PermanentDistrictId = dto.PermanentDistrictId;
+                obj.PermanentMunicipalityTypeId = dto.PermanentMunicipalityTypeId;
+                obj.PermanentMunicipality = dto.PermanentMunicipality;
+                obj.PermanentWardNumber = dto.PermanentWardNumber;
+                obj.PermanentToleName = dto.PermanentToleName;
+            }
+            else
+            {
+                obj.PermanentCountryId = dto.PermanentCountryId;
+                obj.PermanentAddress = dto.PermanentAddress;
+            }
+            obj.TemporaryIsOutsideNepal = dto.TemporaryIsOutsideNepal;
+            if (!dto.TemporaryIsOutsideNepal)
+            {
+                obj.TemporaryProvinceId = dto.TemporaryProvinceId;
+                obj.TemporaryDistrictId = dto.TemporaryDistrictId;
+                obj.TemporaryMunicipalityTypeId = dto.TemporaryMunicipalityTypeId;
+                obj.TemporaryMunicipality = dto.TemporaryMunicipality;
+                obj.TemporaryWardNumber = dto.TemporaryWardNumber;
+                obj.TemporaryToleName = dto.TemporaryToleName;
+            }
+            else
+            {
+                obj.TemporaryCountryId = dto.TemporaryCountryId;
+                obj.TemporaryAddress = dto.TemporaryAddress;
+            }
+            return obj;
+        }
+
         public static UserDocuments ToDocumentEntity(this MemberDocumentsDto dto)
         {
             if (dto is null)
@@ -63,5 +106,7 @@ namespace Web.Services.Mapping
                 Amount = dto.Amount,
             };
         }
+
+       
     }
 }

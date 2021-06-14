@@ -62,6 +62,58 @@ namespace Web.Entity.Dto
         public string Email { get; set; }
     }
 
+    public class MemberAddressDto
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public int MemberId { get; set; }
+
+        [Required]
+        public bool PermanentIsOutsideNepal { get; set; }
+
+        public int? PermanentProvinceId { get; set; }
+
+        public int? PermanentDistrictId { get; set; }
+
+        public int? PermanentMunicipalityTypeId { get; set; }
+
+        [StringLength(200,ErrorMessage ="Municipality must be less than 200")]
+        public string PermanentMunicipality { get; set; }
+
+        [StringLength(4, ErrorMessage = "Ward Number must be less than 4")]
+        public string PermanentWardNumber { get; set; }
+
+        [StringLength(200, ErrorMessage = "Tole name must be less than 200")]
+        public string PermanentToleName { get; set; }
+
+        public int? PermanentCountryId { get; set; }
+
+        [StringLength(200, ErrorMessage = "Address must be less than 200")]
+        public string PermanentAddress { get; set; }
+
+        [Required]
+        public bool TemporaryIsOutsideNepal { get; set; }
+
+        public int? TemporaryProvinceId { get; set; }
+        public int? TemporaryDistrictId { get; set; }
+        public int? TemporaryMunicipalityTypeId { get; set; }
+
+        [StringLength(200, ErrorMessage = "Municipality must be less than 200")]
+        public string TemporaryMunicipality { get; set; }
+
+        [StringLength(200, ErrorMessage = "Ward number must be less than 200")]
+        public string TemporaryWardNumber { get; set; }
+
+        [StringLength(200, ErrorMessage = "Tole name must be less than 200")]
+        public string TemporaryToleName { get; set; }
+
+        public int? TemporaryCountryId { get; set; }
+
+        [StringLength(200, ErrorMessage = "Address must be less than 200")]
+        public string TemporaryAddress { get; set; }
+    }
+
     public class MemberDocumentsDto
     {
         public int UserDocumentId { get; set; }

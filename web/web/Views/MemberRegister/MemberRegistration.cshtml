@@ -372,7 +372,9 @@
                                             <label class="fieldlabels">
                                                 RM/Municipality Name:
                                             </label>
-                                            <input type="text" name="TemporaryMunicipality"
+                                            <input type="text"
+                                              id="TemporaryMunicipality" class="form-control"
+                                                   name="TemporaryMunicipality"
                                                    placeholder="RM/Municipality" />
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
@@ -380,6 +382,7 @@
                                                 Ward Number:
                                             </label>
                                             <input type="text" name="TemporaryWardNumber"
+                                               id="TemporaryWardNumber" class="form-control"
                                                    placeholder="Ward Number"
                                                    onkeypress="AllowNumberOnly(event)" />
                                         </div>
@@ -388,6 +391,7 @@
                                                 Tole Name:
                                             </label>
                                             <input type="text" name="TemporaryToleName"
+                                            class="form-control" id="TemporaryToleName"
                                                    placeholder="Tole Name" />
                                         </div>
                                     </div>
@@ -408,7 +412,8 @@
                                             <label class="fieldlabels">
                                                 Address:
                                             </label>
-                                            <input type="text" name="TemporaryAddress"
+                                            <input type="text" class="form-control"
+                                             name="TemporaryAddress" id="TemporaryAddress"
                                                    placeholder="Address" />
                                         </div>
                                     </div>
@@ -605,13 +610,16 @@
         })
     }
     function loadData(current) {
-        if (current == 3) {
-            loadProvinceList();
-            loadMunicipalityTypeList();
-        }
          if (current == 1) {
              loadGenderList();
-
+         }
+        if (current == 2) {
+            loadOutsideCountryList();
+            loadMunicipalityTypeList();
+        }
+        if (current == 3) {
+            loadProvinceList();
+            loadAddress();
         }
         if (current == 4) {
             $('#occupationDiv').hide();
@@ -678,13 +686,12 @@
 		    }
 	    });
         }
-
     }
-    function loadMunicipalityTypeList() {
+    async function loadMunicipalityTypeList() {
         var permanentMunicipalityType = $("#PermanentMunicipalityTypeId").val();
         var tempMunicipalityType = $("#TemporaryMunicipalityTypeId").val();
         if (permanentMunicipalityType.length == 0 || tempMunicipalityType.length == 0) {
-            $.ajax({
+            await $.ajax({
 		        url: '@Url.Action("GetMunicipalityType", "Ajax")',
 		        type: 'get',
                 async: true,
@@ -751,8 +758,8 @@
         var provinceId = $(this).val();
         var idName = $(this).attr('id');
         loadDistrictList(provinceId, idName);
-    });
-     function loadDistrictList(provinceId, idName) {
+     });
+    function loadDistrictList(provinceId, idName, PermanentDistrictIdValue = null, TemporaryDistrictIdValue = null) {
          $.ajax({
              url: '@Url.Action("GetDistrictByProvinceId", "Ajax")?provinceId=' + provinceId,
              data: { provinceId: provinceId },
@@ -769,6 +776,9 @@
                          console.log(row);
                          $('#PermanentDistrictId').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                      });
+                     if (PermanentDistrictIdValue != null) {
+                         $('#PermanentDistrictId').val(PermanentDistrictIdValue)
+                     }
                  }
                  if (idName.toLowerCase() == 'temporaryprovinceid') {
                      $('#TemporaryDistrictId').empty();
@@ -777,6 +787,9 @@
                          console.log(row);
                          $('#TemporaryDistrictId').append('<option value=' + row.Id + '>' + row.Value + '</option>')
                      });
+                     if (TemporaryDistrictIdValue != null) {
+                         $('#TemporaryDistrictId').val(TemporaryDistrictIdValue)
+                     }
                  }
              },
              error: function (error) {
@@ -786,31 +799,57 @@
     }
     function clearPermanentInsideAddressData() {
         $("#PermanentProvinceId").val($("#PermanentProvinceId option:first").val());
+        $("#PermanentProvinceId").parent().addClass('form-group').removeClass('error');
+
         $('#PermanentDistrictId').empty();
+        $('#PermanentDistrictId').parent().addClass('form-group').removeClass('error');
         $('#PermanentDistrictId').append('<option value=""> Select District </option>')
 
         $("#PermanentMunicipalityTypeId").val($("#PermanentMunicipalityTypeId option:first").val());
+        $("#PermanentMunicipalityTypeId").parent().addClass('form-group').removeClass('error');
+
         $("input[name='PermanentMunicipality']").val('');
+        $("input[name='PermanentMunicipality']").parent().addClass('form-group').removeClass('error');
+
         $("input[name='PermanentWardNumber']").val('');
+        $("input[name='PermanentWardNumber']").parent().addClass('form-group').removeClass('error');
+
         $("input[name='PermanentToleName']").val('');
+        $("input[name='PermanentToleName']").parent().addClass('form-group').removeClass('error');
     }
     function clearPermanentOutsideAddressData() {
         $("#PermanentCountryId").val($("#PermanentCountryId option:first").val());
+        $("#PermanentCountryId").parent().addClass('form-group').removeClass('error');
+
         $("input[name='PermanentAddress']").val('');
+        $("input[name='PermanentAddress']").parent().addClass('form-group').removeClass('error');
     }
     function clearTempInsideAddressData() {
         $("#TemporaryProvinceId").val($("#TemporaryProvinceId option:first").val());
+        $("#TemporaryProvinceId").parent().addClass('form-group').removeClass('error');
+
         $('#TemporaryDistrictId').empty();
+        $('#TemporaryDistrictId').parent().addClass('form-group').removeClass('error');
         $('#TemporaryDistrictId').append('<option value=""> Select District </option>')
 
         $("#TemporaryMunicipalityTypeId").val($("#TemporaryMunicipalityTypeId option:first").val());
+        $("#TemporaryMunicipalityTypeId").parent().addClass('form-group').removeClass('error');
+
         $("input[name='TemporaryMunicipality']").val('');
+        $("input[name='TemporaryMunicipality']").parent().addClass('form-group').removeClass('error');
+
         $("input[name='TemporaryWardNumber']").val('');
+        $("input[name='TemporaryWardNumber']").parent().addClass('form-group').removeClass('error');
+
         $("input[name='TemporaryToleName']").val('');
+        $("input[name='TemporaryToleName']").parent().addClass('form-group').removeClass('error');
     }
     function clearTempOutsideAddressData() {
         $("#TemporaryCountryId").val($("#TemporaryCountryId option:first").val());
+        $("#TemporaryCountryId").parent().addClass('form-group').removeClass('error');
+
         $("input[name='TemporaryAddress']").val('');
+        $("input[name='TemporaryAddress']").parent().addClass('form-group').removeClass('error');
     }
     $("input[type='radio']").click(function () {
         var id = $(this).attr('id');
@@ -820,7 +859,7 @@
                 clearPermanentInsideAddressData();
                 $("#permanentInsideNepalAddress").hide();
                 $("#permanentOutsideNepalAddress").show();
-                loadOutsideCountryList();
+                //loadOutsideCountryList();
             }
             else {
                 clearPermanentOutsideAddressData();
@@ -835,7 +874,7 @@
                 clearTempInsideAddressData();
                 $("#tempInsideNepalAddress").hide();
                 $("#tempOutsideNepalAddress").show();
-                loadOutsideCountryList();
+                //loadOutsideCountryList();
             }
             else {
                 clearTempOutsideAddressData();
@@ -844,6 +883,63 @@
             }
         }
     })
+    function loadAddress() {
+        var memberId = $("#MemberId").val();
+        $.ajax({
+            type: 'get',
+            url: '/MemberRegister/GetMemberAddress',
+            data: { memberId: memberId },
+            success: function (response) {
+                if (response != null) {
+                    setMemberAddress(response);
+                }
+            }
+        })
+    }
+    function setMemberAddress(resp) {
+        $("input[name=PermanentIsOutsideNepal][value=" + resp.PermanentIsOutsideNepal + "]").prop('checked', true);
+        $("input[name=TemporaryIsOutsideNepal][value=" + resp.TemporaryIsOutsideNepal + "]").prop('checked', true);
+
+        if (resp.PermanentIsOutsideNepal == true) {
+            $("#permanentOutsideNepalAddress").show();
+            $("#permanentInsideNepalAddress").hide();
+
+            $("#PermanentCountryId").val(resp.PermanentCountryId);
+            $("#PermanentAddress").val(resp.PermanentAddress);
+        }
+        else {
+            $("#permanentOutsideNepalAddress").hide();
+            $("#permanentInsideNepalAddress").show();
+
+            $("#PermanentProvinceId").val(resp.PermanentProvinceId);
+            loadDistrictList(resp.PermanentProvinceId, 'permanentprovinceid', resp.PermanentDistrictId);
+            $("#PermanentMunicipalityTypeId").val(resp.PermanentMunicipalityTypeId);
+            $("#PermanentMunicipality").val(resp.PermanentMunicipality);
+            $("#PermanentWardNumber").val(resp.PermanentWardNumber);
+            $("#PermanentToleName").val(resp.PermanentToleName);
+            
+        }
+
+        if (resp.TemporaryIsOutsideNepal == true) {
+            $("#tempInsideNepalAddress").hide();
+            $("#tempOutsideNepalAddress").show();
+
+            $("#TemporaryCountryId").val(resp.TemporaryCountryId);
+            $("#TemporaryAddress").val(resp.TemporaryAddress);
+        }
+        else {
+            $("#tempInsideNepalAddress").show();
+            $("#tempOutsideNepalAddress").hide();
+
+            $("#TemporaryProvinceId").val(resp.TemporaryProvinceId);
+            loadDistrictList(resp.TemporaryProvinceId, 'temporaryprovinceid', null, resp.TemporaryDistrictId);
+
+            $("#TemporaryMunicipalityTypeId").val(resp.TemporaryMunicipalityTypeId);
+            $("#TemporaryMunicipality").val(resp.TemporaryMunicipality);
+            $("#TemporaryWardNumber").val(resp.TemporaryWardNumber);
+            $("#TemporaryToleName").val(resp.TemporaryToleName);
+        }
+    }
     //data load for step3 ends
 
 
@@ -904,7 +1000,8 @@
             $('#occupationDiv').hide();
         }
     })
-     //data load for step4 ends
+
+    //data load for step4 ends
 </script>
 <!--Data load ends-->
 
@@ -917,6 +1014,7 @@
         setProgressBar(current);
         loadGenderList();
         loadFieldData();
+       
         $("#permanentOutsideNepalAddress").hide();
         $("#tempOutsideNepalAddress").hide();
 
@@ -932,6 +1030,10 @@
             if (current == 2) {
                 formUrl = "/MemberRegister/ContactInfo";
                 formdata = $("#step2").serialize();
+            }
+            else if (current == 3) {
+                formUrl = "/MemberRegister/AddModifyAddress";
+                formdata = $("#step3").serialize();
             }
             formdata = formdata + '&MemberId=' + $("#MemberId").val()
 
@@ -1078,7 +1180,21 @@
             var valid3 = PermanentMunicipalityValidation();
             var valid4 = PermanentWardNumberValidation();
             var valid5 = PermanentToleNameValidation();
-            if (!valid || !valid1 || !valid2 || !valid3 || !valid4 || !valid5)
+
+            var valid6 = TemporaryProvinceIdValidation();
+            var valid7 = TemporaryDistrictIdValidation();
+            var valid8 = TemporaryMunicipalityTypeIdValidation();
+            var valid9 = TemporaryMunicipalityValidation();
+            var valid10 = TemporaryWardNumberValidation();
+            var valid11 = TemporaryToleNameValidation();
+
+            var valid12 = PermanentCountryIdValidation();
+            var valid13 = PermanentAddressValidation();
+            var valid14 = TemporaryCountryIdValidation();
+            var valid15 = TemporaryAddressValidation();
+            if (!valid || !valid1 || !valid2 || !valid3 || !valid4 || !valid5 || !valid6
+                || !valid7 || !valid8 || !valid9 || !valid10 || !valid11
+                || !valid12 || !valid13 || !valid14 || !valid15)
                 return false;
         }
         return true;
@@ -1090,6 +1206,14 @@
 <!--form validation on event-->
 <script>
     $(this).keyup(function (event) {
+        var name = $(event.target).attr("id");
+        var functionName = name + 'Validation';
+        var fn = window[functionName];
+        if ($.isFunction(fn)) {
+            window[functionName]();
+        }
+    })
+    $('select').change(function (event) {
         var name = $(event.target).attr("id");
         var functionName = name + 'Validation';
         var fn = window[functionName];
@@ -1155,9 +1279,8 @@
         //return true;
     }
 
-    var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
-    var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
     function PermanentProvinceIdValidation() {
+        var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
         if (permanentRadio == "false") {
             var valid = ElementValidation('PermanentProvinceId', 'required');
             return valid;
@@ -1165,6 +1288,7 @@
         return true;
     }
     function PermanentDistrictIdValidation() {
+        var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
         if (permanentRadio == "false") {
             var valid = ElementValidation('PermanentDistrictId', 'required');
             return valid;
@@ -1172,6 +1296,8 @@
         return true;
     }
     function PermanentMunicipalityTypeIdValidation() {
+        debugger;
+        var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
         if (permanentRadio == "false") {
             var valid = ElementValidation('PermanentMunicipalityTypeId', 'required');
             return valid;
@@ -1179,6 +1305,7 @@
         return true;
     }
     function PermanentMunicipalityValidation() {
+        var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
         if (permanentRadio == "false") {
             var valid = ElementValidation('PermanentMunicipality', 'required');
             return valid;
@@ -1194,13 +1321,33 @@
         return true;
     }
     function PermanentToleNameValidation() {
+        var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
         if (permanentRadio == "false") {
             var valid = ElementValidation('PermanentToleName', 'required');
             return valid;
         }
         return true;
     }
+
+    function PermanentCountryIdValidation() {
+        var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
+        if (permanentRadio == "true") {
+            var valid = ElementValidation('PermanentCountryId', 'required');
+            return valid;
+        }
+        return true;
+    }
+    function PermanentAddressValidation() {
+        var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
+        if (permanentRadio == "true") {
+            var valid = ElementValidation('PermanentAddress', 'required');
+            return valid;
+        }
+        return true;
+    }
+
     function TemporaryProvinceIdValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
         if (temporaryRadio == "false") {
             var valid = ElementValidation('TemporaryProvinceId', 'required');
             return valid;
@@ -1208,6 +1355,7 @@
         return true;
     }
     function TemporaryDistrictIdValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
         if (temporaryRadio == "false") {
             var valid = ElementValidation('TemporaryDistrictId', 'required');
             return valid;
@@ -1215,6 +1363,7 @@
         return true;
     }
     function TemporaryMunicipalityTypeIdValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
         if (temporaryRadio == "false") {
             var valid = ElementValidation('TemporaryMunicipalityTypeId', 'required');
             return valid;
@@ -1222,6 +1371,7 @@
         return true;
     }
     function TemporaryMunicipalityValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
         if (temporaryRadio == "false") {
             var valid = ElementValidation('TemporaryMunicipality', 'required');
             return valid;
@@ -1229,6 +1379,7 @@
         return true;
     }
     function TemporaryWardNumberValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
         if (temporaryRadio == "false") {
             var valid = ElementValidation('TemporaryWardNumber', 'required');
             return valid;
@@ -1236,8 +1387,26 @@
         return true;
     }
     function TemporaryToleNameValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
         if (temporaryRadio == "false") {
             var valid = ElementValidation('TemporaryToleName', 'required');
+            return valid;
+        }
+        return true;
+    }
+
+    function TemporaryCountryIdValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
+        if (temporaryRadio == "true") {
+            var valid = ElementValidation('TemporaryCountryId', 'required');
+            return valid;
+        }
+        return true;
+    }
+    function TemporaryAddressValidation() {
+        var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
+        if (temporaryRadio == "true") {
+            var valid = ElementValidation('TemporaryAddress', 'required');
             return valid;
         }
         return true;

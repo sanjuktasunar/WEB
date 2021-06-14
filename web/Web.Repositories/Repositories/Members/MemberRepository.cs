@@ -20,7 +20,10 @@ namespace Web.Repositories.Repositories.Members
         int InsertMemberDetails(MemberDetails entity, IDbTransaction transaction, SqlConnection con);
         Task<string> GetMemberCode();
         Task<Member> GetMemberById(int memberId);
+        Task<Address> GetMemberAddressById(int memberId);
         int Update(Member entity);
+        int InsertAddress(Address entity);
+        int UpdateAddress(Address entity);
         Task<bool> CheckPhoneNumber(int MemberId, string MobileNumber);
         Task<bool> CheckEmail(int MemberId, string Email);
     }
@@ -30,6 +33,7 @@ namespace Web.Repositories.Repositories.Members
         private readonly IDapperManager _dapperManager;
         BaseRepo<Member> _memberRepo = new BaseRepo<Member>();
         BaseRepo<MemberDetails> _memberDetailsRepo = new BaseRepo<MemberDetails>();
+        BaseRepo<Address> _addressRepo = new BaseRepo<Address>();
         public MemberRepository(IDapperManager dapperManager)
         {
             _dapperManager = dapperManager;
@@ -54,6 +58,16 @@ namespace Web.Repositories.Repositories.Members
             return (_memberRepo.Update(entity));
         }
 
+        public int InsertAddress(Address entity)
+        {
+            return (_addressRepo.Insert(entity));
+        }
+
+        public int UpdateAddress(Address entity)
+        {
+            return (_addressRepo.Update(entity));
+        }
+
         public async Task<string> GetMemberCode()
         {
             var members = (await _dapperManager.QueryAsync<Member>("SELECT TOP 1 * FROM Member ORDER BY MemberId DESC"));
@@ -73,6 +87,11 @@ namespace Web.Repositories.Repositories.Members
         public async Task<Member> GetMemberById(int memberId)
         {
             return await _dapperManager.QuerySingleAsync<Member>("SELECT * FROM Member WHERE MemberId=@id",new { id=memberId });
+        }
+
+        public async Task<Address> GetMemberAddressById(int memberId)
+        {
+            return await _dapperManager.QuerySingleAsync<Address>("SELECT * FROM Address WHERE MemberId=@id", new { id = memberId });
         }
 
         public async Task<bool> CheckCitizenshipNumber(int MemberId, string CitizenshipNumber)

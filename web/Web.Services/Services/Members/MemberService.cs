@@ -20,6 +20,8 @@ namespace Web.Services.Services.Members
         Task<Member> GetMemberByIdAsync(int id);
         Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto);
         Task<int> AddContactInfo(MemberContactInfoDto dto);
+        Task<int> AddModifyMemberAddress(MemberAddressDto dto);
+        Task<Address> GetMemberAddressAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
         Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto);
     }
@@ -90,7 +92,6 @@ namespace Web.Services.Services.Members
             }
             
         }
-
         public async Task<int> AddContactInfo(MemberContactInfoDto dto)
         {
             try
@@ -109,7 +110,35 @@ namespace Web.Services.Services.Members
             }
 
         }
+        public async Task<int> AddModifyMemberAddress(MemberAddressDto dto)
+        {
+            try
+            {
+                int memberId = dto.MemberId;
+                var entity = dto.ToMemberAddress();
+                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                if (obj is null)
+                    return 0;
+                var address =await _memberRepository.GetMemberAddressById(memberId);
+                if(address is null)
+                    _memberRepository.InsertAddress(entity);
+                else
+                {
+                    entity.Id = address.Id;
+                    _memberRepository.UpdateAddress(entity);
+                }
+                return memberId;
+            }
+            catch (SqlException)
+            {
+                return 0;
+            }
 
+        }
+        public async Task<Address> GetMemberAddressAsync(int memberId)
+        {
+            return await _memberRepository.GetMemberAddressById(memberId);
+        }
         public async Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto)
         {
             var obj = new List<KeyValuePairDto>();
@@ -135,7 +164,6 @@ namespace Web.Services.Services.Members
             }
             return obj;
         }
-
         public async Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto)
         {
             var obj = new List<KeyValuePairDto>();
