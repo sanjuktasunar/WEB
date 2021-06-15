@@ -75,11 +75,25 @@ function loadMemberDocument() {
             $("#MemberPhoto").val(resp.MemberPhotoString);
             $("#CitizenshipFront").val(resp.CitizenshipFront);
             $("#CitizenshipBack").val(resp.CitizenshipBack);
+
+            DisplayImageInDiv('CitizenshipFront', resp.CitizenshipFront)
+            DisplayImageInDiv('MemberPhoto', resp.MemberPhotoString)
+            DisplayImageInDiv('CitizenshipBack', resp.CitizenshipBack)
         },
         error: function (err) {
 
         }
     })
+}
+function DisplayImageInDiv(elementName, imageString) {
+    var divId = "#Div" + elementName;
+    if (imageString.length > 0) {
+        $(divId).show();
+        $(divId).html('');
+        $('<img>', {
+            src: imageString
+        }).appendTo($(divId));
+    }
 }
 
 //data load for step1 starts
@@ -462,6 +476,8 @@ function loadBankDeposit() {
         success: function (resp) {
             $("#Amount").val(resp.Amount);
             $("#VoucherImage").val(resp.VoucherImage);
+
+            DisplayImageInDiv('VoucherImage', resp.VoucherImage)
         }
     })
 }

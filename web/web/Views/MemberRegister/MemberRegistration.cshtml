@@ -18,8 +18,14 @@
     #wizard_div {
         margin-top: -65px;
     }
+    .wizard-image-div{
+        display:none;
+    }
+    .wizard-image-div img{
+        height:20%;
+        width:50%
+    }
 </style>
-
 
 <section class="service-wrapper py-3">
     <div class="service-tag py-5 bg-secondary">
@@ -33,6 +39,19 @@
     </div>
 </section>
 <section class="container py-5">
+    <div class="col-sm-8 col-md-8 input-group">
+        <label class="fieldlabels">
+            Search By Citizenship Number/Mobile Number/Email:
+        </label><br />
+        <input type="text" name="SearchData"
+               id="SearchData"
+               placeholder="Search......."
+               class="form-control" />
+        <button type="button" class="btn btn-primary">
+            <i class="bx bx-search text-white"></i>
+        </button>
+    </div>
+   <br />
     <div class="container-fluid" id="wizard_div">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
@@ -59,7 +78,7 @@
                         </div>
                         <!-- progressbar -->
                         <!-- step 1 basic information -->
-                        <input type="hidden" value="9" id="MemberId" />
+                        <input type="hidden" id="MemberId" />
                         <form id="step1">
                             <!-- fieldsets -->
                             <fieldset>
@@ -500,6 +519,11 @@
                                                    class="form-control MemberPhoto" />
                                             <input type="hidden" name="MemberPhoto"
                                                    id="MemberPhoto" />
+
+                                            <div id="DivMemberPhoto"
+                                                 class="wizard-image-div">
+
+                                            </div>
                                         </div>
 
                                         <div class="col-sm-6 col-md-6 form-group">
@@ -512,6 +536,9 @@
                                                    name="CitizenshipFrontImage" />
                                             <input type="hidden" name="CitizenshipFront"
                                                    id="CitizenshipFront" />
+                                            <div id="DivCitizenshipFront"
+                                                 class="wizard-image-div">
+                                            </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
@@ -522,6 +549,10 @@
                                                    id="CitizenshipBackImage" />
                                             <input type="hidden" name="CitizenshipBack"
                                                    id="CitizenshipBack" />
+                                            <div id="DivCitizenshipBack"
+                                                 class="wizard-image-div">
+
+                                            </div>
                                         </div>
                                     </div>
 
@@ -559,13 +590,16 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                               Upload Payment voucher / Online payment proof:
+                                                Upload Payment voucher / Online payment proof:
                                             </label>
                                             <input type="file" name="VoucherImageFile"
-                                                    class="form-control VoucherImage"
-                                                    id="VoucherImageFile" />
+                                                   class="form-control VoucherImage"
+                                                   id="VoucherImageFile" />
                                             <input type="hidden" name="VoucherImage"
-                                                    id="VoucherImage" />
+                                                   id="VoucherImage" />
+                                            <div id="DivVoucherImage"
+                                                 class="wizard-image-div">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

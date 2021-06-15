@@ -6,20 +6,27 @@ $('input[type="file"]').change(function () {
     var id = "#" + idName;
     var data = new FormData();
     var files = $(this).get(0).files;
-    data.append("Files", files[0]);
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/ConvertFileToString",
-        data: data,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            $(id).val(response)
-        },
-        error: function (response) {
-            alert(response)
-        }
-    })
+
+    var val = $(this).val();
+    var extension = (val.substr((val.lastIndexOf('.') + 1))).trim().toLowerCase();
+    if (extension == 'png' || extension == 'jpg' || extension == 'jpeg') {
+        data.append("Files", files[0]);
+        $.ajax({
+            type: "POST",
+            url: "/Ajax/ConvertFileToString",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $(id).val(response)
+                DisplayImageInDiv(idName, response);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+    
 })
 
 function ElementValidation(elementId, required = null, maxlength = null, maxlengthNumber = null) {
