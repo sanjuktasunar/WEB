@@ -21,11 +21,12 @@ namespace Web.Repositories.Repositories.Members
         Task<string> GetMemberCode();
         Task<Member> GetMemberById(int memberId);
         Task<Address> GetMemberAddressById(int memberId);
+        Task<UserDocumentDto> GetMemberDocumentsById(int memberId);
         int Update(Member entity);
         int InsertAddress(Address entity);
         int UpdateAddress(Address entity);
-        int InsertMemberDocument(UserDocuments entity);
-        int UpdateMemberDocument(UserDocuments entity);
+        int InsertMemberDocument(UserDocuments entity, IDbTransaction transaction, SqlConnection conn);
+        int UpdateMemberDocument(UserDocuments entity, IDbTransaction transaction, SqlConnection conn);
         Task<bool> CheckPhoneNumber(int MemberId, string MobileNumber);
         Task<bool> CheckEmail(int MemberId, string Email);
     }
@@ -71,14 +72,14 @@ namespace Web.Repositories.Repositories.Members
             return (_addressRepo.Update(entity));
         }
 
-        public int InsertMemberDocument(UserDocuments entity)
+        public int InsertMemberDocument(UserDocuments entity,IDbTransaction transaction,SqlConnection conn)
         {
-            return (_userDocumentsRepo.Insert(entity));
+            return (_userDocumentsRepo.Insert(entity,transaction,conn));
         }
 
-        public int UpdateMemberDocument(UserDocuments entity)
+        public int UpdateMemberDocument(UserDocuments entity, IDbTransaction transaction, SqlConnection conn)
         {
-            return (_userDocumentsRepo.Update(entity));
+            return (_userDocumentsRepo.Update(entity, transaction, conn));
         }
 
         public async Task<string> GetMemberCode()

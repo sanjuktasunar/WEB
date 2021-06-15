@@ -11,7 +11,9 @@ namespace Web.Entity.Dto
         public int UserDocumentId { get; set; }
         public int? StaffId { get; set; }
         public int? MemberId { get; set; }
-        public string MemberPhoto { get; set; }
+        public int? MemberPhotoStorageId { get; set; }
+        public byte[] MemberPhoto { get; set; }
+        public string MemberPhotoString { get; set; }
         public string MemberPhotoLocation { get; set; }
         public string CitizenshipFront { get; set; }
         public string CitizenshipBack { get; set; }

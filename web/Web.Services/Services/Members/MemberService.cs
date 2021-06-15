@@ -22,7 +22,9 @@ namespace Web.Services.Services.Members
         Task<int> AddContactInfo(MemberContactInfoDto dto);
         Task<int> AddModifyMemberAddress(MemberAddressDto dto);
         Task<int> AddOccupation(MemberOccupationDto dto);
+        Task<int> AddMemberDocument(MemberDocumentsDto dto);
         Task<Address> GetMemberAddressAsync(int memberId);
+        Task<UserDocumentDto> GetMemberDocumentAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
         Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto);
     }
@@ -34,16 +36,19 @@ namespace Web.Services.Services.Members
         private readonly IMessageClass _messageClass;
         private readonly IBaseInterface _baseInterface;
         private readonly IPhotoStorageRepository _photoStorageRepository;
+        private readonly IImageService _imageService;
         public MemberService(IMemberRepository memberRepository,
             IDateService dateService, IMessageClass messageClass,
             IBaseInterface baseInterface,
-            IPhotoStorageRepository photoStorageRepository)
+            IPhotoStorageRepository photoStorageRepository,
+            IImageService imageService)
         {
             _memberRepository = memberRepository;
             _dateService = dateService;
             _messageClass = messageClass;
             _baseInterface = baseInterface;
             _photoStorageRepository = photoStorageRepository;
+            _imageService = imageService;
         }
         public async Task<Member> GetMemberByIdAsync(int id)
         {
@@ -156,26 +161,34 @@ namespace Web.Services.Services.Members
         }
         public async Task<int> AddMemberDocument(MemberDocumentsDto dto)
         {
+            var conn = _baseInterface.GetConnection();
+            var transaction = conn.BeginTransaction();
             try
             {
                 int memberId = dto.MemberId;
                 var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                var document = await _memberRepository.GetMemberDocumentsById(memberId);
                 if (obj is null)
                     return 0;
+                var photoStorage = new PhotoStorages();
+                photoStorage.PhotoStorageId = obj.PhotoStorageId;
+                photoStorage.Photo = _imageService.ConvertToByteFromBaseString(dto.MemberPhoto);
+                _photoStorageRepository.Update(photoStorage, transaction, conn);
+
                 var entity = dto.ToDocumentEntity();
-                var address = await _memberRepository.GetMemberAddressById(memberId);
-                if (address is null)
-                    _memberRepository.InsertAddress(entity);
+                if (document is null)
+                    _memberRepository.InsertMemberDocument(entity,transaction,conn);
                 else
                 {
-                    entity.Id = address.Id;
-                    _memberRepository.UpdateAddress(entity);
+                    entity.UserDocumentId = document.UserDocumentId;
+                    _memberRepository.UpdateMemberDocument(entity,transaction,conn);
                 }
-                //_memberRepository.Update(entity);
+                transaction.Commit();
                 return memberId;
             }
             catch (SqlException)
             {
+                transaction.Rollback();
                 return 0;
             }
 
@@ -183,6 +196,13 @@ namespace Web.Services.Services.Members
         public async Task<Address> GetMemberAddressAsync(int memberId)
         {
             return await _memberRepository.GetMemberAddressById(memberId);
+        }
+        public async Task<UserDocumentDto> GetMemberDocumentAsync(int memberId)
+        {
+            var obj= await _memberRepository.GetMemberDocumentsById(memberId);
+            if(obj.MemberPhoto!=null)
+                obj.MemberPhotoString= "data:image;base64," + Convert.ToBase64String(obj.MemberPhoto);
+            return obj;
         }
         public async Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto)
         {

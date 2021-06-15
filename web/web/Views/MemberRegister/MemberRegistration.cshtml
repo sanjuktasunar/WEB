@@ -21,7 +21,6 @@
 </style>
 
 
-
 <section class="service-wrapper py-3">
     <div class="service-tag py-5 bg-secondary">
         <div class="col-md-12">
@@ -666,6 +665,25 @@
             $('#occupationDiv').hide();
             loadOccupation();
         }
+        if (current == 5) {
+            loadMemberDocument();
+        }
+    }
+
+    function loadMemberDocument() {
+        $.ajax({
+            type: 'get',
+            url: '/MemberRegister/GetMemberDocuments',
+            data: { memberId: $("#MemberId").val() },
+            success: function (resp) {
+                $("#MemberPhoto").val(resp.MemberPhotoString);
+                $("#CitizenshipFront").val(resp.CitizenshipFront);
+                $("#CitizenshipBack").val(resp.CitizenshipBack);
+            },
+            error: function (err) {
+
+            }
+        })
     }
 
     //data load for step1 starts
@@ -1079,27 +1097,11 @@
                 formUrl = "/MemberRegister/MemberOccupation";
                 formdata = $("#step4").serialize();
             }
+            else if (current == 5) {
+                formUrl = "/MemberRegister/MemberDocument";
+                formdata = $("#step5").serialize();
+            }
             formdata = formdata + '&MemberId=' + $("#MemberId").val()
-
-            //$("#progressbar li").eq($("form").index(next_fs)).addClass("active");
-            ////show the next fieldset
-            //next_fs.show();
-            ////hide the current fieldset with style
-            //current_fs.animate({ opacity: 0 }, {
-            //    step: function (now) {
-            //        // for making fielset appear animation
-            //        opacity = 1 - now;
-            //        current_fs.css({
-            //            'display': 'none',
-            //            'position': 'relative'
-            //        });
-            //        next_fs.css({ 'opacity': opacity });
-            //    },
-            //    duration: 500
-            //});
-            //setProgressBar(++current);
-            //loadData(current);
-            //return false;
             $.ajax({
                 type: "post",
                 url: formUrl,
@@ -1485,16 +1487,37 @@
 
     //step5 starts
     function MemberImageValidation() {
-        var valid = ElementValidation('MemberImage', 'required');
-        return valid;
+        var memberPhoto = $("#MemberPhoto").val();
+        if (memberPhoto.length == 0) {
+            var valid = ElementValidation('MemberImage', 'required');
+            return valid;
+        }
+        var valid = FileHandling('MemberImage');
+        if (valid == false)
+            return false;
+        return true;
     }
     function CitizenshipFrontImageValidation() {
-        var valid = ElementValidation('CitizenshipFrontImage', 'required');
-        return valid;
+        var citizenshipFront = $("#CitizenshipFront").val();
+        if (citizenshipFront.length == 0) {
+            var valid = ElementValidation('CitizenshipFrontImage', 'required');
+            return valid;
+        }
+        var valid = FileHandling('CitizenshipFrontImage');
+        if (valid == false)
+            return false;
+        return true;
     }
     function CitizenshipBackImageValidation() {
-        var valid = ElementValidation('CitizenshipBackImage', 'required');
-        return valid;
+        var citizenshipBack = $("#CitizenshipBack").val();
+        if (citizenshipBack.length == 0) {
+            var valid = ElementValidation('CitizenshipBackImage', 'required');
+            return valid;
+        }
+        var valid = FileHandling('CitizenshipBackImage');
+        if (valid == false)
+            return false;
+        return true;
     }
     //step5 ends
 
@@ -1510,6 +1533,23 @@
         if (maxlength == 'maxlength') {
             var isValid = MaxlengthHandling(elementId, maxlengthNumber);
             if (isValid == false) return false;
+        }     
+        return true;
+    }
+    function FileHandling(elementId) {
+        debugger;
+        var element = "#" + elementId;
+        var $el = $(element);
+        var val = $el.val();
+        removeErrorClasses(element);
+        if ($el.attr('type') == 'file' && val.length > 0) {
+            var extension = val.substr((val.lastIndexOf('.') + 1));
+            if (extension.toLowerCase() != 'jpg' || extension.toLowerCase() != 'png' || extension.toLowerCase() != 'jpeg') {
+                AddErrorClasses(element)
+                AddErrorMessage(element,
+                    $el.attr('name') + ' must be type of jpg,png or jpeg ')
+                return false;
+            }
         }
         return true;
     }
@@ -1537,6 +1577,8 @@
         }
         return true;
     }
+
+   
 </script>
 
 <!--Error message handling and class handling-->

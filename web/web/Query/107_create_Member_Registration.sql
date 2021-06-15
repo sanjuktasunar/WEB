@@ -263,7 +263,7 @@ GO
 GO
 CREATE OR ALTER VIEW [dbo].[MemberDocumentView]
 AS
-SELECT A.*,B.FirstName,B.MiddleName,B.LastName,
+SELECT A.*,
 C.PhotoStorageId AS MemberPhotoStorageId,C.Photo AS MemberPhoto,C.PhotoLocation AS MemberPhotoLocation
 FROM UserDocuments AS A
 LEFT JOIN Member AS B ON B.MemberId=A.MemberId
