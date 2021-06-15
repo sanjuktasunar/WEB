@@ -256,6 +256,8 @@
     <Content Include="assets\custom-plugin\sweetalert.min.css" />
     <Content Include="assets\custom-plugin\sweetalert.min.js" />
     <Content Include="assets\custom\custom.js" />
+    <Content Include="assets\custom\member-registration-dataload.js" />
+    <Content Include="assets\custom\member-registration-form-validation.js" />
     <Content Include="assets\img\login.jpg" />
     <Content Include="assets\img\undraw_posting_photo.svg" />
     <Content Include="assets\img\undraw_profile.svg" />
