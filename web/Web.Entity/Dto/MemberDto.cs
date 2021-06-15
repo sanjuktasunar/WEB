@@ -149,8 +149,14 @@ namespace Web.Entity.Dto
     public class MemberBankDepositDto
     {
         public int Id { get; set; }
-        public int? MemberId { get; set; }
+
+        [Required]
+        public int MemberId { get; set; }
+
+        [Required]
         public string VoucherImage { get; set; }
+
+        [Required]
         public decimal Amount { get; set; }
     }
 }

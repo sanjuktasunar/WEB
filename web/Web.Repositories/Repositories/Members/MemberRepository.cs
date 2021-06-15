@@ -22,11 +22,15 @@ namespace Web.Repositories.Repositories.Members
         Task<Member> GetMemberById(int memberId);
         Task<Address> GetMemberAddressById(int memberId);
         Task<UserDocumentDto> GetMemberDocumentsById(int memberId);
+        Task<BankDeposit> GetMemberBankDepositById(int memberId);
+        int UpdateWithTransaction(Member entity, IDbTransaction transaction = null, SqlConnection con = null);
         int Update(Member entity);
         int InsertAddress(Address entity);
         int UpdateAddress(Address entity);
         int InsertMemberDocument(UserDocuments entity, IDbTransaction transaction, SqlConnection conn);
         int UpdateMemberDocument(UserDocuments entity, IDbTransaction transaction, SqlConnection conn);
+        int InsertBankDeposit(BankDeposit entity, IDbTransaction transaction, SqlConnection conn);
+        int UpdateBankDeposit(BankDeposit entity, IDbTransaction transaction, SqlConnection conn);
         Task<bool> CheckPhoneNumber(int MemberId, string MobileNumber);
         Task<bool> CheckEmail(int MemberId, string Email);
     }
@@ -38,6 +42,7 @@ namespace Web.Repositories.Repositories.Members
         BaseRepo<MemberDetails> _memberDetailsRepo = new BaseRepo<MemberDetails>();
         BaseRepo<Address> _addressRepo = new BaseRepo<Address>();
         BaseRepo<UserDocuments> _userDocumentsRepo = new BaseRepo<UserDocuments>();
+        BaseRepo<BankDeposit> _bankDepositRepo = new BaseRepo<BankDeposit>();
         public MemberRepository(IDapperManager dapperManager)
         {
             _dapperManager = dapperManager;
@@ -57,6 +62,10 @@ namespace Web.Repositories.Repositories.Members
             return (_memberDetailsRepo.Insert(entity, transaction, con));
         }
 
+        public int UpdateWithTransaction(Member entity, IDbTransaction transaction, SqlConnection con)
+        {
+            return (_memberRepo.Update(entity,transaction,con));
+        }
         public int Update(Member entity)
         {
             return (_memberRepo.Update(entity));
@@ -80,6 +89,16 @@ namespace Web.Repositories.Repositories.Members
         public int UpdateMemberDocument(UserDocuments entity, IDbTransaction transaction, SqlConnection conn)
         {
             return (_userDocumentsRepo.Update(entity, transaction, conn));
+        }
+
+        public int InsertBankDeposit(BankDeposit entity, IDbTransaction transaction, SqlConnection conn)
+        {
+            return (_bankDepositRepo.Insert(entity, transaction, conn));
+        }
+
+        public int UpdateBankDeposit(BankDeposit entity, IDbTransaction transaction, SqlConnection conn)
+        {
+            return (_bankDepositRepo.Update(entity, transaction, conn));
         }
 
         public async Task<string> GetMemberCode()
@@ -111,6 +130,11 @@ namespace Web.Repositories.Repositories.Members
         public async Task<UserDocumentDto> GetMemberDocumentsById(int memberId)
         {
             return await _dapperManager.QuerySingleAsync<UserDocumentDto>("SELECT * FROM [dbo].[MemberDocumentView] WHERE MemberId=@id", new { id = memberId });
+        }
+
+        public async Task<BankDeposit> GetMemberBankDepositById(int memberId)
+        {
+            return await _dapperManager.QuerySingleAsync<BankDeposit>("SELECT * FROM [dbo].[BankDeposit] WHERE MemberId=@id", new { id = memberId });
         }
 
         public async Task<bool> CheckCitizenshipNumber(int MemberId, string CitizenshipNumber)

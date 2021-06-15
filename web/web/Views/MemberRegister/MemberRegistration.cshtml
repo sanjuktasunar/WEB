@@ -278,8 +278,8 @@
                                                 Tole Name:
                                             </label>
                                             <input type="text" id="PermanentToleName"
-                                            name="PermanentToleName" class="form-control"
-                                            placeholder="Tole Name" />
+                                                   name="PermanentToleName" class="form-control"
+                                                   placeholder="Tole Name" />
                                         </div>
                                     </div>
                                     <div class="row" id="permanentOutsideNepalAddress">
@@ -372,7 +372,7 @@
                                                 RM/Municipality Name:
                                             </label>
                                             <input type="text"
-                                              id="TemporaryMunicipality" class="form-control"
+                                                   id="TemporaryMunicipality" class="form-control"
                                                    name="TemporaryMunicipality"
                                                    placeholder="RM/Municipality" />
                                         </div>
@@ -381,7 +381,7 @@
                                                 Ward Number:
                                             </label>
                                             <input type="text" name="TemporaryWardNumber"
-                                               id="TemporaryWardNumber" class="form-control"
+                                                   id="TemporaryWardNumber" class="form-control"
                                                    placeholder="Ward Number"
                                                    onkeypress="AllowNumberOnly(event)" />
                                         </div>
@@ -390,7 +390,7 @@
                                                 Tole Name:
                                             </label>
                                             <input type="text" name="TemporaryToleName"
-                                            class="form-control" id="TemporaryToleName"
+                                                   class="form-control" id="TemporaryToleName"
                                                    placeholder="Tole Name" />
                                         </div>
                                     </div>
@@ -412,7 +412,7 @@
                                                 Address:
                                             </label>
                                             <input type="text" class="form-control"
-                                             name="TemporaryAddress" id="TemporaryAddress"
+                                                   name="TemporaryAddress" id="TemporaryAddress"
                                                    placeholder="Address" />
                                         </div>
                                     </div>
@@ -455,7 +455,7 @@
                                             </label>
                                             <input type="text" id="OtherOccupationRemarks"
                                                    class="form-control"
-                                               name="OtherOccupationRemarks"
+                                                   name="OtherOccupationRemarks"
                                                    placeholder="Occupation Remarks" />
                                         </div>
 
@@ -495,11 +495,11 @@
                                             <label class="fieldlabels">
                                                 Upload Your Photo:
                                             </label>
-                                            <input type="file" name="MemberImage" 
-                                                 id="MemberImage"
-                                                   class="form-control MemberPhoto"/>
-                                            <input type="hidden" name="MemberPhoto" 
-                                                id="MemberPhoto" />
+                                            <input type="file" name="MemberImage"
+                                                   id="MemberImage"
+                                                   class="form-control MemberPhoto" />
+                                            <input type="hidden" name="MemberPhoto"
+                                                   id="MemberPhoto" />
                                         </div>
 
                                         <div class="col-sm-6 col-md-6 form-group">
@@ -508,20 +508,20 @@
                                             </label>
                                             <input type="file"
                                                    class="form-control CitizenshipFront"
-                                             id="CitizenshipFrontImage"
+                                                   id="CitizenshipFrontImage"
                                                    name="CitizenshipFrontImage" />
-                                            <input type="hidden" name="CitizenshipFront" 
-                                                id="CitizenshipFront" />
+                                            <input type="hidden" name="CitizenshipFront"
+                                                   id="CitizenshipFront" />
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
                                                 Citizenship Back:
                                             </label>
-                                            <input type="file" name="CitizenshipBackImage" 
-                                             class="form-control CitizenshipBack"
-                                                   id="CitizenshipBackImage"/>
+                                            <input type="file" name="CitizenshipBackImage"
+                                                   class="form-control CitizenshipBack"
+                                                   id="CitizenshipBackImage" />
                                             <input type="hidden" name="CitizenshipBack"
-                                                   id="CitizenshipBack"/>
+                                                   id="CitizenshipBack" />
                                         </div>
                                     </div>
 
@@ -552,19 +552,20 @@
                                                 Amount:
                                             </label>
                                             <input type="text" name="Amount"
+                                                   class="form-control"
                                                    id="Amount"
                                                    placeholder="Amount"
                                                    onkeypress="AllowPositiveNumber(event)" />
                                         </div>
                                         <div class="col-sm-12 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                                Upload Payment voucher / Online payment proof:
+                                               Upload Payment voucher / Online payment proof:
                                             </label>
-                                            <input type="file" name="VoucherImageFile" 
-                                              class="form-control VoucherImage"  
-                                              id="VoucherImageFile"/>
-                                            <input type="text" name="VoucherImage"
-                                                   id="VoucherImage" />
+                                            <input type="file" name="VoucherImageFile"
+                                                    class="form-control VoucherImage"
+                                                    id="VoucherImageFile" />
+                                            <input type="hidden" name="VoucherImage"
+                                                    id="VoucherImage" />
                                         </div>
                                     </div>
                                 </div>
@@ -576,6 +577,8 @@
                                    class="previous action-button-previous"
                                    value="Previous" />
                         </form>
+
+                        <!-- step 7 confirmation -->
                         <form id="step7">
                             <h2 class="purple-text text-center">
                                 <strong>
@@ -596,6 +599,9 @@
                                     </h5>
                                 </div>
                             </div>
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
                         </form>
                     </div>
                 </div>
@@ -610,7 +616,6 @@
 <script src="~/assets/custom/member-registration-dataload.js"></script>
 <script src="~/assets/custom/member-registration-form-validation.js"></script>
 <script src="~/assets/custom/custom.js"></script>
-
 
 <script>
     $(document).ready(function () {
@@ -649,6 +654,10 @@
             else if (current == 5) {
                 formUrl = "/MemberRegister/MemberDocument";
                 formdata = $("#step5").serialize();
+            }
+            else if (current == 6) {
+                formUrl = "/MemberRegister/BankDeposit";
+                formdata = $("#step6").serialize();
             }
             formdata = formdata + '&MemberId=' + $("#MemberId").val()
             $.ajax({

@@ -310,7 +310,11 @@ function AmountValidation() {
     return valid;
 }
 function VoucherImageFileValidation() {
-    var valid = ElementValidation('VoucherImageFile', 'required');
+    var voucherImageFile = $("#VoucherImage").val();
+    if (voucherImageFile.length == 0) {
+        var valid = ElementValidation('VoucherImageFile', 'required');
+        return valid;
+    }
     var valid = FileHandling('VoucherImageFile');
     if (valid == false)
         return false;

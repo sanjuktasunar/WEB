@@ -115,6 +115,7 @@ namespace Web.Services.Mapping
                 MemberId = dto.MemberId,
                 VoucherImage = dto.VoucherImage,
                 Amount = dto.Amount,
+                IsVoucherDeposit=true
             };
         }
 

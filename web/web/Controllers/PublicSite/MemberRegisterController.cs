@@ -125,6 +125,22 @@ namespace web.Controllers.PublicSite
             return Json(successResult, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> BankDeposit(MemberBankDepositDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                List<KeyValuePairDto> errors = ModelState.Select(a => a.ToModelState()).ToList();
+                var errorResult = new { status = "error", errorData = errors };
+                return Json(errorResult, JsonRequestBehavior.AllowGet);
+            }
+
+            var data = await _memberService.AddBankDeposit(dto);
+            Session["MemberId"] = data;
+            var successResult = new { status = "success", successData = data };
+            return Json(successResult, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public async Task<JsonResult> GetMemberAddress(int memberId)
         {
@@ -136,6 +152,13 @@ namespace web.Controllers.PublicSite
         public async Task<JsonResult> GetMemberDocuments(int memberId)
         {
             var obj = await _memberService.GetMemberDocumentAsync(memberId);
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetBankDeposit(int memberId)
+        {
+            var obj = await _memberService.GetBankDepositAsync(memberId);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }

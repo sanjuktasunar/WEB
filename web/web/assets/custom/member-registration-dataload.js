@@ -61,6 +61,9 @@ function loadData(current) {
     if (current == 5) {
         loadMemberDocument();
     }
+    if (current == 6) {
+        loadBankDeposit();
+    }
 }
 
 function loadMemberDocument() {
@@ -448,4 +451,18 @@ $("#OccupationId").change(function () {
         $('#occupationDiv').hide();
     }
 })
-    //data load for step4 ends
+ //data load for step4 ends
+
+//data load for step6 starts
+function loadBankDeposit() {
+    $.ajax({
+        type: 'get',
+        url: '/MemberRegister/GetBankDeposit',
+        data: { memberId: $("#MemberId").val() },
+        success: function (resp) {
+            $("#Amount").val(resp.Amount);
+            $("#VoucherImage").val(resp.VoucherImage);
+        }
+    })
+}
+//data load for step6 ends

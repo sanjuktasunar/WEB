@@ -99,6 +99,7 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Dto\AccountHeadDto.cs" />
     <Compile Include="Dto\AddressDto.cs" />
+    <Compile Include="Dto\BankDepositDto.cs" />
     <Compile Include="Dto\DepartmentDto.cs" />
     <Compile Include="Dto\DesignationDto.cs" />
     <Compile Include="Dto\FiscalYearDto.cs" />

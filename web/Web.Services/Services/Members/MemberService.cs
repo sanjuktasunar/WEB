@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Web.Entity.Dto;
 using Web.Entity.Entity;
+using Web.Entity.Infrastructure;
 using Web.Entity.Model;
 using Web.Repositories.Interface;
 using Web.Repositories.Repositories.Administration;
@@ -23,7 +24,9 @@ namespace Web.Services.Services.Members
         Task<int> AddModifyMemberAddress(MemberAddressDto dto);
         Task<int> AddOccupation(MemberOccupationDto dto);
         Task<int> AddMemberDocument(MemberDocumentsDto dto);
+        Task<int> AddBankDeposit(MemberBankDepositDto dto);
         Task<Address> GetMemberAddressAsync(int memberId);
+        Task<BankDeposit> GetBankDepositAsync(int memberId);
         Task<UserDocumentDto> GetMemberDocumentAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
         Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto);
@@ -58,7 +61,6 @@ namespace Web.Services.Services.Members
         {
             var conn = _baseInterface.GetConnection();
             var transaction = conn.BeginTransaction();
-            string message = "";
             try
             {
                 int memberId = dto.MemberId;
@@ -77,7 +79,6 @@ namespace Web.Services.Services.Members
                     memberDetails.MemberTypeId = 1;
                     memberDetails.IsPrimary = true;
                     _memberRepository.InsertMemberDetails(memberDetails, transaction, conn);
-                    transaction.Commit();
                 }
                 else
                 {
@@ -86,13 +87,13 @@ namespace Web.Services.Services.Members
                         return 0;
                     var entity = dto.ToPersonalInfoEntity(obj);
                     entity.DateOfBirthAD = Convert.ToDateTime(_dateService.ConvertToEnglishDate(dto.DateOfBirthBS));
-                    _memberRepository.Update(entity);
+                    _memberRepository.UpdateWithTransaction(entity,transaction,conn);
                 }
+                transaction.Commit();
                 return memberId;
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
-                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
                 transaction.Rollback();
                 return 0;
             }
@@ -193,6 +194,37 @@ namespace Web.Services.Services.Members
             }
 
         }
+        public async Task<int> AddBankDeposit(MemberBankDepositDto dto)
+        {
+            var conn = _baseInterface.GetConnection();
+            var transaction = conn.BeginTransaction();
+            try
+            {
+                int memberId = dto.MemberId;
+                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                if (obj is null)
+                    return 0;
+                var bankDeposit = await _memberRepository.GetMemberBankDepositById(memberId);
+                var entity = dto.ToBankDepositEntity();
+                if (bankDeposit is null)
+                    _memberRepository.InsertBankDeposit(entity, transaction, conn);
+                else
+                {
+                    entity.Id = bankDeposit.Id;
+                    _memberRepository.UpdateBankDeposit(entity, transaction, conn);
+                }
+                obj.FormStatus = FormStatus.Complete;
+                _memberRepository.UpdateWithTransaction(obj, transaction, conn);
+                transaction.Commit();
+                return memberId;
+            }
+            catch (SqlException)
+            {
+                transaction.Rollback();
+                return 0;
+            }
+
+        }
         public async Task<Address> GetMemberAddressAsync(int memberId)
         {
             return await _memberRepository.GetMemberAddressById(memberId);
@@ -202,6 +234,11 @@ namespace Web.Services.Services.Members
             var obj= await _memberRepository.GetMemberDocumentsById(memberId);
             if(obj.MemberPhoto!=null)
                 obj.MemberPhotoString= "data:image;base64," + Convert.ToBase64String(obj.MemberPhoto);
+            return obj;
+        }
+        public async Task<BankDeposit> GetBankDepositAsync(int memberId)
+        {
+            var obj = await _memberRepository.GetMemberBankDepositById(memberId);
             return obj;
         }
         public async Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto)
