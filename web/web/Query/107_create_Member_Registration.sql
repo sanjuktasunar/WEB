@@ -143,6 +143,8 @@ CREATE TABLE Member
 	ApprovalStatus int not null,
 	ApprovedDate datetime null,
 	ApprovedBy int null Constraint Member_User_ApproveByUserId_fk References Users(UserId),
+	ReferalCode nvarchar(50) null default(''),
+	ReferenceId int null Constraint Member_ReferenceId_fk References Member(MemberId) 
 );
 GO
 
