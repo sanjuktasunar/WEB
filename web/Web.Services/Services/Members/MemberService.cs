@@ -30,6 +30,7 @@ namespace Web.Services.Services.Members
         Task<UserDocumentDto> GetMemberDocumentAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
         Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto);
+        Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr);
     }
 
     public class MemberService:IMemberService
@@ -56,6 +57,29 @@ namespace Web.Services.Services.Members
         public async Task<Member> GetMemberByIdAsync(int id)
         {
             return await _memberRepository.GetMemberById(id);
+        }
+
+        public async Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr)
+        {
+            var obj= await _memberRepository.GetMemberByAttr(memberAttr);
+            var data = new SearchMemberDto();
+            data.ErrorMessage = "No Record Found From this Citizenship Number or Phone Number or Email Address,Please fill up new one.........";
+            if (obj != null)
+            {
+                data.IsNotFoundOrReject = true;
+                data.ErrorMessage = "Your Form has approved already,You cannot modify from here,If you want to change your details please login to system or contact to admin.....";
+                if (obj.ApprovalStatus == ApprovalStatus.UnApproved)
+                {
+                    data.IsNotFoundOrReject = false;
+                    data.Member = obj;
+                }
+                else if (obj.ApprovalStatus == ApprovalStatus.Rejected)
+                {
+                    data.IsNotFoundOrReject = true;
+                    data.ErrorMessage = "Your Form has been rejected,You cannot modify it.<br>Please fill up form again";
+                }
+            }
+            return data;
         }
         public async Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto)
         {

@@ -9,17 +9,23 @@ function loadFieldData() {
         url: '/MemberRegister/GetMemberById',
         data: { id: memberId },
         success: function (res) {
-            $("#FirstName").val(res.FirstName);
-            $("#MiddleName").val(res.MiddleName);
-            $("#LastName").val(res.LastName);
-            $("#CitizenshipNumber").val(res.CitizenshipNumber);
-            $("#GenderId").val(res.GenderId);
-            $("#DateOfBirthBS").val(res.DateOfBirthBS);
-            $("#MobileNumber").val(res.MobileNumber);
-            $("#Email").val(res.Email);
+            setFieldValues(res);
         }
     })
 }
+
+function setFieldValues(res) {
+    $("#MemberId").val(res.MemberId);
+    $("#FirstName").val(res.FirstName);
+    $("#MiddleName").val(res.MiddleName);
+    $("#LastName").val(res.LastName);
+    $("#CitizenshipNumber").val(res.CitizenshipNumber);
+    $("#GenderId").val(res.GenderId);
+    $("#DateOfBirthBS").val(res.DateOfBirthBS);
+    $("#MobileNumber").val(res.MobileNumber);
+    $("#Email").val(res.Email);
+}
+
 function loadOccupation() {
     var memberId = $("#MemberId").val();
     $.ajax({
@@ -41,8 +47,12 @@ function loadOccupation() {
     })
 }
 function loadData(current) {
+    if (current != 1) {
+        $("#SearchDiv").hide();
+    }
     if (current == 1) {
         loadGenderList();
+        $("#SearchDiv").show();
     }
     if (current == 2) {
         loadOutsideCountryList();
@@ -72,10 +82,10 @@ function loadMemberDocument() {
         url: '/MemberRegister/GetMemberDocuments',
         data: { memberId: $("#MemberId").val() },
         success: function (resp) {
-            $("#MemberPhoto").val(resp.MemberPhotoString);
+            
             $("#CitizenshipFront").val(resp.CitizenshipFront);
             $("#CitizenshipBack").val(resp.CitizenshipBack);
-
+            $("#MemberPhoto").val(resp.MemberPhotoString);
             DisplayImageInDiv('CitizenshipFront', resp.CitizenshipFront)
             DisplayImageInDiv('MemberPhoto', resp.MemberPhotoString)
             DisplayImageInDiv('CitizenshipBack', resp.CitizenshipBack)

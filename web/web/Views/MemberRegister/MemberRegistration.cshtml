@@ -16,7 +16,7 @@
     }
 
     #wizard_div {
-        margin-top: -65px;
+        margin-top: -30px;
     }
     .wizard-image-div{
         display:none;
@@ -24,6 +24,9 @@
     .wizard-image-div img{
         height:20%;
         width:50%
+    }
+    #searchButton {
+        margin-top: 21px;
     }
 </style>
 
@@ -39,19 +42,26 @@
     </div>
 </section>
 <section class="container py-5">
-    <div class="col-sm-8 col-md-8 input-group">
-        <label class="fieldlabels">
-            Search By Citizenship Number/Mobile Number/Email:
-        </label><br />
-        <input type="text" name="SearchData"
-               id="SearchData"
-               placeholder="Search......."
-               class="form-control" />
-        <button type="button" class="btn btn-primary">
-            <i class="bx bx-search text-white"></i>
-        </button>
+    <div class="row" id="SearchDiv">
+        <form>
+            <div class="row">
+                <div class="col-sm-8 col-md-8">
+                    <label class="fieldlabels">
+                        Complete Incomplete steps:
+                    </label><br />
+                    <input type="text" name="SearchData"
+                           id="SearchData"
+                           placeholder="Citizenship Number/Mobile Number/Email"
+                           class="form-control" />
+                </div>
+                <div class="col-sm-1 col-md-1 form-group" id="searchButton">
+                    <a class="btn btn-primary form-control" href="#" id="btnMemberSearch">
+                        <i class="bx bx-search text-white"></i>
+                    </a>
+                </div>
+            </div>
+        </form>
     </div>
-   <br />
     <div class="container-fluid" id="wizard_div">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
@@ -131,7 +141,7 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                                Date of Birth:
+                                                Date of Birth (BS):
                                             </label>
                                             <input type="text" name="DateOfBirthBS"
                                                    placeholder="YYYY-MM-DD"
@@ -181,12 +191,12 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                                Email Address:
+                                                Email(Only Gmail Id will be accepted):
                                             </label>
                                             <input type="text" name="Email"
                                                    class="form-control"
                                                    id="Email"
-                                                   placeholder="Email Address" />
+                                                   placeholder="e.g. Abc123@gmail.com" />
                                         </div>
                                     </div>
                                 </div>
@@ -652,6 +662,30 @@
 <script src="~/assets/custom/custom.js"></script>
 
 <script>
+    $("#btnMemberSearch").click(function (event) {
+        event.preventDefault();
+        var attr = $("#SearchData").val();
+        if (attr.length > 0) {
+            $.ajax({
+                type: 'get',
+                url: '/MemberRegister/SearchMember',
+                data: { MemberAttr: attr },
+                success: function (resp) {
+                    if (resp.IsNotFoundOrReject == true) {
+                        ShowErrorMessage(resp.ErrorMessage)
+                    }
+                    else {
+                        setFieldValues(resp.Member);
+                        $("#SearchData").val('');
+                    }
+                },
+                error: function (res) {
+                    alert(resp)
+                }
+            })
+        }
+        
+    });
     $(document).ready(function () {
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;

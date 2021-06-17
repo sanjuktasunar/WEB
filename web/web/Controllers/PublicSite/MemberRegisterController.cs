@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Web.Entity.Dto;
+using Web.Entity.Entity;
 using Web.Entity.Model;
 using Web.Services.Mapping;
 using Web.Services.Services;
@@ -160,6 +161,13 @@ namespace web.Controllers.PublicSite
         {
             var obj = await _memberService.GetBankDepositAsync(memberId);
             return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> SearchMember(string MemberAttr)
+        {
+            var obj = await _memberService.GetMemberByAttrAsync(MemberAttr);
+            return Json(obj,JsonRequestBehavior.AllowGet);
         }
     }
 }

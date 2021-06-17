@@ -33,6 +33,7 @@ namespace Web.Repositories.Repositories.Members
         int UpdateBankDeposit(BankDeposit entity, IDbTransaction transaction, SqlConnection conn);
         Task<bool> CheckPhoneNumber(int MemberId, string MobileNumber);
         Task<bool> CheckEmail(int MemberId, string Email);
+        Task<Member> GetMemberByAttr(string memberAttr);
     }
 
     public class MemberRepository:IMemberRepository
@@ -120,6 +121,11 @@ namespace Web.Repositories.Repositories.Members
         public async Task<Member> GetMemberById(int memberId)
         {
             return await _dapperManager.QuerySingleAsync<Member>("SELECT * FROM Member WHERE MemberId=@id",new { id=memberId });
+        }
+
+        public async Task<Member> GetMemberByAttr(string memberAttr)
+        {
+            return await _dapperManager.QuerySingleAsync<Member>("SELECT * FROM Member WHERE (LOWER(CitizenshipNumber)=@attr OR LOWER(MobileNumber)=@attr OR LOWER(Email)=@attr)", new { attr = memberAttr });
         }
 
         public async Task<Address> GetMemberAddressById(int memberId)

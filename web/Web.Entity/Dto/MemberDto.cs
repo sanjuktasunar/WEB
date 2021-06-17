@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Web.Entity.Entity;
 
 namespace Web.Entity.Dto
 {
@@ -158,5 +159,12 @@ namespace Web.Entity.Dto
 
         [Required]
         public decimal Amount { get; set; }
+    }
+
+    public class SearchMemberDto
+    {
+        public Member Member { get; set; }
+        public string ErrorMessage { get; set; }
+        public bool IsNotFoundOrReject { get; set; }
     }
 }
