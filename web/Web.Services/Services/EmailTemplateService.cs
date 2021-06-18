@@ -25,7 +25,7 @@ namespace Web.Services.Services
             var organizationInfo =await _organizationInfoService.GetOrganizationInfo();
             var template = "Dear {{Name}},<br /> " +
                 "{{Message}} " +
-                "<br />{{organizationName}}" +
+                "<br /><br />{{organizationName}}" +
                 "<br />{{Address}}" +
                 "<br />" +
                 "Contact Number : {{PhoneNumber}}";

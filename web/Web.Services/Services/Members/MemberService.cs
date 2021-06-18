@@ -137,6 +137,7 @@ namespace Web.Services.Services.Members
                     return 0;
                 var entity = dto.ToContactInfoEntity(obj.ToEntity());
                 _memberRepository.Update(entity);
+                await SendEmailOnFormCompletion(obj);
                 return memberId;
             }
             catch (SqlException)
@@ -357,7 +358,7 @@ namespace Web.Services.Services.Members
         {
             var template = await _emailTemplateService.GetGeneralTemplate();
             template=template.Replace("{{Name}}", dto.FullName);
-            template=template.Replace("{{Message}}", "Your form has been submitted successfully,</br>Please wait for admin response</br>Thankyou");
+            template=template.Replace("{{Message}}", "Your form has been submitted successfully,<br />Please wait for admin response<br/>Thankyou!!!!!!!<br />");
             _emailService.SendEmail(dto.Email, "Form Completion", template);
         }
     }
