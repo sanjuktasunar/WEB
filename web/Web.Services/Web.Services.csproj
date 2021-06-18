@@ -150,6 +150,8 @@
     <Compile Include="Services\Customer\CustomerQueryService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\DateService.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\EmailTemplateService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\InitialSetupService.cs" />
     <Compile Include="Services\Members\MemberService.cs" />

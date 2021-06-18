@@ -60,7 +60,8 @@ function formValidationAndSubmission(current) {
     else if (current == 6) {
         var valid = AmountValidation();
         var valid1 = VoucherImageFileValidation();
-        if (!valid || !valid1) return false;
+        var valid2 = ReferalCodeValidation();
+        if (!valid || !valid1 || !valid2) return false;
     }
     return true;
 }
@@ -79,7 +80,7 @@ function CitizenshipNumberValidation() {
     //    return false;
     //}
     //return true;
-    var valid = ElementValidation('CitizenshipNumber', 'required', 'maxlength', 10)
+    var valid = ElementValidation('CitizenshipNumber', 'required', 'maxlength', 20)
     return valid;
 }
 function DateOfBirthBSValidation() {
@@ -190,7 +191,6 @@ function PermanentToleNameValidation() {
     }
     return true;
 }
-
 function PermanentCountryIdValidation() {
     var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
     if (permanentRadio == "true") {
@@ -207,7 +207,6 @@ function PermanentAddressValidation() {
     }
     return true;
 }
-
 function TemporaryProvinceIdValidation() {
     var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
     if (temporaryRadio == "false") {
@@ -344,6 +343,11 @@ function VoucherImageFileValidation() {
     var valid = FileHandling('VoucherImageFile');
     if (valid == false)
         return false;
+    return valid;
+}
+
+function ReferalCodeValidation() {
+    var valid = ElementValidation('ReferalCode', null, 'maxlength', 30);
     return valid;
 }
 //step6 ends

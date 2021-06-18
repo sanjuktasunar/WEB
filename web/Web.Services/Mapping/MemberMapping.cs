@@ -10,6 +10,53 @@ namespace Web.Services.Mapping
 {
     public static class MemberMapping
     {
+        public static MemberDto ToDTO(this Member entity)
+        {
+            if (entity is null)
+                return null;
+
+            return new MemberDto
+            {
+                MemberId=entity.MemberId,
+                FullName=entity.FirstName+ ' '+ (!string.IsNullOrEmpty(entity.MiddleName)?(entity.MiddleName+' '):string.Empty)+entity.MiddleName
+            };
+        }
+
+        public static Member ToEntity(this MemberDto dto)
+        {
+            if (dto is null)
+                return null;
+
+            return new Member
+            {
+                MemberId = dto.MemberId,
+                MemberCode = dto.MemberCode,
+                FirstName = dto.FirstName,
+                MiddleName = dto.MiddleName,
+                LastName = dto.LastName,
+                MobileNumber = dto.MobileNumber,
+                Email = dto.Email,
+                DateOfBirthBS = dto.DateOfBirthBS,
+                DateOfBirthAD = dto.DateOfBirthAD,
+                GenderId = dto.GenderId,
+                OccupationId = dto.OccupationId,
+                OtherOccupationRemarks = dto.OtherOccupationRemarks,
+                MemberFieldId = dto.MemberFieldId,
+                CitizenshipNumber = dto.CitizenshipNumber,
+                IsMemberFilled = dto.IsMemberFilled,
+                FormStatus = dto.FormStatus,
+                ApprovalStatus = dto.ApprovalStatus,
+                ApprovedDate = dto.ApprovedDate,
+                ApprovedBy = dto.ApprovedBy,
+                ReferenceId = dto.ReferenceId,
+                ReferalCode=dto.ReferalCode,
+                CreatedDate=dto.CreatedDate,
+                CreatedBy=dto.CreatedBy,
+                UpdatedBy=dto.UpdatedBy,
+                UpdatedDate=dto.UpdatedDate,
+            };
+        }
+
         public static Member ToPersonalInfoEntity(this MemberPersonalInfoDto dto,Member entity)
         {
             if (dto is null)
@@ -101,6 +148,7 @@ namespace Web.Services.Mapping
                 MemberId = dto.MemberId,
                 CitizenshipFront = dto.CitizenshipFront,
                 CitizenshipBack = dto.CitizenshipBack,
+                Photo=dto.MemberPhoto,
             };
         }
 
@@ -119,6 +167,5 @@ namespace Web.Services.Mapping
             };
         }
 
-       
     }
 }

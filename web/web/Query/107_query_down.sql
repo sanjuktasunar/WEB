@@ -1,5 +1,9 @@
 
 GO
+DROP VIEW [dbo].[MemberView]
+GO
+
+GO
 DROP TABLE  [dbo].[BankDeposit]
 GO
 

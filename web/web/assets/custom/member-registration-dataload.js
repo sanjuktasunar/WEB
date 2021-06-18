@@ -24,6 +24,7 @@ function setFieldValues(res) {
     $("#DateOfBirthBS").val(res.DateOfBirthBS);
     $("#MobileNumber").val(res.MobileNumber);
     $("#Email").val(res.Email);
+    $("#ReferalCode").val(res.ReferenceReferalCode);
 }
 
 function loadOccupation() {
@@ -82,13 +83,12 @@ function loadMemberDocument() {
         url: '/MemberRegister/GetMemberDocuments',
         data: { memberId: $("#MemberId").val() },
         success: function (resp) {
-            
             $("#CitizenshipFront").val(resp.CitizenshipFront);
             $("#CitizenshipBack").val(resp.CitizenshipBack);
-            $("#MemberPhoto").val(resp.MemberPhotoString);
+            $("#MemberPhoto").val(resp.Photo);
             DisplayImageInDiv('CitizenshipFront', resp.CitizenshipFront)
-            DisplayImageInDiv('MemberPhoto', resp.MemberPhotoString)
             DisplayImageInDiv('CitizenshipBack', resp.CitizenshipBack)
+            DisplayImageInDiv('MemberPhoto', resp.Photo)
         },
         error: function (err) {
 

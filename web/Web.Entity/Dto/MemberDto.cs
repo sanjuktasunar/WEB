@@ -5,23 +5,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Web.Entity.Entity;
+using Web.Entity.Infrastructure;
+using Web.Entity.Model;
 
 namespace Web.Entity.Dto
 {
-    public class MemberDto
+    public class MemberDto: BaseDtoData
     {
         public int MemberId { get; set; }
-        public int PhotoStorageId { get; set; }
         public string MemberCode { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
+        public string FullName { get; set; }
         public string MobileNumber { get; set; }
         public string Email { get; set; }
         public string DateOfBirthBS { get; set; }
         public DateTime? DateOfBirthAD { get; set; }
         public int GenderId { get; set; }
+        public int? OccupationId { get; set; }
+        public string OtherOccupationRemarks { get; set; }
+        public int? MemberFieldId { get; set; }
         public string CitizenshipNumber { get; set; }
+        public bool? IsMemberFilled { get; set; }
+        public FormStatus FormStatus { get; set; }
+        public ApprovalStatus ApprovalStatus { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public int? ApprovedBy { get; set; }
+        public int? ReferenceId { get; set; }
+        public string ReferalCode { get; set; }
+        public string RefernceFirstName { get; set; }
+        public string ReferenceMiddleName { get; set; }
+        public string ReferenceLastName { get; set; }
+        public string ReferenceFullName { get; set; }
+        public string ReferenceReferalCode { get; set; }
     }
 
     public class MemberPersonalInfoDto
@@ -154,6 +171,10 @@ namespace Web.Entity.Dto
         [Required]
         public int MemberId { get; set; }
 
+        //public int? ReferenceId { get; set; }
+
+        public string ReferalCode { get; set; }
+
         [Required]
         public string VoucherImage { get; set; }
 
@@ -163,8 +184,9 @@ namespace Web.Entity.Dto
 
     public class SearchMemberDto
     {
-        public Member Member { get; set; }
+        public MemberDto Member { get; set; }
         public string ErrorMessage { get; set; }
         public bool IsNotFoundOrReject { get; set; }
+        public IEnumerable<KeyValuePairDto> KeyValuePairDto { get; set; }
     }
 }

@@ -68,17 +68,17 @@
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <div id="msform">
                         <ul id="progressbar">
-                            <li class="step1 active" id="basic">
+                            <li class="active" id="basic">
                                 <strong>Basic</strong>
                             </li>
-                            <li class="step2" id="contact"><strong>Contact</strong></li>
-                            <li class="step3" id="address"><strong>Address</strong></li>
-                            <li class="step4" id="occupation">
+                            <li  id="contact"><strong>Contact</strong></li>
+                            <li  id="address"><strong>Address</strong></li>
+                            <li id="occupation">
                                 <strong>Occupation</strong>
                             </li>
-                            <li class="step5" id="document"><strong>Documents</strong></li>
-                            <li class="step6" id="payment"><strong>Payment</strong></li>
-                            <li class="step7" id="confirm"><strong>Confirmation</strong></li>
+                            <li id="document"><strong>Documents</strong></li>
+                            <li  id="payment"><strong>Payment</strong></li>
+                            <li id="confirm"><strong>Confirmation</strong></li>
                         </ul>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated"
@@ -587,7 +587,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6 form-group">
+                                        <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
                                                 Amount:
                                             </label>
@@ -597,7 +597,7 @@
                                                    placeholder="Amount"
                                                    onkeypress="AllowPositiveNumber(event)" />
                                         </div>
-                                        <div class="col-sm-12 col-md-6 form-group">
+                                        <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
                                                 Upload Payment voucher / Online payment proof:
                                             </label>
@@ -609,6 +609,16 @@
                                             <div id="DivVoucherImage"
                                                  class="wizard-image-div">
                                             </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Referal Code(Optional):
+                                            </label>
+                                            <input type="text" name="ReferalCode"
+                                                   class="form-control"
+                                                   id="ReferalCode"
+                                                   placeholder="Referal Code"
+                                                    />
                                         </div>
                                     </div>
                                 </div>
@@ -700,6 +710,8 @@
         $(".next").click(function () {
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
+            $(".next").prop('disabled', true);
+            $(".previous").prop('disabled', true);
 
             var test = formValidationAndSubmission(current);
             if (test == false)
@@ -732,10 +744,10 @@
                 url: formUrl,
                 data: formdata,
                 success: function (response) {
-                    debugger;
                     if (response.status == "success") {
                         //Add Class Active
                         if (response.successData > 0) {
+                            debugger;
                             $("#MemberId").val(response.successData)
                             $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
                             //show the next fieldset
@@ -755,6 +767,8 @@
                             });
                             setProgressBar(++current);
                             loadData(current);
+                            $(".next").prop('disabled', false);
+                            $(".previous").prop('disabled', false);
                         }
                         else {
                             ShowErrorMessage("Something went wrong....!!");
