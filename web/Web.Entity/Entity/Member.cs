@@ -10,7 +10,6 @@ namespace Web.Entity.Entity
     public class Member: BaseEntityData
     {
         public int MemberId { get; set; }
-        public int PhotoStorageId { get; set; }
         public string MemberCode { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -29,6 +28,8 @@ namespace Web.Entity.Entity
         public ApprovalStatus ApprovalStatus { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public int? ApprovedBy { get; set; }
+        public int? ReferenceId { get; set; }
+        public string ReferalCode { get; set; }
     }
 
     public class MemberDetails

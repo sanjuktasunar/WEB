@@ -60,7 +60,8 @@ function formValidationAndSubmission(current) {
     else if (current == 6) {
         var valid = AmountValidation();
         var valid1 = VoucherImageFileValidation();
-        if (!valid || !valid1) return false;
+        var valid2 = ReferalCodeValidation();
+        if (!valid || !valid1 || !valid2) return false;
     }
     return true;
 }
@@ -79,7 +80,7 @@ function CitizenshipNumberValidation() {
     //    return false;
     //}
     //return true;
-    var valid = ElementValidation('CitizenshipNumber', 'required', 'maxlength', 10)
+    var valid = ElementValidation('CitizenshipNumber', 'required', 'maxlength', 20)
     return valid;
 }
 function DateOfBirthBSValidation() {
@@ -110,8 +111,34 @@ function MobileNumberValidation() {
 }
 function EmailValidation() {
     var valid = ElementValidation('Email', 'required', 'maxlength', 150)
-    return valid;
+    var testemail = EmailFormat($('#Email').val());
+    if (!valid || !testemail)
+        return false;
+    return true;
 }
+function EmailFormat(emailAddress) {
+    if (emailAddress.length > 0) {
+    /*  var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;*/
+
+        var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(gmail.com)/;
+        var test = pattern.test(emailAddress);
+        removeErrorClasses("#Email");
+        if (test == false) {
+            AddErrorClasses("#Email");
+            AddErrorMessage("#Email", 'Email address is not in correct format');
+        }
+        else {
+            var last = emailAddress.substr((emailAddress.lastIndexOf('.') + 1));
+            if (last.toLowerCase() != 'com') {
+                AddErrorClasses("#Email");
+                AddErrorMessage("#Email", 'Email address is not in correct format');
+                test = false;
+            }
+        }
+        return test;
+    }
+    return true;
+};
 //step2 ends
 
 //step3 starts
@@ -164,7 +191,6 @@ function PermanentToleNameValidation() {
     }
     return true;
 }
-
 function PermanentCountryIdValidation() {
     var permanentRadio = $("input[name='PermanentIsOutsideNepal']:checked").val();
     if (permanentRadio == "true") {
@@ -181,7 +207,6 @@ function PermanentAddressValidation() {
     }
     return true;
 }
-
 function TemporaryProvinceIdValidation() {
     var temporaryRadio = $("input[name='TemporaryIsOutsideNepal']:checked").val();
     if (temporaryRadio == "false") {
@@ -318,6 +343,11 @@ function VoucherImageFileValidation() {
     var valid = FileHandling('VoucherImageFile');
     if (valid == false)
         return false;
+    return valid;
+}
+
+function ReferalCodeValidation() {
+    var valid = ElementValidation('ReferalCode', null, 'maxlength', 30);
     return valid;
 }
 //step6 ends

@@ -31,7 +31,7 @@ namespace Web.Services.Mapping
             };
         }
 
-        public static BaseDtoData ToDto(this BaseEntityData entity)
+        public static BaseDtoData ToDTO(this BaseEntityData entity)
         {
             if (entity == null)
                 return null;

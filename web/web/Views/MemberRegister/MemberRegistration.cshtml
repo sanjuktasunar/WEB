@@ -16,10 +16,19 @@
     }
 
     #wizard_div {
-        margin-top: -65px;
+        margin-top: -30px;
+    }
+    .wizard-image-div{
+        display:none;
+    }
+    .wizard-image-div img{
+        height:20%;
+        width:50%
+    }
+    #searchButton {
+        margin-top: 21px;
     }
 </style>
-
 
 <section class="service-wrapper py-3">
     <div class="service-tag py-5 bg-secondary">
@@ -33,24 +42,43 @@
     </div>
 </section>
 <section class="container py-5">
+    <div class="row" id="SearchDiv">
+        <form>
+            <div class="row">
+                <div class="col-sm-5 col-md-5">
+                    <label class="fieldlabels">
+                        Complete Incomplete steps:
+                    </label><br />
+                    <input type="text" name="SearchData"
+                           id="SearchData"
+                           placeholder="Citizenship Number/Mobile Number/Email"
+                           class="form-control" />
+                </div>
+                <div class="col-sm-1 col-md-1 form-group" id="searchButton">
+                    <a class="btn btn-primary form-control" href="#" id="btnMemberSearch">
+                        <i class="bx bx-search text-white"></i>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="container-fluid" id="wizard_div">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <div id="msform">
-                        <p>Fill all form field to go to next step</p>
                         <ul id="progressbar">
-                            <li class="step1 active" id="basic">
+                            <li class="active" id="basic">
                                 <strong>Basic</strong>
                             </li>
-                            <li class="step2" id="contact"><strong>Contact</strong></li>
-                            <li class="step3" id="address"><strong>Address</strong></li>
-                            <li class="step4" id="occupation">
+                            <li  id="contact"><strong>Contact</strong></li>
+                            <li  id="address"><strong>Address</strong></li>
+                            <li id="occupation">
                                 <strong>Occupation</strong>
                             </li>
-                            <li class="step5" id="document"><strong>Documents</strong></li>
-                            <li class="step6" id="payment"><strong>Payment</strong></li>
-                            <li class="step7" id="confirm"><strong>Confirmation</strong></li>
+                            <li id="document"><strong>Documents</strong></li>
+                            <li  id="payment"><strong>Payment</strong></li>
+                            <li id="confirm"><strong>Confirmation</strong></li>
                         </ul>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated"
@@ -59,7 +87,7 @@
                         </div>
                         <!-- progressbar -->
                         <!-- step 1 basic information -->
-                        <input type="hidden" value="9" id="MemberId" />
+                        <input type="hidden" name="MemberId" value="0" id="MemberId" />
                         <form id="step1">
                             <!-- fieldsets -->
                             <fieldset>
@@ -112,7 +140,7 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                                Date of Birth:
+                                                Date of Birth (BS):
                                             </label>
                                             <input type="text" name="DateOfBirthBS"
                                                    placeholder="YYYY-MM-DD"
@@ -162,12 +190,12 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                                Email Address:
+                                                Email(Only Gmail Id will be accepted):
                                             </label>
                                             <input type="text" name="Email"
                                                    class="form-control"
                                                    id="Email"
-                                                   placeholder="Email Address" />
+                                                   placeholder="e.g. Abc123@gmail.com" />
                                         </div>
                                     </div>
                                 </div>
@@ -500,6 +528,11 @@
                                                    class="form-control MemberPhoto" />
                                             <input type="hidden" name="MemberPhoto"
                                                    id="MemberPhoto" />
+
+                                            <div id="DivMemberPhoto"
+                                                 class="wizard-image-div">
+
+                                            </div>
                                         </div>
 
                                         <div class="col-sm-6 col-md-6 form-group">
@@ -512,6 +545,9 @@
                                                    name="CitizenshipFrontImage" />
                                             <input type="hidden" name="CitizenshipFront"
                                                    id="CitizenshipFront" />
+                                            <div id="DivCitizenshipFront"
+                                                 class="wizard-image-div">
+                                            </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
@@ -522,6 +558,10 @@
                                                    id="CitizenshipBackImage" />
                                             <input type="hidden" name="CitizenshipBack"
                                                    id="CitizenshipBack" />
+                                            <div id="DivCitizenshipBack"
+                                                 class="wizard-image-div">
+
+                                            </div>
                                         </div>
                                     </div>
 
@@ -547,7 +587,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6 form-group">
+                                        <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
                                                 Amount:
                                             </label>
@@ -557,15 +597,28 @@
                                                    placeholder="Amount"
                                                    onkeypress="AllowPositiveNumber(event)" />
                                         </div>
-                                        <div class="col-sm-12 col-md-6 form-group">
+                                        <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                               Upload Payment voucher / Online payment proof:
+                                                Upload Payment voucher / Online payment proof:
                                             </label>
                                             <input type="file" name="VoucherImageFile"
-                                                    class="form-control VoucherImage"
-                                                    id="VoucherImageFile" />
+                                                   class="form-control VoucherImage"
+                                                   id="VoucherImageFile" />
                                             <input type="hidden" name="VoucherImage"
-                                                    id="VoucherImage" />
+                                                   id="VoucherImage" />
+                                            <div id="DivVoucherImage"
+                                                 class="wizard-image-div">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Referal Code(Optional):
+                                            </label>
+                                            <input type="text" name="ReferalCode"
+                                                   class="form-control"
+                                                   id="ReferalCode"
+                                                   placeholder="Referal Code"
+                                                    />
                                         </div>
                                     </div>
                                 </div>
@@ -618,6 +671,30 @@
 <script src="~/assets/custom/custom.js"></script>
 
 <script>
+    $("#btnMemberSearch").click(function (event) {
+        event.preventDefault();
+        var attr = $("#SearchData").val();
+        if (attr.length > 0) {
+            $.ajax({
+                type: 'get',
+                url: '/MemberRegister/SearchMember',
+                data: { MemberAttr: attr },
+                success: function (resp) {
+                    if (resp.IsNotFoundOrReject == true) {
+                        ShowErrorMessage(resp.ErrorMessage)
+                    }
+                    else {
+                        setFieldValues(resp.Member);
+                        $("#SearchData").val('');
+                    }
+                },
+                error: function (res) {
+                    alert(resp)
+                }
+            })
+        }
+        
+    });
     $(document).ready(function () {
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
@@ -633,6 +710,8 @@
         $(".next").click(function () {
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
+            $(".next").prop('disabled', true);
+            $(".previous").prop('disabled', true);
 
             var test = formValidationAndSubmission(current);
             if (test == false)
@@ -665,10 +744,10 @@
                 url: formUrl,
                 data: formdata,
                 success: function (response) {
-                    debugger;
                     if (response.status == "success") {
                         //Add Class Active
                         if (response.successData > 0) {
+                            debugger;
                             $("#MemberId").val(response.successData)
                             $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
                             //show the next fieldset
@@ -688,6 +767,8 @@
                             });
                             setProgressBar(++current);
                             loadData(current);
+                            $(".next").prop('disabled', false);
+                            $(".previous").prop('disabled', false);
                         }
                         else {
                             ShowErrorMessage("Something went wrong....!!");

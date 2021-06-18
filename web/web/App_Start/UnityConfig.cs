@@ -87,6 +87,8 @@ namespace web
             container.RegisterType<IDateService, DateService>();
             container.RegisterType<IDataService, DataService>();
             container.RegisterType<IMemberService, MemberService>();
+            container.RegisterType<IEmailService, EmailService>();
+            container.RegisterType<IEmailTemplateService, EmailTemplateService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

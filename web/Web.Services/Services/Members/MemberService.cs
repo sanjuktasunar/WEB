@@ -18,7 +18,7 @@ namespace Web.Services.Services.Members
 {
     public interface IMemberService
     {
-        Task<Member> GetMemberByIdAsync(int id);
+        Task<MemberDto> GetMemberByIdAsync(int id);
         Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto);
         Task<int> AddContactInfo(MemberContactInfoDto dto);
         Task<int> AddModifyMemberAddress(MemberAddressDto dto);
@@ -30,6 +30,9 @@ namespace Web.Services.Services.Members
         Task<UserDocumentDto> GetMemberDocumentAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
         Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto);
+        Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr);
+        Task<MemberDto> GeMemberByReferenceCode(string referalCode);
+        Task<List<KeyValuePairDto>> ValidateBankDeposit(MemberBankDepositDto dto);
     }
 
     public class MemberService:IMemberService
@@ -40,11 +43,14 @@ namespace Web.Services.Services.Members
         private readonly IBaseInterface _baseInterface;
         private readonly IPhotoStorageRepository _photoStorageRepository;
         private readonly IImageService _imageService;
+        private readonly IEmailTemplateService _emailTemplateService;
+        private readonly IEmailService _emailService;
         public MemberService(IMemberRepository memberRepository,
             IDateService dateService, IMessageClass messageClass,
             IBaseInterface baseInterface,
             IPhotoStorageRepository photoStorageRepository,
-            IImageService imageService)
+            IImageService imageService, IEmailTemplateService emailTemplateService,
+            EmailService emailService)
         {
             _memberRepository = memberRepository;
             _dateService = dateService;
@@ -52,10 +58,35 @@ namespace Web.Services.Services.Members
             _baseInterface = baseInterface;
             _photoStorageRepository = photoStorageRepository;
             _imageService = imageService;
+            _emailTemplateService = emailTemplateService;
+            _emailService = emailService;
         }
-        public async Task<Member> GetMemberByIdAsync(int id)
+        public async Task<MemberDto> GetMemberByIdAsync(int id)
         {
             return await _memberRepository.GetMemberById(id);
+        }
+
+        public async Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr)
+        {
+            var obj= await _memberRepository.GetMemberByAttr(memberAttr);
+            var data = new SearchMemberDto();
+            data.ErrorMessage = "No Record Found From this Citizenship Number or Phone Number or Email Address,Please fill up new one.........";
+            if (obj != null)
+            {
+                data.IsNotFoundOrReject = true;
+                data.ErrorMessage = "Your Form has approved already,You cannot modify from here,If you want to change your details please login to system or contact to admin.....";
+                if (obj.ApprovalStatus == ApprovalStatus.UnApproved)
+                {
+                    data.IsNotFoundOrReject = false;
+                    data.Member = obj;
+                }
+                else if (obj.ApprovalStatus == ApprovalStatus.Rejected)
+                {
+                    data.IsNotFoundOrReject = true;
+                    data.ErrorMessage = "Your Form has been rejected,You cannot modify it.<br>Please fill up form again";
+                }
+            }
+            return data;
         }
         public async Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto)
         {
@@ -66,13 +97,9 @@ namespace Web.Services.Services.Members
                 int memberId = dto.MemberId;
                 if (dto.MemberId == 0)
                 {
-                    var photoStorage = new PhotoStorages();
-                    photoStorage.Photo = null;
-                    photoStorage.PhotoLocation = null;
-                    int photoStorageId = _photoStorageRepository.Insert(photoStorage, transaction, conn);
                     var member = dto.ToPersonalInfoEntity(null);
-                    member.PhotoStorageId = photoStorageId;
                     member.MemberCode = await _memberRepository.GetMemberCode();
+                    member.DateOfBirthAD= Convert.ToDateTime(_dateService.ConvertToEnglishDate(dto.DateOfBirthBS));
                     memberId = _memberRepository.Insert(member, transaction, conn);
                     var memberDetails = new MemberDetails();
                     memberDetails.MemberId = memberId;
@@ -85,9 +112,10 @@ namespace Web.Services.Services.Members
                     var obj = await _memberRepository.GetMemberById(dto.MemberId);
                     if (obj is null)
                         return 0;
-                    var entity = dto.ToPersonalInfoEntity(obj);
+                    var entity = dto.ToPersonalInfoEntity(obj.ToEntity());
                     entity.DateOfBirthAD = Convert.ToDateTime(_dateService.ConvertToEnglishDate(dto.DateOfBirthBS));
                     _memberRepository.UpdateWithTransaction(entity,transaction,conn);
+                    memberId = obj.MemberId;
                 }
                 transaction.Commit();
                 return memberId;
@@ -107,15 +135,15 @@ namespace Web.Services.Services.Members
                 var obj = await _memberRepository.GetMemberById(dto.MemberId);
                 if (obj is null)
                     return 0;
-                var entity = dto.ToContactInfoEntity(obj);
+                var entity = dto.ToContactInfoEntity(obj.ToEntity());
                 _memberRepository.Update(entity);
+                await SendEmailOnFormCompletion(obj);
                 return memberId;
             }
             catch (SqlException)
             {
                 return 0;
             }
-
         }
         public async Task<int> AddModifyMemberAddress(MemberAddressDto dto)
         {
@@ -150,7 +178,7 @@ namespace Web.Services.Services.Members
                 var obj = await _memberRepository.GetMemberById(dto.MemberId);
                 if (obj is null)
                     return 0;
-                var entity = dto.ToOccupationEntity(obj);
+                var entity = dto.ToOccupationEntity(obj.ToEntity());
                 _memberRepository.Update(entity);
                 return memberId;
             }
@@ -171,11 +199,7 @@ namespace Web.Services.Services.Members
                 var document = await _memberRepository.GetMemberDocumentsById(memberId);
                 if (obj is null)
                     return 0;
-                var photoStorage = new PhotoStorages();
-                photoStorage.PhotoStorageId = obj.PhotoStorageId;
-                photoStorage.Photo = _imageService.ConvertToByteFromBaseString(dto.MemberPhoto);
-                _photoStorageRepository.Update(photoStorage, transaction, conn);
-
+               
                 var entity = dto.ToDocumentEntity();
                 if (document is null)
                     _memberRepository.InsertMemberDocument(entity,transaction,conn);
@@ -200,6 +224,17 @@ namespace Web.Services.Services.Members
             var transaction = conn.BeginTransaction();
             try
             {
+                int? ReferenceId = null;
+                if (dto.ReferalCode != null)
+                {
+                    var referalMember = await GeMemberByReferenceCode(dto.ReferalCode);
+                    if (referalMember == null)
+                    {
+                        throw new Exception("Referal Code is not valid");
+                    }
+                    ReferenceId = referalMember.MemberId;
+                }
+                
                 int memberId = dto.MemberId;
                 var obj = await _memberRepository.GetMemberById(dto.MemberId);
                 if (obj is null)
@@ -214,8 +249,10 @@ namespace Web.Services.Services.Members
                     _memberRepository.UpdateBankDeposit(entity, transaction, conn);
                 }
                 obj.FormStatus = FormStatus.Complete;
-                _memberRepository.UpdateWithTransaction(obj, transaction, conn);
+                obj.ReferenceId = ReferenceId;
+                _memberRepository.UpdateWithTransaction(obj.ToEntity(), transaction, conn);
                 transaction.Commit();
+                await SendEmailOnFormCompletion(obj);
                 return memberId;
             }
             catch (SqlException)
@@ -232,8 +269,6 @@ namespace Web.Services.Services.Members
         public async Task<UserDocumentDto> GetMemberDocumentAsync(int memberId)
         {
             var obj= await _memberRepository.GetMemberDocumentsById(memberId);
-            if(obj.MemberPhoto!=null)
-                obj.MemberPhotoString= "data:image;base64," + Convert.ToBase64String(obj.MemberPhoto);
             return obj;
         }
         public async Task<BankDeposit> GetBankDepositAsync(int memberId)
@@ -241,6 +276,13 @@ namespace Web.Services.Services.Members
             var obj = await _memberRepository.GetMemberBankDepositById(memberId);
             return obj;
         }
+
+        public async Task<MemberDto> GeMemberByReferenceCode(string referalCode)
+        {
+            var obj = await _memberRepository.GetMemberByReferalCode(referalCode);
+            return obj;
+        }
+
         public async Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto)
         {
             var obj = new List<KeyValuePairDto>();
@@ -292,5 +334,32 @@ namespace Web.Services.Services.Members
             return obj;
         }
 
+        public async Task<List<KeyValuePairDto>> ValidateBankDeposit(MemberBankDepositDto dto)
+        {
+            var obj = new List<KeyValuePairDto>();
+            if (dto.ReferalCode != null)
+            {
+                var member = await _memberRepository.GetMemberByReferalCode(dto.ReferalCode);
+                if (member == null)
+                {
+                    var data = new KeyValuePairDto
+                    {
+                        Key = "ReferalCode",
+                        Value = "Invalid Referal Code"
+                    };
+                    obj.Add(data);
+                }
+            }
+            return obj;
+        }
+
+        
+        public async Task SendEmailOnFormCompletion(MemberDto dto)
+        {
+            var template = await _emailTemplateService.GetGeneralTemplate();
+            template=template.Replace("{{Name}}", dto.FullName);
+            template=template.Replace("{{Message}}", "Your form has been submitted successfully,<br />Please wait for admin response<br/>Thankyou!!!!!!!<br />");
+            _emailService.SendEmail(dto.Email, "Form Completion", template);
+        }
     }
 }

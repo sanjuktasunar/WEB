@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Web.Entity.Dto;
+using Web.Entity.Entity;
 using Web.Entity.Model;
 using Web.Services.Mapping;
 using Web.Services.Services;
@@ -44,7 +45,6 @@ namespace web.Controllers.PublicSite
                 return Json(errorResult, JsonRequestBehavior.AllowGet);
             }
             var insertData = await _memberService.InsertUpdatePersonalInfo(dto);
-            Session["MemberId"] = insertData;
             var successResult = new { status = "success", successData = insertData };
             return Json(successResult, JsonRequestBehavior.AllowGet);
         }
@@ -134,6 +134,12 @@ namespace web.Controllers.PublicSite
                 var errorResult = new { status = "error", errorData = errors };
                 return Json(errorResult, JsonRequestBehavior.AllowGet);
             }
+            var referalCodeValidation = await _memberService.ValidateBankDeposit(dto);
+            if (referalCodeValidation.Count() > 0)
+            {
+                var errorResult = new { status = "error", errorData = referalCodeValidation };
+                return Json(errorResult, JsonRequestBehavior.AllowGet);
+            }
 
             var data = await _memberService.AddBankDeposit(dto);
             Session["MemberId"] = data;
@@ -159,6 +165,20 @@ namespace web.Controllers.PublicSite
         public async Task<JsonResult> GetBankDeposit(int memberId)
         {
             var obj = await _memberService.GetBankDepositAsync(memberId);
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> SearchMember(string MemberAttr)
+        {
+            var obj = await _memberService.GetMemberByAttrAsync(MemberAttr);
+            return Json(obj,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetMemberByReferalCode(string referalCode)
+        {
+            var obj = await _memberService.GetMemberByAttrAsync(referalCode);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }

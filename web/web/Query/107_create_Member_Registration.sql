@@ -120,7 +120,6 @@ GO
 CREATE TABLE Member
 (
 	MemberId int not null Identity(1,1) Constraint Members_pk Primary Key,
-	PhotoStorageId int not null Constraint Member_PhotoStorage_PhotoStorageId_fk References PhotoStorages(PhotoStorageId),
 	MemberCode nvarchar(50) not null,
 	FirstName nvarchar(50) not null,
 	MiddleName nvarchar(50) null,
@@ -143,6 +142,8 @@ CREATE TABLE Member
 	ApprovalStatus int not null,
 	ApprovedDate datetime null,
 	ApprovedBy int null Constraint Member_User_ApproveByUserId_fk References Users(UserId),
+	ReferalCode nvarchar(50) null default(''),
+	ReferenceId int null Constraint Member_ReferenceId_fk References Member(MemberId) 
 );
 GO
 
@@ -163,6 +164,11 @@ CREATE UNIQUE INDEX Member_MemberCode_ui ON
 Member(MemberCode) 
 GO
 
+GO
+CREATE UNIQUE INDEX Member_ReferalCode_ui ON
+Member(ReferalCode) WHERE ReferalCode IS NOT NULL
+GO
+
 
 GO
 DROP TABLE UserDocuments
@@ -174,6 +180,7 @@ CREATE TABLE UserDocuments
 	UserDocumentId int not null Identity(1,1) Constraint UserDocuments_pk Primary Key,
 	StaffId int null Constraint UserDocuments_Staffs_StaffId References Staffs(StaffId),
 	MemberId int null Constraint UserDocument_Member_MemberId_fk References Member(MemberId),
+	Photo nvarchar(max) null,
 	CitizenshipFront nvarchar(max) null,
 	CitizenshipBack nvarchar(max) null,
 	PanCard nvarchar(max) null,
@@ -261,11 +268,10 @@ BankDeposit(MemberId) WHERE MemberId IS NOT NULL
 GO
 
 GO
-CREATE OR ALTER VIEW [dbo].[MemberDocumentView]
+CREATE OR ALTER VIEW [dbo].[MemberView]
 AS
-SELECT A.*,
-C.PhotoStorageId AS MemberPhotoStorageId,C.Photo AS MemberPhoto,C.PhotoLocation AS MemberPhotoLocation
-FROM UserDocuments AS A
-LEFT JOIN Member AS B ON B.MemberId=A.MemberId
-JOIN PhotoStorages AS C ON C.PhotoStorageId=B.PhotoStorageId
+SELECT A.*,B.FirstName AS RefernceFirstName,B.MiddleName AS ReferenceMiddleName,B.LastName AS ReferenceLastName,
+B.ReferalCode AS ReferenceReferalCode
+FROM Member AS A
+LEFT JOIN Member AS B ON A.ReferenceId=B.MemberId
 GO
