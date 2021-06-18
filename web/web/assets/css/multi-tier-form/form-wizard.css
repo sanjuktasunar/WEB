@@ -202,32 +202,32 @@ p {
 
     #progressbar #basic:before {
         font-family: FontAwesome;
-        content: "\f007"
+        content: "\f0c0"
     }
 
     #progressbar #contact:before {
         font-family: FontAwesome;
-        content: "\f13e"
+        content: "\f095"
     }
 
     #progressbar #address:before {
         font-family: FontAwesome;
-        content: "\f007"
+        content: "\f015"
     }
 
     #progressbar #occupation:before {
         font-family: FontAwesome;
-        content: "\f13e"
+        content: "\f007"
     }
 
     #progressbar #document:before {
         font-family: FontAwesome;
-        content: "\f007"
+        content: "\f02d"
     }
 
     #progressbar #payment:before {
         font-family: FontAwesome;
-        content: "\f030"
+        content: "\f13e"
     }
 
     #progressbar #confirm:before {
