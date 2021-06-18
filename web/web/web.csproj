@@ -215,6 +215,7 @@
     <Compile Include="Controllers\AdminSite\DepartmentController.cs" />
     <Compile Include="Controllers\AdminSite\DesignationController.cs" />
     <Compile Include="Controllers\AdminSite\FiscalYearController.cs" />
+    <Compile Include="Controllers\AdminSite\MemberController.cs" />
     <Compile Include="Controllers\AdminSite\OrganizationInfoController.cs" />
     <Compile Include="Controllers\AdminSite\RoleController.cs" />
     <Compile Include="Controllers\AdminSite\SupplierController.cs" />
@@ -2267,6 +2268,7 @@
     <Content Include="Views\Supplier\AddModifySupplier.cshtml" />
     <Content Include="Views\FiscalYear\FiscalYearList.cshtml" />
     <Content Include="Views\FiscalYear\AddModifyFiscalYear.cshtml" />
+    <Content Include="Views\Member\MemberList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

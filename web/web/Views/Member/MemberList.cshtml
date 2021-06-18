@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Web.Entity.Dto.MemberDto>
+@{
+    ViewBag.Title = "MemberList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h6 class="h6 mb-2 text-gray-800">Member List</h6>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <a href="~/AddDesignation" class="btn btn-success btn-sm">
+            <i class="fas fa-plus"></i> Add New
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th hidden="hidden"></th>
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th>Contact Details</th>
+                        <th>Form Status</th>
+                        <th>Approval Status</th>
+                        <th>Referred By</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0; }
+                    @foreach (var x in Model)
+                    {
+                        string PermanentAddress = "";
+                        string TemporaryAddress = "";
+                        string ReferenceFullName = x.RefernceFirstName + " " + (!string.IsNullOrEmpty(x.ReferenceMiddleName)?x.ReferenceMiddleName+" ":string.Empty)+x.ReferenceLastName;
+                        string FullName = x.FirstName + " " + (!string.IsNullOrEmpty(x.MiddleName)?x.MiddleName+" ":string.Empty)+x.LastName;
+                        if (x.PermanentIsOutsideNepal == true)
+                        {
+                            PermanentAddress = x.PermanentAddress + "," +
+                                                x.PermanentCountryName;
+                        }
+                        else
+                        {
+                            PermanentAddress= x.PermanentMunicipality + "-" +
+                                x.PermanentWardNumber + ","+x.PermanentToleName +
+                                ","+x.PermanentDistrictName;
+                        }
+                        if (x.TemporaryIsOutsideNepal == true)
+                        {
+                            TemporaryAddress = x.TemporaryAddress + "," +
+                                                        x.TemporaryCountryName;
+                        }
+                        else
+                        {
+                            TemporaryAddress = x.TemporaryMunicipality + "-" +
+                                 x.TemporaryWardNumber + "," + x.TemporaryToleName +
+                                 "," + x.TemporaryDistrictName;
+                        }
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td hidden="hidden">@x.MemberId</td>
+                            <td>@FullName</td>
+                            <td>
+                                <label>Permanent: </label>@PermanentAddress<br /><br />
+                                <label>Temporary: </label>@TemporaryAddress<br />
+                            </td>
+                            <td>
+                                <label>Mobile No.:</label>@x.MobileNumber<br />
+                                <label>Email:</label>@x.Email<br />
+                            </td>
+                            <td>@x.FormStatus</td>
+                            <td>@x.ApprovalStatus</td>
+                            <td>@ReferenceFullName</td>
+                            <td>
+                                <button class="btn btn-success btn-circle btn-sm"
+                                        id="btnApprove">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button class="btn btn-primary btn-circle btn-sm"
+                                        id="btnView">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+@Scripts.Render("~/web/back-end/datatable")
+@Scripts.Render("~/web/back-end/message")
+
+<script>
+    $('#dataTable').DataTable();
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#dataTable").on('click', '#btnDelete', function () {
+            var currentRow = $(this).closest("tr");
+            var data = currentRow.find("td:eq(1)").html();
+
+            swal({
+                text: "के तपाई यो डाटा मेटाउन चाहनुहुन्छ ?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/Designation/Delete/' + data,
+                            success: function (message) {
+                                ShowDeleteMessage(message, "/DesignationList")
+                            },
+                            error: function (message) {
+                                ShowDeleteMessage(message, "/DesignationList")
+                            }
+                        });
+                    }
+                });
+        });
+    })
+</script>

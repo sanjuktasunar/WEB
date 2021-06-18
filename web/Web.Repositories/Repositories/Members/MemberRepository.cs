@@ -15,12 +15,13 @@ namespace Web.Repositories.Repositories.Members
 {
     public interface IMemberRepository
     {
+        Task<IEnumerable<MemberDto>> GetMemberList();
         Task<bool> CheckCitizenshipNumber(int MemberId, string CitizenshipNumber);
         int Insert(Member entity, IDbTransaction transaction, SqlConnection con);
         int InsertMemberDetails(MemberDetails entity, IDbTransaction transaction, SqlConnection con);
         Task<string> GetMemberCode();
         Task<MemberDto> GetMemberById(int memberId);
-        Task<Address> GetMemberAddressById(int memberId);
+        Task<AddressDto> GetMemberAddressById(int memberId);
         Task<UserDocumentDto> GetMemberDocumentsById(int memberId);
         Task<BankDeposit> GetMemberBankDepositById(int memberId);
         int UpdateWithTransaction(Member entity, IDbTransaction transaction = null, SqlConnection con = null);
@@ -131,6 +132,17 @@ namespace Web.Repositories.Repositories.Members
             return obj;
         }
 
+        public async Task<IEnumerable<MemberDto>> GetMemberList()
+        {
+            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM MemberView");
+            //if (obj != null)
+            //{
+            //    obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
+            //    obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
+            //}
+            return obj;
+        }
+
         public async Task<MemberDto> GetMemberByAttr(string memberAttr)
         {
             var obj=await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE (LOWER(CitizenshipNumber)=@attr OR LOWER(MobileNumber)=@attr OR LOWER(Email)=@attr)", new { attr = memberAttr });
@@ -142,9 +154,9 @@ namespace Web.Repositories.Repositories.Members
             return obj;
         }
 
-        public async Task<Address> GetMemberAddressById(int memberId)
+        public async Task<AddressDto> GetMemberAddressById(int memberId)
         {
-            return await _dapperManager.QuerySingleAsync<Address>("SELECT * FROM Address WHERE MemberId=@id", new { id = memberId });
+            return await _dapperManager.QuerySingleAsync<AddressDto>("SELECT * FROM Address WHERE MemberId=@id", new { id = memberId });
         }
 
         public async Task<UserDocumentDto> GetMemberDocumentsById(int memberId)

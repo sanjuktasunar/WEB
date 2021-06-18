@@ -34,5 +34,18 @@ namespace Web.Entity.Dto
 
         public int? TemporaryCountryId { get; set; }
         public string TemporaryAddress { get; set; }
+
+        public string PermanentFullAddress { get; set; }
+        public string TemporaryFullAddress { get; set; }
+
+        public string PermanentProvinceName { get; set; }
+        public string PermanentDistrictName { get; set; }
+        public string PermanentMunicipalityName { get; set; }
+        public string PermanentCountryName { get; set; }
+
+        public string TemporaryProvinceName { get; set; }
+        public string TemporaryDistrictName { get; set; }
+        public string TemporaryMunicipalityName { get; set; }
+        public string TemporaryCountryName { get; set; }
     }
 }
