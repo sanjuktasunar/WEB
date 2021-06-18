@@ -12,8 +12,6 @@ namespace Web.Services.Mapping
     {
         public static KeyValuePairDto ToModelState(this KeyValuePair<string,ModelState> keyValuePair)
         {
-            //if (keyValuePair.Key == null || keyValuePair.Value==null)
-            //    return null;
             var obj= new KeyValuePairDto
             {
                 Key = keyValuePair.Key,

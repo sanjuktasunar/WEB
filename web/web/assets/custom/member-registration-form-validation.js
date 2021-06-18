@@ -12,6 +12,7 @@ function formValidationAndSubmission(current) {
             || valid4 == false || valid5 == false) {
             return false;
         }
+        return true;
     }
     else if (current == 2) {
         var valid = MobileNumberValidation();
@@ -19,6 +20,7 @@ function formValidationAndSubmission(current) {
         if (valid == false || valid1 == false) {
             return false;
         }
+        return true;
     }
     else if (current == 3) {
         var valid = PermanentProvinceIdValidation();
@@ -41,27 +43,33 @@ function formValidationAndSubmission(current) {
         var valid15 = TemporaryAddressValidation();
         if (!valid || !valid1 || !valid2 || !valid3 || !valid4 || !valid5 || !valid6
             || !valid7 || !valid8 || !valid9 || !valid10 || !valid11
-            || !valid12 || !valid13 || !valid14 || !valid15)
+            || !valid12 || !valid13 || !valid14 || !valid15) {
             return false;
+        }
+        return true;
     }
     else if (current == 4) {
         var valid = OccupationIdValidation();
         var valid1 = OtherOccupationRemarksValidation();
         var valid2 = MemberFieldIdValidation();
-        if (!valid || !valid1 || !valid2)
+        if (!valid || !valid1 || !valid2) {
             return false;
+        }
+        return true;
     }
     else if (current == 5) {
         var valid = MemberImageValidation();
         var valid1 = CitizenshipFrontImageValidation();
         var valid2 = CitizenshipBackImageValidation();
         if (!valid || !valid1 || !valid2) return false;
+        return true;
     }
     else if (current == 6) {
         var valid = AmountValidation();
         var valid1 = VoucherImageFileValidation();
         var valid2 = ReferalCodeValidation();
         if (!valid || !valid1 || !valid2) return false;
+        return true;
     }
     return true;
 }

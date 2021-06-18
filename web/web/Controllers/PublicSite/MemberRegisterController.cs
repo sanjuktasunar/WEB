@@ -181,5 +181,12 @@ namespace web.Controllers.PublicSite
             var obj = await _memberService.GetMemberByAttrAsync(referalCode);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public async Task<JsonResult> SendConfirmEmail(int memberId)
+        {
+            await _memberService.SendEmailOnFormCompletion(memberId);
+            return Json(JsonRequestBehavior.AllowGet);
+        }
     }
 }
