@@ -33,6 +33,7 @@ namespace Web.Services.Services.Members
         Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr);
         Task<MemberDto> GeMemberByReferenceCode(string referalCode);
         Task<List<KeyValuePairDto>> ValidateBankDeposit(MemberBankDepositDto dto);
+        Task SendEmailOnFormCompletion(int id);
     }
 
     public class MemberService:IMemberService
@@ -70,10 +71,10 @@ namespace Web.Services.Services.Members
         {
             var obj= await _memberRepository.GetMemberByAttr(memberAttr);
             var data = new SearchMemberDto();
+            data.IsNotFoundOrReject = true;
             data.ErrorMessage = "No Record Found From this Citizenship Number or Phone Number or Email Address,Please fill up new one.........";
             if (obj != null)
             {
-                data.IsNotFoundOrReject = true;
                 data.ErrorMessage = "Your Form has approved already,You cannot modify from here,If you want to change your details please login to system or contact to admin.....";
                 if (obj.ApprovalStatus == ApprovalStatus.UnApproved)
                 {
@@ -137,7 +138,7 @@ namespace Web.Services.Services.Members
                     return 0;
                 var entity = dto.ToContactInfoEntity(obj.ToEntity());
                 _memberRepository.Update(entity);
-                await SendEmailOnFormCompletion(obj);
+                //await SendEmailOnFormCompletion(obj);
                 return memberId;
             }
             catch (SqlException)
@@ -252,7 +253,6 @@ namespace Web.Services.Services.Members
                 obj.ReferenceId = ReferenceId;
                 _memberRepository.UpdateWithTransaction(obj.ToEntity(), transaction, conn);
                 transaction.Commit();
-                await SendEmailOnFormCompletion(obj);
                 return memberId;
             }
             catch (SqlException)
@@ -354,8 +354,9 @@ namespace Web.Services.Services.Members
         }
 
         
-        public async Task SendEmailOnFormCompletion(MemberDto dto)
+        public async Task SendEmailOnFormCompletion(int id)
         {
+            var dto = await GetMemberByIdAsync(id);
             var template = await _emailTemplateService.GetGeneralTemplate();
             template=template.Replace("{{Name}}", dto.FullName);
             template=template.Replace("{{Message}}", "Your form has been submitted successfully,<br />Please wait for admin response<br/>Thankyou!!!!!!!<br />");

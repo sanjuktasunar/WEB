@@ -71,13 +71,13 @@
                             <li class="active" id="basic">
                                 <strong>Basic</strong>
                             </li>
-                            <li  id="contact"><strong>Contact</strong></li>
-                            <li  id="address"><strong>Address</strong></li>
+                            <li id="contact"><strong>Contact</strong></li>
+                            <li id="address"><strong>Address</strong></li>
                             <li id="occupation">
                                 <strong>Occupation</strong>
                             </li>
                             <li id="document"><strong>Documents</strong></li>
-                            <li  id="payment"><strong>Payment</strong></li>
+                            <li id="payment"><strong>Payment</strong></li>
                             <li id="confirm"><strong>Confirmation</strong></li>
                         </ul>
                         <div class="progress">
@@ -87,7 +87,7 @@
                         </div>
                         <!-- progressbar -->
                         <!-- step 1 basic information -->
-                        <input type="hidden" name="MemberId" value="0" id="MemberId" />
+                        <input type="hidden" name="MemberId" value="0"  id="MemberId" />
                         <form id="step1">
                             <!-- fieldsets -->
                             <fieldset>
@@ -97,7 +97,7 @@
                                             <h2 class="fs-title">Basic Information:</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 1 - 6</h2>
+                                            <h2 class="steps">Step 1 - 7</h2>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -174,7 +174,7 @@
                                             <h2 class="fs-title">Contact Details:</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 2 - 6</h2>
+                                            <h2 class="steps">Step 2 - 7</h2>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -216,7 +216,7 @@
                                             <h2 class="fs-title">Address Details:</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 3 - 6</h2>
+                                            <h2 class="steps">Step 3 - 7</h2>
                                         </div>
                                     </div>
                                     <h4 style="color:blueviolet">Permanent Address</h4><br />
@@ -463,7 +463,7 @@
                                             <h2 class="fs-title">Occupation Details :</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 4 - 6</h2>
+                                            <h2 class="steps">Step 4 - 7</h2>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -515,7 +515,7 @@
                                             <h2 class="fs-title">Upload Document:</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 5 - 6</h2>
+                                            <h2 class="steps">Step 5 - 7</h2>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -583,7 +583,7 @@
                                             <h2 class="fs-title">Payment:</h2>
                                         </div>
                                         <div class="col-5">
-                                            <h2 class="steps">Step 6 - 6</h2>
+                                            <h2 class="steps">Step 6 - 7</h2>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -633,25 +633,39 @@
 
                         <!-- step 7 confirmation -->
                         <form id="step7">
-                            <h2 class="purple-text text-center">
-                                <strong>
-                                    SUCCESS !
-                                </strong>
-                            </h2> <br>
-                            <div class="row justify-content-center">
-                                <div class="col-3">
-                                    <img src="https://i.imgur.com/GwStPmg.png"
-                                         class="fit-image">
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Confirmation:</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 7 - 7</h2>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div> <br><br>
-                            <div class="row justify-content-center">
-                                <div class="col-7 text-center">
-                                    <h5 class="purple-text text-center">
-                                        You Have
-                                        Successfully Signed Up
-                                    </h5>
+                                <div class="row">
+                                    <h2 class="purple-text text-center">
+                                        <strong>
+                                            SUCCESS !
+                                        </strong>
+                                    </h2> <br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-3">
+                                            <img src="https://i.imgur.com/GwStPmg.png"
+                                                 class="fit-image">
+                                        </div>
+                                    </div> <br><br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-7 text-center">
+                                            <h5 class="purple-text text-center">
+                                                You Have
+                                                Successfully Submit the form
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </fieldset>
                             <input type="button" name="previous"
                                    class="previous action-button-previous"
                                    value="Previous" />
@@ -685,7 +699,6 @@
                     }
                     else {
                         setFieldValues(resp.Member);
-                        $("#SearchData").val('');
                     }
                 },
                 error: function (res) {
@@ -710,12 +723,13 @@
         $(".next").click(function () {
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
-            $(".next").prop('disabled', true);
-            $(".previous").prop('disabled', true);
 
             var test = formValidationAndSubmission(current);
-            if (test == false)
+            if (test == false) {
                 return false;
+            }
+            $(".next").prop('disabled', true);
+            $(".previous").prop('disabled', true);   
             var formUrl = "/MemberRegister/PostPersonalInfo";
             var formdata = $("#step1").serialize();
             if (current == 2) {
@@ -738,6 +752,7 @@
                 formUrl = "/MemberRegister/BankDeposit";
                 formdata = $("#step6").serialize();
             }
+          
             formdata = formdata + '&MemberId=' + $("#MemberId").val()
             $.ajax({
                 type: "post",
@@ -749,7 +764,7 @@
                         if (response.successData > 0) {
                             debugger;
                             $("#MemberId").val(response.successData)
-                            $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
+                            $("#progressbar li").eq($("form").index(current_fs)).addClass("active");
                             //show the next fieldset
                             next_fs.show();
                             //hide the current fieldset with style
@@ -767,8 +782,6 @@
                             });
                             setProgressBar(++current);
                             loadData(current);
-                            $(".next").prop('disabled', false);
-                            $(".previous").prop('disabled', false);
                         }
                         else {
                             ShowErrorMessage("Something went wrong....!!");
@@ -777,8 +790,12 @@
                     else if (response.status == "error") {
                         MapServerSideError(response);
                     }
+                    $(".next").prop('disabled', false);
+                    $(".previous").prop('disabled', false);
                 },
                 error: function (err) {
+                    $(".next").prop('disabled', false);
+                    $(".previous").prop('disabled', false);
                 }
             });
 
@@ -788,7 +805,7 @@
             previous_fs = $(this).parent().prev();
 
             //Remove class active
-            $("#progressbar li").eq($("form").index(current_fs)).removeClass("active");
+            $("#progressbar li").eq($("form").index(previous_fs)).removeClass("active");
 
             //show the previous fieldset
             previous_fs.show();
@@ -823,7 +840,7 @@
         })
     });
     function MapServerSideError(response) {
-        console.log(response);
+        debugger;
         $.each(response.errorData, function (index, row) {
             var idName = "#" + row.Key;
             var element = $(idName);

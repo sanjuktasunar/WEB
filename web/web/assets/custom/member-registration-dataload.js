@@ -2,29 +2,31 @@
 
 function loadFieldData() {
     var memberId = $("#MemberId").val();
-    if (parseInt(memberId) == 0)
-        return false;
-    $.ajax({
-        type: 'get',
-        url: '/MemberRegister/GetMemberById',
-        data: { id: memberId },
-        success: function (res) {
-            setFieldValues(res);
-        }
-    })
+    if (parseInt(memberId) > 0) {
+        $.ajax({
+            type: 'get',
+            url: '/MemberRegister/GetMemberById',
+            data: { id: memberId },
+            success: function (res) {
+                setFieldValues(res);
+            }
+        })
+    }
 }
 
 function setFieldValues(res) {
-    $("#MemberId").val(res.MemberId);
-    $("#FirstName").val(res.FirstName);
-    $("#MiddleName").val(res.MiddleName);
-    $("#LastName").val(res.LastName);
-    $("#CitizenshipNumber").val(res.CitizenshipNumber);
-    $("#GenderId").val(res.GenderId);
-    $("#DateOfBirthBS").val(res.DateOfBirthBS);
-    $("#MobileNumber").val(res.MobileNumber);
-    $("#Email").val(res.Email);
-    $("#ReferalCode").val(res.ReferenceReferalCode);
+    if (res != null) {
+        $("#MemberId").val(res.MemberId);
+        $("#FirstName").val(res.FirstName);
+        $("#MiddleName").val(res.MiddleName);
+        $("#LastName").val(res.LastName);
+        $("#CitizenshipNumber").val(res.CitizenshipNumber);
+        $("#GenderId").val(res.GenderId);
+        $("#DateOfBirthBS").val(res.DateOfBirthBS);
+        $("#MobileNumber").val(res.MobileNumber);
+        $("#Email").val(res.Email);
+        $("#ReferalCode").val(res.ReferenceReferalCode);
+    }
 }
 
 function loadOccupation() {
@@ -75,8 +77,25 @@ function loadData(current) {
     if (current == 6) {
         loadBankDeposit();
     }
+    if (current == 7) {
+        //$(".progress").hide();
+        SendEmail();
+    }
+  
 }
+function SendEmail() {
+    $.ajax({
+        type: 'post',
+        url: '/MemberRegister/SendConfirmEmail',
+        data: { memberId: $("#MemberId").val() },
+        success: function (resp) {
+          
+        },
+        error: function (err) {
 
+        }
+    })
+}
 function loadMemberDocument() {
     $.ajax({
         type: 'get',
