@@ -241,6 +241,7 @@
     <Compile Include="Migrations\105_add_modify_tables.cs" />
     <Compile Include="Migrations\106_add_tables.cs" />
     <Compile Include="Migrations\107_add_members_tables.cs" />
+    <Compile Include="Migrations\108_add_alter_table_Data.cs" />
     <Compile Include="Migrations\LoadMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2274,6 +2275,7 @@
     <Content Include="Views\FiscalYear\AddModifyFiscalYear.cshtml" />
     <Content Include="Views\Member\MemberList.cshtml" />
     <Content Include="Views\Role\MenuAccessPermission.cshtml" />
+    <Content Include="Views\Member\MemberDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

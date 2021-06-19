@@ -20,6 +20,7 @@ namespace Web.Repositories.Repositories.Members
         int Insert(Member entity, IDbTransaction transaction, SqlConnection con);
         int InsertMemberDetails(MemberDetails entity, IDbTransaction transaction, SqlConnection con);
         Task<string> GetMemberCode();
+        Task<string> GetReferalCode();
         Task<MemberDto> GetMemberById(int memberId);
         Task<AddressDto> GetMemberAddressById(int memberId);
         Task<UserDocumentDto> GetMemberDocumentsById(int memberId);
@@ -110,15 +111,32 @@ namespace Web.Repositories.Repositories.Members
             var members = (await _dapperManager.QueryAsync<Member>("SELECT TOP 1 * FROM Member ORDER BY MemberId DESC"));
             DateTime currentDate = DateTime.Now;
             string memberCode = "";
-            int i = 1;
+            int i = 78;
             if (members.Count() > 0)
             {
                 var number = members.FirstOrDefault().MemberCode.Split('-');
                 i = Convert.ToInt32(number[2]);
                 i=i+ 1;
             }
-            memberCode= "BKP-" + currentDate.Year + "-"+i;
+            string randomNumber = Web.Repositories.Utitlities.Utility.Generate6DRandomNumber();
+            memberCode= "BKP-" + randomNumber + "-"+i;
             return memberCode;
+        }
+
+        public async Task<string> GetReferalCode()
+        {
+            var members = (await _dapperManager.QueryAsync<Member>("SELECT TOP 1 * FROM Member ORDER BY ReferalCode DESC"));
+            DateTime currentDate = DateTime.Now;
+            string referalCode = "";
+            int i = 888;
+            if (members.Count() > 0)
+            {
+                var number = members.FirstOrDefault().ReferalCode.Split('-');
+                i = Convert.ToInt32(number[2]);
+                i = i + 1;
+            }
+            referalCode = "REF-" + currentDate.Year+currentDate.Month+currentDate.Day+currentDate.Minute + "-" + i;
+            return referalCode;
         }
 
         public async Task<MemberDto> GetMemberById(int memberId)

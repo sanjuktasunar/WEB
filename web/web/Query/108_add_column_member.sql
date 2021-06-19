@@ -6,6 +6,15 @@ ADD IsActive bit null default(0)
 GO
 
 GO
+ALTER TABLE Member
+ADD UserId int null Constraint Member_User_UserId References Users(UserId)
+GO
+GO
+CREATE UNIQUE INDEX  Member_UserId_ui ON
+Member(UserId) WHERE UserId IS NOT NULL
+GO
+
+GO
 CREATE OR ALTER VIEW [dbo].[MemberView]
 AS
 SELECT A.*,B.FirstName AS RefernceFirstName,B.MiddleName AS ReferenceMiddleName,B.LastName AS ReferenceLastName,
@@ -47,7 +56,10 @@ PM.Name AS PermanentMunicipalityTypeName,TM.Name AS TemporaryMunicipalityTypeNam
 PC.Name AS PermanentCountryName,TC.Name AS TemporaryCountryName,
 
 B1.FirstName AS RefernceFirstName,B1.MiddleName AS ReferenceMiddleName,B1.LastName AS ReferenceLastName,
-B1.ReferalCode AS ReferenceReferalCode
+B1.ReferalCode AS ReferenceReferalCode,
+O.Name AS OcuupationName,MF.Name AS MemberFieldName,UD.Photo,UD.CitizenshipFront,UD.CitizenshipBack,
+BD.Amount,BD.VoucherImage,
+G.GenderName
 FROM
 Member AS B 
 LEFT JOIN Address AS A ON A.MemberId=B.MemberId
@@ -60,7 +72,11 @@ LEFT JOIN MunicipalityType AS TM ON TM.Id=A.TemporaryMunicipalityTypeId
 LEFT JOIN Country AS PC ON PC.Id=A.PermanentCountryId
 LEFT JOIN Country AS TC ON TC.Id=A.TemporaryCountryId
 LEFT JOIN Member AS B1 ON B.ReferenceId=B1.MemberId
-
+LEFT JOIN Occupation AS O ON O.Id=B.OccupationId
+LEFT JOIN MemberField AS MF ON MF.Id=B.MemberFieldId
+LEFT JOIN UserDocuments AS UD ON UD.MemberId=B.MemberId
+LEFT JOIN BankDeposit AS BD ON BD.MemberId=B.MemberId AND BD.IsVoucherDeposit=1 
+LEFT JOIN Gender AS G ON G.GenderId=B.GenderId
 GO
 
 
@@ -192,3 +208,16 @@ BEGIN
 END
 GO
 
+GO
+ALTER TABLE Users
+ALTER COLUMN PhotoStorageId int null
+GO
+
+
+GO
+DROP INDEX Users_ContactNumber_ui ON Users
+GO
+
+GO
+DROP INDEX Users_EmailAddress_ui ON Users
+GO

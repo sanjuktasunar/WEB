@@ -15,5 +15,6 @@ namespace Web.Repositories.Interface
         Task<IEnumerable<MunicipalityTypeDto>> GetActiveMunicipalityTypeAsync();
         Task<IEnumerable<MemberFieldDto>> GetActiveMemberFieldAsync();
         Task<IEnumerable<OccupationDto>> GetActiveOccupationAsync();
+        Task<IEnumerable<AccountHeadDto>> GetActiveAccountHeadAsync();
     }
 }

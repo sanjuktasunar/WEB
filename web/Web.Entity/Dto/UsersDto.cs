@@ -11,7 +11,7 @@ namespace Web.Entity.Dto
     {
         public int UserId { get; set; }
         public int UserTypeId { get; set; }
-        public int PhotoStorageId { get; set; }
+        public int? PhotoStorageId { get; set; }
         public int RoleId { get; set; }
 
         [Required]

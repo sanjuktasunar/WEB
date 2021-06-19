@@ -26,9 +26,36 @@ namespace web.Controllers.AdminSite
         public async Task<ActionResult> MemberList()
         {
             if (!menu.ReadAccess)
-                return null;
+                return RedirectToAction("Logout", "Account");
             var obj = await _memberService.GetMemberList();
             return View(obj);
+        }
+
+        [Route("~/MemberDetails/{id}")]
+        public async Task<ActionResult> MemberDetails(int id)
+        {
+            if (!menu.ReadAccess)
+                return RedirectToAction("Logout", "Account");
+            var obj = await _memberService.GetMemberByIdAsync(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ApproveMember(int MemberId,int AccountHeadId)
+        {
+            if (!menu.AdminAccess)
+                return null;
+            var obj = await _memberService.ApproveMember(MemberId, AccountHeadId);
+            return Json(obj,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SendEmailOnApprove(int MemberId)
+        {
+            if (!menu.AdminAccess)
+                return null;
+            await _memberService.SendEmailOnApproval(MemberId);
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

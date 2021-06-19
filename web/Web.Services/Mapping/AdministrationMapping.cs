@@ -118,7 +118,6 @@ namespace Web.Services.Mapping
             {
                 MenuAccessPermissionId=dto.MenuAccessPermissionId,
                 MenuId=dto.MenuId,
-                //StaffId = dto.StaffId,
                 ReadAccess=dto.ReadAccess,
                 WriteAccess=dto.WriteAccess,
                 ModifyAccess=dto.ModifyAccess,

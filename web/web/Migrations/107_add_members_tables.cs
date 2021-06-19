@@ -8,8 +8,10 @@ namespace web.Migrations
     {
         public override void Down()
         {
-            string downquery = System.Web.HttpContext.Current.Server.MapPath("/Query/107_query_down.sql");
-            Execute.Script(downquery);
+            //string downquery = System.Web.HttpContext.Current.Server.MapPath("/Query/107_query_down.sql");
+            //Execute.Script(downquery);
+
+            throw new NotImplementedException();
         }
 
         public override void Up()

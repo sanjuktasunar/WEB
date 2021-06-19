@@ -17,5 +17,6 @@ namespace Web.Services.Interface
         Task<IEnumerable<DropdownList>> GetActiveGenderAsync();
         Task<IEnumerable<DropdownList>> GetActiveMemberFieldAsync();
         Task<IEnumerable<DropdownList>> GetActiveOccupationAsync();
+        Task<IEnumerable<DropdownList>> GetActiveAccountHeadAsync();
     }
 }

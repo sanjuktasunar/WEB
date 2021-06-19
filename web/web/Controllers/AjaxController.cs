@@ -78,5 +78,12 @@ namespace web.Controllers
             var result = await _dataService.GetActiveOccupationAsync();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAccountHead()
+        {
+            var result = await _dataService.GetActiveAccountHeadAsync();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }
