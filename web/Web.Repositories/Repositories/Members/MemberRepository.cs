@@ -213,7 +213,7 @@ namespace Web.Repositories.Repositories.Members
         public async Task<MemberDto> GetMemberByReferalCode(string ReferalCode)
         {
             ReferalCode = ReferalCode.ToLower();
-            var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE LOWER(ReferalCode)=@ReferalCode AND ApprovalStatus=2", new { ReferalCode = ReferalCode });
+            var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE LOWER(ReferalCode)=@ReferalCode AND ApprovalStatus=2 AND IsActive=1", new { ReferalCode = ReferalCode });
             if (obj != null)
             {
                 obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
