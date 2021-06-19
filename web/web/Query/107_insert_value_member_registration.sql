@@ -19,10 +19,20 @@ SELECT N'Sub-metropolis',N'उपमहानगरपालिका',1 UNION A
 SELECT N'Metropolitan',N'महानगरपालिका',1 
 GO
 
+
 GO
-INSERT INTO UserType(UserTypeTitle,Status)
-SELECT N'Member',1 
+SET IDENTITY_INSERT UserType ON
 GO
+
+GO
+INSERT INTO UserType(UserTypeId,UserTypeTitle,Status)
+SELECT 3,N'Member',1 
+GO
+
+GO
+SET IDENTITY_INSERT UserType OFF
+GO
+
 
 GO
 SET IDENTITY_INSERT Occupation ON

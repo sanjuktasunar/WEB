@@ -1,4 +1,4 @@
-
+﻿
 
 GO
 ALTER TABLE Member
@@ -68,3 +68,127 @@ GO
 ALTER TABLE MenuAccessPermission
 ADD RoleId int null Constraint MenuAccessPermission_Role_RoleId_fk References Role(RoleId)
 GO
+
+
+GO
+ALTER TABLE Users
+ADD RoleId int null Constraint Users_Role_RoleId_fk References Role(RoleId)
+GO
+
+GO
+UPDATE Role SET RoleName=N'Super Admin' WHERE RoleId=1
+GO
+
+GO
+SET IDENTITY_INSERT Role ON
+GO
+
+GO
+INSERT INTO Role(RoleId,RoleName,Status)
+SELECT 2,N'Admin',1 UNION ALL
+SELECT 3,N'Member',1
+GO
+
+GO
+SET IDENTITY_INSERT Role OFF
+GO
+
+GO
+UPDATE Users SET RoleId=1 WHERE UserId=1
+GO
+
+GO
+ALTER TABLE MenuAccessPermission
+DROP CONSTRAINT MenuAccessPermission_Staffs_StaffId_fk
+GO
+
+GO
+DROP INDEX MenuAccessPermission_MenuId_StaffId ON MenuAccessPermission;
+GO
+
+GO
+ALTER TABLE MenuAccessPermission
+DROP COLUMN StaffId
+GO
+
+
+GO
+DELETE FROM MenuAccessPermission
+GO
+
+
+GO
+DELETE FROM Menus
+GO
+
+GO
+SET IDENTITY_INSERT [Menus] ON;
+GO
+GO
+INSERT INTO Menus(MenuId,ParentMenuId,MenuNameEnglish,MenuNameNepali,CheckMenuName,MenuLink,MenuOrder,MenuIcon)
+SELECT 1,NULL,N'Administration',N'प्रशासन ',N'Administration',N'#',1,'fas fa-fw fa-cog' UNION ALL
+SELECT 2,1,N'Menus',N'मेनु ',N'Menus',N'/MenuList',1,'' UNION ALL
+SELECT 3,1,N'Role',N'Role',N'Role',N'/RoleList',4,'' UNION ALL
+SELECT 4,1,N'Staffs Info',N'कर्मचारी',N'Staffs',N'/StaffList',7,'' UNION ALL
+SELECT 5,1,N'Organization Info',N'Organization Info ',N'OrganizationInfo',N'/OrganizationInfo',2,'' UNION ALL
+SELECT 6,1,N'FiscalYear',N'Fiscal Year ',N'FiscalYear','/FiscalYearList',3,'' UNION ALL
+SELECT 7,1,N'Designation',N'Designation',N'Designation',N'/DesignationList',5,'' UNION ALL
+SELECT 8,1,N'Department',N'Department',N'Department',N'/DepartmentList',6,'' UNION ALL
+SELECT 9,1,N'Product',N'Product',N'Product',N'/ProductList',8,'' UNION ALL
+SELECT 10,NULL,N'Accounts',N'Accounts ',N'Accounts',N'#',2,'fas fa-fw fa-book' UNION ALL
+SELECT 11,10,N'AccountHead',N'AccountHead',N'AccountHead',N'/AccountHeadList',1,'' UNION ALL
+SELECT 12,10,N'Unit',N'Unit',N'Unit',N'/UnitList',2,'' UNION ALL
+SELECT 13,10,N'Supplier',N'Supplier',N'Supplier',N'/SupplierList',3,'' UNION ALL
+SELECT 14,10,N'PurchaseRecord',N'PurchaseRecord',N'PurchaseRecord',N'/PurchaseRecordList',4,'' UNION ALL
+SELECT 15,NULL,N'Customer',N'Customer ',N'Customer',N'#',3,'fas fa-fw fa-book' UNION ALL
+SELECT 16,15,N'CustomerQuery',N'CustomerQuery',N'CustomerQuery',N'/QueryDetails',1,'' UNION ALL
+SELECT 17,NULL,N'Member',N'Member ',N'ParentMember',N'#',4,'fas fa-fw fa-user' UNION ALL
+SELECT 18,17,N'Member',N'Member',N'Member',N'/MemberList',1,'' 
+GO
+GO
+SET IDENTITY_INSERT [Menus] OFF;
+GO
+
+
+GO
+CREATE UNIQUE INDEX MenuAccessPermission_MenuId_RoleId ON 
+MenuAccessPermission(MenuId,RoleId) WHERE RoleId IS NOT NULL
+GO
+
+
+GO
+INSERT INTO MenuAccessPermission(MenuId,RoleId,ReadAccess,WriteAccess,ModifyAccess,DeleteAccess,AdminAccess)
+SELECT 2,1,1,1,1,1,1 UNION ALL
+SELECT 3,1,1,1,1,1,1
+GO
+
+
+GO
+CREATE OR ALTER VIEW [dbo].[MenuAccessPermissionView]
+AS
+SELECT A.*,B.MenuNameEnglish,B.MenuNameNepali,B.CheckMenuName,B.MenuIcon,
+B.MenuLink,B.MenuOrder,B.ParentMenuId,B.ParentMenuNameEnglish,B.ParentMenuNameNepali,
+R.RoleName
+FROM MenuView AS B 
+LEFT JOIN  MenuAccessPermission AS A ON A.MenuId=B.MenuId
+LEFT JOIN Role AS R ON R.RoleId=A.RoleId
+GO
+
+
+GO
+CREATE OR ALTER PROC [dbo].[MenuAccessPermissionForRole]
+(
+	@RoleId int
+)
+AS
+BEGIN
+	SELECT A.*,
+	B.ReadAccess,B.WriteAccess,B.AdminAccess,B.ModifyAccess,B.DeleteAccess,
+	B.MenuAccessPermissionId
+	FROM MenuView AS A
+	LEFT JOIN MenuAccessPermissionView AS B 
+	ON B.MenuId=A.MenuId AND B.RoleId=@RoleId
+	WHERE A.ParentMenuId IS NOT NULL
+END
+GO
+

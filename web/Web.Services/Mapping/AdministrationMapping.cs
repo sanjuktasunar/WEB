@@ -105,6 +105,7 @@ namespace Web.Services.Mapping
                 UpdatedBy = dto.UpdatedBy,
                 UpdatedDate = dto.UpdatedDate,
                 UserStatusId = dto.UserStatusId,
+                RoleId=dto.RoleId
             };
         }
 
@@ -117,12 +118,13 @@ namespace Web.Services.Mapping
             {
                 MenuAccessPermissionId=dto.MenuAccessPermissionId,
                 MenuId=dto.MenuId,
-                StaffId = dto.StaffId,
+                //StaffId = dto.StaffId,
                 ReadAccess=dto.ReadAccess,
                 WriteAccess=dto.WriteAccess,
                 ModifyAccess=dto.ModifyAccess,
                 DeleteAccess=dto.DeleteAccess,
                 AdminAccess=dto.AdminAccess,
+                RoleId=dto.RoleId
             };
         }
 
