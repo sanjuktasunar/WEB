@@ -12,5 +12,7 @@ namespace Web.Entity.Dto
         public string RoleName { get; set; }
         public bool? Status { get; set; }
         public DateTime? CreatedDate { get; set; }
+
+        public IEnumerable<MenuAccessPermissionDto> MenuAccessPermissions { get; set; }
     }
 }

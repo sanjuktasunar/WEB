@@ -38,7 +38,8 @@ namespace Web.Services.Services
         public MenuAccessPermissionDto GetMenuPermissionForLoginUser(string checkMenuName)
         {
             int UserId = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
-            var menus = _initialSetupRepository.GetPermissionForStaffByMenuAsync(UserId, checkMenuName.Trim());
+            int roleId = _initialSetupRepository.GetUserRoleByUserId(UserId).RoleId;
+            var menus = _initialSetupRepository.GetPermissionForRoleByMenuAsync(roleId, checkMenuName);
             if (menus.Count() == 0)
                 return new MenuAccessPermissionDto { CheckMenuName=checkMenuName };
             var menu = menus.FirstOrDefault();

@@ -18,6 +18,7 @@ namespace Web.Services.Services.Members
 {
     public interface IMemberService
     {
+        Task<IEnumerable<MemberDto>> GetMemberList();
         Task<MemberDto> GetMemberByIdAsync(int id);
         Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto);
         Task<int> AddContactInfo(MemberContactInfoDto dto);
@@ -25,7 +26,7 @@ namespace Web.Services.Services.Members
         Task<int> AddOccupation(MemberOccupationDto dto);
         Task<int> AddMemberDocument(MemberDocumentsDto dto);
         Task<int> AddBankDeposit(MemberBankDepositDto dto);
-        Task<Address> GetMemberAddressAsync(int memberId);
+        Task<AddressDto> GetMemberAddressAsync(int memberId);
         Task<BankDeposit> GetBankDepositAsync(int memberId);
         Task<UserDocumentDto> GetMemberDocumentAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
@@ -64,7 +65,31 @@ namespace Web.Services.Services.Members
         }
         public async Task<MemberDto> GetMemberByIdAsync(int id)
         {
-            return await _memberRepository.GetMemberById(id);
+            var obj= await _memberRepository.GetMemberById(id);
+            if (obj.PermanentIsOutsideNepal == true)
+            {
+                obj.PermanentFullAddress = obj.PermanentAddress + "," + obj.PermanentCountryName;
+                obj.TemporaryFullAddress = obj.TemporaryAddress + "," + obj.TemporaryCountryName;
+            }
+            else
+            {
+                obj.PermanentFullAddress = obj.PermanentMunicipalityName + "-" + obj.PermanentWardNumber + "," + obj.PermanentDistrictName;
+            }
+            if (obj.TemporaryIsOutsideNepal == true)
+            {
+                obj.TemporaryFullAddress = obj.TemporaryAddress + "," + obj.TemporaryCountryName;
+            }
+            else
+            {
+                obj.TemporaryFullAddress = obj.TemporaryMunicipalityName + "-" + obj.TemporaryWardNumber + "," + obj.TemporaryDistrictName;
+            }
+            return obj;
+        }
+
+        public async Task<IEnumerable<MemberDto>> GetMemberList()
+        {
+            var obj =await _memberRepository.GetMemberList();
+            return obj;
         }
 
         public async Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr)
@@ -260,12 +285,14 @@ namespace Web.Services.Services.Members
                 transaction.Rollback();
                 return 0;
             }
-
         }
-        public async Task<Address> GetMemberAddressAsync(int memberId)
+       
+        public async Task<AddressDto> GetMemberAddressAsync(int memberId)
         {
-            return await _memberRepository.GetMemberAddressById(memberId);
+            var obj= await _memberRepository.GetMemberAddressById(memberId);
+            return obj;
         }
+
         public async Task<UserDocumentDto> GetMemberDocumentAsync(int memberId)
         {
             var obj= await _memberRepository.GetMemberDocumentsById(memberId);

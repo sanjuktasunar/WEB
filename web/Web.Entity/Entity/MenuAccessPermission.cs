@@ -14,8 +14,7 @@ namespace Web.Entity.Entity
         [Required]
         public int MenuId { get; set; }
         
-        [Required]
-        public int StaffId { get; set; }
+        //public int? StaffId { get; set; }
 
         public bool ReadAccess { get; set; }
 
@@ -26,5 +25,7 @@ namespace Web.Entity.Entity
         public bool DeleteAccess { get; set; }
 
         public bool AdminAccess { get; set; }
+
+        public int? RoleId { get; set; }
     }
 }

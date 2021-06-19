@@ -215,6 +215,7 @@
     <Compile Include="Controllers\AdminSite\DepartmentController.cs" />
     <Compile Include="Controllers\AdminSite\DesignationController.cs" />
     <Compile Include="Controllers\AdminSite\FiscalYearController.cs" />
+    <Compile Include="Controllers\AdminSite\MemberController.cs" />
     <Compile Include="Controllers\AdminSite\OrganizationInfoController.cs" />
     <Compile Include="Controllers\AdminSite\RoleController.cs" />
     <Compile Include="Controllers\AdminSite\SupplierController.cs" />
@@ -2034,6 +2035,8 @@
     <Content Include="Query\106_query_down.sql" />
     <Content Include="Query\106_drop_create_insert_district.sql" />
     <Content Include="Query\107_query_down.sql" />
+    <Content Include="Query\108_add_column_member.sql" />
+    <Content Include="Query\108_query_down.sql" />
     <Content Include="Query\add_table_purchase_records.sql" />
     <Content Include="Query\107_create_Member_Registration.sql" />
     <Content Include="Query\107_insert_value_member_registration.sql" />
@@ -2269,6 +2272,8 @@
     <Content Include="Views\Supplier\AddModifySupplier.cshtml" />
     <Content Include="Views\FiscalYear\FiscalYearList.cshtml" />
     <Content Include="Views\FiscalYear\AddModifyFiscalYear.cshtml" />
+    <Content Include="Views\Member\MemberList.cshtml" />
+    <Content Include="Views\Role\MenuAccessPermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

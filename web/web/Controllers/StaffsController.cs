@@ -70,30 +70,5 @@ namespace web.Controllers
 
             return (await _staffsService.Update(dto));
         }
-
-        [Route("~/MenuAccessPermission/{staffId}")]
-        public async Task<ActionResult> MenuAccessPermission(int staffId)
-        {
-            if (!menu.AdminAccess)
-                return RedirectToAction("Logout", "Account");
-            var obj = (await _staffsService.MenuAccessPermissionAsync(staffId));
-            if (obj.UserStatusId == 1)
-                return View(obj);
-            else
-                return Redirect("/StaffList");
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> MenuAccessPermission(int id,IEnumerable<MenuAccessPermissionDto> dto)
-        {
-            if (!menu.AdminAccess)
-                return null;
-            string message = "";
-            var obj = (await _staffsService.GetStaffsByIdAsync(id));
-            if (obj.UserStatusId != 1)
-                message="Menu assign only active users"+"+"+-1;
-            message = await _staffsService.AddMenuAccess(dto);
-           return Json(message,JsonRequestBehavior.AllowGet);
-        }
     }
 }
