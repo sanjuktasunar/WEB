@@ -52,7 +52,7 @@ GO
 
 
 GO
-CREATE OR ALTER VIEW [dbo].[ProductPriceView]
+CREATE VIEW ProductPriceView
 AS
 SELECT A.*,
 B.UnitName,B.UnitNameNepali,B.UnitSymbol,B.UnitSymbolNepali
@@ -74,7 +74,7 @@ GO
 
 
 GO
-CREATE VIEW [dbo].[ProductView]
+CREATE VIEW ProductView
 AS
 SELECT A.*,
 B.ProductName AS ParentProductName,

@@ -15,7 +15,11 @@ Member(UserId) WHERE UserId IS NOT NULL
 GO
 
 GO
-CREATE OR ALTER VIEW [dbo].[MemberView]
+DROP VIEW MemberView
+GO
+
+GO
+CREATE VIEW MemberView
 AS
 SELECT A.*,B.FirstName AS RefernceFirstName,B.MiddleName AS ReferenceMiddleName,B.LastName AS ReferenceLastName,
 B.ReferalCode AS ReferenceReferalCode
@@ -25,7 +29,7 @@ GO
 
 
 GO
-CREATE OR ALTER VIEW [dbo].[AddressView]
+CREATE VIEW AddressView
 AS
 SELECT A.*,PP.ProvinceName AS PermanentProvinceName,PD.DistrictName AS PermanentDistrictName,
 TP.ProvinceName as TemporaryProvinceName,TD.DistrictName AS TemporaryDistrictName,
@@ -44,7 +48,12 @@ GO
 
 
 GO
-CREATE OR ALTER VIEW [dbo].[MemberView]
+DROP VIEW MemberView
+GO
+
+
+GO
+CREATE VIEW MemberView
 AS
 SELECT B.*,A.PermanentIsOutsideNepal,A.PermanentCountryId,A.PermanentProvinceId,
 A.PermanentDistrictId,A.PermanentMunicipalityTypeId,A.PermanentMunicipality,PermanentWardNumber,A.PermanentToleName,
@@ -178,9 +187,12 @@ SELECT 2,1,1,1,1,1,1 UNION ALL
 SELECT 3,1,1,1,1,1,1
 GO
 
+GO
+DROP VIEW MenuAccessPermissionView
+GO
 
 GO
-CREATE OR ALTER VIEW [dbo].[MenuAccessPermissionView]
+CREATE VIEW MenuAccessPermissionView
 AS
 SELECT A.*,B.MenuNameEnglish,B.MenuNameNepali,B.CheckMenuName,B.MenuIcon,
 B.MenuLink,B.MenuOrder,B.ParentMenuId,B.ParentMenuNameEnglish,B.ParentMenuNameNepali,

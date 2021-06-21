@@ -1,6 +1,10 @@
 
 GO
-CREATE OR ALTER VIEW [dbo].[MenuAccessPermissionView]
+DROP VIEW MenuAccessPermissionView
+GO
+
+GO
+CREATE VIEW MenuAccessPermissionView
 AS
 SELECT A.*,B.MenuNameEnglish,B.MenuNameNepali,B.CheckMenuName,B.MenuIcon,
 B.MenuLink,B.MenuOrder,B.ParentMenuId,B.ParentMenuNameEnglish,B.ParentMenuNameNepali,

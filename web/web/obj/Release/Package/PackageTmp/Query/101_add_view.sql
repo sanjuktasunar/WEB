@@ -1,7 +1,7 @@
 
 
 GO
-CREATE OR ALTER VIEW [dbo].[StaffsView]
+CREATE VIEW StaffsView
 AS
 SELECT A.StaffId,A.UserId,A.RoleId,A.DesignationId,A.DepartmentId,A.StaffName,
 A.GenderId,A.TemporaryAddress,A.PermanentAddress,A.CitizenshipNumber,A.PanNumber,
@@ -25,7 +25,7 @@ GO
 
 
 GO
-CREATE OR ALTER VIEW [dbo].[MenuAccessPermissionView]
+CREATE VIEW MenuAccessPermissionView
 AS
 SELECT A.*,B.MenuNameEnglish,B.MenuNameNepali,B.CheckMenuName,B.MenuIcon,
 B.MenuLink,B.MenuOrder,B.ParentMenuId,B.ParentMenuNameEnglish,B.ParentMenuNameNepali,
