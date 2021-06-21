@@ -1,30 +1,30 @@
 ﻿
 
 GO
-ALTER TABLE Member
+ALTER TABLE [dbo].[Member]
 ADD IsActive bit null default(0)
 GO
 
 GO
-ALTER TABLE Member
+ALTER TABLE [dbo].[Member]
 ADD UserId int null Constraint Member_User_UserId References Users(UserId)
 GO
 GO
 CREATE UNIQUE INDEX  Member_UserId_ui ON
-Member(UserId) WHERE UserId IS NOT NULL
+[dbo].[Member](UserId) WHERE UserId IS NOT NULL
 GO
 
 GO
-DROP VIEW MemberView
+DROP VIEW [dbo].[MemberView]
 GO
 
 GO
-CREATE VIEW MemberView
+CREATE VIEW [dbo].[MemberView]
 AS
 SELECT A.*,B.FirstName AS RefernceFirstName,B.MiddleName AS ReferenceMiddleName,B.LastName AS ReferenceLastName,
 B.ReferalCode AS ReferenceReferalCode
-FROM Member AS A
-LEFT JOIN Member AS B ON A.ReferenceId=B.MemberId
+FROM [dbo].[Member] AS A
+LEFT JOIN [dbo].[Member] AS B ON A.ReferenceId=B.MemberId
 GO
 
 
@@ -36,14 +36,14 @@ TP.ProvinceName as TemporaryProvinceName,TD.DistrictName AS TemporaryDistrictNam
 PM.Name AS PermanentMunicipalityName,TM.Name AS TemporaryMunicipalityName,
 PC.Name AS PermanentCountryName,TC.Name AS TemporaryCountryName
 FROM Address AS A
-LEFT JOIN Province AS PP ON PP.ProvinceId=A.PermanentProvinceId
-LEFT JOIN District AS PD ON PD.DistrictId=A.PermanentDistrictId
-LEFT JOIN Province AS TP ON TP.ProvinceId=A.TemporaryProvinceId
-LEFT JOIN District AS TD ON TD.DistrictId=A.TemporaryDistrictId
-LEFT JOIN MunicipalityType AS PM ON PM.Id=A.PermanentMunicipalityTypeId
-LEFT JOIN MunicipalityType AS TM ON TM.Id=A.TemporaryMunicipalityTypeId
-LEFT JOIN Country AS PC ON PC.Id=A.PermanentCountryId
-LEFT JOIN Country AS TC ON TC.Id=A.TemporaryCountryId
+LEFT JOIN [dbo].[Province] AS PP ON PP.ProvinceId=A.PermanentProvinceId
+LEFT JOIN [dbo].[District] AS PD ON PD.DistrictId=A.PermanentDistrictId
+LEFT JOIN [dbo].[Province] AS TP ON TP.ProvinceId=A.TemporaryProvinceId
+LEFT JOIN [dbo].[District] AS TD ON TD.DistrictId=A.TemporaryDistrictId
+LEFT JOIN [dbo].[MunicipalityType] AS PM ON PM.Id=A.PermanentMunicipalityTypeId
+LEFT JOIN [dbo].[MunicipalityType] AS TM ON TM.Id=A.TemporaryMunicipalityTypeId
+LEFT JOIN [dbo].[Country] AS PC ON PC.Id=A.PermanentCountryId
+LEFT JOIN [dbo].[Country] AS TC ON TC.Id=A.TemporaryCountryId
 GO
 
 

@@ -1,15 +1,15 @@
 
 GO
-DROP TABLE Municipality
+DROP TABLE [dbo].[Municipality]
 GO
 
 GO
-DROP TABLE District
+DROP TABLE [dbo].[District]
 GO
 
 
 GO
-DROP TABLE Province
+DROP TABLE [dbo].[Province]
 GO
 
 
@@ -26,7 +26,7 @@ GO
 
 GO
 CREATE UNIQUE INDEX Province_ProvinceName_ui ON 
-Province(ProvinceName)
+[dbo].[Province](ProvinceName)
 GO
 
 
@@ -69,11 +69,11 @@ GO
 
 GO
 CREATE UNIQUE INDEX District_DistrictName_ui ON
-District(DistrictName,ProvinceId)
+[dbo].[District](DistrictName,ProvinceId)
 GO
 GO
 CREATE UNIQUE INDEX District_DistrictCode_ui ON
-District(DistrictCode,ProvinceId)
+[dbo].[District](DistrictCode,ProvinceId)
 GO
 
 GO

@@ -1,17 +1,17 @@
 
 
 GO
-DROP TABLE District
+DROP TABLE [dbo].[District]
 GO
 
 
 GO
-DROP TABLE Province
+DROP TABLE [dbo].[Province]
 GO
 
 
 GO
-CREATE TABLE Province
+CREATE TABLE [dbo].[Province]
 (
 	ProvinceId int not null Identity(1,1) Constraint Province_pk Primary Key,
 	ProvinceName nvarchar(100) not null,
@@ -26,17 +26,17 @@ GO
 
 GO
 CREATE UNIQUE INDEX Province_ProvinceName_ui ON 
-Province(ProvinceName)
+[dbo].[Province](ProvinceName)
 GO
 GO
 CREATE UNIQUE INDEX Province_ProvinceNameNepali_ui ON
-Province(ProvinceNameNepali)
+[dbo].[Province](ProvinceNameNepali)
 GO
 
 
 
 GO
-CREATE TABLE District
+CREATE TABLE [dbo].[District]
 (
 	DistrictId int not null Identity(1,1) Constraint District_pk Primary Key,
 	ProvinceId int not null Constraint District_Province_ProvinceId_fk References Province(ProvinceId),
@@ -51,16 +51,16 @@ CREATE TABLE District
 GO
 GO
 CREATE UNIQUE INDEX District_DistrictName_ui ON
-District(DistrictName)
+[dbo].[District](DistrictName)
 GO
 GO
 CREATE UNIQUE INDEX District_DistrictNameNepali_ui ON
-District(DistrictNameNepali)
+[dbo].[District](DistrictNameNepali)
 GO
 
 
 GO
-CREATE TABLE Municipality
+CREATE TABLE [dbo].[Municipality]
 (
 	MunicipalityId int not null Identity(1,1) Constraint Municipality_pk Primary Key,
 	DistrictId int not null Constraint Municipality_District_DistrictId_fk References District(DistrictId),
@@ -75,9 +75,9 @@ CREATE TABLE Municipality
 GO
 GO
 CREATE UNIQUE INDEX Municipality_MunicipalityName_ui ON
-Municipality(MunicipalityName)
+[dbo].[Municipality](MunicipalityName)
 GO
 GO
 CREATE UNIQUE INDEX Municipality_MunicipalityNameNepali_ui ON
-Municipality(MunicipalityNameNepali)
+[dbo].[Municipality](MunicipalityNameNepali)
 GO

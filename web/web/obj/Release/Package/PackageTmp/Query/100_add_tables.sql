@@ -1,6 +1,6 @@
 
 GO
-CREATE TABLE OrganizationInfo
+CREATE TABLE [dbo].[OrganizationInfo]
 (
 	OrganizationInfoId int not null Identity(1,1) Constraint OrganizationInfo_pk Primary Key,
 	OrganizationName nvarchar(100) not null,
@@ -18,7 +18,7 @@ GO
 
 
 GO
-CREATE TABLE Language
+CREATE TABLE [dbo].[Language]
 (
 	LanguageId int not null Identity(1,1) Constraint Language_pk Primary Key,
 	LanguageName nvarchar(30) not null,
@@ -40,7 +40,7 @@ GO
 
 
 GO
-CREATE TABLE Menus
+CREATE TABLE [dbo].[Menus]
 (
 	MenuId int not null Identity(1,1) Constraint Menus_pk Primary Key,
 	ParentMenuId int null Constraint Menus_fk References Menus(MenuId),
@@ -74,7 +74,7 @@ GO
 
 
 GO
-CREATE TABLE UserType
+CREATE TABLE [dbo].[UserType]
 (
 	UserTypeId int not null Identity(1,1)  Constraint UserType_pk Primary Key,
 	UserTypeTitle nvarchar(50) not null,
@@ -89,7 +89,7 @@ GO
 
 
 GO
-CREATE TABLE Gender
+CREATE TABLE [dbo].[Gender]
 (
 	GenderId int not null Identity(1,1)  Constraint Gender_pk Primary Key,
 	GenderName nvarchar(50) not null,
@@ -104,7 +104,7 @@ GO
 
 
 GO
-CREATE TABLE Role
+CREATE TABLE [dbo].[Role]
 (
 	RoleId int not null Identity(1,1)  Constraint Role_pk Primary Key,
 	RoleName nvarchar(50) not null,
@@ -119,7 +119,7 @@ GO
 
 
 GO
-CREATE TABLE Designation
+CREATE TABLE [dbo].[Designation]
 (
 	DesignationId int not null Identity(1,1)  Constraint Designation_pk Primary Key,
 	DesignationName nvarchar(50) not null,
@@ -134,7 +134,7 @@ GO
 
 
 GO
-CREATE TABLE Department
+CREATE TABLE [dbo].[Department]
 (
 	DepartmentId int not null Identity(1,1)  Constraint Department_pk Primary Key,
 	DepartmentName nvarchar(50) not null,
@@ -149,7 +149,7 @@ GO
 
 
 GO
-CREATE TABLE PhotoStorages
+CREATE TABLE [dbo].[PhotoStorages]
 (
 	PhotoStorageId int not null Identity(1,1) Constraint PhotoStorages_pk Primary Key,
 	Photo image null,
@@ -158,7 +158,7 @@ CREATE TABLE PhotoStorages
 GO
 
 GO
-CREATE TABLE UserStatus
+CREATE TABLE [dbo].[UserStatus]
 (
 	StatusId int not null Identity(1,1) constraint UserStatus_pk Primary Key,
 	StatusName nvarchar(50) not null,
@@ -173,7 +173,7 @@ UserStatus(StatusName,UserTypeId)
 GO
 
 GO
-CREATE TABLE Users
+CREATE TABLE [dbo].[Users]
 (
 	UserId int not null Identity constraint Users_pk Primary Key,
 	UserTypeId int not null Constraint Users_UserType_UserTypeId_fk References UserType(UserTypeId),
@@ -204,7 +204,7 @@ GO
 
 
 GO
-CREATE TABLE Staffs
+CREATE TABLE [dbo].[Staffs]
 (
 	StaffId int not null Identity(1,1) Constraint Staffs_pk Primary Key,
 	UserId int not null Constraint Staffs_Users_UserId_fk References Users(UserId),
@@ -231,7 +231,7 @@ Staffs(PanNumber) WHERE PanNumber IS NOT NULL
 GO
 
 GO
-CREATE TABLE UserDocuments
+CREATE TABLE [dbo].[UserDocuments]
 (
 	UserDocumentId int not null Identity(1,1) Constraint UserDocuments_pk Primary Key,
 	StaffId int not null Constraint UserDocuments_Staffs_StaffId References Staffs(StaffId),
@@ -244,7 +244,7 @@ GO
 
 
 GO
-CREATE TABLE BankAccount
+CREATE TABLE [dbo].[BankAccount]
 (
 	BankAccountId int not null Identity(1,1) Constraint BankAccount_pk Primary Key,
 	StaffId int not null Constraint BankAccount_Staffs_StaffId References Staffs(StaffId),
@@ -254,7 +254,7 @@ CREATE TABLE BankAccount
 GO
 
 GO
-CREATE TABLE Unit
+CREATE TABLE [dbo].[Unit]
 (
 	UnitId int not null Identity(1,1) Constraint Unit_pk Primary Key,
 	UnitName nvarchar(200) not null,
@@ -271,7 +271,7 @@ Unit(UnitName)
 GO
 
 GO
-CREATE TABLE Product
+CREATE TABLE [dbo].[Product]
 (
 	ProductId int not null Identity(1,1) Constraint Product_pk Primary Key,
 	ParentProductId int null Constraint Product_ParentProductId_fk References Product(ProductId),
@@ -293,7 +293,7 @@ Product(ProductCode)
 GO
 
 GO
-CREATE TABLE ProductPrice
+CREATE TABLE [dbo].[ProductPrice]
 (
 	ProductPriceId int not null Identity(1,1) Constraint ProductPrice_pk Primary Key,
 	ProductId int not null Constraint ProductPrice_Product_ProductId_fk References Product(ProductId),
@@ -306,7 +306,7 @@ GO
 
 
 GO
-CREATE TABLE MenuAccessPermission
+CREATE TABLE [dbo].[MenuAccessPermission]
 (
 	MenuAccessPermissionId int not null Identity(1,1) Constraint MenuAccessPermission_pk Primary Key,
 	MenuId int not null Constraint MenuAccessPermission_Menus_MenuId_fk References Menus(MenuId),
@@ -324,7 +324,7 @@ MenuAccessPermission(MenuId,StaffId)
 GO
 
 GO
-CREATE TABLE Province
+CREATE TABLE [dbo].[Province]
 (
 	ProvinceId int not null Identity(1,1) Constraint Province_pk Primary Key,
 	ProvinceName nvarchar(100) not null,
@@ -347,7 +347,7 @@ GO
 
 
 GO
-CREATE TABLE District
+CREATE TABLE [dbo].[District]
 (
 	DistrictId int not null Identity(1,1) Constraint District_pk Primary Key,
 	ProvinceId int not null Constraint District_Province_ProvinceId_fk References Province(ProvinceId),
@@ -370,7 +370,7 @@ District(DistrictNameNepali)
 GO
 
 GO
-CREATE TABLE Municipality
+CREATE TABLE [dbo].[Municipality]
 (
 	MunicipalityId int not null Identity(1,1) Constraint Municipality_pk Primary Key,
 	DistrictId int not null Constraint Municipality_District_DistrictId_fk References District(DistrictId),

@@ -1,33 +1,33 @@
 
 GO
-ALTER TABLE OrganizationInfo
+ALTER TABLE [dbo].[OrganizationInfo]
 ADD Favicon NVARCHAR(MAX) NULL 
 GO
 
 GO
-ALTER TABLE OrganizationInfo
+ALTER TABLE [dbo].[OrganizationInfo]
 DROP COLUMN Logo 
 GO
 
 GO
-ALTER TABLE OrganizationInfo
+ALTER TABLE [dbo].[OrganizationInfo]
 ADD Logo NVARCHAR(MAX) NULL
 GO
 
 
 GO
-ALTER TABLE OrganizationInfo
+ALTER TABLE [dbo].[OrganizationInfo]
 ADD NormalizedName NVARCHAR(100) NULL
 GO
 
 
 GO
-UPDATE OrganizationInfo SET NormalizedName=N'Store'
+UPDATE [dbo].[OrganizationInfo] SET NormalizedName=N'Store'
 GO
 
 
 GO
-CREATE TABLE CustomerQuery
+CREATE TABLE [dbo].[CustomerQuery]
 (
 	Id int not null Identity(1,1) Constraint CustomerQuery_pk Primary Key,
 	Name nvarchar(100) not null,
@@ -48,7 +48,7 @@ CREATE OR ALTER PROC [dbo].[Sp_SearchProductForDisplay]
 )
 AS
 BEGIN
-	SELECT * FROM DisplayProductView
+	SELECT * FROM [dbo].[DisplayProductView]
 	WHERE 
 	(
 		((ISNULL(@query,'')='') OR ((UPPER(TRIM(ProductName)) LIKE '%'+UPPER(@query)+'%')) OR
@@ -63,25 +63,25 @@ END
 GO
 
 GO
-ALTER TABLE ProductPrice
+ALTER TABLE [dbo].[ProductPrice]
 ADD IsPrimary bit null default(0)
 GO
 
 
 GO
-DROP VIEW ProductPriceView
+DROP VIEW [dbo].[ProductPriceView]
 GO
 
 GO
-CREATE VIEW ProductPriceView
+CREATE VIEW [dbo].[ProductPriceView]
 AS
 SELECT A.*,
 B.UnitName,B.UnitNameNepali,B.UnitSymbol,B.UnitSymbolNepali
-FROM ProductPrice AS A
-LEFT JOIN Unit AS B ON B.UnitId=A.UnitId
+FROM [dbo].[ProductPrice] AS A
+LEFT JOIN [dbo].[Unit] AS B ON B.UnitId=A.UnitId
 GO
 
 
 GO
-UPDATE ProductPrice SET IsPrimary=1 WHERE Status=1
+UPDATE [dbo].[ProductPrice] SET IsPrimary=1 WHERE Status=1
 GO
