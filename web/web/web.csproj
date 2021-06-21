@@ -242,6 +242,7 @@
     <Compile Include="Migrations\106_add_tables.cs" />
     <Compile Include="Migrations\107_add_members_tables.cs" />
     <Compile Include="Migrations\108_add_alter_table_Data.cs" />
+    <Compile Include="Migrations\109_data_correction.cs" />
     <Compile Include="Migrations\LoadMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
