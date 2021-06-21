@@ -10,11 +10,12 @@ namespace Web.Entity.Entity
     {
         public int UserId { get; set; }
         public int UserTypeId { get; set; }
-        public int PhotoStorageId { get; set; }
+        public int? PhotoStorageId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string EmailAddress { get; set; }
         public string ContactNumber { get; set; }
+        public int? RoleId { get; set; }
 
         public int UserStatusId { get; set; }
     }

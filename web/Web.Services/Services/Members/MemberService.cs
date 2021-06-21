@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Web.Entity.Dto;
 using Web.Entity.Entity;
 using Web.Entity.Infrastructure;
@@ -18,6 +19,7 @@ namespace Web.Services.Services.Members
 {
     public interface IMemberService
     {
+        Task<IEnumerable<MemberDto>> GetMemberList();
         Task<MemberDto> GetMemberByIdAsync(int id);
         Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto);
         Task<int> AddContactInfo(MemberContactInfoDto dto);
@@ -25,7 +27,7 @@ namespace Web.Services.Services.Members
         Task<int> AddOccupation(MemberOccupationDto dto);
         Task<int> AddMemberDocument(MemberDocumentsDto dto);
         Task<int> AddBankDeposit(MemberBankDepositDto dto);
-        Task<Address> GetMemberAddressAsync(int memberId);
+        Task<AddressDto> GetMemberAddressAsync(int memberId);
         Task<BankDeposit> GetBankDepositAsync(int memberId);
         Task<UserDocumentDto> GetMemberDocumentAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
@@ -34,6 +36,8 @@ namespace Web.Services.Services.Members
         Task<MemberDto> GeMemberByReferenceCode(string referalCode);
         Task<List<KeyValuePairDto>> ValidateBankDeposit(MemberBankDepositDto dto);
         Task SendEmailOnFormCompletion(int id);
+        Task<string> ApproveMember(int MemberId, int AccountHeadId);
+        Task SendEmailOnApproval(int id);
     }
 
     public class MemberService:IMemberService
@@ -46,12 +50,13 @@ namespace Web.Services.Services.Members
         private readonly IImageService _imageService;
         private readonly IEmailTemplateService _emailTemplateService;
         private readonly IEmailService _emailService;
+        private readonly IUsersRepository _usersRepository;
         public MemberService(IMemberRepository memberRepository,
             IDateService dateService, IMessageClass messageClass,
             IBaseInterface baseInterface,
             IPhotoStorageRepository photoStorageRepository,
             IImageService imageService, IEmailTemplateService emailTemplateService,
-            EmailService emailService)
+            EmailService emailService, IUsersRepository usersRepository)
         {
             _memberRepository = memberRepository;
             _dateService = dateService;
@@ -61,10 +66,34 @@ namespace Web.Services.Services.Members
             _imageService = imageService;
             _emailTemplateService = emailTemplateService;
             _emailService = emailService;
+            _usersRepository = usersRepository;
         }
         public async Task<MemberDto> GetMemberByIdAsync(int id)
         {
-            return await _memberRepository.GetMemberById(id);
+            var obj= await _memberRepository.GetMemberById(id);
+            if (obj.PermanentIsOutsideNepal == true)
+            {
+                obj.PermanentFullAddress = obj.PermanentAddress + "," + obj.PermanentCountryName;
+            }
+            else
+            {
+                obj.PermanentFullAddress = obj.PermanentMunicipalityName + "-" + obj.PermanentWardNumber + "," + obj.PermanentDistrictName;
+            }
+            if (obj.TemporaryIsOutsideNepal == true)
+            {
+                obj.TemporaryFullAddress = obj.TemporaryAddress + "," + obj.TemporaryCountryName;
+            }
+            else
+            {
+                obj.TemporaryFullAddress = obj.TemporaryMunicipalityName + "-" + obj.TemporaryWardNumber + "," + obj.TemporaryDistrictName;
+            }
+            return obj;
+        }
+
+        public async Task<IEnumerable<MemberDto>> GetMemberList()
+        {
+            var obj =await _memberRepository.GetMemberList();
+            return obj;
         }
 
         public async Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr)
@@ -260,12 +289,14 @@ namespace Web.Services.Services.Members
                 transaction.Rollback();
                 return 0;
             }
-
         }
-        public async Task<Address> GetMemberAddressAsync(int memberId)
+       
+        public async Task<AddressDto> GetMemberAddressAsync(int memberId)
         {
-            return await _memberRepository.GetMemberAddressById(memberId);
+            var obj= await _memberRepository.GetMemberAddressById(memberId);
+            return obj;
         }
+
         public async Task<UserDocumentDto> GetMemberDocumentAsync(int memberId)
         {
             var obj= await _memberRepository.GetMemberDocumentsById(memberId);
@@ -361,6 +392,93 @@ namespace Web.Services.Services.Members
             template=template.Replace("{{Name}}", dto.FullName);
             template=template.Replace("{{Message}}", "Your form has been submitted successfully,<br />Please wait for admin response<br/>Thankyou!!!!!!!<br />");
             _emailService.SendEmail(dto.Email, "Form Completion", template);
+        }
+
+        public async Task<string> ApproveMember(int MemberId,int AccountHeadId)
+        {
+            var obj = await GetMemberByIdAsync(MemberId);
+            if (obj is null)
+                return null;
+            var bankDeposit = await _memberRepository.GetMemberBankDepositById(MemberId);
+            var conn = _baseInterface.GetConnection();
+            var transaction = conn.BeginTransaction();
+            string message = "";
+            try
+            {
+                if (obj.FormStatus==FormStatus.Complete)
+                {
+                    if (obj.ApprovalStatus == ApprovalStatus.UnApproved)
+                    {
+                        var user = new Users();
+                        user.UserName = obj.MemberCode;
+                        user.Password = obj.FirstName.ToLower() + 123;
+                        user.Password = Web.Repositories.Utitlities.Security.GetMd5Sum(user.Password);
+                        user.UserTypeId = 3;
+                        user.EmailAddress = obj.Email;
+                        user.ContactNumber = obj.MobileNumber;
+                        user.UserStatusId = 1;
+                        user.RoleId = 3;
+                        user.CreatedDate = DateTime.Now;
+                        user.CreatedBy = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
+                        int userId=_usersRepository.Insert(user, transaction, conn);
+
+                        obj.ApprovalStatus = ApprovalStatus.Approved;
+                        obj.IsActive = true;
+                        obj.UserId = userId;
+                        obj.ReferalCode = await _memberRepository.GetReferalCode();
+                        obj.ApprovedBy = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
+                        obj.ApprovedDate = DateTime.Now;
+                        bankDeposit.IsApproved = true;
+                        bankDeposit.ApprovedDate = DateTime.Now;
+                        bankDeposit.AccountHeadId = AccountHeadId;
+
+                        _memberRepository.UpdateWithTransaction(obj.ToEntity(), transaction, conn);
+                        _memberRepository.UpdateBankDeposit(bankDeposit, transaction, conn);
+
+
+                      
+                        message = "Member Approved Successfully +" + MemberId;
+                    }
+                   else if (obj.ApprovalStatus == ApprovalStatus.Approved)
+                   {
+                        message = "This Member has been approved already+-1";
+                   }
+                    else if (obj.ApprovalStatus == ApprovalStatus.Rejected)
+                    {
+                        message = "Rejected Member cannot be approved+-1";
+                    }
+                    else
+                    {
+                        message = "This member cannot be approved,Please contact to admin+-1";
+                    }
+                }
+                else
+                {
+                    message = "Incomplete Form <br /> Please complete all steps+-1";
+                }
+                transaction.Commit();
+                return message;
+            }
+            catch(SqlException ex)
+            {
+                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
+                transaction.Rollback();
+            }
+
+            return "";
+        }
+
+        public async Task SendEmailOnApproval(int id)
+        {
+            var dto = await GetMemberByIdAsync(id);
+            var template = await _emailTemplateService.GetMemberApproveTemplate();
+            template = template.Replace("{{Name}}", dto.FullName);
+            template = template.Replace("{{UserName}}", dto.MemberCode);
+            template = template.Replace("{{Password}}", dto.FirstName.ToLower()+123);
+            template = template.Replace("{{MemberName}}", dto.FullName);
+            template = template.Replace("{{MemberCode}}", dto.MemberCode);
+            template = template.Replace("{{ReferalCode}}", dto.ReferalCode);
+            _emailService.SendEmail(dto.Email, "Member Approval...!!!", template);
         }
     }
 }

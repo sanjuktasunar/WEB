@@ -48,5 +48,10 @@ namespace Web.Repositories.Repositories
         {
             return (await _dapperManager.QueryAsync<OccupationDto>("SELECT * FROM Occupation WHERE Status=1"));
         }
+
+        public async Task<IEnumerable<AccountHeadDto>> GetActiveAccountHeadAsync()
+        {
+            return (await _dapperManager.QueryAsync<AccountHeadDto>("SELECT * FROM AccountHead WHERE Status=1"));
+        }
     }
 }

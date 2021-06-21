@@ -42,9 +42,9 @@ namespace Web.Entity.Dto.UserSite
                 obj.FutureProjects = "भावी परियोजना";
                 obj.OurVision = "हाम्रो भिजन";
                 obj.OurMission = "हाम्रो मिसन";
-                obj.OurMission = "हाम्रो लक्ष्य";
+                obj.OurGoal = "हाम्रो लक्ष्य";
                 obj.StayUptoDate = "हामी सगं जोड्डिनुहोस्";
-                obj.MemberRegistration = "Member";
+                obj.MemberRegistration = "Register";
             }
             else
             {
@@ -68,7 +68,7 @@ namespace Web.Entity.Dto.UserSite
                 obj.OurMission = "Our Mission";
                 obj.OurGoal = "Our Goal";
                 obj.StayUptoDate = "Stay up to date with us";
-                obj.MemberRegistration = "Member";
+                obj.MemberRegistration = "Register";
             }
             return obj;
         }

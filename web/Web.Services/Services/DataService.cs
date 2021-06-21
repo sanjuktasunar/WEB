@@ -59,5 +59,10 @@ namespace Web.Services.Services
         {
             return (await _dataRepository.GetActiveOccupationAsync()).Select(a => a.ToOccupationDropdown());
         }
+
+        public async Task<IEnumerable<DropdownList>> GetActiveAccountHeadAsync()
+        {
+            return (await _dataRepository.GetActiveAccountHeadAsync()).Select(a => a.ToAccountHeadDto());
+        }
     }
 }

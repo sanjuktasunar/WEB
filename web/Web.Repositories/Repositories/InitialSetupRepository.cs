@@ -16,6 +16,7 @@ namespace Web.Repositories.Repositories
         private BaseRepo<MenuAccessPermissionDto> _menuAccessPermissionDto = new BaseRepo<MenuAccessPermissionDto>();
         private BaseRepo<VersionInfoDto> _versionInfoRepo = new BaseRepo<VersionInfoDto>();
         private BaseRepo<OrganizationInfoDto> _organizationInfoRepo = new BaseRepo<OrganizationInfoDto>();
+        private BaseRepo<UsersDto> _userRepo = new BaseRepo<UsersDto>();
 
         public IEnumerable<VersionInfoDto> GetVersionInfo()
         {
@@ -54,11 +55,27 @@ namespace Web.Repositories.Repositories
             return menuList;
         }
 
-        public IEnumerable<MenuAccessPermissionDto> GetPermissionForStaffByMenuAsync(int StaffId, string CheckMenuName)
+        //public IEnumerable<MenuAccessPermissionDto> GetPermissionForStaffByMenuAsync(int StaffId, string CheckMenuName)
+        //{
+        //    var result = _menuAccessPermissionDto.Query<MenuAccessPermissionDto>("SELECT * FROM MenuAccessPermissionView WHERE StaffId=@StaffId AND CheckMenuName=@CheckMenuName",
+        //        new { StaffId, CheckMenuName });
+        //    return result;
+        //}
+
+        public IEnumerable<MenuAccessPermissionDto> GetPermissionForRoleByMenuAsync(int RoleId, string CheckMenuName)
         {
-            var result = _menuAccessPermissionDto.Query<MenuAccessPermissionDto>("SELECT * FROM MenuAccessPermissionView WHERE StaffId=@StaffId AND CheckMenuName=@CheckMenuName",
-                new { StaffId, CheckMenuName });
+            var result = _menuAccessPermissionDto.Query<MenuAccessPermissionDto>("SELECT * FROM MenuAccessPermissionView WHERE RoleId=@RoleId AND CheckMenuName=@CheckMenuName",
+                new { RoleId, CheckMenuName });
             return result;
+        }
+
+        public UsersDto GetUserRoleByUserId(int userId)
+        {
+            var obj = _userRepo.Query<UsersDto>("SELECT * FROM Users WHERE UserId=@id",new { id=userId});
+            if (obj.Count() > 0)
+                return obj.FirstOrDefault();
+            else
+                return new UsersDto { UserId = userId };
         }
 
         public OrganizationInfoDto GetOrganizationInfo()

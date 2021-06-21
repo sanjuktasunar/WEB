@@ -19,10 +19,20 @@ SELECT N'Sub-metropolis',N'उपमहानगरपालिका',1 UNION A
 SELECT N'Metropolitan',N'महानगरपालिका',1 
 GO
 
+
 GO
-INSERT INTO UserType(UserTypeTitle,Status)
-SELECT N'Member',1 
+SET IDENTITY_INSERT UserType ON
 GO
+
+GO
+INSERT INTO UserType(UserTypeId,UserTypeTitle,Status)
+SELECT 3,N'Member',1 
+GO
+
+GO
+SET IDENTITY_INSERT UserType OFF
+GO
+
 
 GO
 SET IDENTITY_INSERT Occupation ON
@@ -71,7 +81,7 @@ GO
 INSERT INTO Member(MemberId,MemberCode,FirstName,LastName,Email,MobileNumber,
 ReferalCode,FormStatus,ApprovalStatus,GenderId,DateOfBirthBS,DateOfBirthAD,OccupationId,MemberFieldId,
 CitizenshipNumber,CreatedBy)
-VALUES(1,N'BKP-2021-1',N'Bishwokarma Trading and Promotors Pvt.ltd',N'',N'sanzoosunar123@gmail.com',N'9857039526',
+VALUES(1,N'BKP-2021-78',N'Bishwokarma Trading and Promotors Pvt.ltd',N'',N'bishwokarmatrading73@gmail.com',N'9857039526',
 N'REF-617450-887',2,2,1,N'2078-03-03',N'2021-6-17',1,1,N'1234/9999',1)
 GO
 

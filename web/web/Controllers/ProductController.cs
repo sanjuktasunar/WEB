@@ -25,7 +25,7 @@ namespace web.Controllers
         {
             _productService = productService;
             _unitService = unitService;
-            menu = _initialService.GetMenuPermissionForLoginUser("Unit");
+            menu = _initialService.GetMenuPermissionForLoginUser("Product");
             ViewBag.Menus = menu;
         }
         [Route("~/ProductList")]

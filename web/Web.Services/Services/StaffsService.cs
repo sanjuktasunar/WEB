@@ -22,8 +22,8 @@ namespace Web.Services.Services
         string Insert(StaffsDto dto);
         Task<StaffsDto> DropDownMethods(StaffsDto dto);
         Task<string> Update(StaffsDto dto);
-        Task<StaffsDto> MenuAccessPermissionAsync(int staffId);
-        Task<string> AddMenuAccess(IEnumerable<MenuAccessPermissionDto> dtos);
+        //Task<StaffsDto> MenuAccessPermissionAsync(int staffId);
+        //Task<string> AddMenuAccess(IEnumerable<MenuAccessPermissionDto> dtos);
     }
 
     public class StaffsService:IStaffsService
@@ -123,47 +123,6 @@ namespace Web.Services.Services
                 int staffId = _staffsRepository.Update(staffEntity, transaction, conn);
 
                 message = _messageClass.ShowSuccessMessage(staffId);
-                transaction.Commit();
-            }
-            catch (SqlException ex)
-            {
-                message = _messageClass.ShowErrorMessage(string.Format("{0} ~ {1}", ex.Number.ToString(), ex.Message));
-                transaction.Rollback();
-            }
-            return message;
-        }
-
-        public async Task<StaffsDto> MenuAccessPermissionAsync(int staffId)
-        {
-            var staff =(await GetStaffsByIdAsync(staffId));
-            if (staff is null)
-                return null;
-
-            staff.MenuAccessPermissions = await _staffsRepository.GetMenuAccessPermissionsAsyncByStaffId(staffId);
-            return staff;
-        }
-
-        public async Task<string> AddMenuAccess(IEnumerable<MenuAccessPermissionDto> dtos)
-        {
-            string message = "";
-            var conn = _baseInterface.GetConnection();
-            var transaction = conn.BeginTransaction();
-            try
-            {
-                int result = 0;
-                foreach(var d in dtos)
-                {
-                    var entity = d.ToEntity();
-                    var dto =await _staffsRepository.GetMenuAccessByIdAsync(d.MenuAccessPermissionId);
-                    if(dto is null)
-                        result = _staffsRepository.InsertMenuAccess(entity, transaction, conn);
-                    else
-                    {
-                        entity.MenuAccessPermissionId = dto.MenuAccessPermissionId;
-                        result = _staffsRepository.UpdateMenuAccess(entity, transaction, conn);
-                    }
-                }
-                message = _messageClass.ShowSuccessMessage(result);
                 transaction.Commit();
             }
             catch (SqlException ex)

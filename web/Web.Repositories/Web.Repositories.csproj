@@ -109,6 +109,7 @@
     <Compile Include="Repositories\Members\MemberRepository.cs" />
     <Compile Include="Utitlities\MessageClass.cs" />
     <Compile Include="Utitlities\Security.cs" />
+    <Compile Include="Utitlities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">

@@ -15,12 +15,14 @@ namespace Web.Repositories.Repositories.Members
 {
     public interface IMemberRepository
     {
+        Task<IEnumerable<MemberDto>> GetMemberList();
         Task<bool> CheckCitizenshipNumber(int MemberId, string CitizenshipNumber);
         int Insert(Member entity, IDbTransaction transaction, SqlConnection con);
         int InsertMemberDetails(MemberDetails entity, IDbTransaction transaction, SqlConnection con);
         Task<string> GetMemberCode();
+        Task<string> GetReferalCode();
         Task<MemberDto> GetMemberById(int memberId);
-        Task<Address> GetMemberAddressById(int memberId);
+        Task<AddressDto> GetMemberAddressById(int memberId);
         Task<UserDocumentDto> GetMemberDocumentsById(int memberId);
         Task<BankDeposit> GetMemberBankDepositById(int memberId);
         int UpdateWithTransaction(Member entity, IDbTransaction transaction = null, SqlConnection con = null);
@@ -109,15 +111,32 @@ namespace Web.Repositories.Repositories.Members
             var members = (await _dapperManager.QueryAsync<Member>("SELECT TOP 1 * FROM Member ORDER BY MemberId DESC"));
             DateTime currentDate = DateTime.Now;
             string memberCode = "";
-            int i = 1;
+            int i = 78;
             if (members.Count() > 0)
             {
                 var number = members.FirstOrDefault().MemberCode.Split('-');
                 i = Convert.ToInt32(number[2]);
                 i=i+ 1;
             }
-            memberCode= "BKP-" + currentDate.Year + "-"+i;
+            string randomNumber = Web.Repositories.Utitlities.Utility.Generate6DRandomNumber();
+            memberCode= "BKP-" + randomNumber + "-"+i;
             return memberCode;
+        }
+
+        public async Task<string> GetReferalCode()
+        {
+            var members = (await _dapperManager.QueryAsync<Member>("SELECT TOP 1 * FROM Member ORDER BY ReferalCode DESC"));
+            DateTime currentDate = DateTime.Now;
+            string referalCode = "";
+            int i = 888;
+            if (members.Count() > 0)
+            {
+                var number = members.FirstOrDefault().ReferalCode.Split('-');
+                i = Convert.ToInt32(number[2]);
+                i = i + 1;
+            }
+            referalCode = "REF-" + currentDate.Year+currentDate.Month+currentDate.Day+currentDate.Minute + "-" + i;
+            return referalCode;
         }
 
         public async Task<MemberDto> GetMemberById(int memberId)
@@ -128,6 +147,17 @@ namespace Web.Repositories.Repositories.Members
                 obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
                 obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
             }
+            return obj;
+        }
+
+        public async Task<IEnumerable<MemberDto>> GetMemberList()
+        {
+            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM MemberView");
+            //if (obj != null)
+            //{
+            //    obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
+            //    obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
+            //}
             return obj;
         }
 
@@ -142,9 +172,9 @@ namespace Web.Repositories.Repositories.Members
             return obj;
         }
 
-        public async Task<Address> GetMemberAddressById(int memberId)
+        public async Task<AddressDto> GetMemberAddressById(int memberId)
         {
-            return await _dapperManager.QuerySingleAsync<Address>("SELECT * FROM Address WHERE MemberId=@id", new { id = memberId });
+            return await _dapperManager.QuerySingleAsync<AddressDto>("SELECT * FROM Address WHERE MemberId=@id", new { id = memberId });
         }
 
         public async Task<UserDocumentDto> GetMemberDocumentsById(int memberId)
@@ -183,7 +213,7 @@ namespace Web.Repositories.Repositories.Members
         public async Task<MemberDto> GetMemberByReferalCode(string ReferalCode)
         {
             ReferalCode = ReferalCode.ToLower();
-            var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE LOWER(ReferalCode)=@ReferalCode AND ApprovalStatus=2", new { ReferalCode = ReferalCode });
+            var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE LOWER(ReferalCode)=@ReferalCode AND ApprovalStatus=2 AND IsActive=1", new { ReferalCode = ReferalCode });
             if (obj != null)
             {
                 obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);

@@ -10,6 +10,7 @@ namespace Web.Services.Services
     public interface IEmailTemplateService
     {
         Task<string> GetGeneralTemplate();
+        Task<string> GetMemberApproveTemplate();
     }
 
     public class EmailTemplateService:IEmailTemplateService
@@ -20,10 +21,10 @@ namespace Web.Services.Services
             _organizationInfoService = organizationInfoService;
         }
 
-        public async Task<string> GetGeneralTemplate()
+        public async Task<string> BasicTemplateLayout()
         {
-            var organizationInfo =await _organizationInfoService.GetOrganizationInfo();
-            var template = "Dear {{Name}},<br /> " +
+            var organizationInfo = await _organizationInfoService.GetOrganizationInfo();
+            var template = "{{Heading}},<br /> " +
                 "{{Message}} " +
                 "<br /><br />{{organizationName}}" +
                 "<br />{{Address}}" +
@@ -32,6 +33,21 @@ namespace Web.Services.Services
             template = template.Replace("{{organizationName}}", organizationInfo.OrganizationName);
             template = template.Replace("{{Address}}", organizationInfo.Address);
             template = template.Replace("{{PhoneNumber}}", organizationInfo.ContactNumber1);
+            return template;
+        }
+
+        public async Task<string> GetGeneralTemplate()
+        {
+            var template = await BasicTemplateLayout();
+            template = template.Replace("{{Heading}}", "Dear {{Name}}");
+            return template;
+        }
+
+        public async Task<string> GetMemberApproveTemplate()
+        {
+            var template = await BasicTemplateLayout();
+            template = template.Replace("{{Heading}}", "Congratulations {{Name}} !!!!");
+            template = template.Replace("{{Message}}","Your Form has been approved by company administration.Now,You are in list of Top 100 Team members of our company<br />Your Login Credentials are as follow: <br />Username : {{UserName}},Password : {{Password}} <br /><br /> Your Member Details are as follow:<br />Member Name : {{MemberName}}<br />Member Code : {{MemberCode}}<br /> Referal Code : {{ReferalCode}}<br /> Please give this Referal Code while joining other people.<br /> Thankyou !!!!  ");
             return template;
         }
     }

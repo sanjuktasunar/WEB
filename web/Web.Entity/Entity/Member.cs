@@ -30,6 +30,8 @@ namespace Web.Entity.Entity
         public int? ApprovedBy { get; set; }
         public int? ReferenceId { get; set; }
         public string ReferalCode { get; set; }
+        public bool? IsActive { get; set; }
+        public int? UserId { get; set; }
     }
 
     public class MemberDetails

@@ -54,6 +54,8 @@ namespace Web.Services.Mapping
                 CreatedBy=dto.CreatedBy,
                 UpdatedBy=dto.UpdatedBy,
                 UpdatedDate=dto.UpdatedDate,
+                IsActive=dto.IsActive,
+                UserId=dto.UserId,
             };
         }
 

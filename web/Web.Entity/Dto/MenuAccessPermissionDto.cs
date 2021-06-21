@@ -22,7 +22,7 @@ namespace Web.Entity.Dto
 
         public int MenuAccessPermissionId { get; set; }
 
-        public int StaffId { get; set; }
+        public int? StaffId { get; set; }
 
         public bool ReadAccess { get; set; }
 
@@ -39,5 +39,7 @@ namespace Web.Entity.Dto
 
         public IEnumerable<MenuAccessPermissionDto> GetParentMenus { get; set; }
         public IEnumerable<MenuAccessPermissionDto> GetChildMenus { get; set; }
+
+        public int? RoleId { get; set; }
     }
 }

@@ -79,5 +79,30 @@ namespace web.Controllers.AdminSite
 
             return (_roleService.Delete(id));
         }
+
+        [Route("~/MenuAccessPermission/{roleId}")]
+        public async Task<ActionResult> MenuAccessPermission(int roleId)
+        {
+            if (!menu.AdminAccess)
+                return RedirectToAction("Logout", "Account");
+            var obj = (await _roleService.MenuAccessPermissionAsync(roleId));
+            if (obj.Status == true)
+                return View(obj);
+            else
+                return Redirect("/RoleList");
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> MenuAccessPermission(int id, IEnumerable<MenuAccessPermissionDto> dto)
+        {
+            if (!menu.AdminAccess)
+                return null;
+            string message = "";
+            var obj = (await _roleService.GetRoleById(id));
+            if (obj.Status!=true)
+                message = "Menu assign only active roles" + "+" + -1;
+            message = await _roleService.AddMenuAccess(dto);
+            return Json(message, JsonRequestBehavior.AllowGet);
+        }
     }
 }
