@@ -13,17 +13,17 @@ DROP TABLE [dbo].[Address]
 GO
 
 GO
-DROP TABLE MemberDetails
+DROP TABLE [dbo].[MemberDetails]
 GO
 
 
 GO
-DROP TABLE UserDocuments
+DROP TABLE [dbo].[UserDocuments]
 GO
 
 
 GO
-CREATE TABLE UserDocuments
+CREATE TABLE [dbo].[UserDocuments]
 (
 	UserDocumentId int not null Identity(1,1) Constraint UserDocuments_pk Primary Key,
 	StaffId int null Constraint UserDocuments_Staffs_StaffId References Staffs(StaffId),
@@ -39,37 +39,37 @@ UserDocuments(StaffId) WHERE StaffId is not null
 GO
 
 GO
-DROP TABLE Member
+DROP TABLE [dbo].[Member]
 GO
 
 GO
-DROP TABLE MemberType
+DROP TABLE [dbo].[MemberType]
 GO
 
 GO
-DELETE FROM UserType WHERE UserTypeTitle=N'Member'
+DELETE FROM [dbo].[UserType] WHERE UserTypeTitle=N'Member'
 GO
 
 GO
-DROP TABLE MunicipalityType
-GO
-
-
-GO
-DROP TABLE AccountHead
+DROP TABLE [dbo].[MunicipalityType]
 GO
 
 
 GO
-DROP TABLE MemberField
+DROP TABLE [dbo].[AccountHead]
+GO
+
+
+GO
+DROP TABLE [dbo].[MemberField]
 GO
 
 GO
-DROP TABLE Occupation
+DROP TABLE [dbo].[Occupation]
 GO
 
 GO
-DROP TABLE Country
+DROP TABLE [dbo].[Country]
 GO
 
 

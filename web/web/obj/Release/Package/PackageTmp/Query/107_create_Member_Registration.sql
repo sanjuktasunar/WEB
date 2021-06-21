@@ -1,6 +1,6 @@
 
 GO
-CREATE TABLE Country
+CREATE TABLE [dbo].[Country]
 (
 	Id int not null Identity(1,1) Constraint Country_pk Primary Key,
 	Name nvarchar(100) not null,
@@ -10,18 +10,18 @@ CREATE TABLE Country
 );
 GO
 CREATE UNIQUE INDEX Country_Name_ui ON
-Country(Name)
+[dbo].[Country](Name)
 GO
 
 GO
 CREATE UNIQUE INDEX Country_NepaliName_ui ON
-Country(NepaliName)
+[dbo].[Country](NepaliName)
 GO
 
 
 
 GO
-CREATE TABLE Occupation
+CREATE TABLE [dbo].[Occupation]
 (
 	Id int not null Identity(1,1) Constraint Occupation_pk Primary Key,
 	Name nvarchar(100) not null,
@@ -31,17 +31,17 @@ CREATE TABLE Occupation
 GO
 GO
 CREATE UNIQUE INDEX Occupation_Name_ui ON
-Occupation(Name)
+[dbo].[Occupation](Name)
 GO
 
 GO
 CREATE UNIQUE INDEX Occupation_NepaliName_ui ON
-Occupation(NepaliName)
+[dbo].[Occupation](NepaliName)
 GO
 
 
 GO
-CREATE TABLE MemberField
+CREATE TABLE [dbo].[MemberField]
 (
 	Id int not null Identity(1,1) Constraint MemberField_pk Primary Key,
 	Name nvarchar(100) not null,
@@ -51,17 +51,17 @@ CREATE TABLE MemberField
 GO
 GO
 CREATE UNIQUE INDEX MemberField_Name_ui ON
-MemberField(Name)
+[dbo].[MemberField](Name)
 GO
 
 GO
 CREATE UNIQUE INDEX MemberField_NepaliName_ui ON
-MemberField(NepaliName)
+[dbo].[MemberField](NepaliName)
 GO
 
 
 GO
-CREATE TABLE AccountHead
+CREATE TABLE [dbo].[AccountHead]
 (
 	AccountHeadId int not null Identity(1,1) Constraint AccountHead_pk Primary Key,
 	AccountHeadName nvarchar(350) not null,
@@ -73,11 +73,11 @@ CREATE TABLE AccountHead
 GO
 GO
 CREATE UNIQUE INDEX AccountHead_AccountNumber_ui ON
-AccountHead(AccountNumber)
+[dbo].[AccountHead](AccountNumber)
 GO
 
 GO
-CREATE TABLE MunicipalityType
+CREATE TABLE [dbo].[MunicipalityType]
 (
 	Id int not null Identity(1,1) Constraint MunicipalityType_pk Primary Key,
 	Name nvarchar(100) not null,
@@ -87,17 +87,17 @@ CREATE TABLE MunicipalityType
 GO
 GO
 CREATE UNIQUE INDEX MunicipalityType_Name_ui ON
-MunicipalityType(Name)
+[dbo].[MunicipalityType](Name)
 GO
 
 GO
 CREATE UNIQUE INDEX MunicipalityType_NepaliName_ui ON
-MunicipalityType(NepaliName)
+[dbo].[MunicipalityType](NepaliName)
 GO
 
 
 GO
-CREATE TABLE MemberType
+CREATE TABLE [dbo].[MemberType]
 (
 	Id int not null Identity(1,1) Constraint MemberType_pk Primary Key,
 	Name nvarchar(100) not null,
@@ -107,17 +107,17 @@ CREATE TABLE MemberType
 GO
 GO
 CREATE UNIQUE INDEX MemberType_Name_ui ON
-MemberType(Name)
+[dbo].[MemberType](Name)
 GO
 
 GO
 CREATE UNIQUE INDEX MemberType_NepaliName_ui ON
-MemberType(NepaliName)
+[dbo].[MemberType](NepaliName)
 GO
 
 
 GO
-CREATE TABLE Member
+CREATE TABLE [dbo].[Member]
 (
 	MemberId int not null Identity(1,1) Constraint Members_pk Primary Key,
 	MemberCode nvarchar(50) not null,
@@ -149,33 +149,33 @@ GO
 
 GO
 CREATE UNIQUE INDEX Member_MobileNumber_ui ON
-Member(MobileNumber) WHERE MobileNumber IS NOT NULL
+[dbo].[Member](MobileNumber) WHERE MobileNumber IS NOT NULL
 GO
 GO
 CREATE UNIQUE INDEX Member_Email_ui ON
-Member(Email) WHERE Email IS NOT NULL
+[dbo].[Member](Email) WHERE Email IS NOT NULL
 GO
 GO
 CREATE UNIQUE INDEX Member_CitizenshipNumber_ui ON
-Member(CitizenshipNumber) WHERE CitizenshipNumber IS NOT NULL
+[dbo].[Member](CitizenshipNumber) WHERE CitizenshipNumber IS NOT NULL
 GO
 GO
 CREATE UNIQUE INDEX Member_MemberCode_ui ON
-Member(MemberCode) 
+[dbo].[Member](MemberCode) 
 GO
 
 GO
 CREATE UNIQUE INDEX Member_ReferalCode_ui ON
-Member(ReferalCode) WHERE ReferalCode IS NOT NULL
+[dbo].[Member](ReferalCode) WHERE ReferalCode IS NOT NULL
 GO
 
 
 GO
-DROP TABLE UserDocuments
+DROP TABLE [dbo].[UserDocuments]
 GO
 
 GO
-CREATE TABLE UserDocuments
+CREATE TABLE [dbo].[UserDocuments]
 (
 	UserDocumentId int not null Identity(1,1) Constraint UserDocuments_pk Primary Key,
 	StaffId int null Constraint UserDocuments_Staffs_StaffId References Staffs(StaffId),
@@ -190,17 +190,17 @@ GO
 
 GO
 CREATE UNIQUE INDEX UserDocument_MemberId_ui ON
-UserDocuments(MemberId) WHERE MemberId is not null
+[dbo].[UserDocuments](MemberId) WHERE MemberId is not null
 GO
 GO
 CREATE UNIQUE INDEX UserDocument_StaffId_ui ON
-UserDocuments(StaffId) WHERE StaffId is not null
+[dbo].[UserDocuments](StaffId) WHERE StaffId is not null
 GO
 
 
 
 GO
-CREATE TABLE MemberDetails
+CREATE TABLE [dbo].[MemberDetails]
 (
 	Id int not null Identity(1,1) Constraint MemberDetails_pk Primary Key,
 	MemberId int not null Constraint MemberDetails_Members_MemberId References Member(MemberId),
@@ -268,7 +268,7 @@ BankDeposit(MemberId) WHERE MemberId IS NOT NULL
 GO
 
 GO
-CREATE VIEW MemberView
+CREATE VIEW [dbo].[MemberView]
 AS
 SELECT A.*,B.FirstName AS RefernceFirstName,B.MiddleName AS ReferenceMiddleName,B.LastName AS ReferenceLastName,
 B.ReferalCode AS ReferenceReferalCode
