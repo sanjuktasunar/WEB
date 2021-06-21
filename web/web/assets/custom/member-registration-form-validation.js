@@ -355,7 +355,7 @@ function VoucherImageFileValidation() {
 }
 
 function ReferalCodeValidation() {
-    var valid = ElementValidation('ReferalCode', null, 'maxlength', 30);
+    var valid = ElementValidation('ReferalCode', 'required', 'maxlength', 30);
     return valid;
 }
 //step6 ends

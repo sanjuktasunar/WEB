@@ -18,27 +18,41 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/front-end/css/custom.css">
     <link href="~/assets/nepali-date-picker/css/nepali.datepicker.v3.6.min.css" rel="stylesheet" />
+    <style>
+    
+      .login-register{
+          margin-right:-60px;
+      }
+      .login-button{
+          margin-right:-23px;
+      }
+        .register {
+            margin-right: -50px;
+        }
+    </style>
 </head>
+
 <body>
-    @{ 
+    @{
         var obj = new Web.Entity.Dto.UserSite.DisplayParamters();
         var param = obj.GetParameters();
         var link = obj.GetMenuLink();
     }
+   
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand h1" href="~/">
                 <img src="~/front-end/logo/logo.jpg" class="logo" />
                 <span class="text-dark h4">@organizationInfo.NormalizedName.ToUpper()</span>
-               
+
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
-                <div class="flex-fill mx-xl-5 mb-2">
+                <div class="flex-fill mx-xl-6 mb-2">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="@link.HomeLink">@param.Home</a>
@@ -49,14 +63,24 @@
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="@link.ProductLink">@param.Products</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="#">कार्य योजना</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="@link.ContactUsLink">@param.ContactUs</a>
                         </li>
                     </ul>
                 </div>
-                <div class="navbar align-self-center d-flex">
-                    <a class="nav-link" target="_blank" href="@link.LoginLink" title="@param.Login"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
-                    <a class="nav-link" href="@link.MemberRegistrationLink" title="@param.MemberRegistration">@param.MemberRegistration</a>
+              
+                <div class="navbar align-self-center d-flex login-register">
+                    <a class="nav-link login-button" target="_blank" href="@link.LoginLink" title="@param.Login">
+                        Login
+                    </a>
+                    <a class="nav-link register" href="@link.MemberRegistrationLink" title="@param.MemberRegistration">
+                        @param.MemberRegistration
+                    </a>
                 </div>
             </div>
         </div>
@@ -72,11 +96,11 @@
 
                 <div class="col-lg-3 col-12 align-left">
                     <a class="navbar-brand" href="~/">
-                      
+
                         @if (!string.IsNullOrEmpty(organizationInfo.Favicon))
                         {
                             <img src="@organizationInfo.Favicon" class="logo-footer" />
-                            <span class="text-dark h4">     
+                            <span class="text-dark h4">
                                 @organizationInfo.NormalizedName.ToUpper()
                             </span>
                         }
@@ -113,21 +137,22 @@
 
                 <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
                     <h3 class="h4 pb-lg-3 text-light light-300">
-                        @param.OurCompany</h3>
-                        <ul class="list-unstyled text-light light-300">
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light" href="@link.HomeLink">@param.Home</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="@link.AboutUsLink">@param.AboutUs</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="work.html">@param.Products</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="@link.ContactUsLink">@param.ContactUs</a>
-                            </li>
-                        </ul>
+                        @param.OurCompany
+                    </h3>
+                    <ul class="list-unstyled text-light light-300">
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light" href="@link.HomeLink">@param.Home</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="@link.AboutUsLink">@param.AboutUs</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="work.html">@param.Products</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="@link.ContactUsLink">@param.ContactUs</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
                     <h2 class="h4 pb-lg-3 text-light light-300">@param.FutureProjects</h2>

@@ -36,7 +36,7 @@ namespace web.Controllers.PublicSite
         public async Task<ActionResult> GetChildProductByParentProductId(int id)
         {
             var obj =(await _productService.GetChildProductByParentProductId(id));
-            var jsonResult = Json(new { data=obj.Take(8),total=obj.Count()}, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { data=obj.Take(12),total=obj.Count()}, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }

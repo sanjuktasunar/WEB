@@ -2038,6 +2038,7 @@
     <Content Include="Query\107_query_down.sql" />
     <Content Include="Query\108_add_column_member.sql" />
     <Content Include="Query\108_query_down.sql" />
+    <Content Include="Query\109_update_database_correct data.sql" />
     <Content Include="Query\add_table_purchase_records.sql" />
     <Content Include="Query\107_create_Member_Registration.sql" />
     <Content Include="Query\107_insert_value_member_registration.sql" />
