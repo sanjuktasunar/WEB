@@ -67,8 +67,13 @@ ALTER TABLE ProductPrice
 ADD IsPrimary bit null default(0)
 GO
 
+
 GO
-CREATE OR ALTER VIEW [dbo].[ProductPriceView]
+DROP VIEW ProductPriceView
+GO
+
+GO
+CREATE VIEW ProductPriceView
 AS
 SELECT A.*,
 B.UnitName,B.UnitNameNepali,B.UnitSymbol,B.UnitSymbolNepali

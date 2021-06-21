@@ -120,7 +120,7 @@ SET IDENTITY_INSERT [Users] ON;
 GO
 GO
 INSERT INTO Users(UserId,UserTypeId,PhotoStorageId,UserName,Password,EmailAddress,ContactNumber,CreatedDate,UserStatusId)
-VALUES(1,2,1,N'12345','45E5F464304A2F961CB6A585C42DA3EC','abc@gmail.com','1234567890',GETDATE(),1)
+VALUES(1,2,1,N'12345','45E5F464304A2F961CB6A585C42DA3EC','admin.bishwokarma@gmail.com','1234567890',GETDATE(),1)
 GO
 GO
 SET IDENTITY_INSERT [Users] OFF;

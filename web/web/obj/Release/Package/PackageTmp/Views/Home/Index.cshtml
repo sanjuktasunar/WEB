@@ -175,9 +175,8 @@
                 $("#childProduct").empty();
                 $("#childProduct").append('<div class="row projects gx-lg-5" id="childDiv"></div>');
                 $.each(response.data, function (index, res) {
-                    debugger;
                     var imgId = index + res.ProductCode;
-                    $("#childDiv").append('<a href="/ProductDetails/'+res.ProductId+'" class="col-sm-3 col-lg-3 text-decoration-none project marketing social business">'
+                    $("#childDiv").append('<a href="/ProductDetails/'+res.ProductId+'" class="col-sm-6 col-lg-3 text-decoration-none project marketing social business">'
                         + '<div class="service-work overflow-hidden card mb-5 mx-5 m-sm-0"">'
                         + '<img id=' + imgId + ' class="card-img-top">'
                         + '<div class="card-body">'
