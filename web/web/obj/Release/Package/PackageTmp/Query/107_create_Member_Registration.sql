@@ -268,7 +268,7 @@ BankDeposit(MemberId) WHERE MemberId IS NOT NULL
 GO
 
 GO
-CREATE OR ALTER VIEW [dbo].[MemberView]
+CREATE VIEW MemberView
 AS
 SELECT A.*,B.FirstName AS RefernceFirstName,B.MiddleName AS ReferenceMiddleName,B.LastName AS ReferenceLastName,
 B.ReferalCode AS ReferenceReferalCode

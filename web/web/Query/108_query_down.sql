@@ -13,12 +13,12 @@ GO
 
 
 GO
-ALTER TABLE Users
+ALTER TABLE [dbo].[Users]
 DROP COLUMN RoleId
 GO
 
 GO
-ALTER TABLE Member
+ALTER TABLE [dbo].[Member]
 DROP COLUMN IsActive
 GO
 
@@ -29,7 +29,7 @@ GO
 
 
 GO
-ALTER TABLE Member
+ALTER TABLE [dbo].[Member]
 DROP COLUMN IsActive
 GO
 

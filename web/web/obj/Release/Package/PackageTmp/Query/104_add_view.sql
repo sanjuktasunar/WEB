@@ -1,6 +1,6 @@
 
 GO
-CREATE OR ALTER VIEW [dbo].[DisplayProductView]
+CREATE VIEW DisplayProductView
 AS
 SELECT A.*,
 B.ProductName AS ParentProductName,

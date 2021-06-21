@@ -2,7 +2,7 @@
 
 
 GO
-CREATE TABLE Supplier
+CREATE TABLE [dbo].[Supplier]
 (
 	SupplierId int not null Identity(1,1) Constraint Supplier_pk Primary Key,
 	SupplierName nvarchar(500) not null,
@@ -23,32 +23,32 @@ GO
 
 GO
 CREATE UNIQUE INDEX Supplier_SupplierName_ui ON
-Supplier(SupplierName)
+[dbo].[Supplier](SupplierName)
 GO
 
 GO
 CREATE UNIQUE INDEX Supplier_ContactNumber1_ui ON
-Supplier(ContactNumber1)
+[dbo].[Supplier](ContactNumber1)
 GO
 
 GO
 CREATE UNIQUE INDEX Supplier_EmailAddress_ui ON
-Supplier(EmailAddress) WHERE EmailAddress IS NOT NULL
+[dbo].[Supplier](EmailAddress) WHERE EmailAddress IS NOT NULL
 GO
 
 GO
 CREATE UNIQUE INDEX Supplier_Website_ui ON
-Supplier(EmailAddress) WHERE Website IS NOT NULL
+[dbo].[Supplier](EmailAddress) WHERE Website IS NOT NULL
 GO
 
 
 GO
 CREATE UNIQUE INDEX Supplier_PanNumber_ui ON
-Supplier(PanNumber) WHERE PanNumber IS NOT NULL
+[dbo].[Supplier](PanNumber) WHERE PanNumber IS NOT NULL
 GO
 
 GO
-CREATE TABLE FiscalYear
+CREATE TABLE [dbo].[FiscalYear]
 (
 	FiscalYearId int not null Identity(1,1) Constraint FiscalYear_pk Primary Key,
 	Name nvarchar(50) not null,
@@ -68,37 +68,37 @@ GO
 
 GO
 CREATE UNIQUE INDEX FiscalYear_Name_ui ON
-FiscalYear(Name)
+[dbo].[FiscalYear](Name)
 GO
 
 GO
 CREATE UNIQUE INDEX FiscalYear_NepaliName_ui ON
-FiscalYear(NepaliName) WHERE NepaliName IS NOT NULL
+[dbo].[FiscalYear](NepaliName) WHERE NepaliName IS NOT NULL
 GO
 
 GO
 CREATE UNIQUE INDEX FiscalYear_StartDateBS_ui ON
-FiscalYear(StartDateBS)
+[dbo].[FiscalYear](StartDateBS)
 GO
 
 GO
 CREATE UNIQUE INDEX FiscalYear_StartDateAD_ui ON
-FiscalYear(StartDateAD)
+[dbo].[FiscalYear](StartDateAD)
 GO
 
 GO
 CREATE UNIQUE INDEX FiscalYear_EndDateBS_ui ON
-FiscalYear(EndDateBS)
+[dbo].[FiscalYear](EndDateBS)
 GO
 
 GO
 CREATE UNIQUE INDEX FiscalYear_EndDateAD_ui ON
-FiscalYear(EndDateAD)
+[dbo].[FiscalYear](EndDateAD)
 GO
 
 
 GO
-CREATE TABLE PurchaseRecord
+CREATE TABLE [dbo].[PurchaseRecord]
 (
 	PurchaseRecordId int not null Identity(1,1) Constraint PurchaseRecord_pk Primary Key,
 	SupplierId int not null Constraint PurchaseRecord_Supplier_SupplierId_fk References Supplier(SupplierId),
@@ -119,12 +119,12 @@ CREATE TABLE PurchaseRecord
 GO
 GO
 CREATE UNIQUE INDEX PurchaseRecord_InvoiceNumber_ui ON
-PurchaseRecord(InvoiceNumber)
+[dbo].[PurchaseRecord](InvoiceNumber)
 GO
 
 
 GO
-CREATE TABLE PurchaseRecordDetail
+CREATE TABLE [dbo].[PurchaseRecordDetail]
 (
 	Id int not null Identity(1,1) Constraint PurchaseRecordDetail_pk Primary Key,
 	PurchaseRecordId int not null Constraint PurchaseRecordDetail_PurchaseRecord_PurchaseRecordId_fk References PurchaseRecord(PurchaseRecordId),
@@ -135,7 +135,7 @@ CREATE TABLE PurchaseRecordDetail
 GO
 
 GO
-CREATE TABLE Stock
+CREATE TABLE [dbo].[Stock]
 (
 	Id int not null Identity(1,1) Constraint Stock_pk Primary Key,
 	ProductId int not null Constraint Stock_Product_ProductId_fk References Product(ProductId),
