@@ -145,3 +145,4 @@ D:\A-BKPAPP\WEB\web\web\obj\Release\web.csproj.CoreCompileInputs.cache
 D:\A-BKPAPP\WEB\web\web\obj\Release\web.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\web\obj\Release\web.dll
 D:\A-BKPAPP\WEB\web\web\obj\Release\web.pdb
+D:\A-BKPAPP\WEB\web\web\bin\NDC.dll

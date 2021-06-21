@@ -1,0 +1,245 @@
+﻿@model Web.Entity.Dto.MemberDto
+@{
+    ViewBag.Title = "MemberDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    td img {
+        height: 10%;
+        width: 30%;
+    }
+    .document-div {
+        margin-left: 15px;
+    }
+    td img {
+        height: 250px;
+        width: 350px;
+    }
+
+</style>
+<div class="card-body">
+    <div class="card-header py-3">
+        <b>Member Details</b>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th>First Name </th>
+                    <td>@Model.FirstName</td>
+                    <th>Middle Name </th>
+                    <td>@Model.MiddleName</td>
+                    <th>Last Name </th>
+                    <td>@Model.LastName</td>
+                </tr>
+                <tr>
+                    <th>Gender : </th>
+                    <td>@Model.GenderName</td>
+                    <th>Date of Birth</th>
+                    <td>@Model.DateOfBirthBS (B.S.)<br /> 
+                    @Model.DateOfBirthAD.Value.ToShortDateString().Replace('/','-') (A.D.)
+                    </td>
+                    <th>Citizenship Number</th>
+                    <td>@Model.CitizenshipNumber</td>
+                </tr>
+                <tr>
+                    <th>Form Status</th>
+                    <td>@Model.FormStatus</td>
+
+                    <th>Approval Status</th>
+                    <td>@Model.ApprovalStatus</td>
+
+                    <th>Is Active</th>
+                    <td>
+                        @if (Model.IsActive == true)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">InActive</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Member Code </th>
+                    <td>@Model.MemberCode</td>
+                    <th>Referal Code </th>
+                    <td colspan="3">@Model.ReferalCode</td>
+                </tr>
+                <tr>
+                    <th>Mobile Number </th>
+                    <td>@Model.MobileNumber</td>
+
+                    <th>Email </th>
+                    <td colspan="3">@Model.Email</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered" width="100%" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th colspan="6">Permanent Address : </th>
+                </tr>
+                @if (Model.PermanentIsOutsideNepal == false)
+                {
+                    <tr>
+                        <th>Province</th>
+                        <td>@Model.PermanentProvinceName</td>
+
+                        <th>District</th>
+                        <td>@Model.PermanentDistrictName</td>
+
+                        <th>Municipality Type</th>
+                        <td>@Model.TemporaryMunicipalityTypeName</td>
+                    </tr>
+                    <tr>
+                        <th>Municipality / RM Name : </th>
+                        <td>@Model.PermanentMunicipality</td>
+
+                        <th>Ward Number</th>
+                        <td>@Model.PermanentWardNumber</td>
+
+                        <th>Tole Number</th>
+                        <td>@Model.PermanentToleName</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th>Country Name : </th>
+                        <td>@Model.PermanentCountryName</td>
+                        <th>Address : </th>
+                        <td colspan="3">@Model.PermanentAddress</td>
+                    </tr>
+                }
+                <tr>
+                    <th colspan="6">Temporary Address : </th>
+                </tr>
+                @if (Model.TemporaryIsOutsideNepal == false)
+                {
+                    <tr>
+                        <th>Province</th>
+                        <td>@Model.TemporaryProvinceName</td>
+
+                        <th>District</th>
+                        <td>@Model.TemporaryDistrictName</td>
+
+                        <th>Municipality Type</th>
+                        <td>@Model.TemporaryMunicipalityTypeName</td>
+                    </tr>
+                    <tr>
+                        <th>Municipality / RM Name : </th>
+                        <td>@Model.TemporaryMunicipality</td>
+
+                        <th>Ward Number</th>
+                        <td>@Model.TemporaryWardNumber</td>
+
+                        <th>Tole Number</th>
+                        <td>@Model.TemporaryToleName</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th>Country Name : </th>
+                        <td>@Model.TemporaryCountryName</td>
+                        <th>Address : </th>
+                        <td colspan="3">@Model.TemporaryAddress</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <table class="table table-bordered" width="100%" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th colspan="6">Occupation Details : </th>
+                </tr>
+                <tr>
+                    <th>Occupation : </th>
+                    @if (Model.OcuupationName.ToLower() == "other")
+                    {
+                        <td>@Model.OtherOccupationRemarks</td>
+                    }
+                    else
+                    {
+                        <td>@Model.OcuupationName</td>
+                    }
+                    <th>Interested In</th>
+                    <td colspan="3">@Model.MemberFieldName</td>
+                </tr>
+                <tr>
+                    <th>Referred By</th>
+                    <td colspan="6">@Model.ReferenceFullName</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered" width="100%" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th colspan="2">Payment Details : </th>
+                </tr>
+                <tr>
+                    <th>Amount : </th>
+                    <td>@Model.Amount</td>
+                </tr>
+                <tr>
+                    <th>Payment Proof : </th>
+                    <td>
+                        @if (!string.IsNullOrEmpty(Model.VoucherImage))
+                        {
+                            <img src="@Model.VoucherImage" />
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered" width="100%" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th colspan="6">Documents : </th>
+                </tr>
+                <tr>
+                    <th>Photo</th>
+                    <td colspan="2">
+                        @if (!string.IsNullOrEmpty(Model.Photo))
+                        {
+                            <img src="@Model.Photo" />
+                        }
+
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <th>Citizenship Front</th>
+                    <td>
+                        @if (!string.IsNullOrEmpty(Model.CitizenshipFront))
+                        {
+                            <img src="@Model.CitizenshipFront" />
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Citizenship Back</th>
+                    <td>
+                        @if (!string.IsNullOrEmpty(Model.CitizenshipBack))
+                        {
+                            <img src="@Model.CitizenshipBack" />
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered" width="100%" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th>Created Date</th>
+                    <td>@Model.CreatedDate</td>
+                    <th>Approved Date :</th>
+                    <td>@Model.ApprovedDate</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/MemberList" class="btn btn-danger"><i class="fa fa-window-close"></i> Close </a>
+    </div>
+</div>

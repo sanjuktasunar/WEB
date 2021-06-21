@@ -1,0 +1,240 @@
+﻿@model IEnumerable<Web.Entity.Dto.MemberDto>
+@{
+    ViewBag.Title = "MemberList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    Web.Entity.Dto.MenuAccessPermissionDto menu= ViewBag.Menus;
+}
+
+<h6 class="h6 mb-2 text-gray-800">Member List</h6>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th hidden="hidden"></th>
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th>Contact Details</th>
+                        <th>Form Status</th>
+                        <th>Approval Status</th>
+                        <th>Referred By</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0; }
+                    @foreach (var x in Model)
+                    {
+                        string PermanentAddress = "";
+                        string TemporaryAddress = "";
+                        string ReferenceFullName = x.RefernceFirstName + " " + (!string.IsNullOrEmpty(x.ReferenceMiddleName) ? x.ReferenceMiddleName + " " : string.Empty) + x.ReferenceLastName;
+                        string FullName = x.FirstName + " " + (!string.IsNullOrEmpty(x.MiddleName) ? x.MiddleName + " " : string.Empty) + x.LastName;
+                        if (x.PermanentIsOutsideNepal == true)
+                        {
+                            PermanentAddress = x.PermanentAddress + "," +
+                                                x.PermanentCountryName;
+                        }
+                        else
+                        {
+                            PermanentAddress = x.PermanentMunicipality + "-" +
+                                x.PermanentWardNumber + "," + x.PermanentToleName +
+                                "," + x.PermanentDistrictName;
+                        }
+                        if (x.TemporaryIsOutsideNepal == true)
+                        {
+                            TemporaryAddress = x.TemporaryAddress + "," +
+                                                        x.TemporaryCountryName;
+                        }
+                        else
+                        {
+                            TemporaryAddress = x.TemporaryMunicipality + "-" +
+                                 x.TemporaryWardNumber + "," + x.TemporaryToleName +
+                                 "," + x.TemporaryDistrictName;
+                        }
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td hidden="hidden">@x.MemberId</td>
+                            <td>@FullName</td>
+                            <td>
+                                <label>Permanent: </label>@PermanentAddress<br /><br />
+                                <label>Temporary: </label>@TemporaryAddress<br />
+                            </td>
+                            <td>
+                                <label>Mobile No.:</label>@x.MobileNumber<br />
+                                <label>Email:</label>@x.Email<br />
+                            </td>
+                            <td>@x.FormStatus</td>
+                            <td>@x.ApprovalStatus</td>
+                            <td>@ReferenceFullName</td>
+                            <td>
+                                @if (x.FormStatus == 
+                                    Web.Entity.Infrastructure.FormStatus.Complete && 
+                                        menu.AdminAccess==true && x.ApprovalStatus==
+                                        Web.Entity.Infrastructure.ApprovalStatus.UnApproved)
+                                {
+                                    <button class="btn btn-success btn-circle btn-sm"
+                                            id="btnApprove">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                }
+                                <a href="~/MemberDetails/@x.MemberId"
+                                   class="btn btn-primary btn-circle btn-sm"
+                                   id="btnView">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Approve Member</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="form_validation" enctype="multipart/form-data">
+                            <input type="hidden" name="MemberId"
+                                   id="MemberId" />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="floating-label">Account Head</label>
+                                        <select name="AccountHeadId" id="AccountHeadId"
+                                                class="form-control">
+                                            <option value="">Select Account Head</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float:right">
+                                <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+@Scripts.Render("~/web/back-end/datatable")
+@Scripts.Render("~/web/back-end/message")
+<script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
+
+<script>
+    $('#dataTable').DataTable();
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#dataTable").on('click', '#btnApprove', function () {
+            var currentRow = $(this).closest("tr");
+            var data = currentRow.find("td:eq(1)").html();
+            $("#MemberId").val(data);
+            $("#exampleModal").modal();
+            $.ajax({
+                type: 'get',
+                url: '/Ajax/GetAccountHead',
+                success: function (res) {
+                    $("#AccountHeadId").empty();
+                    $("#AccountHeadId").append("<option value=''>Select Account Head</option>");
+                    $.each(res, function (index, row) {
+                        $("#AccountHeadId").append("<option value=" + row.Id + ">" + row.Value + "</option>")
+                    })
+                }
+            })
+        });
+    })
+
+    var $checkoutForm = $('#form_validation').validate({
+        ignore: [],
+        rules: {
+            'AccountHeadId': {
+                required: true,
+            },
+        },
+        submitHandler: function (form) {
+            $("#btnSave").prop('disabled', true)
+            $("#btnSave span").html('Saving...')
+            debugger;
+            var MemberId = $("#MemberId").val();
+            var AccountHeadId = $("#AccountHeadId").val();
+            $.ajax({
+                type: "POST",
+                url: '/Member/ApproveMember',
+                data: { MemberId: MemberId, AccountHeadId: AccountHeadId},
+                success: function (message) {
+                    ShowMessage(message, "/MemberList")
+                    var str = message.split('+');
+                    if (parseInt(str[1]) > 0) {
+                        SendMemberApproveEmail(MemberId);
+                    }
+                },
+                error: function (message) {
+                    ShowMessage(message, "/MemberList")
+                }
+            })
+        },
+
+        errorPlacement: function errorPlacement(error, element) {
+            var $parent = $(element).parents('.form-group');
+
+            // Do not duplicate errors
+            if ($parent.find('.jquery-validation-error').length) {
+                return false;
+            }
+
+            $parent.append(
+                error.addClass('jquery-validation-error small form-text invalid-feedback')
+            );
+        },
+        highlight: function (element) {
+            var $el = $(element);
+            var $parent = $el.parents('.form-group');
+
+            $el.addClass('is-invalid');
+
+            // Select2 and Tagsinput
+            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                $el.parent().addClass('is-invalid');
+            }
+
+        },
+        unhighlight: function (element) {
+            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        }
+    });
+
+    function SendMemberApproveEmail(id) {
+        $.ajax({
+            type: 'post',
+            url: '/Member/SendEmailOnApprove',
+            data: { MemberId: id },
+            success: function (resp) {
+
+            },
+            error: function (resp) {
+
+            }
+        })
+    }
+</script>

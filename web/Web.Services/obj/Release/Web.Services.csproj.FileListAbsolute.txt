@@ -70,3 +70,4 @@ D:\A-BKPAPP\WEB\web\Web.Services\obj\Release\Web.Services.csproj.CoreCompileInpu
 D:\A-BKPAPP\WEB\web\Web.Services\obj\Release\Web.Services.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Services\obj\Release\Web.Services.dll
 D:\A-BKPAPP\WEB\web\Web.Services\obj\Release\Web.Services.pdb
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Release\NDC.dll

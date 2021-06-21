@@ -1,6 +1,6 @@
 
 GO
-CREATE OR ALTER VIEW [dbo].[MenuView]
+CREATE VIEW MenuView
 AS
 	SELECT A.*,B.MenuNameEnglish AS ParentMenuNameEnglish,B.MenuNameNepali AS ParentMenuNameNepali 
 	FROM Menus AS A

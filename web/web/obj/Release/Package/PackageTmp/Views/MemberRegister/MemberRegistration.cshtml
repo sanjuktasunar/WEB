@@ -3,5 +3,869 @@
     ViewBag.Title = "MemberRegistration";
     Layout = "~/Views/Shared/_FrontLayout.cshtml";
 }
+<link href="~/assets/css/multi-tier-form/form-wizard.css" rel="stylesheet" />
+<link href="~/assets/custom-plugin/form-validation.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
+<style>
+    .py-5 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .text-decoration-none {
+        margin-bottom: 2%;
+    }
+
+    #wizard_div {
+        margin-top: -30px;
+    }
+    .wizard-image-div{
+        display:none;
+    }
+    .wizard-image-div img{
+        height:20%;
+        width:50%
+    }
+    #searchButton {
+        margin-top: 21px;
+    }
+</style>
+
+<section class="service-wrapper py-3">
+    <div class="service-tag py-5 bg-secondary">
+        <div class="col-md-12">
+            <ul class="nav d-flex justify-content-center">
+                <li class="nav-item mx-lg-4">
+                    <p class=" text-light px-4 light-300">Registeration form</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<section class="container py-5">
+    <div class="row" id="SearchDiv">
+        <form>
+            <div class="row">
+                <div class="col-sm-5 col-md-5">
+                    <label class="fieldlabels">
+                        Complete Incomplete steps:
+                    </label><br />
+                    <input type="text" name="SearchData"
+                           id="SearchData"
+                           placeholder="Citizenship Number/Mobile Number/Email"
+                           class="form-control" />
+                </div>
+                <div class="col-sm-1 col-md-1 form-group" id="searchButton">
+                    <a class="btn btn-primary form-control" href="#" id="btnMemberSearch">
+                        <i class="bx bx-search text-white"></i>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container-fluid" id="wizard_div">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                    <div id="msform">
+                        <ul id="progressbar">
+                            <li class="active" id="basic">
+                                <strong>Basic</strong>
+                            </li>
+                            <li id="contact"><strong>Contact</strong></li>
+                            <li id="address"><strong>Address</strong></li>
+                            <li id="occupation">
+                                <strong>Occupation</strong>
+                            </li>
+                            <li id="document"><strong>Documents</strong></li>
+                            <li id="payment"><strong>Payment</strong></li>
+                            <li id="confirm"><strong>Confirmation</strong></li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                 role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        <!-- progressbar -->
+                        <!-- step 1 basic information -->
+                        <input type="hidden" name="MemberId" value="0"  id="MemberId" />
+                        <form id="step1">
+                            <!-- fieldsets -->
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Basic Information:</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 1 - 7</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 col-md-4 form-group">
+                                            <label class="fieldlabels">
+                                                FirstName:
+                                            </label>
+                                            <input type="text" name="FirstName"
+                                                   id="FirstName"
+                                                   placeholder="First Name"
+                                                   class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 form-group">
+                                            <label class="fieldlabels">
+                                                MiddleName:
+                                            </label>
+                                            <input type="text" name="MiddleName"
+                                                   id="MiddleName"
+                                                   placeholder="Middle Name"
+                                                   class="form-control"
+                                                   autocomplete="off" />
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 form-group">
+                                            <label class="fieldlabels">
+                                                Last Name:
+                                            </label>
+                                            <input type="text" name="LastName"
+                                                   id="LastName"
+                                                   class="form-control"
+                                                   placeholder="Last Name" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Gender:
+                                            </label>
+                                            <select class="form-control" name="GenderId"
+                                                    id="GenderId">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Date of Birth (BS):
+                                            </label>
+                                            <input type="text" name="DateOfBirthBS"
+                                                   placeholder="YYYY-MM-DD"
+                                                   class="form-control"
+                                                   autocomplete="off" id="DateOfBirthBS"
+                                                   onkeypress="AllowForDate(event)"
+                                                   oninput="AllowForDate(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Citizenship Number:
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                   name="CitizenshipNumber"
+                                                   id="CitizenshipNumber"
+                                                   placeholder="CitizenshipNumber" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <input type="button" name="next" class="next action-button" value="Next Step" />
+                        </form>
+
+                        <!-- step 2 contact details -->
+                        <form id="step2">
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Contact Details:</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 2 - 7</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Mobile Number:
+                                            </label>
+                                            <input type="text" name="MobileNumber"
+                                                   id="MobileNumber"
+                                                   class="form-control"
+                                                   placeholder="Mobile Number"
+                                                   onkeypress="AllowNumberOnly(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Email(Only Gmail Id will be accepted):
+                                            </label>
+                                            <input type="text" name="Email"
+                                                   class="form-control"
+                                                   id="Email"
+                                                   placeholder="e.g. Abc123@gmail.com" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+
+                        <!-- step 3 address details -->
+                        <form id="step3">
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Address Details:</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 3 - 7</h2>
+                                        </div>
+                                    </div>
+                                    <h4 style="color:blueviolet">Permanent Address</h4><br />
+                                    <div>
+                                        <label class="fieldlabels">
+                                            Is Outside Nepal ?
+                                        </label>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio"
+                                                       name="PermanentIsOutsideNepal"
+                                                       class="form-check-input"
+                                                       id="PermanentRadio" value="true"> Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio"
+                                                       name="PermanentIsOutsideNepal"
+                                                       class="form-check-input"
+                                                       checked="checked"
+                                                       id="PermanentRadio" value="false"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row" id="permanentInsideNepalAddress">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Province:
+                                            </label>
+                                            <select class="form-control province"
+                                                    name="PermanentProvinceId"
+                                                    id="PermanentProvinceId">
+                                                <option value="" selected="selected">
+                                                    Select Province
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                District:
+                                            </label>
+                                            <select class="form-control"
+                                                    name="PermanentDistrictId"
+                                                    id="PermanentDistrictId">
+                                                <option value="" selected="selected">
+                                                    Select District
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Municipality/RM:
+                                            </label>
+                                            <select class="form-control"
+                                                    name="PermanentMunicipalityTypeId"
+                                                    id="PermanentMunicipalityTypeId">
+                                                <option value="" selected="selected">
+                                                    Select Type
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                RM/Municipality Name:
+                                            </label>
+                                            <input type="text"
+                                                   id="PermanentMunicipality"
+                                                   class="form-control"
+                                                   name="PermanentMunicipality"
+                                                   placeholder="RM/Municipality Name" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Ward Number:
+                                            </label>
+                                            <input type="text"
+                                                   id="PermanentWardNumber"
+                                                   name="PermanentWardNumber"
+                                                   placeholder="Ward Number"
+                                                   class="form-control"
+                                                   onkeypress="AllowNumberOnly(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Tole Name:
+                                            </label>
+                                            <input type="text" id="PermanentToleName"
+                                                   name="PermanentToleName" class="form-control"
+                                                   placeholder="Tole Name" />
+                                        </div>
+                                    </div>
+                                    <div class="row" id="permanentOutsideNepalAddress">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Country:
+                                            </label>
+                                            <select class="form-control country"
+                                                    name="PermanentCountryId"
+                                                    id="PermanentCountryId">
+                                                <option value="" selected="selected">
+                                                    Select Country
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Address:
+                                            </label>
+                                            <input type="text" id="PermanentAddress"
+                                                   class="form-control"
+                                                   name="PermanentAddress"
+                                                   placeholder="Address" />
+                                        </div>
+                                    </div>
+
+                                    <h4 style="color:blueviolet">Temporary Address</h4><br />
+                                    <div>
+                                        <label class="fieldlabels">
+                                            Is Outside Nepal ?
+                                        </label>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio"
+                                                       name="TemporaryIsOutsideNepal"
+                                                       class="form-check-input"
+                                                       id="TempRadio" value="true"> Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio"
+                                                       name="TemporaryIsOutsideNepal"
+                                                       class="form-check-input"
+                                                       checked="checked"
+                                                       id="TempRadio" value="false"> No
+                                            </label>
+                                        </div>
+                                    </div><br />
+
+                                    <div class="row" id="tempInsideNepalAddress">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Province:
+                                            </label>
+                                            <select class="form-control province"
+                                                    id="TemporaryProvinceId"
+                                                    name="TemporaryProvinceId">
+                                                <option value="" selected="selected">
+                                                    Select Province
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                District:
+                                            </label>
+                                            <select class="form-control"
+                                                    name="TemporaryDistrictId"
+                                                    id="TemporaryDistrictId">
+                                                <option value="" selected="selected">
+                                                    Select District
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Municipality/RM :
+                                            </label>
+                                            <select class="form-control"
+                                                    name="TemporaryMunicipalityTypeId"
+                                                    id="TemporaryMunicipalityTypeId">
+                                                <option value="" selected="selected">
+                                                    Select Type
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                RM/Municipality Name:
+                                            </label>
+                                            <input type="text"
+                                                   id="TemporaryMunicipality" class="form-control"
+                                                   name="TemporaryMunicipality"
+                                                   placeholder="RM/Municipality" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Ward Number:
+                                            </label>
+                                            <input type="text" name="TemporaryWardNumber"
+                                                   id="TemporaryWardNumber" class="form-control"
+                                                   placeholder="Ward Number"
+                                                   onkeypress="AllowNumberOnly(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Tole Name:
+                                            </label>
+                                            <input type="text" name="TemporaryToleName"
+                                                   class="form-control" id="TemporaryToleName"
+                                                   placeholder="Tole Name" />
+                                        </div>
+                                    </div>
+                                    <div class="row" id="tempOutsideNepalAddress">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Country:
+                                            </label>
+                                            <select class="form-control country"
+                                                    name="TemporaryCountryId"
+                                                    id="TemporaryCountryId">
+                                                <option value="" selected="selected">
+                                                    Select Country
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Address:
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                   name="TemporaryAddress" id="TemporaryAddress"
+                                                   placeholder="Address" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+
+                        <!-- step 4 occupational information -->
+                        <form id="step4">
+                            <!-- fieldsets -->
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Occupation Details :</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 4 - 7</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Occupation :
+                                            </label>
+                                            <select class="form-control" name="OccupationId"
+                                                    id="OccupationId">
+                                                <option value="">Occupation</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group"
+                                             id="occupationDiv">
+                                            <label class="fieldlabels">
+                                                Other Occupation:
+                                            </label>
+                                            <input type="text" id="OtherOccupationRemarks"
+                                                   class="form-control"
+                                                   name="OtherOccupationRemarks"
+                                                   placeholder="Occupation Remarks" />
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Intersted In :
+                                            </label>
+                                            <select class="form-control" name="MemberFieldId"
+                                                    id="MemberFieldId">
+                                                <option value="">Interested Field</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+
+                        <!-- step 5 uplaod document -->
+                        <form id="step5">
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Upload Document: 
+                                            </h2>
+                                            <p>
+                                                (Note : all document must be in
+                                                .jpg , .png or .jpeg format)
+                                            </p>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 5 - 7</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Upload Your Photo:
+                                            </label>
+                                            <input type="file" name="MemberImage"
+                                                   id="MemberImage"
+                                                   class="form-control MemberPhoto" />
+                                            <input type="hidden" name="MemberPhoto"
+                                                   id="MemberPhoto" />
+
+                                            <div id="DivMemberPhoto"
+                                                 class="wizard-image-div">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Citizenship Front:
+                                            </label>
+                                            <input type="file"
+                                                   class="form-control CitizenshipFront"
+                                                   id="CitizenshipFrontImage"
+                                                   name="CitizenshipFrontImage" />
+                                            <input type="hidden" name="CitizenshipFront"
+                                                   id="CitizenshipFront" />
+                                            <div id="DivCitizenshipFront"
+                                                 class="wizard-image-div">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Citizenship Back:
+                                            </label>
+                                            <input type="file" name="CitizenshipBackImage"
+                                                   class="form-control CitizenshipBack"
+                                                   id="CitizenshipBackImage" />
+                                            <input type="hidden" name="CitizenshipBack"
+                                                   id="CitizenshipBack" />
+                                            <div id="DivCitizenshipBack"
+                                                 class="wizard-image-div">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+
+                        <!-- step 6 payment -->
+                        <form id="step6">
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Payment:</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 6 - 7</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Amount:
+                                            </label>
+                                            <input type="text" name="Amount"
+                                                   class="form-control"
+                                                   id="Amount"
+                                                   placeholder="Amount"
+                                                   onkeypress="AllowPositiveNumber(event)" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Upload voucher Photo /
+                                                Online payment proof Screenshot or Photo:
+                                                
+                                            </label>
+                                            <input type="file" name="VoucherImageFile"
+                                                   class="form-control VoucherImage"
+                                                   id="VoucherImageFile" />
+                                            <input type="hidden" name="VoucherImage"
+                                                   id="VoucherImage" />
+                                            <div id="DivVoucherImage"
+                                                 class="wizard-image-div">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 form-group">
+                                            <label class="fieldlabels">
+                                                Referal Code(Optional):
+                                            </label>
+                                            <input type="text" name="ReferalCode"
+                                                   class="form-control"
+                                                   id="ReferalCode"
+                                                   placeholder="Referal Code"
+                                                    />
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <input type="button" name="next"
+                                   class="next action-button" value="Next" />
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+
+                        <!-- step 7 confirmation -->
+                        <form id="step7">
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="fs-title">Confirmation:</h2>
+                                        </div>
+                                        <div class="col-5">
+                                            <h2 class="steps">Step 7 - 7</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h2 class="purple-text text-center">
+                                        <strong>
+                                            SUCCESS !
+                                        </strong>
+                                    </h2> <br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-3">
+                                            <img src="https://i.imgur.com/GwStPmg.png"
+                                                 class="fit-image">
+                                        </div>
+                                    </div> <br><br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-7 text-center">
+                                            <h5 class="purple-text text-center">
+                                                You Have
+                                                Successfully Submit the form
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <input type="button" name="previous"
+                                   class="previous action-button-previous"
+                                   value="Previous" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+@Scripts.Render("~/web/back-end/message")
+
+<script src="~/assets/custom/member-registration-dataload.js"></script>
+<script src="~/assets/custom/member-registration-form-validation.js"></script>
+<script src="~/assets/custom/custom.js"></script>
+
+<script>
+    $("#btnMemberSearch").click(function (event) {
+        event.preventDefault();
+        var attr = $("#SearchData").val();
+        if (attr.length > 0) {
+            $.ajax({
+                type: 'get',
+                url: '/MemberRegister/SearchMember',
+                data: { MemberAttr: attr },
+                success: function (resp) {
+                    if (resp.IsNotFoundOrReject == true) {
+                        ShowErrorMessage(resp.ErrorMessage)
+                    }
+                    else {
+                        setFieldValues(resp.Member);
+                    }
+                },
+                error: function (res) {
+                    alert(resp)
+                }
+            })
+        }
+        
+    });
+    $(document).ready(function () {
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+        var current = 1;
+        var steps = $("#msform form ").length;
+        setProgressBar(current);
+        loadGenderList();
+        loadFieldData();
+       
+        $("#permanentOutsideNepalAddress").hide();
+        $("#tempOutsideNepalAddress").hide();
+
+        $(".next").click(function () {
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            var test = formValidationAndSubmission(current);
+            if (test == false) {
+                return false;
+            }
+            $(".next").prop('disabled', true);
+            $(".previous").prop('disabled', true);   
+            var formUrl = "/MemberRegister/PostPersonalInfo";
+            var formdata = $("#step1").serialize();
+            if (current == 2) {
+                formUrl = "/MemberRegister/ContactInfo";
+                formdata = $("#step2").serialize();
+            }
+            else if (current == 3) {
+                formUrl = "/MemberRegister/AddModifyAddress";
+                formdata = $("#step3").serialize();
+            }
+            else if (current == 4) {
+                formUrl = "/MemberRegister/MemberOccupation";
+                formdata = $("#step4").serialize();
+            }
+            else if (current == 5) {
+                formUrl = "/MemberRegister/MemberDocument";
+                formdata = $("#step5").serialize();
+            }
+            else if (current == 6) {
+                formUrl = "/MemberRegister/BankDeposit";
+                formdata = $("#step6").serialize();
+            }
+          
+            formdata = formdata + '&MemberId=' + $("#MemberId").val()
+            $.ajax({
+                type: "post",
+                url: formUrl,
+                data: formdata,
+                success: function (response) {
+                    if (response.status == "success") {
+                        //Add Class Active
+                        if (response.successData > 0) {
+                            debugger;
+                            $("#MemberId").val(response.successData)
+                            $("#progressbar li").eq($("form").index(current_fs)).addClass("active");
+                            //show the next fieldset
+                            next_fs.show();
+                            //hide the current fieldset with style
+                            current_fs.animate({ opacity: 0 }, {
+                                step: function (now) {
+                                    // for making fielset appear animation
+                                    opacity = 1 - now;
+                                    current_fs.css({
+                                        'display': 'none',
+                                        'position': 'relative'
+                                    });
+                                    next_fs.css({ 'opacity': opacity });
+                                },
+                                duration: 500
+                            });
+                            setProgressBar(++current);
+                            loadData(current);
+                        }
+                        else {
+                            ShowErrorMessage("Something went wrong....!!");
+                        }
+                    }
+                    else if (response.status == "error") {
+                        MapServerSideError(response);
+                    }
+                    $(".next").prop('disabled', false);
+                    $(".previous").prop('disabled', false);
+                },
+                error: function (err) {
+                    $(".next").prop('disabled', false);
+                    $(".previous").prop('disabled', false);
+                }
+            });
+
+        });
+        $(".previous").click(function () {
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("form").index(previous_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({ 'opacity': opacity });
+                },
+                duration: 500
+            });
+            setProgressBar(--current);
+            loadData(current);
+        });
+
+        function setProgressBar(curStep) {
+            var percent = parseFloat(100 / steps) * curStep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width", percent + "%")
+        }
+
+        $(".submit").click(function () {
+            return false;
+        })
+    });
+    function MapServerSideError(response) {
+        debugger;
+        $.each(response.errorData, function (index, row) {
+            var idName = "#" + row.Key;
+            var element = $(idName);
+            removeErrorClasses(element);
+            if (row.Key != null && row.Value != null) {
+                AddErrorClasses(element)
+                AddErrorMessage(element, row.Value);
+            }
+        })
+    }
+</script>
+
+
+
+
+
+
 
 

@@ -49,6 +49,14 @@
                                 <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
                                     <i class="fas fa-trash"></i>
                                 </button>
+                                @if (x.Status == true)
+                                {
+                                    <a href="~/MenuAccessPermission/@x.RoleId"
+                                       class="btn btn-primary btn-circle btn-sm" id="btnEdit"
+                                       title="Menu Access Permission">
+                                        <i class="fas fa-book"></i>
+                                    </a>
+                                }
                             </td>
                         </tr>
                     }
