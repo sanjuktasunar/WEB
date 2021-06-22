@@ -73,7 +73,7 @@ namespace web.Controllers.PublicSite
         [HttpGet]
         public async Task<JsonResult> GetMemberById(int id)
         {
-            var obj =await _memberService.GetMemberByIdAsync(id);
+            var obj =await _memberService.GetMemberDtoByIdAsync(id);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 

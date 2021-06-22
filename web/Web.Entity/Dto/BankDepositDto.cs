@@ -21,5 +21,8 @@ namespace Web.Entity.Dto
         public string VoucherImage { get; set; }
         public bool? IsApproved { get; set; }
         public DateTime? ApprovedDate { get; set; }
+
+        public string ReferenceReferalCode { get; set; }
+        public int? ReferceId { get; set; }
     }
 }

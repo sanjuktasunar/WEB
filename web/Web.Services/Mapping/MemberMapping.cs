@@ -169,5 +169,20 @@ namespace Web.Services.Mapping
             };
         }
 
+
+        public static BankDeposit ToEntity(this BankDepositDto dto)
+        {
+            if (dto is null)
+                return null;
+
+            return new BankDeposit
+            {
+                Id = dto.Id,
+                MemberId = dto.MemberId,
+                VoucherImage = dto.VoucherImage,
+                Amount = dto.Amount,
+                IsVoucherDeposit = true
+            };
+        }
     }
 }

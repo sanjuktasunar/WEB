@@ -20,7 +20,7 @@ namespace Web.Services.Services.Members
     public interface IMemberService
     {
         Task<IEnumerable<MemberDto>> GetMemberList();
-        Task<MemberDto> GetMemberByIdAsync(int id);
+        Task<MemberDto> GetMemberDtoByIdAsync(int id);
         Task<int> InsertUpdatePersonalInfo(MemberPersonalInfoDto dto);
         Task<int> AddContactInfo(MemberContactInfoDto dto);
         Task<int> AddModifyMemberAddress(MemberAddressDto dto);
@@ -28,7 +28,7 @@ namespace Web.Services.Services.Members
         Task<int> AddMemberDocument(MemberDocumentsDto dto);
         Task<int> AddBankDeposit(MemberBankDepositDto dto);
         Task<AddressDto> GetMemberAddressAsync(int memberId);
-        Task<BankDeposit> GetBankDepositAsync(int memberId);
+        Task<BankDepositDto> GetBankDepositAsync(int memberId);
         Task<UserDocumentDto> GetMemberDocumentAsync(int memberId);
         Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto);
         Task<List<KeyValuePairDto>> ValidateContactInfo(MemberContactInfoDto dto);
@@ -38,6 +38,7 @@ namespace Web.Services.Services.Members
         Task SendEmailOnFormCompletion(int id);
         Task<string> ApproveMember(int MemberId, int AccountHeadId);
         Task SendEmailOnApproval(int id);
+        Task<MemberDto> GetMemberByIdAsync(int id);
     }
 
     public class MemberService:IMemberService
@@ -68,9 +69,31 @@ namespace Web.Services.Services.Members
             _emailService = emailService;
             _usersRepository = usersRepository;
         }
+        public async Task<MemberDto> GetMemberDtoByIdAsync(int id)
+        {
+            var obj= await _memberRepository.GetMemberDtoById(id);
+            //if (obj.PermanentIsOutsideNepal == true)
+            //{
+            //    obj.PermanentFullAddress = obj.PermanentAddress + "," + obj.PermanentCountryName;
+            //}
+            //else
+            //{
+            //    obj.PermanentFullAddress = obj.PermanentMunicipalityName + "-" + obj.PermanentWardNumber + "," + obj.PermanentDistrictName;
+            //}
+            //if (obj.TemporaryIsOutsideNepal == true)
+            //{
+            //    obj.TemporaryFullAddress = obj.TemporaryAddress + "," + obj.TemporaryCountryName;
+            //}
+            //else
+            //{
+            //    obj.TemporaryFullAddress = obj.TemporaryMunicipalityName + "-" + obj.TemporaryWardNumber + "," + obj.TemporaryDistrictName;
+            //}
+            return obj;
+        }
+
         public async Task<MemberDto> GetMemberByIdAsync(int id)
         {
-            var obj= await _memberRepository.GetMemberById(id);
+            var obj = await _memberRepository.GetMemberViewById(id);
             if (obj.PermanentIsOutsideNepal == true)
             {
                 obj.PermanentFullAddress = obj.PermanentAddress + "," + obj.PermanentCountryName;
@@ -108,6 +131,7 @@ namespace Web.Services.Services.Members
                 if (obj.ApprovalStatus == ApprovalStatus.UnApproved)
                 {
                     data.IsNotFoundOrReject = false;
+                    data.ErrorMessage = "";
                     data.Member = obj;
                 }
                 else if (obj.ApprovalStatus == ApprovalStatus.Rejected)
@@ -139,7 +163,7 @@ namespace Web.Services.Services.Members
                 }
                 else
                 {
-                    var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                    var obj = await _memberRepository.GetMemberDtoById(dto.MemberId);
                     if (obj is null)
                         return 0;
                     var entity = dto.ToPersonalInfoEntity(obj.ToEntity());
@@ -162,7 +186,7 @@ namespace Web.Services.Services.Members
             try
             {
                 int memberId = dto.MemberId;
-                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                var obj = await _memberRepository.GetMemberDtoById(dto.MemberId);
                 if (obj is null)
                     return 0;
                 var entity = dto.ToContactInfoEntity(obj.ToEntity());
@@ -181,7 +205,7 @@ namespace Web.Services.Services.Members
             {
                 int memberId = dto.MemberId;
                 var entity = dto.ToMemberAddress();
-                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                var obj = await _memberRepository.GetMemberDtoById(dto.MemberId);
                 if (obj is null)
                     return 0;
                 var address =await _memberRepository.GetMemberAddressById(memberId);
@@ -205,7 +229,7 @@ namespace Web.Services.Services.Members
             try
             {
                 int memberId = dto.MemberId;
-                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                var obj = await _memberRepository.GetMemberDtoById(dto.MemberId);
                 if (obj is null)
                     return 0;
                 var entity = dto.ToOccupationEntity(obj.ToEntity());
@@ -225,7 +249,7 @@ namespace Web.Services.Services.Members
             try
             {
                 int memberId = dto.MemberId;
-                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                var obj = await _memberRepository.GetMemberDtoById(dto.MemberId);
                 var document = await _memberRepository.GetMemberDocumentsById(memberId);
                 if (obj is null)
                     return 0;
@@ -266,7 +290,7 @@ namespace Web.Services.Services.Members
                 }
                 
                 int memberId = dto.MemberId;
-                var obj = await _memberRepository.GetMemberById(dto.MemberId);
+                var obj = await _memberRepository.GetMemberDtoById(dto.MemberId);
                 if (obj is null)
                     return 0;
                 var bankDeposit = await _memberRepository.GetMemberBankDepositById(memberId);
@@ -302,7 +326,7 @@ namespace Web.Services.Services.Members
             var obj= await _memberRepository.GetMemberDocumentsById(memberId);
             return obj;
         }
-        public async Task<BankDeposit> GetBankDepositAsync(int memberId)
+        public async Task<BankDepositDto> GetBankDepositAsync(int memberId)
         {
             var obj = await _memberRepository.GetMemberBankDepositById(memberId);
             return obj;
@@ -396,7 +420,7 @@ namespace Web.Services.Services.Members
 
         public async Task<string> ApproveMember(int MemberId,int AccountHeadId)
         {
-            var obj = await GetMemberByIdAsync(MemberId);
+            var obj = await GetMemberDtoByIdAsync(MemberId);
             if (obj is null)
                 return null;
             var bankDeposit = await _memberRepository.GetMemberBankDepositById(MemberId);
@@ -433,7 +457,7 @@ namespace Web.Services.Services.Members
                         bankDeposit.AccountHeadId = AccountHeadId;
 
                         _memberRepository.UpdateWithTransaction(obj.ToEntity(), transaction, conn);
-                        _memberRepository.UpdateBankDeposit(bankDeposit, transaction, conn);
+                        _memberRepository.UpdateBankDeposit(bankDeposit.ToEntity(), transaction, conn);
 
 
                       
@@ -470,7 +494,7 @@ namespace Web.Services.Services.Members
 
         public async Task SendEmailOnApproval(int id)
         {
-            var dto = await GetMemberByIdAsync(id);
+            var dto = await GetMemberDtoByIdAsync(id);
             var template = await _emailTemplateService.GetMemberApproveTemplate();
             template = template.Replace("{{Name}}", dto.FullName);
             template = template.Replace("{{UserName}}", dto.MemberCode);
