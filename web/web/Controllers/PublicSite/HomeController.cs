@@ -58,5 +58,11 @@ namespace web.Controllers.PublicSite
         {
             return View();
         }
+
+        [Route("~/ActionPlan")]
+        public ActionResult ActionPlan()
+        {
+            return View();
+        }
     }
 }
