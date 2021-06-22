@@ -25,7 +25,17 @@ function setFieldValues(res) {
         $("#DateOfBirthBS").val(res.DateOfBirthBS);
         $("#MobileNumber").val(res.MobileNumber);
         $("#Email").val(res.Email);
-        $("#ReferalCode").val(res.ReferenceReferalCode);
+
+        //$("#OccupationId").val(res.OccupationId);
+        //if (res.OccupationId == 4) {
+        //    $("#OtherOccupationRemarks").val(res.OtherOccupationRemarks);
+        //    $("#occupationDiv").show();
+        //}
+        //else {
+        //    $("#OtherOccupationRemarks").val('');
+        //    $("#occupationDiv").hide();
+        //}
+        //$("#MemberFieldId").val(res.MemberFieldId);
     }
 }
 
@@ -72,12 +82,13 @@ function loadData(current) {
         loadOccupation();
     }
     if (current == 5) {
-        loadMemberDocument();
+
     }
     if (current == 6) {
         loadBankDeposit();
     }
     if (current == 7) {
+        
         //$(".progress").hide();
         SendEmail();
     }
@@ -505,6 +516,8 @@ function loadBankDeposit() {
         success: function (resp) {
             $("#Amount").val(resp.Amount);
             $("#VoucherImage").val(resp.VoucherImage);
+            $("#VoucherImage").val(resp.VoucherImage);
+            $("#ReferalCode").val(resp.ReferenceReferalCode);
 
             DisplayImageInDiv('VoucherImage', resp.VoucherImage)
         }

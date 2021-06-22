@@ -776,7 +776,6 @@
                     if (response.status == "success") {
                         //Add Class Active
                         if (response.successData > 0) {
-                            debugger;
                             $("#MemberId").val(response.successData)
                             $("#progressbar li").eq($("form").index(current_fs)).addClass("active");
                             //show the next fieldset
