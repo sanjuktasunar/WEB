@@ -21,7 +21,9 @@ namespace Web.Services.Services
             {
                 string senderEmail = "bishwokarmatrading73@gmail.com";
                 string password = "company2073";
-                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                //SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                SmtpClient client = new SmtpClient();
+                client.Host = "relay-hosting.secureserver.net";
                 client.EnableSsl = true;
                 client.Timeout = 100000;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;

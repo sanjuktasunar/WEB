@@ -126,7 +126,7 @@ namespace Web.Repositories.Repositories.Members
 
         public async Task<string> GetReferalCode()
         {
-            var members = (await _dapperManager.QueryAsync<Member>("SELECT TOP 1 * FROM Member ORDER BY ReferalCode DESC"));
+            var members = (await _dapperManager.QueryAsync<Member>("SELECT TOP 1 * FROM Member ORDER BY Id DESC"));
             DateTime currentDate = DateTime.Now;
             string referalCode = "";
             int i = 888;

@@ -207,14 +207,17 @@ namespace Web.Entity.Dto
         [Required]
         public int MemberId { get; set; }
 
-        [Required]
         public string MemberPhoto { get; set; }
 
-        [Required]
+        public string MemberPhotoString { get; set; }
+
         public string CitizenshipFront { get; set; }
 
-        [Required]
+        public string CitizenshipFrontImageString { get; set; }
+
         public string CitizenshipBack { get; set; }
+
+        public string CitizenshipBackImageString { get; set; }
     }
 
     public class MemberBankDepositDto
@@ -224,12 +227,13 @@ namespace Web.Entity.Dto
         [Required]
         public int MemberId { get; set; }
 
-        //public int? ReferenceId { get; set; }
 
         public string ReferalCode { get; set; }
 
-        [Required]
+        //[Required]
         public string VoucherImage { get; set; }
+
+        public string VoucherImageString { get; set; }
 
         [Required]
         public decimal Amount { get; set; }

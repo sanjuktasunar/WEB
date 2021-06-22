@@ -188,7 +188,7 @@
                     <td>
                         @if (!string.IsNullOrEmpty(Model.VoucherImage))
                         {
-                            <img src="@Model.VoucherImage" />
+                            <img src="~/ImageStorage/@Model.VoucherImage" />
                         }
                     </td>
                 </tr>
@@ -204,7 +204,8 @@
                     <td colspan="2">
                         @if (!string.IsNullOrEmpty(Model.Photo))
                         {
-                            <img src="@Model.Photo" />
+                            @*<img src="@Model.Photo" />*@
+                            <img src="~/ImageStorage/@Model.Photo" />
                         }
 
                     </td>
@@ -215,7 +216,8 @@
                     <td>
                         @if (!string.IsNullOrEmpty(Model.CitizenshipFront))
                         {
-                            <img src="@Model.CitizenshipFront" />
+                            @*<img src="@Model.CitizenshipFront" />*@
+                            <img src="~/ImageStorage/@Model.CitizenshipFront" />
                         }
                     </td>
                 </tr>
@@ -224,7 +226,8 @@
                     <td>
                         @if (!string.IsNullOrEmpty(Model.CitizenshipBack))
                         {
-                            <img src="@Model.CitizenshipBack" />
+                            @*<img src="@Model.CitizenshipBack" />*@
+                            <img src="~/ImageStorage/@Model.CitizenshipBack" />
                         }
                     </td>
                 </tr>
