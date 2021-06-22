@@ -71,16 +71,21 @@
                     <div id="msform">
                         <ul id="progressbar">
                             <li class="active" id="basic">
-                                <strong>Basic</strong>
+                                @*<strong>Basic</strong>*@
                             </li>
-                            <li id="contact"><strong>Contact</strong></li>
-                            <li id="address"><strong>Address</strong></li>
+                            <li id="contact">
+                                @*<strong>Contact</strong>*@
+                            </li>
+                            <li id="address">
+                                @*<strong>Address</strong>*@
+                            </li>
                             <li id="occupation">
-                                <strong>Occupation</strong>
+                                @*<strong>Occupation</strong>*@
                             </li>
-                            <li id="document"><strong>Documents</strong></li>
-                            <li id="payment"><strong>Payment</strong></li>
-                            <li id="confirm"><strong>Confirmation</strong></li>
+                            <li id="document">
+                            @*<strong>Documents</strong>*@</li>
+                            <li id="payment">@*<strong>Payment</strong>*@</li>
+                            <li id="confirm">@*<strong>Confirmation</strong>*@</li>
                         </ul>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated"
@@ -96,7 +101,7 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Basic Information:</h2>
+                                            <h2 class="fs-title">Basic</h2>
                                         </div>
                                         <div class="col-5">
                                             <h2 class="steps">Step 1 - 7</h2>
@@ -173,7 +178,7 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Contact Details:</h2>
+                                            <h2 class="fs-title">Contact</h2>
                                         </div>
                                         <div class="col-5">
                                             <h2 class="steps">Step 2 - 7</h2>
@@ -215,7 +220,7 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Address Details:</h2>
+                                            <h2 class="fs-title">Address</h2>
                                         </div>
                                         <div class="col-5">
                                             <h2 class="steps">Step 3 - 7</h2>
@@ -462,7 +467,7 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Occupation Details :</h2>
+                                            <h2 class="fs-title">Occupation</h2>
                                         </div>
                                         <div class="col-5">
                                             <h2 class="steps">Step 4 - 7</h2>
@@ -514,7 +519,7 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Upload Document: 
+                                            <h2 class="fs-title">Document
                                             </h2>
                                             <p>
                                                 (Note : all document must be in
@@ -587,7 +592,7 @@
                                 <div class="form-card">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="fs-title">Payment:</h2>
+                                            <h2 class="fs-title">Payment</h2>
                                         </div>
                                         <div class="col-5">
                                             <h2 class="steps">Step 6 - 7</h2>
@@ -621,7 +626,7 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 form-group">
                                             <label class="fieldlabels">
-                                                Referal Code(Optional):
+                                                Referal Code : 
                                             </label>
                                             <input type="text" name="ReferalCode"
                                                    class="form-control"
@@ -711,7 +716,7 @@
                     }
                 },
                 error: function (res) {
-                    alert(resp)
+
                 }
             })
         }
@@ -789,12 +794,16 @@
                                 },
                                 duration: 500
                             });
+                            //if (current == 1) {
+                            //    loadMemberDocument();
+                            //}
                             setProgressBar(++current);
                             loadData(current);
                         }
                         else {
                             ShowErrorMessage("Something went wrong....!!");
                         }
+                        
                     }
                     else if (response.status == "error") {
                         MapServerSideError(response);

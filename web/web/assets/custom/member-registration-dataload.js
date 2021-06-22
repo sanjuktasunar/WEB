@@ -82,6 +82,7 @@ function loadData(current) {
         loadOccupation();
     }
     if (current == 5) {
+        loadMemberDocument();
 
     }
     if (current == 6) {
