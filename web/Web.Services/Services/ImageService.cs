@@ -17,6 +17,7 @@ namespace Web.Services.Services
         byte[] ConvertToByte(HttpPostedFileBase file);
         string ConvertToString(HttpPostedFileBase file);
         byte[] ConvertToByteFromBaseString(string base64String);
+        bool SaveImage(string ImgStr, string ImgName);
     }
     public class ImageService:IImageService
     {
@@ -103,6 +104,33 @@ namespace Web.Services.Services
             MemoryStream ms = new MemoryStream(byteArrayIn);
             Image returnImage = Image.FromStream(ms);
             return returnImage;
+        }
+
+
+        public bool SaveImage(string ImgStr, string ImgName)
+        {
+            String path = System.Web.HttpContext.Current.Server.MapPath("~/ImageStorage"); //Path
+
+            //Check if directory exist
+            if (!System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+            }
+
+            //check if image exists or not
+            var oldfilePath = System.Web.HttpContext.Current.Server.MapPath("~/ImageStorage/" + ImgName);
+            if (File.Exists(oldfilePath))
+                File.Delete(oldfilePath);
+
+            string imageName = ImgName + ".jpg";
+            //set the image path
+            string imgPath = Path.Combine(path, imageName);
+
+            ImgStr = ImgStr.Replace("data:image;base64,", "").Trim();
+            byte[] imageBytes = Convert.FromBase64String(ImgStr);
+
+            File.WriteAllBytes(imgPath, imageBytes);
+            return true;
         }
 
     }

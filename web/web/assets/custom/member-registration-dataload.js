@@ -117,9 +117,9 @@ function loadMemberDocument() {
             $("#CitizenshipFront").val(resp.CitizenshipFront);
             $("#CitizenshipBack").val(resp.CitizenshipBack);
             $("#MemberPhoto").val(resp.Photo);
-            DisplayImageInDiv('CitizenshipFront', resp.CitizenshipFront)
-            DisplayImageInDiv('CitizenshipBack', resp.CitizenshipBack)
-            DisplayImageInDiv('MemberPhoto', resp.Photo)
+            DisplayImage('MemberPhotoString', resp.CitizenshipFront)
+            DisplayImage('CitizenshipFrontImageString', resp.CitizenshipBack)
+            DisplayImage('CitizenshipBackImageString', resp.Photo)
         },
         error: function (err) {
 
@@ -137,6 +137,19 @@ function DisplayImageInDiv(elementName, imageString) {
     }
 }
 
+
+function DisplayImage(elementName, imageName) {
+    var divId = "#Div" + elementName;
+    if (imageName.length > 0) {
+        $(divId).show();
+        $(divId).html('');
+        $(divId).append('<img src="ImageStorage/' + imageName + '" />')
+        //$(divId).append("<img src='/ImageStorage/'" + imageName + ">")
+        //$('<img>', {
+        //    src: imageString
+        //}).appendTo($(divId));
+    }
+}
 //data load for step1 starts
 function loadGenderList() {
     var gender = $("#GenderId").val();
@@ -520,7 +533,7 @@ function loadBankDeposit() {
             $("#VoucherImage").val(resp.VoucherImage);
             $("#ReferalCode").val(resp.ReferenceReferalCode);
 
-            DisplayImageInDiv('VoucherImage', resp.VoucherImage)
+            DisplayImage('VoucherImageString', resp.VoucherImage)
         }
     })
 }

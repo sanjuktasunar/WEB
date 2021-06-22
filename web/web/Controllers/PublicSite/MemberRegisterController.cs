@@ -118,6 +118,12 @@ namespace web.Controllers.PublicSite
                 var errorResult = new { status = "error", errorData = errors };
                 return Json(errorResult, JsonRequestBehavior.AllowGet);
             }
+            var documentValidation = _memberService.ValidateDocuments(dto);
+            if (documentValidation.Count() > 0)
+            {
+                var errorResult = new { status = "error", errorData = documentValidation };
+                return Json(errorResult, JsonRequestBehavior.AllowGet);
+            }
 
             var data = await _memberService.AddMemberDocument(dto);
             Session["MemberId"] = data;

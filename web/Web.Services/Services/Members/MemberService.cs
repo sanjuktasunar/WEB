@@ -39,6 +39,7 @@ namespace Web.Services.Services.Members
         Task<string> ApproveMember(int MemberId, int AccountHeadId);
         Task SendEmailOnApproval(int id);
         Task<MemberDto> GetMemberByIdAsync(int id);
+        List<KeyValuePairDto> ValidateDocuments(MemberDocumentsDto dto);
     }
 
     public class MemberService:IMemberService
@@ -254,6 +255,29 @@ namespace Web.Services.Services.Members
                 if (obj is null)
                     return 0;
                
+                string extension = ".jpg";
+
+                if (dto.CitizenshipBackImageString != null)
+                {
+                    var citizenFront = _imageService.SaveImage(dto.CitizenshipBackImageString, "CF-" + dto.MemberId);
+
+                    if (citizenFront)
+                        dto.CitizenshipFront = "CF-" + dto.MemberId + extension;
+                }
+
+                if (dto.CitizenshipBackImageString != null)
+                {
+                    var citizenBack = _imageService.SaveImage(dto.CitizenshipBackImageString, "CB-" + dto.MemberId);
+                    if(citizenBack)
+                        dto.CitizenshipBack = "CB-" + dto.MemberId + extension;
+                }
+                if (dto.MemberPhotoString != null)
+                {
+                    var photo = _imageService.SaveImage(dto.MemberPhotoString, "MP-" + dto.MemberId);
+                    if (photo)
+                        dto.MemberPhoto = "MP-" + dto.MemberId + extension;
+                }
+               
                 var entity = dto.ToDocumentEntity();
                 if (document is null)
                     _memberRepository.InsertMemberDocument(entity,transaction,conn);
@@ -295,6 +319,14 @@ namespace Web.Services.Services.Members
                     return 0;
                 var bankDeposit = await _memberRepository.GetMemberBankDepositById(memberId);
                 var entity = dto.ToBankDepositEntity();
+
+                string extension = ".jpg";
+                if (dto.VoucherImageString != null)
+                {
+                    var voucher = _imageService.SaveImage(dto.VoucherImageString, "VI-" + dto.MemberId);
+                    if (voucher)
+                        entity.VoucherImage = "VI-" + dto.MemberId + extension;
+                }
                 if (bankDeposit is null)
                     _memberRepository.InsertBankDeposit(entity, transaction, conn);
                 else
@@ -405,10 +437,55 @@ namespace Web.Services.Services.Members
                     obj.Add(data);
                 }
             }
+            if (string.IsNullOrEmpty(dto.VoucherImage) && string.IsNullOrEmpty(dto.VoucherImageString))
+            {
+                var memberPhoto = new KeyValuePairDto
+                {
+                    Key = "VoucherImage",
+                    Value = "Please upload Payment Proof",
+                };
+                obj.Add(memberPhoto);
+            }
+
             return obj;
         }
 
-        
+        public List<KeyValuePairDto> ValidateDocuments(MemberDocumentsDto dto)
+        {
+            var obj = new List<KeyValuePairDto>();
+            if(string.IsNullOrEmpty(dto.MemberPhoto) && string.IsNullOrEmpty(dto.MemberPhotoString))
+            {
+                var memberPhoto = new KeyValuePairDto
+                {
+                    Key= "MemberImage",
+                    Value="Please Select Photo",
+                };
+                obj.Add(memberPhoto);
+            }
+
+            if (string.IsNullOrEmpty(dto.CitizenshipFront) && string.IsNullOrEmpty(dto.CitizenshipFrontImageString))
+            {
+                var citizenfront = new KeyValuePairDto
+                {
+                    Key = "CitizenshipFrontImage",
+                    Value = "Please Select Citizenship Front",
+                };
+                obj.Add(citizenfront);
+            }
+
+            if (string.IsNullOrEmpty(dto.CitizenshipBack) && string.IsNullOrEmpty(dto.CitizenshipBackImageString))
+            {
+                var citizenback = new KeyValuePairDto
+                {
+                    Key = "CitizenshipBackImage",
+                    Value = "Please Select Citizenship Back",
+                };
+                obj.Add(citizenback);
+            }
+            return obj;
+        }
+
+
         public async Task SendEmailOnFormCompletion(int id)
         {
             var dto = await GetMemberByIdAsync(id);
