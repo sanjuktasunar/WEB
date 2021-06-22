@@ -119,7 +119,8 @@ function MobileNumberValidation() {
 }
 function EmailValidation() {
     var valid = ElementValidation('Email', 'required', 'maxlength', 150)
-    var testemail = EmailFormat($('#Email').val());
+    //var testemail = EmailFormat($('#Email').val());
+    var testemail = true;
     if (!valid || !testemail)
         return false;
     return true;
