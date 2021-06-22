@@ -305,7 +305,8 @@ function MemberFieldIdValidation() {
 //step5 starts
 function MemberImageValidation() {
     var memberPhoto = $("#MemberPhoto").val();
-    if (memberPhoto.length == 0) {
+    var MemberPhotoString = $("#MemberPhotoString").val();
+    if (memberPhoto.length == 0 && MemberPhotoString.length==0) {
         var valid = ElementValidation('MemberImage', 'required');
         return valid;
     }
@@ -316,8 +317,9 @@ function MemberImageValidation() {
 }
 function CitizenshipFrontImageValidation() {
     var citizenshipFront = $("#CitizenshipFront").val();
-    if (citizenshipFront.length == 0) {
-        var valid = ElementValidation('CitizenshipFrontImage', 'required');
+    var CitizenshipFrontImageString = $("#CitizenshipFrontImageString").val();
+    if (citizenshipFront.length == 0 && CitizenshipFrontImageString.length==0) {
+        var valid = ElementValidation('CitizenshipFront', 'required');
         return valid;
     }
     var valid = FileHandling('CitizenshipFrontImage');
@@ -327,7 +329,8 @@ function CitizenshipFrontImageValidation() {
 }
 function CitizenshipBackImageValidation() {
     var citizenshipBack = $("#CitizenshipBack").val();
-    if (citizenshipBack.length == 0) {
+    var CitizenshipBackImageString = $("#CitizenshipBackImageString").val();
+    if (citizenshipBack.length == 0 && CitizenshipBackImageString.length==0) {
         var valid = ElementValidation('CitizenshipBackImage', 'required');
         return valid;
     }
@@ -345,7 +348,8 @@ function AmountValidation() {
 }
 function VoucherImageFileValidation() {
     var voucherImageFile = $("#VoucherImage").val();
-    if (voucherImageFile.length == 0) {
+    var VoucherImageString = $("#VoucherImageString").val();
+    if (voucherImageFile.length == 0 && VoucherImageString.length==0) {
         var valid = ElementValidation('VoucherImageFile', 'required');
         return valid;
     }
