@@ -21,10 +21,10 @@ namespace Web.Repositories.Repositories.Members
         int InsertMemberDetails(MemberDetails entity, IDbTransaction transaction, SqlConnection con);
         Task<string> GetMemberCode();
         Task<string> GetReferalCode();
-        Task<MemberDto> GetMemberById(int memberId);
+        Task<MemberDto> GetMemberDtoById(int memberId);
         Task<AddressDto> GetMemberAddressById(int memberId);
         Task<UserDocumentDto> GetMemberDocumentsById(int memberId);
-        Task<BankDeposit> GetMemberBankDepositById(int memberId);
+        Task<BankDepositDto> GetMemberBankDepositById(int memberId);
         int UpdateWithTransaction(Member entity, IDbTransaction transaction = null, SqlConnection con = null);
         int Update(Member entity);
         int InsertAddress(Address entity);
@@ -37,6 +37,7 @@ namespace Web.Repositories.Repositories.Members
         Task<bool> CheckEmail(int MemberId, string Email);
         Task<MemberDto> GetMemberByAttr(string memberAttr);
         Task<MemberDto> GetMemberByReferalCode(string ReferalCode);
+        Task<MemberDto> GetMemberViewById(int memberId);
     }
 
     public class MemberRepository:IMemberRepository
@@ -139,13 +140,24 @@ namespace Web.Repositories.Repositories.Members
             return referalCode;
         }
 
-        public async Task<MemberDto> GetMemberById(int memberId)
+        public async Task<MemberDto> GetMemberViewById(int memberId)
         {
             var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE MemberId=@id", new { id = memberId });
             if (obj != null)
             {
                 obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
                 obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
+            }
+            return obj;
+        }
+
+        public async Task<MemberDto> GetMemberDtoById(int memberId)
+        {
+            var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM Member WHERE MemberId=@id", new { id = memberId });
+            if (obj != null)
+            {
+                obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
+                //obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
             }
             return obj;
         }
@@ -163,11 +175,11 @@ namespace Web.Repositories.Repositories.Members
 
         public async Task<MemberDto> GetMemberByAttr(string memberAttr)
         {
-            var obj=await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE (LOWER(CitizenshipNumber)=@attr OR LOWER(MobileNumber)=@attr OR LOWER(Email)=@attr)", new { attr = memberAttr });
+            var obj=await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM Member WHERE (LOWER(CitizenshipNumber)=@attr OR LOWER(MobileNumber)=@attr OR LOWER(Email)=@attr)", new { attr = memberAttr });
             if (obj != null)
             {
                 obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
-                obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
+                //obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
             }
             return obj;
         }
@@ -182,9 +194,14 @@ namespace Web.Repositories.Repositories.Members
             return await _dapperManager.QuerySingleAsync<UserDocumentDto>("SELECT * FROM [dbo].[UserDocuments] WHERE MemberId=@id", new { id = memberId });
         }
 
-        public async Task<BankDeposit> GetMemberBankDepositById(int memberId)
+        public async Task<BankDepositDto> GetMemberBankDepositById(int memberId)
         {
-            return await _dapperManager.QuerySingleAsync<BankDeposit>("SELECT * FROM [dbo].[BankDeposit] WHERE MemberId=@id", new { id = memberId });
+            var obj = await _dapperManager.QuerySingleAsync<BankDepositDto>("SELECT * FROM [dbo].[BankDeposit] WHERE MemberId=@id", new { id = memberId });
+
+            var member = await _dapperManager.QuerySingleAsync<MemberDto>("select a.MemberId,a.ReferenceId,b.ReferalCode as ReferenceReferalCode from Member as a left join Member as b on b.MemberId=a.ReferenceId where a.MemberId=@memberId", new { memberId = memberId });
+            if(member.ReferenceId!=null)
+                obj.ReferenceReferalCode = member.ReferenceReferalCode;
+            return obj;
         }
 
         public async Task<bool> CheckCitizenshipNumber(int MemberId, string CitizenshipNumber)
@@ -213,7 +230,7 @@ namespace Web.Repositories.Repositories.Members
         public async Task<MemberDto> GetMemberByReferalCode(string ReferalCode)
         {
             ReferalCode = ReferalCode.ToLower();
-            var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM MemberView WHERE LOWER(ReferalCode)=@ReferalCode AND ApprovalStatus=2 AND IsActive=1", new { ReferalCode = ReferalCode });
+            var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM Member WHERE LOWER(ReferalCode)=@ReferalCode AND ApprovalStatus=2 AND IsActive=1", new { ReferalCode = ReferalCode });
             if (obj != null)
             {
                 obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
