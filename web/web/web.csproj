@@ -1947,6 +1947,8 @@
     <Content Include="assets\vendor\jquery\jquery.min.js" />
     <Content Include="assets\vendor\jquery\jquery.slim.js" />
     <Content Include="assets\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="assets\css\select2\select2.css" />
+    <Content Include="assets\css\select2\select2.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="front-end\css\bootstrap.css" />
     <Content Include="front-end\css\bootstrap.min.css" />
@@ -2052,6 +2054,8 @@
     <Content Include="Query\add_table_purchase_records.sql" />
     <Content Include="Query\107_create_Member_Registration.sql" />
     <Content Include="Query\107_insert_value_member_registration.sql" />
+    <Content Include="assets\custom\select2\select2.js" />
+    <Content Include="assets\custom\select2\select2.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

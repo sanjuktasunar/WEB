@@ -40,6 +40,7 @@ namespace Web.Services.Services.Members
         Task SendEmailOnApproval(int id);
         Task<MemberDto> GetMemberByIdAsync(int id);
         List<KeyValuePairDto> ValidateDocuments(MemberDocumentsDto dto);
+        Task<IEnumerable<DropdownList>> GetActiveMemberDropdown();
     }
 
     public class MemberService:IMemberService
@@ -111,6 +112,12 @@ namespace Web.Services.Services.Members
             {
                 obj.TemporaryFullAddress = obj.TemporaryMunicipalityName + "-" + obj.TemporaryWardNumber + "," + obj.TemporaryDistrictName;
             }
+            return obj;
+        }
+
+        public async Task<IEnumerable<DropdownList>> GetActiveMemberDropdown()
+        {
+            var obj = (await _memberRepository.GetActiveMemberList()).Select(a=>a.ToMemberDto());
             return obj;
         }
 
@@ -373,7 +380,7 @@ namespace Web.Services.Services.Members
         public async Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto)
         {
             var obj = new List<KeyValuePairDto>();
-            var IsCitizenship = await _memberRepository.CheckCitizenshipNumber(dto.MemberId, dto.CitizenshipNumber);
+            var IsCitizenship = await _memberRepository.CheckCitizenshipNumber(dto.MemberId, dto.CitizenshipNumber.TrimCitizenshipNumber());
             if (IsCitizenship)
             {
                 var data = new KeyValuePairDto
