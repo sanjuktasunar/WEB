@@ -49,6 +49,7 @@ function FileHandling(elementId) {
     if ($el.attr('type') == 'file' && val.length > 0) {
         var extension = val.substr((val.lastIndexOf('.') + 1));
         if (extension.toLowerCase() != 'jpg' && extension.toLowerCase() != 'png' && extension.toLowerCase() != 'jpeg') {
+            $el.val('');
             AddErrorClasses(element)
             AddErrorMessage(element,
                 $el.attr('name') + ' must be type of jpg,png or jpeg ')

@@ -30,6 +30,18 @@ namespace web.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ConvertFileToStringWithOutCompress()
+        {
+            string result = string.Empty;
+            var file = Request.Files[0];
+            if (file != null)
+            {
+                result = _imageService.ConvertToStringWithOutCompress(file);
+                result = "data:image;base64," + result;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public async Task<JsonResult> GetOutsideCountry()
         {
