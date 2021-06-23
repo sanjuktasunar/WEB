@@ -18,6 +18,7 @@ namespace Web.Services.Services
         string ConvertToString(HttpPostedFileBase file);
         byte[] ConvertToByteFromBaseString(string base64String);
         bool SaveImage(string ImgStr, string ImgName);
+        string ConvertToStringWithOutCompress(HttpPostedFileBase file);
     }
     public class ImageService:IImageService
     {
@@ -67,6 +68,11 @@ namespace Web.Services.Services
             return null;
         }
 
+        public string ConvertToStringWithOutCompress(HttpPostedFileBase file)
+        {
+            var Imgstring = Convert.ToBase64String(ConvertToByte(file));
+            return Imgstring;
+        }
         public byte[] ConvertToByteFromBaseString(string base64String)
         {
             string imageString = base64String.Replace("data:image;base64,", " ").Trim();

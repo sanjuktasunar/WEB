@@ -305,7 +305,7 @@ namespace Web.Services.Services.Members
                 int? ReferenceId = null;
                 if (dto.ReferalCode != null)
                 {
-                    var referalMember = await GeMemberByReferenceCode(dto.ReferalCode);
+                    var referalMember = await GeMemberByReferenceCode(dto.ReferalCode?.Trim());
                     if (referalMember == null)
                     {
                         throw new Exception("Referal Code is not valid");
@@ -426,7 +426,7 @@ namespace Web.Services.Services.Members
             var obj = new List<KeyValuePairDto>();
             if (dto.ReferalCode != null)
             {
-                var member = await _memberRepository.GetMemberByReferalCode(dto.ReferalCode);
+                var member = await _memberRepository.GetMemberByReferalCode(dto.ReferalCode?.Trim());
                 if (member == null)
                 {
                     var data = new KeyValuePairDto

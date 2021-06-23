@@ -51,14 +51,35 @@ p, a {font-weight: 400;}
 #main_nav .nav-item .nav-link:hover {color: #fff;}
 /* Home */
 #index_banner {
-  background-image: url('./../img/banner-bg-01.jpg');
+  /*background-image: url('./../img/banner-bg-01.jpg');*/
   background-position: center center; background-size: cover;
   height: 100%;
   min-height: 60vh;
   width: 100%;
 }
+#item1 {
+	background-image: url('./../Images/crowd.jpg');
+	background-size: cover;
+	height: 100%;
+	min-height: 60vh;
+	width: 100%;
+}
+
+#item2 {
+	background-image: url('./../Images/journey.jpg');
+	background-size: cover;
+	height: 100%;
+	min-height: 60vh;
+	width: 100%;
+}
+
+#item3 {
+	background-image: url('./../Images/handshake.jpg');
+	background-size: cover;
+	height: 100%;
+}
 #index_banner .carousel-item {
-  min-height: 60vh;
+	min-height: 60vh;
 }
 #index_banner .carousel-control-prev i,
 #index_banner .carousel-control-next i {
