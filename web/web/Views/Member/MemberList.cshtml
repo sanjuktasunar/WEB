@@ -8,6 +8,47 @@
 }
 
 <h6 class="h6 mb-2 text-gray-800">Member List</h6>
+<div class="row">
+    <div class="col-md-12">
+        <form id="form_validation">
+            <fieldset>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <label>Approval Status</label>
+                            <select class="form-control" id="ApprovalStatus">
+                                <option value="1">Approval Pending</option>
+                                <option value="2">Approved</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4" id="FormStatusDiv">
+                        <div class="form-group">
+                            <label>Form Status</label>
+                            <select class="form-control" id="FormStatus">
+                                <option value="0">Select Status</option>
+                                <option value="1">InComplete</option>
+                                <option value="2">Complete</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <label>Referred By</label>
+                            <select class="form-control" id="select2">
+                                <option value="">Referred By</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div>
+                <button type="submit" id="btnSave" class="btn btn-primary">Search</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Clear</button>
+            </div>
+        </form>
+    </div>
+</div><br />
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -141,9 +182,21 @@
 @Scripts.Render("~/web/back-end/datatable")
 @Scripts.Render("~/web/back-end/message")
 <script src="~/assets/custom-plugin/jquery.validate.min.js"></script>
+<script src="~/assets/custom/select2/select2.min.js"></script>
 
 <script>
     $('#dataTable').DataTable();
+    $('#select2').select2();
+    $("#ApprovalStatus").change(function () {
+        var status = $("#ApprovalStatus").val();
+        if (parseInt(status) == 2) {
+            $("#FormStatus").prop("selectedIndex", 0);;
+            $("#FormStatusDiv").hide();
+        }
+        else {
+            $("#FormStatusDiv").show();
+        }
+    })
 </script>
 
 <script>
@@ -165,6 +218,7 @@
                 }
             })
         });
+        LoadActiveMembers();
     })
 
     var $checkoutForm = $('#form_validation').validate({
@@ -233,6 +287,24 @@
             data: { MemberId: id },
             success: function (resp) {
 
+            },
+            error: function (resp) {
+
+            }
+        })
+    }
+
+    function LoadActiveMembers() {
+        $('#select2').empty();
+        $('#select2').append('<option value="">Referred By</option>');
+        $.ajax({
+            type: 'get',
+            url: "/Member/GetActiveMember",
+            success: function (resp) {
+                console.log(resp);
+                $.each(resp, function (index, row) {
+                    $('#select2').append('<option value=' + row.Id + '>' + row.Value + '</option>')
+                })
             },
             error: function (resp) {
 

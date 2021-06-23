@@ -72,17 +72,63 @@ namespace Web.Services.Mapping
             entity.LastName = dto.LastName;
             entity.GenderId = dto.GenderId;
             entity.DateOfBirthBS = dto.DateOfBirthBS;
-            entity.CitizenshipNumber = dto.CitizenshipNumber;
+            entity.CitizenshipNumber = dto.CitizenshipNumber.TrimCitizenshipNumber();
             return entity;
         }
 
+        public static string TrimCitizenshipNumber(this string CitizenshipNumber)
+        {
+            string trimTag = "";
+            string checkString = CitizenshipNumber;
+            List<string> splitStr = new List<string>();
+            if (CitizenshipNumber.Contains('/'))
+            {
+                checkString = string.Empty;
+                trimTag = "/";
+                splitStr = CitizenshipNumber.Split('/').ToList();
+                int i = 0;
+                foreach (var s in splitStr)
+                {
+                    if (i == 0)
+                        checkString = s.Trim();
+                    else
+                        checkString += trimTag + s.Trim();
+                    i++;
+                }
+                if (splitStr.Count() > 0)
+                {
+                    CitizenshipNumber = checkString;
+                }
+            }
+            if (CitizenshipNumber.Contains('-'))
+            {
+                trimTag = "-";
+                splitStr = new List<string>();
+                checkString = string.Empty;
+                splitStr = CitizenshipNumber.Split('-').ToList();
+                int i = 0;
+                foreach (var s in splitStr)
+                {
+                    if (i == 0)
+                        checkString += s.Trim();
+                    else
+                        checkString += trimTag + s.Trim();
+                    i++;
+                }
+                if (splitStr.Count() > 0)
+                {
+                    CitizenshipNumber = checkString;
+                }
+            }
+            return CitizenshipNumber;
+        }
         public static Member ToContactInfoEntity(this MemberContactInfoDto dto,Member entity)
         {
             if (dto is null)
                 return null;
 
-            entity.MobileNumber = dto.MobileNumber;
-            entity.Email = dto.Email;
+            entity.MobileNumber = dto.MobileNumber?.Trim();
+            entity.Email = dto.Email?.Trim();
             return entity;
         }
 
@@ -168,7 +214,6 @@ namespace Web.Services.Mapping
                 IsVoucherDeposit=true
             };
         }
-
 
         public static BankDeposit ToEntity(this BankDepositDto dto)
         {
