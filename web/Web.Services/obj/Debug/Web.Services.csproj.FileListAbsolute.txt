@@ -71,3 +71,13 @@ D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\PagedList.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\PagedList.Mvc.dll
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\PagedList.Mvc.xml
 D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\NDC.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\WhatsAppApi.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Microsoft.IdentityModel.Logging.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Newtonsoft.Json.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Twilio.dll
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Newtonsoft.Json.xml
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+D:\A-BKPAPP\WEB\web\Web.Services\bin\Debug\Twilio.xml

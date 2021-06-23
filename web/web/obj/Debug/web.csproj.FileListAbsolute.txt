@@ -146,3 +146,10 @@ D:\A-BKPAPP\WEB\web\web\bin\PagedList.Mvc.dll
 D:\A-BKPAPP\WEB\web\web\bin\PagedList.xml
 D:\A-BKPAPP\WEB\web\web\bin\PagedList.Mvc.xml
 D:\A-BKPAPP\WEB\web\web\bin\NDC.dll
+D:\A-BKPAPP\WEB\web\web\bin\Twilio.dll
+D:\A-BKPAPP\WEB\web\web\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\A-BKPAPP\WEB\web\web\bin\Microsoft.IdentityModel.Tokens.dll
+D:\A-BKPAPP\WEB\web\web\bin\Microsoft.IdentityModel.Logging.dll
+D:\A-BKPAPP\WEB\web\web\bin\Twilio.xml
+D:\A-BKPAPP\WEB\web\web\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\A-BKPAPP\WEB\web\web\bin\Microsoft.IdentityModel.Tokens.xml

@@ -10,6 +10,7 @@ using Web.Entity.Model;
 using Web.Services.Mapping;
 using Web.Services.Services;
 using Web.Services.Services.Members;
+using Web.Services.Services.Messages;
 
 namespace web.Controllers.PublicSite
 {
@@ -17,14 +18,17 @@ namespace web.Controllers.PublicSite
     {
         private readonly IAdministrationService _administrationService;
         private readonly IMemberService _memberService;
-        public MemberRegisterController(IAdministrationService administrationService, IMemberService memberService)
+        private readonly IMessageService _messageService;
+        public MemberRegisterController(IAdministrationService administrationService, IMemberService memberService,IMessageService messageService)
         {
+            _messageService = messageService;
             _administrationService = administrationService;
             _memberService = memberService;
         }
         [Route("~/MemberRegistration")]
         public ActionResult MemberRegistration()
         {
+            _messageService.SendMessageOnWhatsApp("+9779821577495", "hello sanju");
             var obj = new MemberDto();
             return View(obj);
         }

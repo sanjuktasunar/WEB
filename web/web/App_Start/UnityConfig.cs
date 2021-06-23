@@ -17,6 +17,7 @@ using Web.Services.Services.Account;
 using Web.Services.Services.Administration;
 using Web.Services.Services.Customer;
 using Web.Services.Services.Members;
+using Web.Services.Services.Messages;
 
 namespace web
 {
@@ -89,6 +90,7 @@ namespace web
             container.RegisterType<IMemberService, MemberService>();
             container.RegisterType<IEmailService, EmailService>();
             container.RegisterType<IEmailTemplateService, EmailTemplateService>();
+            container.RegisterType<IMessageService, MessageService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
