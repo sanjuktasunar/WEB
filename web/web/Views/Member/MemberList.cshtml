@@ -3,8 +3,8 @@
     ViewBag.Title = "MemberList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{ 
-    Web.Entity.Dto.MenuAccessPermissionDto menu= ViewBag.Menus;
+@{
+    Web.Entity.Dto.MenuAccessPermissionDto menu = ViewBag.Menus;
 }
 
 <h6 class="h6 mb-2 text-gray-800">Member List</h6>
@@ -48,7 +48,8 @@
             </div>
         </form>
     </div>
-</div><br />
+</div>
+<br />
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -100,7 +101,7 @@
                             <td>@i</td>
                             <td hidden="hidden">@x.MemberId</td>
                             <td>@FullName</td>
-                           
+
                             <td>@x.FormStatus</td>
                             <td>@x.ApprovalStatus</td>
                             <td>@ReferenceFullName</td>
@@ -115,15 +116,22 @@
                                 }
                             </td>
                             <td>
-                                @if (x.FormStatus == 
-                                    Web.Entity.Infrastructure.FormStatus.Complete && 
-                                        menu.AdminAccess==true && x.ApprovalStatus==
+                                @if (x.FormStatus ==
+                                    Web.Entity.Infrastructure.FormStatus.Complete &&
+                                        menu.AdminAccess == true && x.ApprovalStatus ==
                                         Web.Entity.Infrastructure.ApprovalStatus.UnApproved)
                                 {
                                     <button class="btn btn-success btn-circle btn-sm"
                                             id="btnApprove">
                                         <i class="fas fa-check"></i>
                                     </button>
+                                }
+                                @if (x.IsActive == true)
+                                {
+                                    <a class="btn btn-secondary btn-circle btn-sm" href="#" 
+                                       onclick="SendEmail('@x.MemberId')" title="Send Email">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
                                 }
                                 <a href="~/MemberDetails/@x.MemberId"
                                    class="btn btn-primary btn-circle btn-sm"
@@ -185,6 +193,15 @@
 <script src="~/assets/custom/select2/select2.min.js"></script>
 
 <script>
+    function SendEmail(id) {
+        $.get('/Member/GetEmailCredentials?memberId=' + id, function (resp) {
+            window.location.href = "mailto:"+resp.ToEmail+"?body="+resp.Body+"&subject="+resp.Subject;
+        })
+       
+    }
+</script>
+
+<script>
     $('#dataTable').DataTable();
     $('#select2').select2();
     $("#ApprovalStatus").change(function () {
@@ -237,13 +254,13 @@
             $.ajax({
                 type: "POST",
                 url: '/Member/ApproveMember',
-                data: { MemberId: MemberId, AccountHeadId: AccountHeadId},
+                data: { MemberId: MemberId, AccountHeadId: AccountHeadId },
                 success: function (message) {
                     ShowMessage(message, "/MemberList")
                     var str = message.split('+');
-                    if (parseInt(str[1]) > 0) {
-                        SendMemberApproveEmail(MemberId);
-                    }
+                    //if (parseInt(str[1]) > 0) {
+                    //    //SendMemberApproveEmail(MemberId);
+                    //}
                 },
                 error: function (message) {
                     ShowMessage(message, "/MemberList")
