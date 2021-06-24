@@ -38,7 +38,6 @@ D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csproj.CoreCompileInputs.cac
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.dll
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.pdb
-D:\A-BKPAPP\WEB\web\Web.Entity\obj\Debug\Web.Entity.csprojAssemblyReference.cache
 D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\Microsoft.Web.Infrastructure.dll
 D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\System.Web.Helpers.dll
 D:\A-BKPAPP\WEB\web\Web.Entity\bin\Debug\System.Web.Mvc.dll
