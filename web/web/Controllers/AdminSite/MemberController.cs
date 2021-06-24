@@ -57,5 +57,21 @@ namespace web.Controllers.AdminSite
             await _memberService.SendEmailOnApproval(MemberId);
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetActiveMember()
+        {
+            var obj = await _memberService.GetActiveMemberDropdown();
+            return Json(obj,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetEmailCredentials(int memberId)
+        {
+            var obj = await _memberService.GetMailCredentialsAsync(memberId);
+
+            //var result = new { Body = new HtmlString(obj.Body), Subject = obj.Subject, ToEmail = obj.ToEmail };
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
     }
 }

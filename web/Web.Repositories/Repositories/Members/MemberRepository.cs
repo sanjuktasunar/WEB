@@ -38,6 +38,7 @@ namespace Web.Repositories.Repositories.Members
         Task<MemberDto> GetMemberByAttr(string memberAttr);
         Task<MemberDto> GetMemberByReferalCode(string ReferalCode);
         Task<MemberDto> GetMemberViewById(int memberId);
+        Task<IEnumerable<MemberDto>> GetActiveMemberList();
     }
 
     public class MemberRepository:IMemberRepository
@@ -164,12 +165,18 @@ namespace Web.Repositories.Repositories.Members
 
         public async Task<IEnumerable<MemberDto>> GetMemberList()
         {
-            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM MemberView");
+            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM Member");
             //if (obj != null)
             //{
             //    obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
             //    obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
             //}
+            return obj;
+        }
+
+        public async Task<IEnumerable<MemberDto>> GetActiveMemberList()
+        {
+            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM Member WHERE UserId IS NOT NULL AND IsActive=1");
             return obj;
         }
 
@@ -206,7 +213,7 @@ namespace Web.Repositories.Repositories.Members
 
         public async Task<bool> CheckCitizenshipNumber(int MemberId, string CitizenshipNumber)
         {
-            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT TOP 1 * FROM Member WHERE MemberId!=@MemberId AND CitizenshipNumber=@CitizenshipNumber", new { MemberId, CitizenshipNumber });
+            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT TOP 1 * FROM Member WHERE MemberId!=@MemberId AND TRIM(CitizenshipNumber)=@CitizenshipNumber", new { MemberId, CitizenshipNumber });
             if (obj.Count() > 0)
                 return true;
             return false;

@@ -97,5 +97,16 @@ namespace Web.Services.Mapping
                 Value = dto.AccountHeadName + '('+dto.AccountNumber + ')',
             };
         }
+
+        public static DropdownList ToMemberDto(this MemberDto dto)
+        {
+            if (dto is null)
+                return null;
+            return new DropdownList
+            {
+                Id = dto.MemberId,
+                Value = dto.FirstName + ' ' + (!string.IsNullOrEmpty(dto.MiddleName) ? dto.MiddleName + ' ' : string.Empty + dto.LastName),
+            };
+        }
     }
 }

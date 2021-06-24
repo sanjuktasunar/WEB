@@ -157,7 +157,7 @@
                 </tr>
                 <tr>
                     <th>Occupation : </th>
-                    @if (Model.OcuupationName.ToLower() == "other")
+                    @if (Model.OcuupationName?.ToLower() == "other")
                     {
                         <td>@Model.OtherOccupationRemarks</td>
                     }

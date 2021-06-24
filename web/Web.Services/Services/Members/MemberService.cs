@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using Web.Entity.Dto;
 using Web.Entity.Entity;
 using Web.Entity.Infrastructure;
@@ -40,6 +41,8 @@ namespace Web.Services.Services.Members
         Task SendEmailOnApproval(int id);
         Task<MemberDto> GetMemberByIdAsync(int id);
         List<KeyValuePairDto> ValidateDocuments(MemberDocumentsDto dto);
+        Task<IEnumerable<DropdownList>> GetActiveMemberDropdown();
+        Task<EmailDto> GetMailCredentialsAsync(int id);
     }
 
     public class MemberService:IMemberService
@@ -111,6 +114,12 @@ namespace Web.Services.Services.Members
             {
                 obj.TemporaryFullAddress = obj.TemporaryMunicipalityName + "-" + obj.TemporaryWardNumber + "," + obj.TemporaryDistrictName;
             }
+            return obj;
+        }
+
+        public async Task<IEnumerable<DropdownList>> GetActiveMemberDropdown()
+        {
+            var obj = (await _memberRepository.GetActiveMemberList()).Select(a=>a.ToMemberDto());
             return obj;
         }
 
@@ -373,7 +382,7 @@ namespace Web.Services.Services.Members
         public async Task<List<KeyValuePairDto>> ValidatePersonalInfo(MemberPersonalInfoDto dto)
         {
             var obj = new List<KeyValuePairDto>();
-            var IsCitizenship = await _memberRepository.CheckCitizenshipNumber(dto.MemberId, dto.CitizenshipNumber);
+            var IsCitizenship = await _memberRepository.CheckCitizenshipNumber(dto.MemberId, dto.CitizenshipNumber.TrimCitizenshipNumber());
             if (IsCitizenship)
             {
                 var data = new KeyValuePairDto
@@ -580,6 +589,27 @@ namespace Web.Services.Services.Members
             template = template.Replace("{{MemberCode}}", dto.MemberCode);
             template = template.Replace("{{ReferalCode}}", dto.ReferalCode);
             _emailService.SendEmail(dto.Email, "Member Approval...!!!", template);
+        }
+
+        public async Task<EmailDto> GetMailCredentialsAsync(int id)
+        {
+            var obj = new EmailDto();
+            var dto = await GetMemberDtoByIdAsync(id);
+
+            var template = await _emailTemplateService.GetPlainMemberApproveTemplate();
+            template = template.Replace("{{Name}}", dto.FullName);
+            template = template.Replace("{{UserName}}", dto.MemberCode);
+            template = template.Replace("{{Password}}", dto.FirstName.ToLower() + 123);
+            template = template.Replace("{{MemberName}}", dto.FullName);
+            template = template.Replace("{{MemberCode}}", dto.MemberCode);
+            template = template.Replace("{{ReferalCode}}", dto.ReferalCode);
+            template = template.Replace("<br />", "");
+
+            obj.ToEmail = dto.Email;
+            obj.Body=template;
+           
+            obj.Subject = "Form Approval";
+            return obj;
         }
     }
 }
