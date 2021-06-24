@@ -19,6 +19,7 @@ namespace web.Controllers.AdminSite
        
         public MemberController(IMemberService memberService)
         {
+            menu = _initialService.GetMenuPermissionForLoginUser("Member");
             ViewBag.Menus = menu;
             _memberService = memberService;
         }
