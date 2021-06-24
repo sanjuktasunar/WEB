@@ -39,3 +39,16 @@ D:\A-BKPAPP\WEB\web\Web.Entity\obj\Release\Web.Entity.csproj.CoreCompileInputs.c
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Release\Web.Entity.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Release\Web.Entity.dll
 D:\A-BKPAPP\WEB\web\Web.Entity\obj\Release\Web.Entity.pdb
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.Helpers.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.Mvc.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.Razor.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.WebPages.Deployment.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.WebPages.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.WebPages.Razor.dll
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.Helpers.xml
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.Mvc.xml
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.Razor.xml
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.WebPages.xml
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.WebPages.Deployment.xml
+D:\A-BKPAPP\WEB\web\Web.Entity\bin\Release\System.Web.WebPages.Razor.xml
