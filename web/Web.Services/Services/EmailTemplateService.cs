@@ -11,6 +11,7 @@ namespace Web.Services.Services
     {
         Task<string> GetGeneralTemplate();
         Task<string> GetMemberApproveTemplate();
+        Task<string> GetPlainMemberApproveTemplate();
     }
 
     public class EmailTemplateService:IEmailTemplateService
@@ -48,6 +49,24 @@ namespace Web.Services.Services
             var template = await BasicTemplateLayout();
             template = template.Replace("{{Heading}}", "Congratulations {{Name}} !!!!");
             template = template.Replace("{{Message}}","Your Form has been approved by company administration.Now,You are in list of Top 100 Team members of our company<br />Your Login Credentials are as follow: <br />Username : {{UserName}},Password : {{Password}} <br /><br /> Your Member Details are as follow:<br />Member Name : {{MemberName}}<br />Member Code : {{MemberCode}}<br /> Referal Code : {{ReferalCode}}<br /> Please give this Referal Code while joining other people.<br /> Thankyou !!!!  ");
+            return template;
+        }
+
+        public async Task<string> GetPlainMemberApproveTemplate()
+        {
+            var template = await BasicTemplateLayout();
+            template = template.Replace("{{Heading}}", "Congratulations {{Name}} !!!!");
+            template = template.Replace("{{Message}}", "Your Form has been approved by company administration.Now,You are in list of Top 100 Team members of our company" +
+                "Your Login Credentials are as follow: " +
+                "Username : {{UserName}},Password : {{Password}} " +
+                "" +
+                "" +
+                "Your Member Details are as follow:" +
+                "Member Name : {{MemberName}}" +
+                "Member Code : {{MemberCode}}" +
+                "Referal Code : {{ReferalCode}}" +
+                "Please give this Referal Code while joining other people." +
+                "Thankyou !!!!  ");
             return template;
         }
     }
