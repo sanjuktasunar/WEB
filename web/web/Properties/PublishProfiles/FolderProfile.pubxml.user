@@ -5931,7 +5931,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/24/2021 18:18:29</publishTime>
     </File>
     <File Include="bin/web.dll">
-      <publishTime>06/24/2021 18:18:32</publishTime>
+      <publishTime>06/24/2021 18:26:36</publishTime>
     </File>
     <File Include="bin/Web.Entity.dll">
       <publishTime>06/24/2021 18:17:08</publishTime>
@@ -5943,7 +5943,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/24/2021 18:17:08</publishTime>
     </File>
     <File Include="bin/web.pdb">
-      <publishTime>06/24/2021 18:18:32</publishTime>
+      <publishTime>06/24/2021 18:26:36</publishTime>
     </File>
     <File Include="bin/Web.Repositories.dll">
       <publishTime>06/24/2021 18:18:30</publishTime>
@@ -5955,13 +5955,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/24/2021 18:18:30</publishTime>
     </File>
     <File Include="bin/Web.Services.dll">
-      <publishTime>06/24/2021 18:18:31</publishTime>
+      <publishTime>06/24/2021 18:26:35</publishTime>
     </File>
     <File Include="bin/Web.Services.dll.config">
       <publishTime>06/24/2021 08:14:13</publishTime>
     </File>
     <File Include="bin/Web.Services.pdb">
-      <publishTime>06/24/2021 18:18:31</publishTime>
+      <publishTime>06/24/2021 18:26:35</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>06/02/2021 08:18:03</publishTime>
@@ -6360,7 +6360,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/24/2021 18:17:08</publishTime>
     </File>
     <File Include="Views/MemberRegister/MemberRegistration.cshtml">
-      <publishTime>06/24/2021 18:17:08</publishTime>
+      <publishTime>06/24/2021 18:25:40</publishTime>
     </File>
     <File Include="Views/Menus/AddModifyMenus.cshtml">
       <publishTime>06/06/2021 08:29:24</publishTime>
