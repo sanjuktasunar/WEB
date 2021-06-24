@@ -16,9 +16,9 @@ namespace web.Controllers.AdminSite
         InitialSetupService _initialService = new InitialSetupService();
         MenuAccessPermissionDto menu = new MenuAccessPermissionDto();
         private readonly IMemberService _memberService;
+       
         public MemberController(IMemberService memberService)
         {
-            menu = _initialService.GetMenuPermissionForLoginUser("Member");
             ViewBag.Menus = menu;
             _memberService = memberService;
         }
