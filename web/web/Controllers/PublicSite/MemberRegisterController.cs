@@ -17,14 +17,17 @@ namespace web.Controllers.PublicSite
     {
         private readonly IAdministrationService _administrationService;
         private readonly IMemberService _memberService;
-        public MemberRegisterController(IAdministrationService administrationService, IMemberService memberService)
+        private readonly IEmailService _emailService;
+        public MemberRegisterController(IAdministrationService administrationService, IMemberService memberService, IEmailService emailService)
         {
             _administrationService = administrationService;
             _memberService = memberService;
+            _emailService = emailService;
         }
         [Route("~/MemberRegistration")]
         public ActionResult MemberRegistration()
         {
+            _emailService.SendEmail("sanzoosunar123@gmail.com", "test", "hello world <br /> this is testing");
             var obj = new MemberDto();
             return View(obj);
         }
