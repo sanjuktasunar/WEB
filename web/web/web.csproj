@@ -1963,10 +1963,10 @@
     <Content Include="front-end\fonts\boxicons.svg" />
     <Content Include="front-end\Images\business-grow.jpg" />
     <Content Include="front-end\Images\capital.jpg" />
-    <Content Include="front-end\Images\handshake.jpg" />
-    <Content Include="front-end\Images\journey.jpg" />
+    <Content Include="front-end\Images\img-1.jpg" />
+    <Content Include="front-end\Images\img-2.jpg" />
+    <Content Include="front-end\Images\img-3.jpg" />
     <Content Include="front-end\Images\plan1.jpg" />
-    <Content Include="front-end\Images\crowd.jpg" />
     <Content Include="front-end\img\apple-icon.png" />
     <Content Include="front-end\img\banner-bg-01.jpg" />
     <Content Include="front-end\img\banner-bg-02.jpg" />
