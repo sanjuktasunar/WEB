@@ -24,15 +24,15 @@ namespace Web.Entity.Dto.UserSite
             var obj = new ParameterClass();
             if(LanguageId==2)
             {
-                obj.Home = "गृह पृष्ठ";
-                obj.AboutUs = "हाम्रो बारेमा";
+                obj.Home = "गृहपृष्ठ";
+                obj.AboutUs = "हाम्रोबारेमा";
                 obj.ContactUs = "संपर्क";
-                obj.Login = "लग इन";
-                obj.Products = "सामन हरु";
-                obj.OurProducts = "हाम्रो सामनहरु";
+                obj.Login = "लगइन";
+                obj.Products = "सामनहरु";
+                obj.OurProducts = "हाम्रोसामनहरु";
                 obj.Per = "प्रति";
                 obj.Rs = "रु.";
-                obj.Search = "खोजी गर्नुहोस्";
+                obj.Search = "खोजीगर्नुहोस्";
                 obj.PhoneNumber = "संपर्क न.";
                 obj.Address = "ठेगाना";
                 obj.EmailAddress = "ईमेल";
@@ -40,9 +40,9 @@ namespace Web.Entity.Dto.UserSite
                 obj.OurCompany = "हाम्रो कम्पनी";
                 obj.ClientContact = "ग्राहक संपर्क";
                 obj.FutureProjects = "भावी परियोजना";
-                obj.OurVision = "हाम्रो भिजन";
-                obj.OurMission = "हाम्रो मिसन";
-                obj.OurGoal = "हाम्रो लक्ष्य";
+                obj.OurVision = "भिजन";
+                obj.OurMission = "मिसन";
+                obj.OurGoal = "लक्ष्य";
                 obj.StayUptoDate = "हामी सगं जोड्डिनुहोस्";
                 obj.MemberRegistration = "Register";
             }

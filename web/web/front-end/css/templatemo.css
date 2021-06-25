@@ -52,21 +52,22 @@ p, a {font-weight: 400;}
 /* Home */
 #index_banner {
   /*background-image: url('./../img/banner-bg-01.jpg');*/
-  background-position: center center; background-size: cover;
+  /*background-position: center center; background-size: cover;*/
   height: 100%;
   min-height: 60vh;
   width: 100%;
 }
 #item1 {
-	background-image: url('./../Images/crowd.jpg');
+	background-image: url('./../Images/img-1.jpg');
 	background-size: cover;
 	height: 100%;
 	min-height: 60vh;
 	width: 100%;
+
 }
 
 #item2 {
-	background-image: url('./../Images/journey.jpg');
+	background-image: url('./../Images/img-2.jpg');
 	background-size: cover;
 	height: 100%;
 	min-height: 60vh;
@@ -74,9 +75,10 @@ p, a {font-weight: 400;}
 }
 
 #item3 {
-	background-image: url('./../Images/handshake.jpg');
+	background-image: url('./../Images/img-3.jpg');
 	background-size: cover;
 	height: 100%;
+	width: 100%;
 }
 #index_banner .carousel-item {
 	min-height: 60vh;
