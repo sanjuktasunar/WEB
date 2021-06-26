@@ -60,13 +60,19 @@ namespace Web.Services.Services
             var image = ConvertToImage(file);
             if (image != null)
             {
-                var resizeImage=ResizeImage(image, 200, 200, true);
+                var resizeImage=ResizeImage(image, 1000, 1000, true);
                 //var Imgstring = Convert.ToBase64String(ConvertToByte(file));
                 var Imgstring = Convert.ToBase64String(imageToByteArray(resizeImage));
                 return Imgstring;
             }
             return null;
         }
+
+        //public string ConvertMemberDocumentsToString(HttpPostedFileBase file)
+        //{
+        //    var Imgstring = Convert.ToBase64String(ConvertToByte(file));
+        //    return Imgstring;
+        //}
 
         public string ConvertToStringWithOutCompress(HttpPostedFileBase file)
         {
