@@ -160,22 +160,24 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form_validation" enctype="multipart/form-data">
+                        <form id="form_validation">
                             <input type="hidden" name="MemberId"
                                    id="MemberId" />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="floating-label">Account Head</label>
-                                        <select name="AccountHeadId" id="AccountHeadId"
-                                                class="form-control">
-                                            <option value="">Select Account Head</option>
-                                        </select>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="floating-label">Account Head</label>
+                                            <select name="AccountHeadId" id="AccountHeadId"
+                                                    class="form-control">
+                                                <option value="">Select Account Head</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </fieldset>
                             <div style="float:right">
-                                <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+                                <button type="submit" id="btnSave" class="btn btn-primary" onclick="SaveData(event)">Save</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </form>
@@ -238,64 +240,94 @@
         LoadActiveMembers();
     })
 
-    var $checkoutForm = $('#form_validation').validate({
-        ignore: [],
-        rules: {
-            'AccountHeadId': {
-                required: true,
-            },
-        },
-        submitHandler: function (form) {
-            $("#btnSave").prop('disabled', true)
-            $("#btnSave span").html('Saving...')
-            debugger;
-            var MemberId = $("#MemberId").val();
-            var AccountHeadId = $("#AccountHeadId").val();
-            $.ajax({
-                type: "POST",
-                url: '/Member/ApproveMember',
-                data: { MemberId: MemberId, AccountHeadId: AccountHeadId },
-                success: function (message) {
-                    ShowMessage(message, "/MemberList")
-                    var str = message.split('+');
-                    //if (parseInt(str[1]) > 0) {
-                    //    //SendMemberApproveEmail(MemberId);
-                    //}
-                },
-                error: function (message) {
-                    ShowMessage(message, "/MemberList")
-                }
-            })
-        },
+    function SaveData(evt) {
+        evt.preventDefault();
 
-        errorPlacement: function errorPlacement(error, element) {
-            var $parent = $(element).parents('.form-group');
-
-            // Do not duplicate errors
-            if ($parent.find('.jquery-validation-error').length) {
-                return false;
-            }
-
-            $parent.append(
-                error.addClass('jquery-validation-error small form-text invalid-feedback')
-            );
-        },
-        highlight: function (element) {
-            var $el = $(element);
-            var $parent = $el.parents('.form-group');
-
-            $el.addClass('is-invalid');
-
-            // Select2 and Tagsinput
-            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
-                $el.parent().addClass('is-invalid');
-            }
-
-        },
-        unhighlight: function (element) {
-            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        $("#btnSave").prop('disabled', true)
+        $("#btnSave span").html('Saving...')
+        var MemberId = $("#MemberId").val();
+        var AccountHeadId = $("#AccountHeadId").val();
+        if (AccountHeadId.length == 0) {
+            ShowErrorMessage("Account Head is required");
+            return false;
+            $("#btnSave").prop('disabled', false)
+            $("#btnSave span").html('Save')
         }
-    });
+        $.ajax({
+            type: "POST",
+            url: '/Member/ApproveMember',
+            data: { MemberId: MemberId, AccountHeadId: AccountHeadId },
+            success: function (message) {
+                ShowMessage(message, "/MemberList")
+                var str = message.split('+');
+                //if (parseInt(str[1]) > 0) {
+                //    //SendMemberApproveEmail(MemberId);
+                //}
+            },
+            error: function (message) {
+                ShowMessage(message, "/MemberList")
+            }
+        })
+    }
+   
+    //var $checkoutForm = $('#form_validation').validate({
+    //    ignore: [],
+    //    rules: {
+    //        'AccountHeadId': {
+    //            required: true,
+    //        },
+    //    },
+    //    submitHandler: function (form) {
+    //        $("#btnSave").prop('disabled', true)
+    //        $("#btnSave span").html('Saving...')
+    //        debugger;
+    //        var MemberId = $("#MemberId").val();
+    //        var AccountHeadId = $("#AccountHeadId").val();
+    //        $.ajax({
+    //            type: "POST",
+    //            url: '/Member/ApproveMember',
+    //            data: { MemberId: MemberId, AccountHeadId: AccountHeadId },
+    //            success: function (message) {
+    //                ShowMessage(message, "/MemberList")
+    //                var str = message.split('+');
+    //                //if (parseInt(str[1]) > 0) {
+    //                //    //SendMemberApproveEmail(MemberId);
+    //                //}
+    //            },
+    //            error: function (message) {
+    //                ShowMessage(message, "/MemberList")
+    //            }
+    //        })
+    //    },
+
+    //    errorPlacement: function errorPlacement(error, element) {
+    //        var $parent = $(element).parents('.form-group');
+
+    //        // Do not duplicate errors
+    //        if ($parent.find('.jquery-validation-error').length) {
+    //            return false;
+    //        }
+
+    //        $parent.append(
+    //            error.addClass('jquery-validation-error small form-text invalid-feedback')
+    //        );
+    //    },
+    //    highlight: function (element) {
+    //        var $el = $(element);
+    //        var $parent = $el.parents('.form-group');
+
+    //        $el.addClass('is-invalid');
+
+    //        // Select2 and Tagsinput
+    //        if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+    //            $el.parent().addClass('is-invalid');
+    //        }
+
+    //    },
+    //    unhighlight: function (element) {
+    //        $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+    //    }
+    //});
 
     function SendMemberApproveEmail(id) {
         $.ajax({

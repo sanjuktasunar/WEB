@@ -27,7 +27,6 @@ namespace web.Controllers.PublicSite
         [Route("~/MemberRegistration")]
         public ActionResult MemberRegistration()
         {
-            _emailService.SendEmail("sanzoosunar123@gmail.com", "test", "hello world <br /> this is testing");
             var obj = new MemberDto();
             return View(obj);
         }
