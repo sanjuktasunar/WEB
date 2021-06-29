@@ -91,7 +91,7 @@ function loadData(current) {
     if (current == 7) {
         
         //$(".progress").hide();
-        SendEmail();
+        //SendEmail();
     }
   
 }
