@@ -2034,9 +2034,10 @@
     <Content Include="front-end\js\templatemo.min.js" />
     <Content Include="front-end\logo\logo.jpg" />
     <Content Include="Global.asax" />
-    <Content Include="ImageStorage\CB-11.jpg" />
-    <Content Include="ImageStorage\CF-11.jpg" />
-    <Content Include="ImageStorage\MP-11.jpg" />
+    <Content Include="ImageStorage\CB-14.jpg" />
+    <Content Include="ImageStorage\CF-14.jpg" />
+    <Content Include="ImageStorage\MP-14.jpg" />
+    <Content Include="ImageStorage\VI-14.jpg" />
     <Content Include="Query\100_add_tables.sql" />
     <Content Include="Query\100_add_views_procs.sql" />
     <Content Include="Query\100_InsertValues.sql" />
