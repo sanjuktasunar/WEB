@@ -8,14 +8,15 @@
         height: 10%;
         width: 30%;
     }
+
     .document-div {
         margin-left: 15px;
     }
+
     td img {
         height: 250px;
         width: 350px;
     }
-
 </style>
 <div class="card-body">
     <div class="card-header py-3">
@@ -36,8 +37,9 @@
                     <th>Gender : </th>
                     <td>@Model.GenderName</td>
                     <th>Date of Birth</th>
-                    <td>@Model.DateOfBirthBS (B.S.)<br /> 
-                    @Model.DateOfBirthAD.Value.ToShortDateString().Replace('/','-') (A.D.)
+                    <td>
+                        @Model.DateOfBirthBS (B.S.)<br />
+                        @Model.DateOfBirthAD.Value.ToShortDateString().Replace('/', '-') (A.D.)
                     </td>
                     <th>Citizenship Number</th>
                     <td>@Model.CitizenshipNumber</td>
@@ -189,6 +191,7 @@
                         @if (!string.IsNullOrEmpty(Model.VoucherImage))
                         {
                             <img src="~/ImageStorage/@Model.VoucherImage" />
+                            <button class="btn btn-success btn-sm" onclick="ShowImage('@Model.VoucherImage')">show</button>
                         }
                     </td>
                 </tr>
@@ -204,20 +207,19 @@
                     <td colspan="2">
                         @if (!string.IsNullOrEmpty(Model.Photo))
                         {
-                            @*<img src="@Model.Photo" />*@
                             <img src="~/ImageStorage/@Model.Photo" />
-                        }
+                            <button class="btn btn-success btn-sm" onclick="ShowImage('@Model.Photo')">show</button>}
 
                     </td>
-                   
+
                 </tr>
                 <tr>
                     <th>Citizenship Front</th>
                     <td>
                         @if (!string.IsNullOrEmpty(Model.CitizenshipFront))
                         {
-                            @*<img src="@Model.CitizenshipFront" />*@
                             <img src="~/ImageStorage/@Model.CitizenshipFront" />
+                            <button class="btn btn-success btn-sm" onclick="ShowImage('@Model.CitizenshipFront')">show</button>
                         }
                     </td>
                 </tr>
@@ -226,8 +228,8 @@
                     <td>
                         @if (!string.IsNullOrEmpty(Model.CitizenshipBack))
                         {
-                            @*<img src="@Model.CitizenshipBack" />*@
                             <img src="~/ImageStorage/@Model.CitizenshipBack" />
+                            <button class="btn btn-success btn-sm" onclick="ShowImage('@Model.CitizenshipBack')">show</button>
                         }
                     </td>
                 </tr>
@@ -246,3 +248,30 @@
         <a href="/MemberList" class="btn btn-danger"><i class="fa fa-window-close"></i> Close </a>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row ImageDiv">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+<script>
+    function ShowImage(imageName) {
+        $(".ImageDiv").empty();
+        $("#exampleModal").modal();
+        var $html = '<img src="/ImageStorage/' + imageName + '"/>';
+        $(".ImageDiv").html($html);
+    }
+</script>
