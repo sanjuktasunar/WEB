@@ -117,9 +117,9 @@ function loadMemberDocument() {
             $("#CitizenshipFront").val(resp.CitizenshipFront);
             $("#CitizenshipBack").val(resp.CitizenshipBack);
             $("#MemberPhoto").val(resp.Photo);
-            DisplayImage('MemberPhotoString', resp.CitizenshipFront)
-            DisplayImage('CitizenshipFrontImageString', resp.CitizenshipBack)
-            DisplayImage('CitizenshipBackImageString', resp.Photo)
+            DisplayImage('MemberPhotoString', resp.Photo)
+            DisplayImage('CitizenshipFrontImageString', resp.CitizenshipFront)
+            DisplayImage('CitizenshipBackImageString', resp.CitizenshipBack)
         },
         error: function (err) {
 
