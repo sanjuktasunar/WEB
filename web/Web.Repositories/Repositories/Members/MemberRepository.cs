@@ -157,15 +157,14 @@ namespace Web.Repositories.Repositories.Members
             var obj = await _dapperManager.QuerySingleAsync<MemberDto>("SELECT * FROM Member WHERE MemberId=@id", new { id = memberId });
             if (obj != null)
             {
-                obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);
-                //obj.ReferenceFullName = obj.RefernceFirstName + ' ' + (!string.IsNullOrEmpty(obj.ReferenceMiddleName) ? obj.ReferenceMiddleName + ' ' : string.Empty + obj.ReferenceFullName);
+                obj.FullName = obj.FirstName + " " + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + " " : string.Empty + obj.LastName);
             }
             return obj;
         }
 
         public async Task<IEnumerable<MemberDto>> GetMemberList()
         {
-            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM Member");
+            var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM MemberView");
             //if (obj != null)
             //{
             //    obj.FullName = obj.FirstName + ' ' + (!string.IsNullOrEmpty(obj.MiddleName) ? obj.MiddleName + ' ' : string.Empty + obj.LastName);

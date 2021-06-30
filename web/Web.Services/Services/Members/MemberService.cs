@@ -266,9 +266,9 @@ namespace Web.Services.Services.Members
                
                 string extension = ".jpg";
 
-                if (dto.CitizenshipBackImageString != null)
+                if (dto.CitizenshipFrontImageString != null)
                 {
-                    var citizenFront = _imageService.SaveImage(dto.CitizenshipBackImageString, "CF-" + dto.MemberId);
+                    var citizenFront = _imageService.SaveImage(dto.CitizenshipFrontImageString, "CF-" + dto.MemberId);
 
                     if (citizenFront)
                         dto.CitizenshipFront = "CF-" + dto.MemberId + extension;

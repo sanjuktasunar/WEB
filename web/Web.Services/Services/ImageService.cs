@@ -130,7 +130,7 @@ namespace Web.Services.Services
             }
 
             //check if image exists or not
-            var oldfilePath = System.Web.HttpContext.Current.Server.MapPath("~/ImageStorage/" + ImgName);
+            var oldfilePath = System.Web.HttpContext.Current.Server.MapPath("~/ImageStorage/" + ImgName +".jpg");
             if (File.Exists(oldfilePath))
                 File.Delete(oldfilePath);
 
