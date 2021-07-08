@@ -154,6 +154,7 @@
     <Compile Include="Entity\AccountHead.cs" />
     <Compile Include="Entity\Address.cs" />
     <Compile Include="Entity\BankDeposit.cs" />
+    <Compile Include="Entity\Country.cs" />
     <Compile Include="Entity\CustomerQuery.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Designation.cs" />
