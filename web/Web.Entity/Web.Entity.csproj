@@ -161,6 +161,7 @@
     <Compile Include="Entity\FiscalYear.cs" />
     <Compile Include="Entity\Gender.cs" />
     <Compile Include="Entity\Member.cs" />
+    <Compile Include="Entity\MemberLeads.cs" />
     <Compile Include="Entity\MenuAccessPermission.cs" />
     <Compile Include="Entity\Menus.cs" />
     <Compile Include="Entity\OrganizationInfo.cs" />
