@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Web.Entity.Dto;
 using Web.Services.Services;
-using Web.Services.Services.AddressMenu;
+using Web.Services.Services.AddressService;
 
 namespace web.Controllers.AdminSite
 {

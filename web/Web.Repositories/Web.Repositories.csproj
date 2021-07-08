@@ -93,7 +93,7 @@
     <Compile Include="Repositories\Account\ProductRepository.cs" />
     <Compile Include="Repositories\Account\SupplierRepository.cs" />
     <Compile Include="Repositories\Account\UnitRepository.cs" />
-    <Compile Include="Repositories\AddressMenu\CountryRepository.cs" />
+    <Compile Include="Repositories\AddressRepos\CountryReposity.cs" />
     <Compile Include="Repositories\Administration\AdministrationRepository.cs" />
     <Compile Include="Repositories\Administration\DepartmentRepository.cs" />
     <Compile Include="Repositories\Administration\DesignationRepository.cs" />

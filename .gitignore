@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/web/web/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+/web/web/Properties/PublishProfiles/FolderProfile6.pubxml
