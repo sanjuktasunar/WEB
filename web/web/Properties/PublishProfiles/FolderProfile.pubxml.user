@@ -5,6 +5,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\Host\BKPStore</_PublishTargetUrl>
+<<<<<<< Updated upstream
+=======
+    <History>False|2021-07-08T05:09:50.2315512Z;True|2021-06-30T08:28:40.3875018+05:45;False|2021-06-30T08:26:52.1359537+05:45;True|2021-06-27T09:08:02.4957027+05:45;True|2021-06-26T20:42:02.5318367+05:45;True|2021-06-25T09:13:30.0501087+05:45;True|2021-06-25T09:12:17.8923624+05:45;True|2021-06-25T09:08:19.9244372+05:45;True|2021-06-24T19:18:55.7431715+05:45;True|2021-06-24T08:56:04.4497970+05:45;False|2021-06-24T08:53:55.1056588+05:45;False|2021-06-24T08:53:09.6534531+05:45;True|2021-06-23T10:26:22.6194867+05:45;True|2021-06-22T20:27:39.2099702+05:45;True|2021-06-22T18:57:15.6181080+05:45;False|2021-06-21T18:08:02.3046176+05:45;</History>
+>>>>>>> Stashed changes
   </PropertyGroup>
   <ItemGroup>
     <File Include="assets/css/multi-tier-form/form-wizard.css">
