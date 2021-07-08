@@ -129,6 +129,12 @@ namespace Web.Services.Services.Members
             return obj;
         }
 
+        public async Task<IEnumerable<MemberDto>> GetMemberListForBackend()
+        {
+            var obj = await _memberRepository.GetMemberList();
+            return obj;
+        }
+
         public async Task<SearchMemberDto> GetMemberByAttrAsync(string memberAttr)
         {
             var obj= await _memberRepository.GetMemberByAttr(memberAttr);

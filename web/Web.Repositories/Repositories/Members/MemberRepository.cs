@@ -15,7 +15,7 @@ namespace Web.Repositories.Repositories.Members
 {
     public interface IMemberRepository
     {
-        Task<IEnumerable<MemberDto>> GetMemberList();
+        Task<IEnumerable<MemberDto>> GetMemberList(FormStatus formStatus, ApprovalStatus approvalStatus, int? ReferenceId);
         Task<bool> CheckCitizenshipNumber(int MemberId, string CitizenshipNumber);
         int Insert(Member entity, IDbTransaction transaction, SqlConnection con);
         int InsertMemberDetails(MemberDetails entity, IDbTransaction transaction, SqlConnection con);
@@ -162,7 +162,7 @@ namespace Web.Repositories.Repositories.Members
             return obj;
         }
 
-        public async Task<IEnumerable<MemberDto>> GetMemberList()
+        public async Task<IEnumerable<MemberDto>> GetMemberList(FormStatus formStatus,ApprovalStatus approvalStatus,int?ReferenceId)
         {
             var obj = await _dapperManager.QueryAsync<MemberDto>("SELECT * FROM MemberView");
             //if (obj != null)
