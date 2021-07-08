@@ -131,6 +131,7 @@
   <ItemGroup>
     <Compile Include="Interface\IDataService.cs" />
     <Compile Include="Mapping\AccountMapping.cs" />
+    <Compile Include="Mapping\AddressMapping.cs" />
     <Compile Include="Mapping\AdministrationMapping.cs" />
     <Compile Include="Mapping\BaseMapping.cs" />
     <Compile Include="Mapping\DataMapping.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Services\Account\ProductService.cs" />
     <Compile Include="Services\Account\SupplierService.cs" />
     <Compile Include="Services\Account\UnitService.cs" />
+    <Compile Include="Services\AddressMenu\CountryService.cs" />
     <Compile Include="Services\AdministrationService.cs" />
     <Compile Include="Services\Administration\DepartmentService.cs" />
     <Compile Include="Services\Administration\DesignationService.cs" />

@@ -7,6 +7,7 @@ using Web.Entity.Entity;
 using Web.Repositories.Interface;
 using Web.Repositories.Repositories;
 using Web.Repositories.Repositories.Account;
+using Web.Repositories.Repositories.AddressMenu;
 using Web.Repositories.Repositories.Administration;
 using Web.Repositories.Repositories.Customer;
 using Web.Repositories.Repositories.Members;
@@ -14,6 +15,7 @@ using Web.Repositories.Utitlities;
 using Web.Services.Interface;
 using Web.Services.Services;
 using Web.Services.Services.Account;
+using Web.Services.Services.AddressMenu;
 using Web.Services.Services.Administration;
 using Web.Services.Services.Customer;
 using Web.Services.Services.Members;
@@ -42,6 +44,7 @@ namespace web
             container.RegisterType<IBaseRepo<CustomerQuery>, BaseRepo<CustomerQuery>>();
             container.RegisterType<IBaseRepo<AccountHead>, BaseRepo<AccountHead>>();
             container.RegisterType<IBaseRepo<FiscalYear>, BaseRepo<FiscalYear>>();
+            container.RegisterType<IBaseRepo<Country>, BaseRepo<Country>>();
 
 
             //utilities
@@ -66,6 +69,7 @@ namespace web
             container.RegisterType<IFiscalYearRepository, FiscalYearRepository>();
             container.RegisterType<IDataRepository, DataRepository>();
             container.RegisterType<IMemberRepository, MemberRepository>();
+            container.RegisterType<ICountryRepository, CountryRepository>();
 
 
             //services
@@ -89,6 +93,7 @@ namespace web
             container.RegisterType<IMemberService, MemberService>();
             container.RegisterType<IEmailService, EmailService>();
             container.RegisterType<IEmailTemplateService, EmailTemplateService>();
+            container.RegisterType<ICountryService, CountryService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
