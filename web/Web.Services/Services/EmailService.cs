@@ -48,7 +48,7 @@ namespace Web.Services.Services
                 //client.Send(FromAddress, toEmail, subject, message);
                 return true;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
