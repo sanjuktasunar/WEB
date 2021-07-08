@@ -211,6 +211,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminSite\AccountHeadController.cs" />
+    <Compile Include="Controllers\AdminSite\CountryController.cs" />
     <Compile Include="Controllers\AdminSite\CustomerController.cs" />
     <Compile Include="Controllers\AdminSite\DepartmentController.cs" />
     <Compile Include="Controllers\AdminSite\DesignationController.cs" />
@@ -2290,6 +2291,8 @@
     <Content Include="Views\Role\MenuAccessPermission.cshtml" />
     <Content Include="Views\Member\MemberDetails.cshtml" />
     <Content Include="Views\Home\ActionPlan.cshtml" />
+    <Content Include="Views\Country\CountryList.cshtml" />
+    <Content Include="Views\Country\AddModifyCountry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web.Database\Web.Database.csproj">
