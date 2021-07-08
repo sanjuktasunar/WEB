@@ -8,7 +8,7 @@ using Web.Database.BaseRepo;
 using Web.Entity.Dto;
 using Web.Entity.Entity;
 
-namespace Web.Repositories.Repositories.AddressMenu
+namespace Web.Repositories.Repositories.AddressRepos
 {
     public interface ICountryRepository
     {
@@ -19,7 +19,7 @@ namespace Web.Repositories.Repositories.AddressMenu
         int Delete(int id);
     }
 
-    public class CountryRepository:ICountryRepository
+    public class CountryRepository : ICountryRepository
     {
         private IDapperManager _dapperManager;
         private IBaseRepo<Country> _countryRepo;
@@ -39,7 +39,7 @@ namespace Web.Repositories.Repositories.AddressMenu
 
         public async Task<CountryDto> GetCountryById(int id)
         {
-            var country = await _dapperManager.QuerySingleAsync<CountryDto>("SELECT * FROM Country WHERE Id=@id",new { id });
+            var country = await _dapperManager.QuerySingleAsync<CountryDto>("SELECT * FROM Country WHERE Id=@id", new { id });
             return country;
         }
         public int Insert(Country entity)

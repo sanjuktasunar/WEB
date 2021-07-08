@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Web.Entity.Dto;
 using Web.Repositories.Interface;
-using Web.Repositories.Repositories.AddressMenu;
+using Web.Repositories.Repositories.AddressRepos;
 using Web.Repositories.Utitlities;
 using Web.Services.Mapping;
 
-namespace Web.Services.Services.AddressMenu
+namespace Web.Services.Services.AddressService
 {
     public interface ICountryService
     {
@@ -21,7 +21,7 @@ namespace Web.Services.Services.AddressMenu
         Task<string> Delete(int id);
     }
 
-    public class CountryService:ICountryService
+    public class CountryService : ICountryService
     {
         private ICountryRepository _countryRepository;
         private IMessageClass _messageClass;

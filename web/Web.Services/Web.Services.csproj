@@ -143,7 +143,7 @@
     <Compile Include="Services\Account\ProductService.cs" />
     <Compile Include="Services\Account\SupplierService.cs" />
     <Compile Include="Services\Account\UnitService.cs" />
-    <Compile Include="Services\AddressMenu\CountryService.cs" />
+    <Compile Include="Services\AddressService\CountryService.cs" />
     <Compile Include="Services\AdministrationService.cs" />
     <Compile Include="Services\Administration\DepartmentService.cs" />
     <Compile Include="Services\Administration\DesignationService.cs" />
