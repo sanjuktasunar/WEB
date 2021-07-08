@@ -11,3 +11,16 @@ D:\A-BKPAPP\WEB\web\Web.Database\obj\Release\Web.Database.csproj.CoreCompileInpu
 D:\A-BKPAPP\WEB\web\Web.Database\obj\Release\Web.Database.csproj.CopyComplete
 D:\A-BKPAPP\WEB\web\Web.Database\obj\Release\Web.Database.dll
 D:\A-BKPAPP\WEB\web\Web.Database\obj\Release\Web.Database.pdb
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\Web.Database.dll
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\Web.Database.pdb
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\Dapper.dll
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\DapperExtensions.dll
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\System.Data.SqlClient.dll
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\Dapper.xml
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\DapperExtensions.pdb
+D:\MyProject\BKPNEP\web\Web.Database\bin\Release\System.Data.SqlClient.xml
+D:\MyProject\BKPNEP\web\Web.Database\obj\Release\Web.Database.csprojAssemblyReference.cache
+D:\MyProject\BKPNEP\web\Web.Database\obj\Release\Web.Database.csproj.CoreCompileInputs.cache
+D:\MyProject\BKPNEP\web\Web.Database\obj\Release\Web.Database.csproj.CopyComplete
+D:\MyProject\BKPNEP\web\Web.Database\obj\Release\Web.Database.dll
+D:\MyProject\BKPNEP\web\Web.Database\obj\Release\Web.Database.pdb
