@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Web.Entity.Dto.ProductDto>
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h5 class="h5 mb-2 text-gray-800">Product List</h5>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <a href="~/AddProduct" class="btn btn-success btn-sm">
+            <i class="fas fa-plus"></i> Add New
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th hidden="hidden"></th>
+                        <th>Name</th>
+                        <th>Nepali Name</th>
+                        <th>Parent Name</th>
+                        <th>Code</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0; }
+                    @foreach (var x in Model)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td hidden="hidden">@x.ProductId</td>
+                            <td>@x.ProductName</td>
+                            <td>@x.ProductNameNepali</td>
+                            <td>@x.ParentProductName</td>
+                            <td>@x.ProductCode</td>
+                            <td>
+                                @if (x.Status == true)
+                                {
+                                    <span class="badge badge-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Inactive</span>
+                                }
+                            </td>
+                            <td>
+                                <a href="~/ModifyProduct/@x.ProductId" class="btn btn-success btn-circle btn-sm" id="btnEdit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button class="btn btn-danger btn-circle btn-sm" id="btnDelete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                @if (x.ParentProductId > 0)
+                                {
+                                    <a href="~/ProductPrice/@x.ProductId" class="btn btn-success btn-circle btn-sm" title="Add Price">
+                                        <i class="fas fa-money-bill"></i>
+                                    </a>
+
+                                    <a href="~/ProductImage/@x.ProductId" class="btn btn-primary btn-circle btn-sm" title="Add Image">
+                                        <i class="fas fa-image"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/web/back-end/jquery-ui")
+@Scripts.Render("~/web/back-end/datatable")
+@Scripts.Render("~/web/back-end/message")
+
+<script>
+    $('#dataTable').DataTable();
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#dataTable").on('click', '#btnDelete', function () {
+            var currentRow = $(this).closest("tr");
+            var data = currentRow.find("td:eq(1)").html();
+
+            swal({
+                text: "के तपाई यो डाटा मेटाउन चाहनुहुन्छ ?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/Product/Delete/' + data,
+                            success: function (message) {
+                                ShowDeleteMessage(message, "/ProductList")
+                            },
+                            error: function (message) {
+                                ShowDeleteMessage(message, "/ProductList")
+                            }
+                        });
+                    }
+                });
+        });
+    })
+</script>
+
