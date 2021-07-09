@@ -23,8 +23,6 @@ namespace Web.Repositories.Repositories.AddressRepos
     {
         private IDapperManager _dapperManager;
         private IBaseRepo<Country> _countryRepo;
-        BaseRepo<MenuAccessPermission> _menuAccessRepo = new BaseRepo<MenuAccessPermission>();
-
         public CountryRepository(IDapperManager dapperManager,
             IBaseRepo<Country> countryRepo)
         {
