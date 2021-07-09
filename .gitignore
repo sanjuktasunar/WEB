@@ -4,3 +4,7 @@
 
 /web/web/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
 /web/web/Properties/PublishProfiles/FolderProfile6.pubxml
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
